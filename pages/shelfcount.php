@@ -500,7 +500,7 @@ $array = json_decode($json,TRUE);
           var max = $('#qty_'+cnt).data('value');
           if(add>max){
             $('#iqty'+cnt).val(max);
-          }else{
+          }else{ 
             $('#iqty'+cnt).val(add);
           }
         }
