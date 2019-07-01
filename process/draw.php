@@ -39,7 +39,7 @@ function getDepartment($conn, $DATA)
   $Hotp = $DATA["Hotp"];
   $Sql = "SELECT department.DepCode,department.DepName
   FROM department
-  WHERE department.HptCode = $Hotp
+  WHERE department.HptCode = '$Hotp'
   AND department.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -78,13 +78,13 @@ function CreateDocument($conn, $DATA)
   //	 $Sql = "INSERT INTO log ( log ) VALUES ('userid : $userid')";
   //     mysqli_query($conn,$Sql);
 
-  $Sql = "SELECT CONCAT('DW',lpad($hotpCode, 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'-',
+  $Sql = "SELECT CONCAT('DW',lpad('$hotpCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'-',
   LPAD( (COALESCE(MAX(CONVERT(SUBSTRING(DocNo,12,5),UNSIGNED INTEGER)),0)+1) ,5,0)) AS DocNo,DATE(NOW()) AS DocDate,
   CURRENT_TIME() AS RecNow
   FROM draw
   INNER JOIN department on draw.DepCode = department.DepCode
-  WHERE DocNo Like CONCAT('DW',lpad($hotpCode, 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'%')
-  AND department.HptCode = $hotpCode
+  WHERE DocNo Like CONCAT('DW',lpad('$hotpCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'%')
+  AND department.HptCode = '$hotpCode'
   ORDER BY DocNo DESC LIMIT 1";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -176,7 +176,7 @@ function CreateDocument($conn, $DATA)
     if ($selecta == 0) {
       $Sql.= "WHERE draw.DepCode = $deptCode AND draw.DocNo LIKE '%$DocNo%' ";
     }
-    $Sql.= "AND side.HptCode = $hosCode ";
+    $Sql.= "AND side.HptCode = '$hosCode' ";
     $Sql.= "ORDER BY draw.DocNo DESC LIMIT 500 ";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -846,7 +846,7 @@ function CreateDocument($conn, $DATA)
       }
       $Sql = "SELECT department.DepCode 
               FROM department
-              WHERE department.HptCode = $HptCode
+              WHERE department.HptCode = '$HptCode'
               AND department.IsDefault = 1
               AND department.IsStatus =0";
       $meQuery = mysqli_query($conn, $Sql);

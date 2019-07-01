@@ -231,7 +231,7 @@ $array = json_decode($json,TRUE);
 
     function getDepartment(){
       var Hotp = $('#hotpital option:selected').attr("value");
-      if( typeof Hotp == 'undefined' ) Hotp = "1";
+      if( typeof Hotp == 'undefined' ) Hotp = "BHQ";
       var data = {
         'STATUS'  : 'getDepartment',
         'Hotp'	: Hotp
