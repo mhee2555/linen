@@ -1,0 +1,310 @@
+<?php
+session_start();
+require '../connect/connect.php';
+
+function ShowItem($conn, $DATA)
+{
+  $count = 0;
+  $xHptCode = $DATA['HptCode'];
+  if($xHptCode==""){
+    $xHptCode = 1;
+  }
+
+  $Keyword = $DATA['Keyword'];
+  $Sql="SELECT users.ID,users.FName,users.`Password`,users.UserName,
+        -- CONCAT(IFNULL(employee.FirstName,''),' ',IFNULL(employee.LastName,'')) AS xName
+        permission.Permission
+        FROM users
+        INNER JOIN permission ON users.PmID = permission.PmID
+        -- INNER JOIN employee ON users.EmpCode = employee.EmpCode
+        WHERE users.IsCancel = 0 AND ( users.FName LIKE '%$Keyword%')";
+  // var_dump($Sql); die;
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $return[$count]['ID'] = $Result['ID'];
+    $return[$count]['FName'] = $Result['FName'];
+    $return[$count]['Password'] = $Result['Password'];
+    $return[$count]['UserName'] = $Result['UserName'];
+	$return[$count]['Permission'] = $Result['Permission'];
+    $count++;
+  }
+
+  if($count>0){
+    $return['status'] = "success";
+    $return['form'] = "ShowItem";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }else{
+    $return['status'] = "notfound";
+    $return['msg'] = "notfound";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }
+
+}
+
+function getdetail($conn, $DATA)
+{
+  $ID = $DATA['ID'];
+
+//    $Sqlx = "INSERT INTO log ( log ) VALUES ('ID : $ID')";
+//    mysqli_query($conn,$Sqlx);
+
+  $Sql = "SELECT users.ID,users.UserName,users.`Password`,users.FName,side.HptName,side.HptCode,permission.Permission,permission.PmID
+        FROM users
+        INNER JOIN permission ON users.PmID = permission.PmID
+        INNER JOIN side ON users.HptCode = side.HptCode
+        WHERE users.ID = $ID AND users.IsCancel = 0";
+
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $return['ID'] = $Result['ID'];
+      $return['UserName'] = $Result['UserName'];
+      $return['Password'] = $Result['Password'];
+      $return['FName'] = $Result['FName'];
+      $return['Permission'] = $Result['Permission'];
+      $return['PmID'] = $Result['PmID'];
+      $return['HptName'] = $Result['HptName'];
+      $return['HptCode'] = $Result['HptCode'];
+
+  }
+
+    $count = 0;
+    $Sql = "SELECT permission.PmID,permission.Permission FROM permission";
+    $meQuery = mysqli_query($conn, $Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+        $return['Pm'.$count]['xPmID']  = $Result['PmID'];
+        $return['Pm'.$count]['xPermission']  = $Result['Permission'];
+        $count++;
+    }
+    $return['PmCnt'] = $count;
+
+    $count = 0;
+    $Sql = "SELECT side.HptCode,side.HptName FROM side";
+    $meQuery = mysqli_query($conn, $Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+        $return['hos'.$count]['xHptCode']  = $Result['HptCode'];
+        $return['hos'.$count]['xHptName']  = $Result['HptName'];
+        $count++;
+    }
+    $return['EmpCnt'] = $count;
+
+  if($count>0){
+    $return['status'] = "success";
+    $return['form'] = "getdetail";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }else{
+    $return['status'] = "notfound";
+    $return['msg'] = "notfound";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }
+
+}
+
+function getEmployee($conn, $DATA)
+{
+  $count = 0;
+  $Sql = "SELECT employee.EmpCode,CONCAT(IFNULL(employee.FirstName,''),' ',IFNULL(employee.LastName,'')) AS xName 
+            FROM employee WHERE employee.IsStatus = 1";
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $return[$count]['EmpCode']  = $Result['EmpCode'];
+    $return[$count]['xName']  = $Result['xName'];
+    $count++;
+  }
+  $return['status'] = "success";
+  $return['form'] = "getEmployee";
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+
+}
+
+  function getHotpital($conn, $DATA)
+  {
+    $count = 0;
+    $Sql = "SELECT side.HptCode,side.HptName FROM side 	WHERE IsStatus = 0";
+    $meQuery = mysqli_query($conn, $Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $return[$count]['HptCode']  = $Result['HptCode'];
+      $return[$count]['HptName']  = $Result['HptName'];
+      $count++;
+    }
+
+    $return['status'] = "success";
+    $return['form'] = "getHotpital";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+
+  }
+
+
+  function getHotpital_user($conn, $DATA)
+  {
+    $count = 0;
+    $Sql = "SELECT users.HptCode,side.HptName 
+    FROM users 
+    INNER JOIN side ON users.HptCode = side.HptCode 
+    WHERE IsStatus = 0 ";
+    
+    $meQuery = mysqli_query($conn, $Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $return[$count]['HptCode']  = $Result['HptCode'];
+      $return[$count]['HptName']  = $Result['HptName'];
+      $count++;
+    }
+
+    $return['status'] = "success";
+    $return['form'] = "getHotpital_user";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+
+  }
+
+
+  function getPermission($conn, $DATA)
+  {
+    $count = 0;
+    $Sql = "SELECT permission.PmID,permission.Permission FROM permission";
+    $meQuery = mysqli_query($conn, $Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $return[$count]['PmID']  = $Result['PmID'];
+      $return[$count]['Permission']  = $Result['Permission'];
+      $count++;
+    }
+
+    $return['status'] = "success";
+    $return['form'] = "getPermission";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+
+  }
+
+function CancelItem($conn, $DATA)
+{
+    $UsID = $DATA['UsID'];
+    $Sql = "UPDATE users SET IsCancel = 1 WHERE ID = $UsID;";
+    mysqli_query($conn, $Sql);
+    $return['status'] = "success";
+    $return['form'] = "CancelItem";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+
+}
+
+
+
+function AddItem($conn, $DATA)
+{
+    $count = 0;
+    $UsID = $DATA['UsID'];
+    $UserName = $DATA['UserName'];
+    $Password = $DATA['Password'];
+    $host = $DATA['host'];
+    $FName = $DATA['FName'];
+    $Permission = $DATA['Permission'];
+
+    // $Sql =  "SELECT COUNT(*) AS Cnt FROM users WHERE users.ID = $UsID";
+    // $meQuery = mysqli_query($conn, $Sql);
+    // while ($Result = mysqli_fetch_assoc($meQuery)) {
+    //     $count = $Result['Cnt'];
+    // }
+
+    if($UsID != ""){
+        $Sql = "UPDATE users SET 
+        users.HptCode=$host,
+        users.UserName='$UserName',
+        users.`Password`='$Password',
+        users.FName='$FName',
+        users.PmID=$Permission,
+        users.Modify_Date=NOW() 
+        WHERE users.ID = $UsID";
+
+        if(mysqli_query($conn, $Sql)){
+            $return['status'] = "success";
+            $return['form'] = "AddItem";
+            $return['msg'] = "Edit Success";
+        }else{
+            $return['status'] = "failed";
+            $return['msg'] = "Edit Failed";
+        }
+    }else{
+        $Sql = "INSERT INTO users(
+        users.HptCode,
+        users.UserName,
+        users.`Password`,
+        users.FName,
+        users.IsCancel,
+        users.PmID,
+        users.Count,
+        users.Modify_Date,
+        users.TimeOut
+		)
+          VALUES
+        (
+            $host,
+            '$UserName',
+            '$Password',
+            '$FName',
+            0,
+            $Permission,
+            0,
+            NOW(),
+            30
+          )";
+
+        if(mysqli_query($conn, $Sql)){
+            $return['status'] = "success";
+            $return['form'] = "AddItem";
+            $return['msg'] = "Insert Success";
+        }else{
+            $return['status'] = "failed";
+            $return['msg'] = "Insert Failed";
+        }
+    }
+    echo json_encode($return);
+    mysqli_close($conn);
+}
+
+if(isset($_POST['DATA']))
+{
+  $data = $_POST['DATA'];
+  $DATA = json_decode(str_replace ('\"','"', $data), true);
+
+      if ($DATA['STATUS'] == 'ShowItem') {
+        ShowItem($conn, $DATA);
+      }else if ($DATA['STATUS'] == 'getEmployee') {
+        getEmployee($conn, $DATA);
+      }else if ($DATA['STATUS'] == 'getHotpital') {
+        getHotpital($conn, $DATA);
+      }else if ($DATA['STATUS'] == 'getPermission') {
+        getPermission($conn, $DATA);
+      }else if ($DATA['STATUS'] == 'AddItem') {
+          AddItem($conn,$DATA);
+      }else if ($DATA['STATUS'] == 'EditItem') {
+        EditItem($conn,$DATA);
+      }else if ($DATA['STATUS'] == 'CancelItem') {
+        CancelItem($conn,$DATA);
+      }else if ($DATA['STATUS'] == 'getdetail') {
+        getdetail($conn,$DATA);
+      }else if ($DATA['STATUS'] == 'getHotpital_user') {
+        getHotpital_user($conn,$DATA);
+      }
+
+}else{
+	$return['status'] = "error";
+	$return['msg'] = 'noinput';
+	echo json_encode($return);
+	mysqli_close($conn);
+  die;
+}

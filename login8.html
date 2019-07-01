@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Linen</title>
+
+    <!-- custome css -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        @font-face {
+        src: url('css/DBHelvethaica.ttf');
+        font-family: myFirstFont;
+    }
+    body{
+        font-family: myFirstFont;
+    }
+    </style>
+</head>
+<body>
+    <div class='container' id='frame_white'>
+        <div>
+            <img src="img/frame.png" class='img_while'>
+        </div>
+    </div>
+    <div id='img_blue'>
+        <img src="img/background_1.png" class='img_blue'>
+    </div>
+    <div id='img_styblue'>
+        <img src="img/background_2.png" class='img_styblue'>
+    </div>
+    <div id='Nhealth'>
+        <img src="img/Nhealth.png" class='Nhealth'>
+    </div>
+    <div id='moblie'>
+        <img src="img/background_3.png" class='moblie'>
+    </div>
+    <div id='form_input'>
+       <div class='row text-center mb-3'>
+           <div class="col-md-12">
+                <h2>Login</h2>
+           </div>
+       </div>
+       <div class='form-group'>
+            <div class="form-group">
+                <div>
+                    <label for="username" class='txt_username'>Username</label>
+                </div>
+                <div>
+                    <input type="text" class="mt-1" maxlength="30" id="username" placeholder="">
+                </div>
+                <div id='img_username'>
+                    <img src="img/user.png">
+                </div>
+            </div>
+            <div class="form-group mt-3">
+                <div>
+                    <label for="password" class='txt_password'>Password</label>
+                </div>
+                <div>
+                    <input type="password" class="mt-1" maxlength="30" id="password" placeholder="">
+                </div>
+                <div id='img_password'>
+                    <img src="img/pass.png">
+                </div>
+            </div>
+            <div class='row mt-5'>
+                <div class='col-md-12 text-center'>
+                    <button class='btn btn-custom'>Login</button>
+                </div>
+            </div>
+       </div>
+       <div id='forgot'>
+            <a href="javascript:void(0)" class='link'>Forgot <br>help</a>
+       </div>
+    </div>
+</body>
+</html>
