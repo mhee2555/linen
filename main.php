@@ -972,7 +972,7 @@ switch ($PmID) {
     <div class='row col-12'>
         <input class='form-control ' style='border:none;width:90%'  id='ShowTime' >
     </div>
-    บักหำหมี
+    บักหำหมีอิอิ
   </nav>
   <!-- div id="siteAds">Ads</div -->
   <!-- footer id="pageFooter">Footer</footer -->
