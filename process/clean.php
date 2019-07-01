@@ -658,8 +658,7 @@ function CreateDocument($conn, $DATA)
     dirty_detail.Weight,
     dirty_detail.IsCancel
     FROM dirty_detail
-    WHERE dirty_detail.DocNo = '$RefDocNo'
-    Limit 1";
+    WHERE dirty_detail.DocNo = '$RefDocNo'";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $zItemCode[$n] = $Result['ItemCode'];
@@ -678,7 +677,7 @@ function CreateDocument($conn, $DATA)
       $Sql = "INSERT INTO clean_detail
       (DocNo,ItemCode,UnitCode,Qty,Weight,IsCancel)
       VALUES
-      ('$DocNo','i040',$UnitCode,$Qty,$Weight,$IsCancel)";
+      ('$DocNo','$ItemCode',$UnitCode,$Qty,$Weight,$IsCancel)";
       mysqli_query($conn, $Sql);
     }
 

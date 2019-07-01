@@ -629,11 +629,11 @@ $(document).ready(function(e){
           function UpdateRefDocNo(){
             var docno = $("#docno").val();
             var RefDocNo;
-
             //get value from radio button
             $("#checkitem:checked").each(function() {
               RefDocNo = $(this).val();
             });
+
             var deptCode = $('#Dep2 option:selected').attr("value");
             var data = {
               'STATUS'      : 'UpdateRefDocNo',
