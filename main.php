@@ -331,7 +331,7 @@ switch ($PmID) {
     // // ===================================================================
     var last_move, cur_date, target;
     var redirectInSecond = <?php echo $TimeOut ?>; // กำหนดเวลา redirect เป็นวินาที
-    var redirect_url = 'http://localhost:8181/linen/index.html'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
+    var redirect_url = 'http://localhost:8181/linen/login.html'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
     $(document).ready(function (e) {
       OnLoadPage();
       target = redirectInSecond * 60000; // แปลงค่าเป็น microsecond
