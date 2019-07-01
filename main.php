@@ -774,7 +774,7 @@ switch ($PmID) {
           <?php } ?>
           <?php if($ac_s5== 1){ ?>
           <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;"
-              href="pages/contract_parties_hotpital.php?lang=<?php echo $language; ?>" class="current_page"
+              href="pages/contract_parties_hospital.php?lang=<?php echo $language; ?>" class="current_page"
               onclick="return loadIframe('ifrm', this.href)">
               <em></em><?php echo $array['menu']['account']['sub'][4][$language]; ?><span style='color: #ff0000;'
                 id='HOS_Cnt'>0</span></a>
