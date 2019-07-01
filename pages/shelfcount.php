@@ -470,7 +470,7 @@ $array = json_decode($json,TRUE);
           };
           senddata(JSON.stringify(data));
         })
-      }
+    }
 
       function canceldocno(docno) {
         swal({
@@ -493,11 +493,14 @@ $array = json_decode($json,TRUE);
             senddata(JSON.stringify(data));
             getSearchDocNo();
           })
-        }
+      }
 
         function addnum(cnt) {
           var add = parseInt($('#iqty'+cnt).val())+1;
-          if((add>0) && (add<=500)){
+          var max = $('#qty_'+cnt).data('value');
+          if(add>max){
+            $('#iqty'+cnt).val(max);
+          }else{
             $('#iqty'+cnt).val(add);
           }
         }
@@ -511,12 +514,15 @@ $array = json_decode($json,TRUE);
 
         function addnum1(rowid,cnt,unitcode) {
           var Dep = $("#Dep_").val();
+          var max = $('#max'+cnt).val();
           var docno = $("#docno").val();
           var add = parseInt($('#qty1_'+cnt).val())+1;
           var isStatus = $("#IsStatus").val();
-          if((add>=0) && (add<=500)){
-            if(isStatus==0){
-              // alert(add);
+          
+          if(isStatus==0){
+            if(add>max){
+              $('#qty1_'+cnt).val(max);
+            }else{
               $('#qty1_'+cnt).val(add);
               var data = {
                 'STATUS'      : 'UpdateDetailQty',
@@ -752,10 +758,10 @@ $array = json_decode($json,TRUE);
                     timer: 1000,
                     confirmButtonText: 'Ok',
                     showConfirmButton: false
-                });
-              setTimeout(function () {
-                parent.OnLoadPage();
-              }, 1000);
+                  });
+                  setTimeout(function () {
+                    parent.OnLoadPage();
+                  }, 1000);
                 }else if(temp["form"]=='ShowDocument'){
                   $( "#TableDocument tbody" ).empty();
                   $( "#TableItemDetail tbody" ).empty();
@@ -954,7 +960,7 @@ $array = json_decode($json,TRUE);
 
                     chkunit += "</select>";
 
-                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn_mhee' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:90px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn_mheesave' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
+                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn_mhee' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:90px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onkeyup='if(this.value > "+temp[i]['ParQty']+"){this.value="+temp[i]['ParQty']+"}else if(this.value<0){this.value=0}' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn_mheesave' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
 
                     var Order = "<input class='form-control' id='order"+i+"' type='text' style='text-align:center;' value='"+(temp[i]['TotalQty'])+"' disabled>";
 
@@ -1031,7 +1037,7 @@ $array = json_decode($json,TRUE);
                     chkunit += "</select>";
 
                     var chkDoc = "<input type='checkbox' name='checkitem' id='checkitem' value='"+i+"'><input type='hidden' id='RowID"+i+"' value='"+temp[i]['RowID']+"'>";
-                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum(\""+i+"\")'>-</button><input class='form-control' "+st2+" id='iqty"+i+"' value='1' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum(\""+i+"\")'>+</button></div>";
+                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum(\""+i+"\")'>-</button><input class='form-control' "+st2+" id='iqty"+i+"' value='1' onkeyup='if(this.value>"+temp[i]['ParQty']+"){this.value="+temp[i]['ParQty']+"}else if(this.value<0){this.value=0}'><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum(\""+i+"\")'>+</button></div>";
 
                     var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='iweight"+i+"' value='0' ></div>";
 
@@ -1040,7 +1046,7 @@ $array = json_decode($json,TRUE);
                     "<td style='width: 20%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''>"+temp[i]['ItemCode']+"</td>"+
                     "<td style='width: 25%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''>"+temp[i]['ItemName']+"</td>"+
                     "<td style='width: 15%;'>"+chkunit+"</td>"+
-                    "<td style='width: 15%;'>"+Qty+"</td>"+
+                    "<td style='width: 15%;' id='qty_"+i+"' data-value='"+temp[i]['ParQty']+"'>"+Qty+"</td>"+
                     "<td style='width: 10%;'>"+Weight+"</td>"+
                     "</tr>";
                     if(rowCount == 0){
@@ -1179,7 +1185,7 @@ $array = json_decode($json,TRUE);
         </script>
         <style media="screen">
 
-@font-face {
+          @font-face {
             font-family: myFirstFont;
             src: url("../fonts/DB Helvethaica X.ttf");
             }
