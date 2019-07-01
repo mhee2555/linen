@@ -791,8 +791,8 @@ var isChecked2 = false;
 
 												   $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
 																  "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-																  "<td style='width: 10%;'>"+temp[i]['ItemCode']+"</td>"+
-																  "<td style='width: 35%;'>"+temp[i]['ItemName']+"</td>"+
+																  "<td style='width: 21%;'>"+temp[i]['ItemCode']+"</td>"+
+																  "<td style='width: 24%;'>"+temp[i]['ItemName']+"</td>"+
                                   "<td style='width: 15%;font-size:24px;'>"+nUnit+"</td>"+
                                   "<td style='width: 15%;'>"+Qty+"</td>"+
 																  "<td style='width: 13%;'>"+Weight+"</td>"+
@@ -1157,8 +1157,8 @@ var isChecked2 = false;
                           <thead id="theadsum" style="font-size:24px;">
                             <tr role="row">
                               <th style='width: 10%;'><?php echo $array['no'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['code'][$language]; ?></th>
-                              <th style='width: 35%;'><?php echo $array['item'][$language]; ?></th>
+                              <th style='width: 21%;'><?php echo $array['code'][$language]; ?></th>
+                              <th style='width: 24%;'><?php echo $array['item'][$language]; ?></th>
                               <th style='width: 15%;'><?php echo $array['unit'][$language]; ?></th>
                               <th style='width: 15%;'><?php echo $array['qty'][$language]; ?></th>
                               <th style='width: 15%;'><?php echo $array['weight'][$language]; ?></th>
