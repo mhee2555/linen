@@ -334,8 +334,10 @@ switch ($PmID) {
     var redirect_url = 'http://localhost:8181/linen/login.html'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
     $(document).ready(function (e) {
       OnLoadPage();
-      target = redirectInSecond * 60000; // แปลงค่าเป็น microsecond
-      setTimeout('chk_last_move()', target); // กำหนดเวลาตรวจเช็คเริ่มต้น
+      target = redirectInSecond * 1000; // แปลงค่าเป็น microsecond
+      target = target * 60;
+      last_move = new Date() // กำหนดค่าเริ่มต้นให้ last_move
+      setTimeout( 'chk_last_move()', 1000 ); // กำหนดเวลาตรวจเช็คเริ่มต้น
 
       //li active
       $('.current_page').click(function () {
@@ -351,30 +353,76 @@ switch ($PmID) {
       last_move = afk();
     });
 
+    // function afk() {
+    //   last_move = new Date();
+    //   $('#last_move').val(last_move.getTime());
+    //   return last_move;
+    // }
+
+    // function chk_last_move() {
+    //   cur_date = new Date(); // อ่านเวลาปัจจุบันไว้ใน cur_date
+    //   last_move = $('#last_move').val();
+    //   cur = cur_date.getTime();
+    //   if (cur > last_move) {
+    //     var micro = parseInt(cur_date - last_move);
+    //     if (micro > target) {
+    //       location.href = redirect_url;
+    //     } else {
+    //       var new_time = target - micro;
+    //       setTimeout('chk_last_move()', new_time);
+    //     }
+    //   } else {
+    //     var micro = parseInt(cur_date - last_move);
+    //     setTimeout('chk_last_move()', target);
+    //   }
+    // }
+    <!-- ============================================================================ -->
     function afk() {
-      last_move = new Date();
-      $('#last_move').val(last_move.getTime());
-      return last_move;
-    }
-
-    function chk_last_move() {
-      cur_date = new Date(); // อ่านเวลาปัจจุบันไว้ใน cur_date
-      last_move = $('#last_move').val();
-      cur = cur_date.getTime();
-      if (cur > last_move) {
-        var micro = parseInt(cur_date - last_move);
-        if (micro > target) {
-          location.href = redirect_url;
-        } else {
-          var new_time = target - micro;
-          setTimeout('chk_last_move()', new_time);
-        }
-      } else {
-        var micro = parseInt(cur_date - last_move);
-        setTimeout('chk_last_move()', target);
+          last_move = new Date();
+          if(redirectInSecond>=60)
+              hms = "00:00:00";
+          else
+              hms = "00:00";
+          $('#ShowTime').val( redirectInSecond + ' / TimeOut : ' + hms );
       }
-    }
 
+      function chk_last_move(){
+          cur_date = new Date(); // อ่านเวลาปัจจุบันไว้ใน cur_date
+          if( cur_date>last_move){ // ตรวจสอบเวลา
+              var micro = parseInt(cur_date.getTime() - last_move.getTime());
+              var newDate = new Date();
+              newDate.setTime((target - micro));
+              var h = newDate.getHours();
+              var m = newDate.getMinutes();
+              var s = newDate.getSeconds();
+              var hms = "";
+              m = checkTime(m);
+              s = checkTime(s);
+
+              if(redirectInSecond>=60)
+                  hms = h + ":" + m + ":" + s;
+              else
+                  hms = m + ":" + s;
+
+              $('#ShowTime').val( 'TimeOut : ' + hms );
+
+              if( micro > target ) location.href=redirect_url;
+              else {
+                  var new_time = target - micro;
+                  setTimeout('chk_last_move()', 1000 ); //new_time
+              }
+          }else{
+              setTimeout('chk_last_move()', 1000 );
+          }
+      }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+    <!-- ======================================================================== -->
     function OnLoadPage() {
       var data = {
         'STATUS': 'OnLoadPage'
@@ -921,6 +969,9 @@ switch ($PmID) {
       <?php } ?>
 
     </ul>
+    <div class='row col-11'>
+          <input class='form-control' style='border:none;width:90%'  id='ShowTime' >
+      </div>
   </nav>
   <!-- div id="siteAds">Ads</div -->
   <!-- footer id="pageFooter">Footer</footer -->
