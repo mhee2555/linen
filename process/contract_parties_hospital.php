@@ -38,7 +38,7 @@ function getDepartment($conn,$DATA){
   $Hotp = $DATA["Hotp"];
   $Sql = "SELECT department.DepCode,department.DepName
 		  FROM department
-		  WHERE department.HptCode = $Hotp
+		  WHERE department.HptCode = '$Hotp'
 		  AND department.IsStatus = 0";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -81,20 +81,20 @@ function ShowDocument($conn,$DATA){
 //     mysqli_query($conn,$Sql);
 
   $Sql = "SELECT
-  contract_parties_side.RowID,
-  contract_parties_side.StartDate,
-  contract_parties_side.EndDate,
-  IFNULL(Detail,'') AS Detail,
-  (EndDate-DATE(NOW())) AS LeftDay,
-  side.HptName,
-  department.DepCode,
-  department.DepName
-  FROM contract_parties_side
-  INNER JOIN department ON contract_parties_side.DepCode = department.DepCode
+    contract_parties_hospital.RowID,
+    contract_parties_hospital.StartDate, 
+    contract_parties_hospital.EndDate, 
+    IFNULL(Detail,'') AS Detail, 
+    (EndDate-DATE(NOW())) AS LeftDay, 
+    side.HptName, department.DepCode, 
+    department.DepName 
+  FROM  contract_parties_hospital 
+  INNER JOIN department ON  contract_parties_hospital.DepCode = department.DepCode
   INNER JOIN side ON department.HptCode = side.HptCode
-  WHERE contract_parties_side.IsStatus = 0 ";
+  WHERE contract_parties_hospital.IsStatus = 0 ";
   if(($sl1 > 9) && ($sl2 > 9)) $Sql .= "AND EndDate BETWEEN '$sDate' AND '$eDate' ";
   $Sql .= "ORDER BY (EndDate-DATE(NOW())) ASC";
+  $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
 	$return[$count]['RowID'] 		= $Result['RowID'];
@@ -102,9 +102,9 @@ function ShowDocument($conn,$DATA){
 	$return[$count]['DepCode'] 		= $Result['DepCode'];
 	$return[$count]['DepName'] 		= $Result['DepName'];
 	$return[$count]['StartDate'] 	= $Result['StartDate'];
-    $return[$count]['EndDate'] 		= $Result['EndDate'];
-    $return[$count]['Detail'] 		= $Result['Detail'];
-	$return[$count]['LeftDay'] 		= $Result['LeftDay'];
+  $return[$count]['EndDate'] 		= $Result['EndDate'];
+  $return[$count]['Detail'] 		= $Result['Detail'];
+  $return[$count]['LeftDay'] 		= $Result['LeftDay'];
     $boolean = true;
     $count++;
   }
@@ -138,19 +138,19 @@ function getRow($conn,$DATA){
 //     mysqli_query($conn,$Sql);
 
   $Sql = "SELECT
-  contract_parties_side.RowID,
-  contract_parties_side.StartDate,
-  contract_parties_side.EndDate,
+  contract_parties_hospital.RowID,
+  contract_parties_hospital.StartDate,
+  contract_parties_hospital.EndDate,
   IFNULL(Detail,'') AS Detail,
   (EndDate-DATE(NOW())) AS LeftDay,
   side.HptCode,
   side.HptName,
   department.DepCode,
   department.DepName
-  FROM contract_parties_side
-  INNER JOIN department ON contract_parties_side.DepCode = department.DepCode
+  FROM contract_parties_hospital
+  INNER JOIN department ON contract_parties_hospital.DepCode = department.DepCode
   INNER JOIN side ON department.HptCode = side.HptCode
-  WHERE contract_parties_side.IsStatus = 0
+  WHERE contract_parties_hospital.IsStatus = 0
   AND RowID = $RowID";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -171,7 +171,7 @@ function getRow($conn,$DATA){
   $count = 0;
   $Sql = "SELECT department.DepCode,department.DepName
 		  FROM department
-		  WHERE department.HptCode = $Hosp
+		  WHERE department.HptCode = '$Hosp'
 		  AND department.IsStatus = 0";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -215,13 +215,13 @@ function SaveRow($conn,$DATA){
   $Detail 	= $DATA["Detail"];
 
   if($isStatus==0){
-  	  $Sql = "INSERT INTO contract_parties_side
+  	  $Sql = "INSERT INTO contract_parties_hospital
       ( StartDate,EndDate,DepCode,Detail,IsStatus )
       VALUES
       ( '$sDate','$eDate',$depid,'$Detail',0 )";
       mysqli_query($conn,$Sql);
   }else{
-	  $Sql = "UPDATE contract_parties_side
+	  $Sql = "UPDATE contract_parties_hospital
 			SET StartDate = '$sDate',
 			EndDate = '$eDate',
 			Detail = '$Detail'
@@ -241,7 +241,7 @@ function CancelRow($conn,$DATA){
   $isStatus = $DATA["isStatus"];
   $RowID = $DATA["RowID"];
 
-  $Sql = "UPDATE contract_parties_side SET IsStatus = 1 WHERE RowID = $RowID";
+  $Sql = "UPDATE contract_parties_hospital SET IsStatus = 1 WHERE RowID = $RowID";
   mysqli_query($conn,$Sql);
 
 	 $Sql = "INSERT INTO log ( log ) VALUES ('RowID :: $RowID')";

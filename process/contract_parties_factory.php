@@ -38,8 +38,9 @@ function getDepartment($conn,$DATA){
   $Hotp = $DATA["Hotp"];
   $Sql = "SELECT department.DepCode,department.DepName
 		  FROM department
-		  WHERE department.HptCode = $Hotp
-		  AND department.IsStatus = 0";
+		  WHERE department.HptCode = '$Hotp'
+      AND department.IsStatus = 0";
+      $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['DepCode'] = $Result['DepCode'];

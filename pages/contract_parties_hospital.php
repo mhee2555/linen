@@ -29,7 +29,7 @@ $array = json_decode($json,TRUE);
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo $array['titlecontractfac'][$language]; ?></title>
+    <title><?php echo $array['titlecontracthos'][$language]; ?></title>
 
     <link rel="icon" type="image/png" href="../img/pose_favicon.png">
     <!-- Bootstrap core CSS-->
@@ -91,7 +91,7 @@ $array = json_decode($json,TRUE);
 		  width: 1200,
 		  modal: true,
 		  buttons: {
-			"ปิด": function() {
+			"<?php echo $array['close'][$language]; ?>": function() {
 			  dialog.dialog( "close" );
 			}
 		  },
@@ -114,11 +114,11 @@ $array = json_decode($json,TRUE);
 	}
 
 	function getDepartment(){
-	  var Hotp = $('#factory option:selected').attr("value");
-	  if( typeof Hotp == 'undefined' ) Hotp = "BHQ";
+	  var Hotp = $('#side option:selected').attr("value");
+	  if( typeof Hotp == 'undefined' ) Hotp = "1";
       var data = {
         'STATUS'  : 'getDepartment',
-		    'Hotp'	: Hotp
+		'Hotp'	: Hotp
       };
       senddata(JSON.stringify(data));
 	}
@@ -140,7 +140,7 @@ $array = json_decode($json,TRUE);
 		$("#datepicker3").val('');
 		$("#datepicker4").val('');
 		$("#xDetail").val('');
-		$('#factory option[value="1"]').prop("selected", true);
+		$('#side option[value="1"]').prop("selected", true);
 	}
 
 	function CancelRow(){
@@ -148,7 +148,7 @@ $array = json_decode($json,TRUE);
 
 		swal({
           title: "<?php echo $array['confirm'][$language]; ?>",
-          text: "<?php echo $array['factory'][$language]; ?> : " +$('#factory option:selected').text(),
+          text: "<?php echo $array['factory'][$language]; ?> : " +$('#side option:selected').text(),
           type: "warning",
           showCancelButton: true,
           confirmButtonClass: "btn-danger",
@@ -170,11 +170,13 @@ $array = json_decode($json,TRUE);
 	function SaveRow(){
 		var isStatus = $("#IsStatus").val();
 		var id = $("#xRowID").val();
-		var facid = $('#factory option:selected').attr("value");
-	    if( typeof facid == 'undefined' ) facid = "1";
+		var hotid = $('#side option:selected').attr("value");
+	    if( typeof hotid == 'undefined' ) hotid = "BHQ";
+		var depid = $('#department option:selected').attr("value");
+	    if( typeof depid == 'undefined' ) depid = "1";
 
 		var datepicker1 = $('#datepicker3').val();
-	    var datepicker2 = $('#datepicker4').val();
+    var datepicker2 = $('#datepicker4').val();
 		var xDetail = $("#xDetail").val();
 
 	    //datepicker1 = datepicker1.substring(6, 10)+"-"+datepicker1.substring(3, 5)+"-"+datepicker1.substring(0, 2);
@@ -184,7 +186,8 @@ $array = json_decode($json,TRUE);
 			'STATUS'  	: 'SaveRow',
 			'isStatus'	: isStatus,
 			'RowID'		: id,
-			'facid'		: facid,
+			'hotid'		: hotid,
+			'depid'		: depid,
 			'sDate'		: datepicker1,
 			'eDate'		: datepicker2,
 			'Detail'	: xDetail
@@ -234,7 +237,7 @@ $array = json_decode($json,TRUE);
     function senddata(data){
        var form_data = new FormData();
        form_data.append("DATA",data);
-       var URL = '../process/contract_parties_factory.php';
+       var URL = '../process/contract_parties_hospital.php';
        $.ajax({
                      url: URL,
                      dataType: 'text',
@@ -252,16 +255,14 @@ $array = json_decode($json,TRUE);
                         	if(temp["status"]=='success'){
 										  if(temp["form"]=='OnLoadPage'){
 											for (var i = 0; i < (Object.keys(temp).length-2); i++) {
-												var Str = "<option value="+temp[i]['FacCode']+">"+temp[i]['FacName']+"</option>";
-												$("#factory").append(Str);
+												var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
+												$("#side").append(Str);
 											}
 										  }else if(temp["form"]=='getDepartment'){
 											$("#department").empty();
-											$("#Dep2").empty();
 											for (var i = 0; i < (Object.keys(temp).length-2); i++) {
 												var Str = "<option value="+temp[i]['DepCode']+">"+temp[i]['DepName']+"</option>";
 												$("#department").append(Str);
-												$("#Dep2").append(Str);
 											}
 										  }else if(temp["form"]=='ShowDocument'){
 				                              $( "#TableDocument tbody" ).empty();
@@ -277,17 +278,15 @@ $array = json_decode($json,TRUE);
 
                           var days = Math.round(diff/1000/60/60/24);
 
-												   if(days <= 30){
+												  if(days <= 30){
 													   Style  = "style='font-weight: bold;color: #ff0000;'";
 												   }else{
 													   Style  = "style='color: #1e1e2f;'";
 												   }
 
-
-
 												   $StrTr="<tr "+Style+" id='tr"+temp[i]['RowID']+"' onclick='getRow( "+temp[i]['RowID']+" )'>"+
 															  "<td style='width: 5%;'>"+(i+1)+"</td>"+
-															  "<td style='width: 25%;'>"+temp[i]['FacName']+"</td>"+
+															  "<td style='width: 25%;'>"+temp[i]['HptName']+"</td>"+
 															  "<td style='width: 15%;'>"+temp[i]['StartDate']+"</td>"+
 															  "<td style='width: 15%;'>"+temp[i]['EndDate']+"</td>"+
 															  "<td style='width: 15%; text-align: center;'>"+days+"</td>"+
@@ -308,13 +307,21 @@ $array = json_decode($json,TRUE);
 												$("#datepicker4").val(temp[0]['EndDate']);
 												$("#xDetail").val(temp[0]['Detail']);
 
-												var fac_code = temp[0]['FacCode'];
-												var fac_length = $('#factory > option').length;
+												var hosCode = temp[0]['HptCode'];
+												var hos_length = $('#side > option').length;
 
 
-												for(var i=0;i<fac_length;i++){
-													if(fac_code == i) $('#factory option[value="'+i+'"]').prop("selected", true);
+												for(var i=0;i<hos_length;i++){
+													if(hosCode == i) $('#side option[value="'+i+'"]').prop("selected", true);
 												}
+												//alert(temp['Dep_Cnt']);
+												$("#department").empty();
+												for (var i = 0; i < temp['Dep_Cnt']; i++) {
+													var Str = "<option value="+temp['Dep_'+i]['DepCode']+">"+temp['Dep_'+i]['DepName']+"</option>";
+													$("#department").append(Str);
+													if(temp[0]['DepCode'] == temp['Dep_'+i]['DepCode']) $('#department option[value="'+temp[0]['DepCode']+'"]').prop("selected", true);
+												}
+
 
 										  }
 
@@ -398,7 +405,7 @@ $array = json_decode($json,TRUE);
 		   font-family: 'THSarabunNew';
 		   font-size:22px;
 		}
-    button{
+    button,input[id^='qty'],input[id^='weight'],input[id^='price']{
       font-size: 24px!important;
     }
     .table > thead > tr >th {
@@ -504,7 +511,7 @@ $array = json_decode($json,TRUE);
                           <thead id="theadsum" style="font-size:24px;">
                             <tr role="row">
                               <th style='width: 5%;'><?php echo $array['no'][$language]; ?></th>
-                              <th style='width: 25%;'><?php echo $array['factory'][$language]; ?></th>
+                              <th style='width: 25%;'><?php echo $array['side'][$language]; ?></th>
                               <th style='width: 15%;'><?php echo $array['datestartcontract'][$language]; ?></th>
                               <th style='width: 15%;'><?php echo $array['dateendcontract'][$language]; ?></th>
                               <th style='width: 15%;'><center><?php echo $array['numbercontract'][$language]; ?></center></th>
@@ -523,21 +530,34 @@ $array = json_decode($json,TRUE);
 
     <div class="row" style="margin-left:20px">
                 <div style="width:450px;">
-                    <label><?php echo $array['factory'][$language]; ?></label>
+                    <label ><?php echo $array['side'][$language]; ?></label>
                 </div>
                 <div style="width:250px;">
-                    <label><?php echo $array['datestartcontract'][$language]; ?></label>
-                </div>
-                <div style="width:250px;">
-                    <label><?php echo $array['dateendcontract'][$language]; ?></label>
+
                 </div>
     </div>
 
+
     <div class="row" style="margin-left:20px;">
                 <div style="width:450px;">
-                    <select style="font-size:24px;width:430px;font-family: 'THSarabunNew'" class="form-control" id="factory" onchange="getDepartment();">
+                    <select style="font-size:24px;width:430px;font-family: 'THSarabunNew'" class="form-control" id="side" onchange="getDepartment();">
                     </select>
                 </div>
+                <div style="width:450px;">
+
+                </div>
+    </div>
+
+
+     <div class="row" style="margin-left:20px">
+                <div style="width:250px;">
+                    <label ><?php echo $array['datestartcontract'][$language]; ?></label>
+                </div>
+                <div style="width:250px;">
+                    <label ><?php echo $array['dateendcontract'][$language]; ?></label>
+                </div>
+    </div>
+    <div class="row" style="margin-left:20px;">
                 <div style="width:250px;">
                     <input type="text" style="font-size:24px;width:220px;" class="form-control datepicker-here" id="datepicker3" data-language='en' data-date-format='yyyy-mm-dd' >
                 </div>
@@ -545,6 +565,8 @@ $array = json_decode($json,TRUE);
                     <input type="text" style="font-size:24px;width:220px;" class="form-control datepicker-here" id="datepicker4" data-language='en' data-date-format='yyyy-mm-dd' >
                 </div>
     </div>
+
+
 
     <div class="row" style="margin-left:20px">
                 <div style="width:250px;">

@@ -39,7 +39,7 @@ function getDepartment($conn, $DATA)
   $Hotp = $DATA["Hotp"];
   $Sql = "SELECT department.DepCode,department.DepName
 		  FROM department
-		  WHERE department.HptCode = $Hotp
+		  WHERE department.HptCode = '$Hotp'
 		  AND department.IsStatus = 0
       ORDER BY department.DepCode DESC";
   $meQuery = mysqli_query($conn, $Sql);
@@ -78,12 +78,12 @@ function CreateDocument($conn, $DATA)
   //	 $Sql = "INSERT INTO log ( log ) VALUES ('userid : $userid')";
   //     mysqli_query($conn,$Sql);
 
-  $Sql = "SELECT CONCAT('BW',lpad($hotpCode, 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'-',
+  $Sql = "SELECT CONCAT('BW',lpad('$hotpCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'-',
 LPAD( (COALESCE(MAX(CONVERT(SUBSTRING(DocNo,12,5),UNSIGNED INTEGER)),0)+1) ,5,0)) AS DocNo,DATE(NOW()) AS DocDate,
 CURRENT_TIME() AS RecNow
 FROM billwash
-WHERE DocNo Like CONCAT('BW',lpad($hotpCode, 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'%')
-AND HptCode = $hotpCode
+WHERE DocNo Like CONCAT('BW',lpad('$hotpCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'%')
+AND HptCode = '$hotpCode'
 ORDER BY DocNo DESC LIMIT 1";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -105,7 +105,7 @@ ORDER BY DocNo DESC LIMIT 1";
 		Total,IsCancel,Detail,
 		Modify_Code,Modify_Date )
       VALUES
-      ( $hotpCode,$deptCode,'$DocNo',DATE(NOW()),
+      ('$hotpCode',$deptCode,'$DocNo',DATE(NOW()),
 		'',null,DATE(NOW()),
 		0,0,
 		0,0,'',

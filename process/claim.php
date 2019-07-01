@@ -39,9 +39,10 @@ function getDepartment($conn, $DATA)
   $Hotp = $DATA["Hotp"];
   $Sql = "SELECT department.DepCode,department.DepName
   FROM department
-  WHERE department.HptCode = $Hotp
+  WHERE department.HptCode = '$Hotp'
   AND department.IsStatus = 0
-  ORDER BY department.DepCode DESC";
+  ORDER BY department.DepCode DESC ";
+  $retuen['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['DepCode'] = $Result['DepCode'];
@@ -75,15 +76,12 @@ function CreateDocument($conn, $DATA)
   $deptCode = $DATA["deptCode"];
   $userid   = $DATA["userid"];
 
-  //	 $Sql = "INSERT INTO log ( log ) VALUES ('userid : $userid')";
-  //     mysqli_query($conn,$Sql);
-
-  $Sql = "SELECT CONCAT('CM',lpad($hotpCode, 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'-',
+  $Sql = "SELECT CONCAT('CM',lpad('$hotpCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'-',
   LPAD( (COALESCE(MAX(CONVERT(SUBSTRING(DocNo,12,5),UNSIGNED INTEGER)),0)+1) ,5,0)) AS DocNo,DATE(NOW()) AS DocDate,
   CURRENT_TIME() AS RecNow
   FROM claim
-  WHERE DocNo Like CONCAT('CM',lpad($hotpCode, 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'%')
-  AND HptCode = $hotpCode
+  WHERE DocNo Like CONCAT('CM',lpad('$hotpCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'%')
+  AND HptCode = '$hotpCode'
   ORDER BY DocNo DESC LIMIT 1";
 
   $meQuery = mysqli_query($conn, $Sql);
@@ -105,7 +103,7 @@ function CreateDocument($conn, $DATA)
       Total,IsCancel,Detail,
       Modify_Code,Modify_Date )
       VALUES
-      ( $hotpCode,$deptCode,'$DocNo',DATE(NOW()),
+      ('$hotpCode',$deptCode,'$DocNo',DATE(NOW()),
       '',null,DATE(NOW()),
       0,0,
       0,0,'',
