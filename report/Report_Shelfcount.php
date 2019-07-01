@@ -109,7 +109,7 @@ $DocNo = $_GET['DocNo'];
 $pdf->AddPage();
 
 
-$Sql = "SELECT   hospital.HptName,
+$Sql = "SELECT   side.HptName,
         department.DepName,
         shelfcount.DocNo,
         DATE_FORMAT(shelfcount.DocDate,'%d-%m-%Y')AS DocDate,
@@ -119,7 +119,7 @@ $Sql = "SELECT   hospital.HptName,
         shelfcount.IsStatus
         FROM shelfcount
         INNER JOIN department ON shelfcount.DepCode = department.DepCode
-        INNER JOIN hospital ON department.HptCode = hospital.HptCode
+        INNER JOIN side ON department.HptCode = side.HptCode
         INNER JOIN users ON shelfcount.Modify_Code = users.ID
         WHERE shelfcount.DocNo = '$DocNo'";
 $meQuery = mysqli_query($conn,$Sql);
@@ -135,7 +135,7 @@ while ($Result = mysqli_fetch_assoc($meQuery)) {
 
 $pdf->SetFont('THSarabun','b',16);
 $pdf->Cell(15);
-$pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['hospital'][$language]),0,0,'L');
+$pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['side'][$language]),0,0,'L');
 $pdf->Cell(78,10,iconv("UTF-8","TIS-620",": ".$HptName),0,0,'L');
 $pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['department'][$language]),0,0,'L');
 $pdf->Cell(40,10,iconv("UTF-8","TIS-620",": ".$DepName),0,0,'L');

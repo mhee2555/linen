@@ -761,7 +761,7 @@ function CreateDocument($conn, $DATA)
           $zDepCode = $row["DepCode"];
           $zHotp    = $row["HptCode"];
       }
-      $sql_update =  "SELECT DepCode FROM department WHERE IsDefault = 1 AND HptCode = $zHotp";
+      $sql_update =  "SELECT DepCode FROM department WHERE IsDefault = 1 AND HptCode = '$zHotp'";
       $result = mysqli_query( $conn, $sql_update);
       while ($row = mysqli_fetch_array($result)) {
           $zDept = $row["DepCode"];

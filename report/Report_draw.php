@@ -110,7 +110,7 @@ $pdf->AddPage();
 
 
 $Sql = "SELECT   
-            hospital.HptName,
+            side.HptName,
             department.DepName,
             draw.DocNo,
             DATE_FORMAT(draw.DocDate,'%d-%m-%Y')AS DocDate,
@@ -121,7 +121,7 @@ $Sql = "SELECT
             draw.IsStatus
         FROM draw
         INNER JOIN department ON department.DepCode = draw.DepCode
-        INNER JOIN hospital ON department.HptCode = hospital.HptCode
+        INNER JOIN side ON department.HptCode = side.HptCode
         INNER JOIN users ON draw.Modify_Code = users.ID
         INNER JOIN employee ON users.EmpCode = employee.EmpCode
         WHERE draw.DocNo = '$DocNo'";
@@ -140,7 +140,7 @@ while ($Result = mysqli_fetch_assoc($meQuery)) {
 
 $pdf->SetFont('THSarabun','b',16);
 $pdf->Cell(15);
-$pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['hospital'][$language]),0,0,'L');
+$pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['side'][$language]),0,0,'L');
 $pdf->Cell(78,10,iconv("UTF-8","TIS-620",": ".$HptName),0,0,'L');
 $pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['department'][$language]),0,0,'L');
 $pdf->Cell(40,10,iconv("UTF-8","TIS-620",": ".$DepName),0,0,'L');
