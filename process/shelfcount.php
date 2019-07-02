@@ -679,8 +679,8 @@ function UpdateDetailQty($conn, $DATA)
   $CcQty  =  $DATA["CcQty"];
   $UnitCode =  $DATA["unitcode"];
   $Sql = "UPDATE shelfcount_detail
-  INNER JOIN stock_in_detail ON stock_in_detail.ItemCode = shelfcount_detail.ItemCode
-  SET  shelfcount_detail.CcQty = $CcQty, shelfcount_detail.TotalQty = (stock_in_detail.Qty - shelfcount_detail.CcQty)
+  INNER JOIN item_stock_detail ON item_stock_detail.ItemCode = shelfcount_detail.ItemCode
+  SET  shelfcount_detail.CcQty = $CcQty, shelfcount_detail.TotalQty = (item_stock_detail.Qty - shelfcount_detail.CcQty)
   WHERE shelfcount_detail.Id = $RowID";
   // $return['sql'] =$Sql;
   // echo json_encode($return);
