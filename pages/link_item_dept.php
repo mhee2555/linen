@@ -1070,13 +1070,13 @@ $array = json_decode($json,TRUE);
                               $( "#TableItemStock tbody" ).empty();
                               for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                                  var rowCount = $('#TableItemStock >tbody >tr').length;
-                                 var txtno = '<input type="text" style="font-size:24px;width:220px;text-align:center;width:80%" class="form-control" id="exp_'+temp[i]['RowID']+'" onclick="datedialog(\''+temp[i]['RowID']+'\')" value="'+temp[i]['ExpireDate']+'" placeholder="<?php echo $array['choose'][$language]; ?>" READONLY>';
+                                 var txtno = '<input type="text" style="font-size:24px;text-align:center;" class="form-control" id="exp_'+temp[i]['RowID']+'" onclick="datedialog(\''+temp[i]['RowID']+'\')" value="'+temp[i]['ExpireDate']+'" placeholder="<?php echo $array['choose'][$language]; ?>" READONLY>';
                                  StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
                                                 "<td style='width: 5%;'></td>"+
-                                                "<td style='width: 15%;'>"+temp[i]['ItemCode']+"</td>"+
-                                                "<td style='width: 35%;'>"+temp[i]['ItemName']+"</td>"+
+                                                "<td style='width: 25%;'>"+temp[i]['ItemCode']+"</td>"+
+                                                "<td style='width: 36%;'>"+temp[i]['ItemName']+"</td>"+
                                                 "<td style='width: 10%;'><center>"+temp[i]['ParQty']+"</center></td>"+
-                                                "<td style='width: 35%;'>"+txtno+"</td>"+
+                                                "<td style='width: 24%;'>"+txtno+"</td>"+
                                                 "</tr>";
 
                                  if(rowCount == 0){
@@ -1374,7 +1374,7 @@ $array = json_decode($json,TRUE);
                           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['itemnew'][$language]; ?></a>
                         </li>
                       </ul>
-                      <div class="row">
+                      <div class="row" style='margin-top:10px;'>
                         <div style="margin-left:20px;width:70px;">
                           <label><?php echo $array['search'][$language]; ?></label>
                         </div>
@@ -1385,7 +1385,7 @@ $array = json_decode($json,TRUE);
                         </div>
                        
                         <div style="width:150px;">
-                          <div class="row" style="font-size:24px;margin-left:2px;">
+                          <div class="row" style="font-size:24px;margin-left:27px;">
                             <button type="button" class="btn btn-success" name="btnsubmit" id="btnsubmit" onclick="submititemstock();"><?php echo $array['confirm'][$language]; ?></button>
                           </div>
                         </div>
@@ -1395,10 +1395,10 @@ $array = json_decode($json,TRUE);
                           <thead id="theadsum" style="font-size:11px;">
                             <tr role="row">
                               <th style='width: 5%;'>&nbsp;</th>
-                              <th style='width: 15%;'><?php echo $array['nono'][$language]; ?></th>
-                              <th style='width: 35%;'><?php echo $array['item'][$language]; ?></th>
-                              <th style='width: 10%;'>Par</th>
-                              <th style='width: 35%;'><?php echo $array['expireday'][$language]; ?></th>
+                              <th style='width: 24%;'><?php echo $array['nono'][$language]; ?></th>
+                              <th style='width: 36%;'><?php echo $array['item'][$language]; ?></th>
+                              <th style='width: 11%;'>Par</th>
+                              <th style='width: 24%;'><?php echo $array['expireday'][$language]; ?></th>
                             </tr>
                           </thead>
                           <tbody id="tbody" class="nicescrolled" style="font-size:11px;height:420px;">
