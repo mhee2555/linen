@@ -950,7 +950,7 @@ function CreateDocument($conn, $DATA)
       $return[$count]['ItemCode']   = $Result['ItemCode'];
       $return[$count]['ItemName']   = $Result['ItemName'];
       $return[$count]['UnitName']   = $Result['UnitName'];
-      $return[$count]['ParQty']     = $Result['ParQty'];
+      $return[$count]['ParQty']     = $Result['ParQty']==null?0:$Result['ParQty'];
       $return[$count]['CcQty']       = $Result['CcQty'];
       $return[$count]['TotalQty']   = $Result['TotalQty'];
       $UnitCode                     = $Result['UnitCode'];

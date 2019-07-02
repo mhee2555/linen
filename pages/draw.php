@@ -543,12 +543,14 @@ function UpdateRefDocNo(){
 
         function addnum1(rowid,cnt,unitcode) {
           var Dep = $("#Dep_").val();
+          var max = $('#max'+cnt).val();
           var docno = $("#docno").val();
           var add = parseInt($('#qty1_'+cnt).val())+1;
           var isStatus = $("#IsStatus").val();
-          if((add>=0) && (add<=500)){
-            if(isStatus==0){
-              // alert(add);
+          if(isStatus==0){
+            if(add>max){
+              $('#qty1_'+cnt).val(max);
+            }else{
               $('#qty1_'+cnt).val(add);
               var data = {
                 'STATUS'      : 'UpdateDetailQty',
@@ -560,7 +562,6 @@ function UpdateRefDocNo(){
             }
           }
         }
-
         function subtractnum1(rowid,cnt,unitcode) {
           var Dep = $("#Dep_").val();
           var docno = $("#docno").val();
@@ -946,7 +947,7 @@ function UpdateRefDocNo(){
 
                     chkunit += "</select>";
 
-                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:90px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
+                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:90px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onkeyup='if(this.value > "+temp[i]['ParQty']+"){this.value="+temp[i]['ParQty']+"}else if(this.value<0){this.value=0}' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
 
                     var Order = "<input class='form-control' id='order"+i+"' type='text' style='text-align:center;' value='"+(temp[i]['TotalQty'])+"' disabled>";
 
