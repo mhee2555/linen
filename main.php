@@ -383,7 +383,7 @@ switch ($PmID) {
               hms = "00:00:00";
           else
               hms = "00:00";
-          $('#ShowTime').val( redirectInSecond + ' / TimeOut : ' + hms );
+          $('#ShowTime').val( redirectInSecond + ' / Timeout : ' + hms );
       }
 
       function chk_last_move(){
@@ -404,7 +404,7 @@ switch ($PmID) {
               else
                   hms = m + ":" + s;
 
-              $('#ShowTime').val( 'TimeOut : ' + hms );
+              $('#ShowTime').val( 'Timeout : ' + hms );
 
               if( micro > target ) location.href=redirect_url;
               else {
