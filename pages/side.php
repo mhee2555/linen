@@ -333,14 +333,14 @@ $array = json_decode($json,TRUE);
               $(this).css('border-color', '');
             }
           });
-          if(HptCode==""){
+          if(HptCode!=""){
             swal({
-              title: "<?php echo $array['adddata'][$language]; ?>",
-              text: "<?php echo $array['adddata1'][$language]; ?>",
+              title: "<?php echo $array['addoredit'][$language]; ?>",
+              text: "<?php echo $array['addoredit'][$language]; ?>",
               type: "question",
               showCancelButton: true,
               confirmButtonClass: "btn-success",
-              confirmButtonText: "<?php echo $array['add'][$language]; ?>",
+              confirmButtonText:  "<?php echo $array['confirm'][$language]; ?>",
               cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
               confirmButtonColor: '#6fc864',
               cancelButtonColor: '#3085d6',
@@ -357,31 +357,9 @@ $array = json_decode($json,TRUE);
                 senddata(JSON.stringify(data));
               })
 
-          }else{
-            swal({
-              title: "<?php echo $array['editdata'][$language]; ?>",
-              text: "<?php echo $array['editdata1'][$language]; ?>",
-              type: "question",
-              showCancelButton: true,
-              confirmButtonClass: "btn-warning",
-              confirmButtonText: "<?php echo $array['edit'][$language]; ?>",
-              cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
-              confirmButtonColor: '#6fc864',
-              cancelButtonColor: '#3085d6',
-              closeOnConfirm: false,
-              closeOnCancel: false,
-              showCancelButton: true}).then(result => {
-                var data = {
-                  'STATUS' : 'EditItem',
-                  'HptCode' : HptCode,
-                  'HptName' : HptName
-                };
-
-                console.log(JSON.stringify(data));
-                senddata(JSON.stringify(data));
-              })
-
           }
+
+          
         }else{
           swal({
             title: '',
@@ -1010,7 +988,7 @@ $array = json_decode($json,TRUE);
                                       </div>
                                       <div class="col-md-6">
                                         <div class="row" style="margin-left:30px;">
- <input type="text" class="form-control" style="width:90%;" name="HptCode" id="HptCode" placeholder="<?php echo $array['code'][$language]; ?>" readonly>
+ <input type="text" class="form-control" style="width:90%;" name="HptCode" id="HptCode" placeholder="<?php echo $array['code'][$language]; ?>">
                                         </div>
                                       </div>
                         </div>

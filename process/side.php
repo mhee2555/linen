@@ -53,7 +53,7 @@ function getdetail($conn, $DATA)
           FROM
           side
           WHERE side.IsStatus = 0
-          AND side.HptCode = $HptCode LIMIT 1
+          AND side.HptCode = '$HptCode' LIMIT 1
           ";
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
@@ -107,18 +107,22 @@ function getSection($conn, $DATA)
 
 function AddItem($conn, $DATA)
 {
-  $count = 0;
-  $Sql = "INSERT INTO side(
-          HptName,
-          IsStatus
-         )
-          VALUES
-          (
-            '".$DATA['HptName']."',
-            0
-          )
-  ";
-  // var_dump($Sql); die;
+  $HptCode = $DATA['HptCode'];
+  $HptName = $DATA['HptName'];
+
+  $Sql = "SELECT COUNT(*) AS Countn
+          FROM
+          side
+          WHERE side.HptCode = '$HptCode'";
+  $meQuery = mysqli_query($conn,$Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $boolcount = $Result['Countn'];
+  }
+
+  if($boolcount==0){
+    $count = 0;
+    $Sql="INSERT INTO side (side.HptCode , side.HptName , side.IsStatus) VALUE ('$HptCode','$HptName',0)";
+ 
   if(mysqli_query($conn, $Sql)){
     $return['status'] = "success";
     $return['form'] = "AddItem";
@@ -133,6 +137,27 @@ function AddItem($conn, $DATA)
     mysqli_close($conn);
     die;
   }
+}else{
+    $Sql="UPDATE side SET  side.HptName = '$HptName' WHERE side.HptCode = '$HptCode'";
+    if(mysqli_query($conn, $Sql)){
+      $return['status'] = "success";
+      $return['form'] = "AddItem";
+      $return['msg'] = "editsuccess";
+      echo json_encode($return);
+      mysqli_close($conn);
+      die;
+    }else{
+      $return['status'] = "failed";
+      $return['msg'] = "editfailed";
+      echo json_encode($return);
+      mysqli_close($conn);
+      die;
+    }
+
+
+}
+
+
 
 }
 
@@ -171,12 +196,12 @@ function EditItem($conn, $DATA)
 
 function CancelItem($conn, $DATA)
 {
+  $HptCode = $DATA["HptCode"];
   $count = 0;
-  if($DATA["HptCode"]!=""){
+  if('$HptCode'!=""){
     $Sql = "UPDATE side SET
             IsStatus = 1
-            WHERE HptCode = ".$DATA['HptCode']."
-    ";
+            WHERE HptCode = '$HptCode'";
     // var_dump($Sql); die;
     if(mysqli_query($conn, $Sql)){
       $return['status'] = "success";
