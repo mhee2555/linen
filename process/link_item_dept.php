@@ -126,6 +126,10 @@ function getdetail($conn, $DATA)
   $count = 0;
   $UnitCode = $DATA['UnitCode'];
   //---------------HERE------------------//
+    //---------------HERE------------------//
+  //---------------HERE------------------//
+  //---------------HERE------------------//
+
   $Sql = "SELECT
           item_Unit.UnitCode,
           item_Unit.UnitName,
