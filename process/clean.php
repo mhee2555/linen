@@ -261,27 +261,27 @@ function CreateDocument($conn, $DATA)
     // mysqli_query($conn,$Sqlx);
 
     $Sql = "SELECT
-    item_stock.RowID,
-    side.HptName,
-    department.DepName,
-    item_category.CategoryName,
-    item_stock.UsageCode,
-    item.ItemCode,
-    item.ItemName,
-    item.UnitCode,
-    item_unit.UnitName,
-    item_stock.ParQty,
-    item_stock.CcQty,
-    item_stock.TotalQty
-    FROM side
-    INNER JOIN department ON side.HptCode = department.HptCode
-    INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
-    INNER JOIN item ON item_stock.ItemCode = item.ItemCode
-    INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
-    INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
-    WHERE item.ItemName LIKE '%$searchitem%'
-    GROUP BY item.ItemCode
-    ORDER BY item.ItemCode ASC LImit 100";
+      item_stock.RowID,
+      side.HptName,
+      department.DepName,
+      item_category.CategoryName,
+      item_stock.UsageCode,
+      item.ItemCode,
+      item.ItemName,
+      item.UnitCode,
+      item_unit.UnitName,
+      item_stock.ParQty,
+      item_stock.CcQty,
+      item_stock.TotalQty
+      FROM side
+      INNER JOIN department ON side.HptCode = department.HptCode
+      INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
+      INNER JOIN item ON item_stock.ItemCode = item.ItemCode
+      INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
+      INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
+      WHERE item.ItemName LIKE '%$searchitem%'
+      GROUP BY item.ItemCode
+      ORDER BY item.ItemCode ASC LImit 100";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $return[$count]['RowID'] = $Result['RowID'];
