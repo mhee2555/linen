@@ -79,7 +79,21 @@ $array = json_decode($json,TRUE);
   });
 
   jqui(document).ready(function($){
-
+    
+    dialogRefDocNo = jqui( "#dialogRefDocNo" ).dialog({
+      autoOpen: false,
+      height: 670,
+      width: 1200,
+      modal: true,
+      buttons: {
+        "<?php echo $array['close'][$language]; ?>": function() {
+          dialogRefDocNo.dialog( "close" );
+        }
+      },
+      close: function() {
+        console.log("close");
+      }
+    });
     dialogItemCode = jqui( "#dialogItemCode" ).dialog({
       autoOpen: false,
       height: 680,
@@ -94,6 +108,8 @@ $array = json_decode($json,TRUE);
         console.log("close");
       }
     });
+
+    
 
     dialogUsageCode = jqui( "#dialogUsageCode" ).dialog({
       autoOpen: false,
@@ -130,6 +146,43 @@ $array = json_decode($json,TRUE);
     //    });
 
   });
+
+
+  function open_dirty_doc(){
+        dialogRefDocNo.dialog( "open" );
+      }
+      function get_dirty_doc(){
+        var docno = $("#docno").val();
+        var data = {
+          'STATUS' : 'get_dirty_doc',
+          'DocNo'  : docno
+        };
+        console.log(JSON.stringify(data));
+        senddata(JSON.stringify(data));
+      }
+
+function UpdateRefDocNo(){
+  var docno = $("#docno").val();
+            var RefDocNo;
+            //get value from radio button
+            $("#checkitem:checked").each(function() {
+              RefDocNo = $(this).val();
+            });
+
+            var deptCode = $('#Dep2 option:selected').attr("value");
+            var data = {
+              'STATUS'      : 'UpdateRefDocNo',
+              'xdocno'      : docno,
+              'RefDocNo'    : RefDocNo,
+              'selecta'     : 0,
+              'deptCode'	  : deptCode,
+              'checkitem'   : checkitem
+            };
+            console.log(checkitem);
+            senddata(JSON.stringify(data));
+            dialogRefDocNo.dialog( "close" );
+          }
+
 
   function OpenDialogItem(){
     var docno = $("#docno").val();
@@ -548,6 +601,7 @@ $array = json_decode($json,TRUE);
 
         function SaveBill(){
           var docno = $("#docno").val();
+          var docno2 = $("#RefDocNo").val();
           var isStatus = $("#IsStatus").val();
           var dept = $('#Dep2').val();
           // alert( isStatus );
@@ -560,6 +614,7 @@ $array = json_decode($json,TRUE);
             var data = {
               'STATUS'      : 'SaveBill',
               'xdocno'      : docno,
+              'xdocno2'      : docno2,
               'isStatus'    : isStatus,
               'deptCode'    : dept
             };
@@ -840,6 +895,7 @@ $array = json_decode($json,TRUE);
                   $("#recorder").val(temp[0]['Record']);
                   $("#timerec").val(temp[0]['RecNow']);
                   $("#IsStatus").val(temp[0]['IsStatus']);
+                  $('#RefDocNo').val(temp[0]['RefDocNo']);
 
                   if(temp[0]['IsStatus']==0){
                     $("#bSave").text('<?php echo $array['save'][$language]; ?>');
@@ -1042,7 +1098,26 @@ $array = json_decode($json,TRUE);
                       $('#TableItemListDetailSub tbody:last-child').append( StrTR );
                     }
                   }
-                }
+                }else if(temp['form']=="get_dirty_doc"){
+                    var st1 = "style='font-size:18px;margin-left:3px; width:100px;font-family:THSarabunNew;font-size:24px;'";
+                    var st2 = "style='height:40px;width:60px; margin-left:0px; text-align:center;font-family:THSarabunNew;font-size:32px;'"
+                    var checkitem = $("#checkitem").val();
+                    $( "#TableRefDocNo tbody" ).empty();
+                    for (var i = 0; i < temp["Row"]; i++) {
+                      var rowCount = $('#TableRefDocNo >tbody >tr').length;
+                      var chkDoc = "<input type='radio' name='checkitem' id='checkitem' value='"+temp[i]['RefDocNo']+"'><input type='hidden' id='RowId"+i+"' value='"+temp[i]['RefDocNo']+"'>";
+                      $StrTR = "<tr id='tr"+temp[i]['RefDocNo']+"'>"+
+                      "<td style='width: 15%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+                      "<td style='width: 85%;'>"+temp[i]['RefDocNo']+"</td>"+
+                      "</tr>";
+                      if(rowCount == 0){
+                        $("#TableRefDocNo tbody").append( $StrTR );
+                      }else{
+                        $('#TableRefDocNo tbody:last-child').append( $StrTR );
+                      }
+                    }
+                  }
+
               }else if (temp['status']=="failed") {
                 switch (temp['msg']) {
                   case "notchosen":
@@ -1240,6 +1315,12 @@ $array = json_decode($json,TRUE);
                                 <div style="width:220px;">
                                   <input type="text" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
                                 </div>
+                                <div style="margin-left:20px;width:100px;">
+                                    <label><?php echo $array['refdocno'][$language]; ?></label>
+                                  </div>
+                                  <div style="width:220px;">
+                                    <input class='form-control' style="font-size:20px;width:220px;height:40px;padding-top:6px;" id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" onclick="open_dirty_doc()">
+                                  </div>
                               </div>
                               <div class="row" style="margin-top:5px;">
                                 <div style="margin-left:20px;width:100px;">
@@ -1254,6 +1335,7 @@ $array = json_decode($json,TRUE);
                                 <div style="width:220px;">
                                   <input type="text" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
                                 </div>
+                                
                               </div>
 
                             </div>
@@ -1543,6 +1625,45 @@ $array = json_decode($json,TRUE);
                 </div>
 
 
+              </div>
+
+               <!-- Dialog Modal RefDocNo-->
+               <div id="dialogRefDocNo" title="<?php echo $array['refdocno'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-10">
+
+                      <div class="row">
+                        <label><?php echo $array['searchplace'][$language]; ?></label>
+                        <div class="row" style="font-size:16px;margin-left:20px;width:350px;">
+                          <input type="text" class="form-control" style="font-size:24px;width:100%;font-family: 'THSarabunNew'" name="searchitem1" id="searchitem1" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                        </div>
+                        <button type="button" style="font-size:18px;margin-left:30px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" onclick="get_dirty_doc();"><?php echo $array['search'][$language]; ?></button>
+                      </div>
+
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" style="font-size:18px;margin-left:70px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" name="button" onclick="UpdateRefDocNo()"><?php echo $array['import'][$language]; ?></button>
+                    </div>
+                  </div>
+
+                  <div class="dropdown-divider" style="margin-top:20px;; margin-bottom:20px;"></div>
+
+                  <div class="row">
+                    <div class="card-body" style="padding:0px;">
+                      <table class="table table-fixed table-condensed table-striped" id="TableRefDocNo" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
+                        <thead style="font-size:24px;">
+                          <tr role="row">
+                            <th style='width: 15%;'><?php echo $array['no'][$language]; ?></th>
+                            <th style='width: 85%;'><?php echo $array['refdocno'][$language]; ?></th>
+                          </tr>
+                        </thead>
+                        <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:300px;">
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </div>
               <!-- Bootstrap core JavaScript-->
               <script src="../template/vendor/jquery/jquery.min.js"></script>
