@@ -147,8 +147,6 @@ function CreateDocument($conn, $DATA)
     }
 }
 
-
-
 function ShowMenu($conn, $DATA)
 {
   $boolean = false;
@@ -338,11 +336,13 @@ function ShowItem($conn, $DATA)
     item_unit.UnitName,
     item_stock.ParQty,
     item_stock.CcQty,
-    item_stock.TotalQty
+    item_stock.TotalQty,
+    i_detail.Qty
   FROM side
   INNER JOIN department ON side.HptCode = department.HptCode
   INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
   INNER JOIN item ON item_stock.ItemCode = item.ItemCode
+  LEFT  JOIN item_stock_detail i_detail ON i_detail.ItemCode = item.ItemCode
   INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
   INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
   WHERE item.ItemName LIKE '%$searchitem%'
@@ -357,6 +357,7 @@ function ShowItem($conn, $DATA)
     $return[$count]['UnitCode'] = $Result['UnitCode'];
     $return[$count]['UnitName'] = $Result['UnitName'];
     $return[$count]['ParQty'] = $Result['ParQty'];
+    $return[$count]['Qty'] = $Result['Qty']==null?0:$Result['Qty'];
     $ItemCode = $Result['ItemCode'];
     $UnitCode = $Result['UnitCode'];
     $count2 = 0;
@@ -516,16 +517,27 @@ function getImport($conn, $DATA)
     $iunit1 = 0;
     $iunit2 = $nunit[$i];
 
-    $Sql = "SELECT item_stock.ItemCode,item_stock.UsageCode,item.UnitCode,item_stock.ParQty,item_stock.CcQty,item_stock.TotalQty
+    $Sql = "SELECT 
+      item_stock.ItemCode,
+      item_stock.UsageCode,
+      item.UnitCode,
+      item_stock.ParQty,
+      item_stock.CcQty,
+      item_stock.TotalQty,
+      item_stock_detail.Qty
     FROM item_stock
     INNER JOIN item ON item_stock.ItemCode = item.ItemCode
-    WHERE RowID = $iItemStockId";
+    LEFT JOIN item_stock_detail ON item_stock_detail.ItemCode = item.ItemCode
+    WHERE item_stock.RowID = $iItemStockId";
+    // $return['sql'] = $Sql;
+    // echo json_encode($return);
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $ItemCode   = $Result['ItemCode'];
       $UsageCode  = $Result['UsageCode'];
       $iunit1     = $Result['UnitCode'];
       $ParQty     = $Result['ParQty'];
+      $Qty     = $Result['Qty']==null?0:$Result['Qty'];
       $CcQty      = $Result['CcQty'];
       $TotalQty   = $Result['TotalQty'];
     }
@@ -556,9 +568,8 @@ function getImport($conn, $DATA)
     if ($chkUpdate == 0) {
       if ($Sel == 1) {
         $Sql = "INSERT INTO shelfcount_detail
-        (DocNo,ItemCode,UnitCode,ParQty,CcQty,TotalQty,IsCancel)
-        VALUES
-        ('$DocNo','$ItemCode',$iunit2,$ParQty,$iqty2,($ParQty-$iqty2),0)";
+        (DocNo,ItemCode,UnitCode,ParQty,CcQty,TotalQty,IsCancel) VALUES
+        ('$DocNo','$ItemCode',$iunit2,$ParQty,$iqty2,($Qty-$iqty2),0)";
         mysqli_query($conn, $Sql);
       } else {
         $Sql = "INSERT INTO shelfcount_detail_sub
@@ -668,8 +679,9 @@ function UpdateDetailQty($conn, $DATA)
   $CcQty  =  $DATA["CcQty"];
   $UnitCode =  $DATA["unitcode"];
   $Sql = "UPDATE shelfcount_detail
-  SET  CcQty = $CcQty, TotalQty = (ParQty - CcQty)
-  WHERE Id = $RowID";
+  INNER JOIN stock_in_detail ON stock_in_detail.ItemCode = shelfcount_detail.ItemCode
+  SET  shelfcount_detail.CcQty = $CcQty, shelfcount_detail.TotalQty = (stock_in_detail.Qty - shelfcount_detail.CcQty)
+  WHERE shelfcount_detail.Id = $RowID";
   // $return['sql'] =$Sql;
   // echo json_encode($return);
   // $Sql = "UPDATE shelfcount_detail
@@ -772,11 +784,8 @@ function DeleteItem($conn, $DATA)
 function SaveBill($conn, $DATA)
 {
   $DocNo = $DATA["xdocno"];
-  $Sql = "SELECT
-  SUM(shelfcount_detail.ParQty) AS Summ
-  FROM
-  shelfcount_detail
-  WHERE shelfcount_detail.DocNo = '$DocNo'";
+  $Sql = "SELECT SUM(shelfcount_detail.TotalQty) AS Summ
+  FROM shelfcount_detail WHERE shelfcount_detail.DocNo = '$DocNo'";
   $meQ = mysqli_query($conn, $Sql);
   while ($Res = mysqli_fetch_assoc($meQ)) {
     $Sum = $Res['Summ'];
@@ -909,11 +918,13 @@ function ShowDetail($conn, $DATA)
   item_unit.UnitCode,
   shelfcount_detail.ParQty,
   shelfcount_detail.CcQty,
-  shelfcount_detail.TotalQty
+  shelfcount_detail.TotalQty,
+  i_detail.Qty
   FROM item
   INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
   INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
   INNER JOIN shelfcount_detail ON shelfcount_detail.ItemCode = item.ItemCode
+  INNER JOIN item_stock_detail i_detail ON i_detail.ItemCode = item.ItemCode
   WHERE shelfcount_detail.DocNo = '$DocNo'
   ORDER BY shelfcount_detail.Id DESC";
   $return['sql'] = $Sql;
@@ -928,6 +939,7 @@ function ShowDetail($conn, $DATA)
     $return[$count]['ParQty']     = $Result['ParQty'];
     $return[$count]['CcQty']       = $Result['CcQty'];
     $return[$count]['TotalQty']   = $Result['TotalQty'];
+    $return[$count]['Qty']   = $Result['Qty']==null?0:$Result['Qty'];
     $UnitCode                     = $Result['UnitCode'];
     $ItemCode                     = $Result['ItemCode'];
     $count2 = 0;
