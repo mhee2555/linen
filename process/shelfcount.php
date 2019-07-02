@@ -103,12 +103,12 @@ function CreateDocument($conn, $DATA)
     ( DocNo,DocDate,DepCode,RefDocNo,
       TaxNo,TaxDate,DiscountPercent,DiscountBath,
       Total,IsCancel,Detail,
-      shelfcount.Modify_Code,shelfcount.Modify_Date )
+      shelfcount.Modify_Code,shelfcount.Modify_Date,shelfcount.IsRef )
       VALUES
       ( '$DocNo',DATE(NOW()),$deptCode,'',
       0,DATE(NOW()),0,0,
       0,0,'',
-      $userid,NOW() )";
+      $userid,NOW(),0 )";
       mysqli_query($conn, $Sql);
 
       $Sql = "INSERT INTO daily_request

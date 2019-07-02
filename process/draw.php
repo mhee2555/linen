@@ -218,7 +218,7 @@ function CreateDocument($conn, $DATA)
     $count = 0;
     $DocNo = $DATA["xdocno"];
     $Datepicker = $DATA["Datepicker"];
-    $Sql = "SELECT   side.HptName,department.DepName,draw.DocNo,draw.DocDate,draw.Total,users.FName,TIME(draw.Modify_Date) AS xTime,draw.IsStatus
+    $Sql = "SELECT   side.HptName,department.DepName,draw.DocNo,draw.DocDate,draw.Total,users.FName,TIME(draw.Modify_Date) AS xTime,draw.IsStatus,draw.RefDocNo
     FROM draw
     INNER JOIN department ON draw.DepCode = department.DepCode
     INNER JOIN side ON department.HptCode = side.HptCode
@@ -234,6 +234,7 @@ function CreateDocument($conn, $DATA)
       $return[$count]['RecNow']   = $Result['xTime'];
       $return[$count]['Total']   = $Result['Total'];
       $return[$count]['IsStatus'] = $Result['IsStatus'];
+      $return[$count]['RefDocNo'] = $Result['RefDocNo'];
       $boolean = true;
       $count++;
     }
@@ -710,6 +711,11 @@ function CreateDocument($conn, $DATA)
   function SaveBill($conn, $DATA)
   {
     $DocNo = $DATA["xdocno"];
+    $DocNo2 = $DATA["xdocno2"];
+
+    $Sql = "UPDATE shelfcount SET IsRef = 1 WHERE shelfcount.DocNo = '$DocNo2'";
+    mysqli_query($conn, $Sql);
+
     $Sql = "SELECT
     SUM(draw_detail.ParQty) AS Summ
     FROM
@@ -827,9 +833,70 @@ function CreateDocument($conn, $DATA)
   {
     $DocNo = $DATA["xdocno"];
     $RefDocNo = $DATA["RefDocNo"];
-    $Sql = "UPDATE draw SET RefDocNo = $RefDocNo WHERE draw.DocNo = '$DocNo'";
+    $checkitem = $DATA["checkitem"];
+    // $Sqlx = "INSERT INTO log ( log ) VALUES ('$DocNo / $RefDocNo')";
+    // mysqli_query($conn,$Sqlx);
+    $Sql = "UPDATE draw SET RefDocNo = '$RefDocNo' WHERE DocNo = '$DocNo'";
     mysqli_query($conn, $Sql);
-    ShowDocument($conn, $DATA);
+    // $Sql = "UPDATE daily_request SET RefDocNo = '$RefDocNo' WHERE DocNo = '$DocNo'";
+    // mysqli_query($conn, $Sql);
+
+    $n = 0;
+    $Sql = "SELECT
+    shelfcount_detail.ItemCode,
+    shelfcount_detail.UnitCode,
+    shelfcount_detail.ParQty,
+    shelfcount_detail.CcQty,
+    shelfcount_detail.TotalQty,
+    shelfcount_detail.IsCancel
+    FROM shelfcount_detail
+    WHERE shelfcount_detail.DocNo = '$RefDocNo'";
+     $meQuery = mysqli_query($conn, $Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $zItemCode[$n] = $Result['ItemCode'];
+      $zUnitCode[$n] = $Result['UnitCode'];
+      $zParQty[$n]      = $Result['ParQty'];
+      $zCcQty[$n]      = $Result['CcQty'];
+      $zTotalQty[$n]      = $Result['TotalQty'];
+      $zIsCancel[$n] = $Result['IsCancel'];
+      $n++;
+    }
+    for ($i = 0; $i < $n; $i++) {
+      $ItemCode   = $zItemCode[$i];
+      $UnitCode   = $zUnitCode[$i];
+      $ParQty     = $zParQty[$i];
+      $CcQty      = $zCcQty[$i];
+      $TotalQty   = $zTotalQty[$i];
+      $IsCancel   = $zIsCancel[$i];
+      $Sql = "INSERT INTO draw_detail
+      (DocNo,ItemCode,UnitCode,ParQty,CcQty,TotalQty,IsCancel)
+      VALUES
+      ('$DocNo','$ItemCode',$UnitCode,$ParQty,$CcQty,$TotalQty,$IsCancel)";
+      mysqli_query($conn, $Sql);
+    }
+
+    // $n = 0;
+    // $Sql = "SELECT factory_out_detail_sub.UsageCode,factory_out_detail.ItemCode
+    // FROM factory_out_detail
+    // INNER JOIN factory_out_detail_sub ON factory_out_detail.DocNo = factory_out_detail_sub.DocNo
+    // WHERE  factory_out_detail_sub.DocNo = '$RefDocNo'";
+    // $meQuery = mysqli_query($conn, $Sql);
+    // while ($Result = mysqli_fetch_assoc($meQuery)) {
+    //   $ItemCode = $Result['ItemCode'];
+    //   $UsageCode[$n] = $Result['UsageCode'];
+    //   $n++;
+    // }
+    // for ($i = 0; $i < $n; $i++) {
+    //   $xUsageCode = $UsageCode[$i];
+    //   $Sql = " INSERT INTO clean_detail_sub(DocNo, ItemCode, UsageCode)
+    //   VALUES('$DocNo', '$ItemCode', '$xUsageCode') ";
+    //   mysqli_query($conn, $Sql);
+
+    //   $Sql = "UPDATE item_stock SET IsStatus = 0 WHERE UsageCode = '$xUsageCode'";
+    //   mysqli_query($conn, $Sql);
+    // }
+
+    SelectDocument($conn, $DATA);
   }
 
   function ShowDetail($conn, $DATA)
@@ -1044,6 +1111,47 @@ function CreateDocument($conn, $DATA)
       die;
     }
   }
+  function get_dirty_doc($conn, $DATA)
+  {
+    $boolean = false;
+    $count = 0;
+    $Sql = "SELECT shelfcount.DocNo
+    FROM shelfcount
+    WHERE shelfcount.IsCancel = 0
+    AND shelfcount.IsStatus = 1
+    AND shelfcount.IsRef = 0
+    ORDER BY shelfcount.Modify_Date DESC
+    LIMIT 100";
+    // var_dump($Sql); die;
+    $meQuery = mysqli_query($conn, $Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $return[$count]['RefDocNo'] = $Result['DocNo'];
+      $boolean = true;
+      $count++;
+    }
+    $return['Row'] = $count;
+    // $return['form'] = "get_dirty_doc";
+    // echo json_encode($return);
+    // mysqli_close($conn);
+    // die;
+    if ($boolean) {
+      $return['status'] = "success";
+      $return['form'] = "get_dirty_doc";
+      echo json_encode($return);
+      mysqli_close($conn);
+      die;
+    } else {
+      $return['status'] = "failed";
+      $return['msg'] = "notfound";
+      echo json_encode($return);
+      mysqli_close($conn);
+      die;
+    }
+  }
+  
+
+
+
   //==========================================================
   //
   //==========================================================
@@ -1091,6 +1199,8 @@ function CreateDocument($conn, $DATA)
       UpdateRefDocNo($conn, $DATA);
     } elseif ($DATA['STATUS'] == 'ShowDetailSub') {
       ShowDetailSub($conn, $DATA);
+    }elseif ($DATA['STATUS'] == 'get_dirty_doc') {
+      get_dirty_doc($conn, $DATA);
     }
   } else {
     $return['status'] = "error";
