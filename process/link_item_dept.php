@@ -343,6 +343,7 @@ function ShowItemStock($conn, $DATA)
           INNER JOIN item ON item_stock.ItemCode = item.ItemCode
           WHERE item_stock.IsStatus = 9 AND item_stock.DepCode = $Deptid AND (item_stock.ItemCode LIKE '%$Keyword%' OR item.ItemName LIKE '%$Keyword%')
           ORDER BY item_stock.RowID DESC";
+          $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['RowID'] = $Result['RowID'];

@@ -111,7 +111,7 @@ $array = json_decode($json,TRUE);
         getDepartment();
         getHospital();
         ShowItem();
-        ShowItemStock();
+        // ShowItemStock();
       }).mousemove(function(e) { parent.last_move = new Date();;
       }).keyup(function(e) { parent.last_move = new Date();;
       });
@@ -356,7 +356,7 @@ $array = json_decode($json,TRUE);
           'Deptid' : deptid
         };
 
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         senddata(JSON.stringify(data));
       }
 
@@ -811,8 +811,8 @@ $array = json_decode($json,TRUE);
                                  var txtno = "<input type='number' style='text-align:center;' class='form-control numonly' name='txtno' id='txtno_"+temp[i]['ItemCode']+"' placeholder='0' maxlength='3' min='0'>";
                                  StrTR = "<tr id='tr"+temp[i]['ItemCode']+"'>"+
                                                 "<td style='width: 10%;'>"+chkDoc+"</td>"+
-                                                "<td style='width: 20%;'>"+temp[i]['ItemCode']+"</td>"+
-                                                "<td style='width: 40%;'>"+temp[i]['ItemName']+"</td>"+
+                                                "<td style='width: 28%;'>"+temp[i]['ItemCode']+"</td>"+
+                                                "<td style='width: 42%;'>"+temp[i]['ItemName']+"</td>"+
                                                 "<td style='width: 20%;'>"+txtno+"</td>"+
                                                 "</tr>";
 
@@ -1282,66 +1282,75 @@ $array = json_decode($json,TRUE);
                           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['item'][$language]; ?></a>
                         </li>
                       </ul>
-                      <div class="row">
-                                    <div style="margin-left:20px;width:100px;">
-                     <label><?php echo $array['side'][$language]; ?></label>
-                                    </div>
-                                    <div style="width:150px;">
-                                      <div class="row" style="font-size:24px;margin-left:2px;">
-                                <select style='font-size:24px;width:220px;' class="form-control" id="hotpital" onchange="getDepartment();" disabled>
-                                      </select>
-                              </div>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div style="margin-left:20px;width:100px;">
-                      <label><?php echo $array['department'][$language]; ?></label>
-                                    </div>
-                                    <div style="width:150px;">
-                                      <div class="row" style="font-size:24px;margin-left:2px;">
-                                  <select style='font-size:24px;width:220px;' class="form-control" id="department" >
-
-                                  </select>
-                              </div>
-                                    </div>
-
-                      </div>
-                      <div class="row">
+                      <div class="row" style='margin-top:15px;'>
                         <div style="margin-left:20px;width:100px;">
-                          <?php echo $array['parnum'][$language]; ?>
+                          <label><?php echo $array['side'][$language]; ?></label>
                         </div>
                         <div style="width:150px;">
                           <div class="row" style="font-size:24px;margin-left:2px;">
+                            <select style='font-size:24px;width:220px;' class="form-control" id="hotpital" onchange="getDepartment();" disabled>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div style="margin-left:43px;width:58px;">
+                            <label><?php echo $array['department'][$language]; ?></label>
+                        </div>
+                        <div style="width:150px;">
+                          <div class="row" style="font-size:24px;margin-left:2px;">
+                            <select style='font-size:24px;width:220px;' class="form-control" id="department" >
+                            </select>
+                          </div>
+                        </div>
+
+                      </div>
+                      <!-- <div class="row">
+                        <div style="margin-left:20px;width:100px;">
+                            <label><?php echo $array['department'][$language]; ?></label>
+                        </div>
+                        <div style="width:150px;">
+                          <div class="row" style="font-size:24px;margin-left:2px;">
+                            <select style='font-size:24px;width:220px;' class="form-control" id="department" >
+                            </select>
+                          </div>
+                        </div>
+                      </div> -->
+                      <div class="row" style='margin-top:24px;'>
+                        <div style="margin-left:22px;width:100px;">
+                          <?php echo $array['parnum'][$language]; ?>
+                        </div>
+                        <div style="width:163px;">
+                          <div class="row" style="font-size:24px;margin-left:2px;">
                             <input type="text" class="form-control numonly" id="parnum" name="parnum" value="" placeholder="<?php echo $array['parnum'][$language]; ?>">
-                  </div>
+                          </div>
                         </div>
                       </div>
                       <br>
-                      <div class="row">
+                      <div class="row" style='margin-bottom:18px;'>
                         <div style="margin-left:20px;width:100px;">
                           <?php echo $array['search'][$language]; ?>
                         </div>
-                        <div style="width:150px;">
+                        <div style="width:163px;">
                           <div class="row" style="font-size:24px;margin-left:2px;">
                             <input type="text" class="form-control"  name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                  </div>
+                          </div>
                         </div>
                       </div>
 
                         <div class="row">
-                                      <div class="col-md-5">
-                                        <div class="row" style="margin-left:5px;">
-                                        </div>
-                                      </div>
+                        <div class="col-md-5">
+                          <div class="row" style="margin-left:5px;">
+                          </div>
+                        </div>
 
                         </div>
                         <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid">
                           <thead id="theadsum" style="font-size:11px;">
                             <tr role="row">
                               <th style='width: 10%;'>&nbsp;</th>
-                              <th style='width: 20%;'><?php echo $array['nono'][$language]; ?></th>
-                              <th style='width: 40%;'><center><?php echo $array['item'][$language]; ?></center></th>
-                              <th style='width: 30%;'><?php echo $array['total'][$language]; ?></th>
+                              <th style='width: 28%;'><?php echo $array['nono'][$language]; ?></th>
+                              <th style='width: 42%;'><center><?php echo $array['item'][$language]; ?></center></th>
+                              <th style='width: 20%;'><?php echo $array['total'][$language]; ?></th>
                             </tr>
                           </thead>
                           <tbody id="tbody" class="nicescrolled" style="font-size:11px;height:420px;">
@@ -1367,22 +1376,19 @@ $array = json_decode($json,TRUE);
                       </ul>
                       <div class="row">
                         <div style="margin-left:20px;width:70px;">
-                      <label><?php echo $array['search'][$language]; ?></label>
-                                    </div>
-                                    <div style="width:150px;">
-                                      <div class="row" style="font-size:24px;margin-left:2px;">
-                                        <input type="text" class="form-control" style="width:100%;" name="searchitemstock" id="searchitemstock" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                              </div>
-                                    </div>
-                        <div style="margin-left:40px;width:70px;">
-                          <!-- <button type="button" name="button"></button> -->
-                      <!-- <label><?php echo $array['search'][$language]; ?></label> -->
-                                    </div>
-                                    <div style="width:150px;">
-                                      <div class="row" style="font-size:24px;margin-left:2px;">
-                                        <button type="button" class="btn btn-success" name="btnsubmit" id="btnsubmit" onclick="submititemstock();"><?php echo $array['confirm'][$language]; ?></button>
-                              </div>
-                                    </div>
+                          <label><?php echo $array['search'][$language]; ?></label>
+                        </div>
+                        <div style="width:150px;">
+                          <div class="row" style="font-size:24px;margin-left:2px;">
+                            <input type="text" class="form-control" style="width:100%;" name="searchitemstock" id="searchitemstock" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                          </div>
+                        </div>
+                       
+                        <div style="width:150px;">
+                          <div class="row" style="font-size:24px;margin-left:2px;">
+                            <button type="button" class="btn btn-success" name="btnsubmit" id="btnsubmit" onclick="submititemstock();"><?php echo $array['confirm'][$language]; ?></button>
+                          </div>
+                        </div>
                       </div>
 
                         <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItemStock" width="100%" cellspacing="0" role="grid">
