@@ -74,6 +74,8 @@ var RowCnt=0;
 $(document).ready(function(e){
   OnLoadPage();
   getDepartment();
+  get_dirty_doc();
+
   // CreateDocument();
   //==============================
   $('.TagImage').bind('click', {
@@ -224,7 +226,9 @@ $(document).ready(function(e){
       }
 
       function open_dirty_doc(){
-        dialogRefDocNo.dialog( "open" );
+        dialogRefDocNo.dialog( "open" );  
+        get_dirty_doc();
+
       }
 
       function get_dirty_doc(){
