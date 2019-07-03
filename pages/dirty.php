@@ -1415,11 +1415,11 @@ $array = json_decode($json,TRUE);
           <table class="table table-fixed table-condensed table-striped" id="TableUsageCode" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
             <thead style="font-size:24px;">
               <tr role="row">
-                <th style='width: 10%;'><?php echo $array['no'][$language]; ?></th>
-                <th style='width: 20%;'><?php echo $array['rfid'][$language]; ?></th>
-                <th style='width: 40%;'><?php echo $array['item'][$language]; ?></th>
-                <th style='width: 15%;'><?php echo $array['unit'][$language]; ?></th>
-                <th style='width: 15%;'><?php echo $array['numofpiece'][$language]; ?></th>
+                <th style='width: 10%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                <th style='width: 20%;' nowrap><?php echo $array['rfid'][$language]; ?></th>
+                <th style='width: 40%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                <th style='width: 15%;' nowrap><?php echo $array['unit'][$language]; ?></th>
+                <th style='width: 15%;' nowrap><?php echo $array['numofpiece'][$language]; ?></th>
               </tr>
             </thead>
             <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
