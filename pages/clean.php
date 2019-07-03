@@ -758,7 +758,7 @@ $(document).ready(function(e){
                     "<td style='width: 15%;' nowrap>"+temp[i]['Record']+"</td>"+
                     "<td style='width: 10%;' nowrap>"+temp[i]['RecNow']+"</td>"+
                     "<td style='width: 10%;' nowrap>"+temp[i]['Total']+"</td>"+
-                    "<td " +Style+ "nowrap>"+Status+"</td>"+
+                    "<td " +Style+ "nowrap>"+Status+"</td>"+ 
                   "</tr>";
 
                   if(rowCount == 0){
