@@ -1051,7 +1051,7 @@ $(document).ready(function(e){
 
     </script>
     <style media="screen">
-      @font-face {
+      /* @font-face {
         font-family: myFirstFont;
         src: url("../fonts/DB Helvethaica X.ttf");
       }
@@ -1062,7 +1062,7 @@ $(document).ready(function(e){
       .nfont{
         font-family: myFirstFont;
         font-size:22px;
-      }
+      } */
       button,input[id^='qty'],input[id^='order'],input[id^='max'] {
         font-size: 24px!important;
       }
@@ -1144,15 +1144,15 @@ $(document).ready(function(e){
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
-                                      <select  class="form-control col-sm-8" id="hotpital" onchange="getDepartment();" disabled="true">
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                      <select  class="form-control col-sm-9" id="hotpital" onchange="getDepartment();" disabled="true">
                                       </select>
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
-                                        <select class="form-control col-sm-8" id="department" disabled="true">
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                        <select class="form-control col-sm-9" id="department" disabled="true">
                                         </select>
                                     </div>
                                   </div>
@@ -1161,29 +1161,14 @@ $(document).ready(function(e){
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-8"  name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-9"  name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-8" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- =================================================================== -->
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
-                                      <input class="form-control col-sm-8" id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" onclick="open_dirty_doc()">
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-8" style="font-size:24px;width:220px;" name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-9" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
                                     </div>
                                   </div>
                                 </div>
@@ -1191,14 +1176,29 @@ $(document).ready(function(e){
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-8" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
+                                      <input class="form-control col-sm-9" id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" onclick="open_dirty_doc()">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['totalweight'][$language]; ?></label>
-                                      <input class="form-control col-sm-8" style="font-size:20px;width:220px;height:40px;padding-top:6px;" id='wTotal' placeholder="0.00">
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-9" style="font-size:24px;width:220px;" name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-9" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['totalweight'][$language]; ?></label>
+                                      <input class="form-control col-sm-9" style="font-size:20px;width:220px;height:40px;padding-top:6px;" id='wTotal' placeholder="0.00">
                                     </div>
                                   </div>
                                 </div>
@@ -1340,7 +1340,7 @@ $(document).ready(function(e){
                       <i class="fas fa-angle-up"></i>
                     </a>
 
-                    <!-- -----------------------------Custome------------------------------------ -->
+                    <!-- -----------------------------Custome1------------------------------------ -->
                     <div class="modal" id="dialogItemCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -1354,8 +1354,8 @@ $(document).ready(function(e){
                               <div class="row">
                                 <div class="col-md-8">
                                   <div class='form-group row'>
-                                    <label class="col-sm-4 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
-                                    <input type="text" class="form-control col-sm-8" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                                    <label class="col-sm-3 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
+                                    <input type="text" class="form-control col-sm-9" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
                                   </div>
                                 </div>
                                 <div class="col-md-2">
@@ -1426,47 +1426,47 @@ $(document).ready(function(e){
               </div>
             </div>
           </div>
-
-<div class="modal" id="dialogRefDocNo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <?php echo $array['refdocno'][$language]; ?>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="card-body" style="padding:0px;">
-          <div class="row">
-            <div class="col-md-8">
-              <div class='form-group row'>
-                <label class="col-sm-4 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
-                <input type="text" class="form-control col-sm-8" name="searchitem1" id="searchitem1" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+          <!-- custom modal2 -->
+          <div class="modal" id="dialogRefDocNo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <?php echo $array['refdocno'][$language]; ?>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="card-body" style="padding:0px;">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class='form-group row'>
+                          <label class="col-sm-4 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
+                          <input type="text" class="form-control col-sm-9" name="searchitem1" id="searchitem1" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <button type="button" class="btn btn-primary  btn-block" name="button" onclick="get_dirty_doc();"><?php echo $array['search'][$language]; ?></button>
+                      </div>
+                      <div class="col-md-2">
+                        <button type="button" class="btn btn-warning btn-block" name="button" onclick="UpdateRefDocNo()"><?php echo $array['import'][$language]; ?></button>
+                      </div>
+                    </div>
+                    <table class="table table-fixed table-condensed table-striped" id="TableRefDocNo" cellspacing="0" role="grid">
+                      <thead style="font-size:24px;">
+                        <tr role="row">
+                          <th style='width: 15%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                          <th style='width: 85%;' nowrap><?php echo $array['refdocno'][$language]; ?></th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:300px;">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-md-2">
-              <button type="button" class="btn btn-primary  btn-block" name="button" onclick="get_dirty_doc();"><?php echo $array['search'][$language]; ?></button>
-            </div>
-            <div class="col-md-2">
-              <button type="button" class="btn btn-warning btn-block" name="button" onclick="UpdateRefDocNo()"><?php echo $array['import'][$language]; ?></button>
-            </div>
           </div>
-          <table class="table table-fixed table-condensed table-striped" id="TableRefDocNo" cellspacing="0" role="grid">
-            <thead style="font-size:24px;">
-              <tr role="row">
-                <th style='width: 15%;' nowrap><?php echo $array['no'][$language]; ?></th>
-                <th style='width: 85%;' nowrap><?php echo $array['refdocno'][$language]; ?></th>
-              </tr>
-            </thead>
-            <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:300px;">
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
       <!-- Dialog Modal RefDocNo-->
       <!-- <div id="dialogRefDocNo" title="<?php echo $array['refdocno'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
         <div class="container">

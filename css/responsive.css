@@ -1,32 +1,14 @@
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) { 
-
+@font-face {
+    font-family: myFirstFont;
+    src: url("../fonts/DB Helvethaica X.ttf");
 }
-
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) { 
-    
+body{
+    font-family: myFirstFont;
+    font-size:22px;
 }
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
-
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { 
-    /* #dialogItemCode{
-        position: absolute !important;
-        width: 86% !important;
-        top: 13% !important;
-        left: 5% !important;
-        display: block !important;
-        z-index: 106 !important;
-    } */
-}
-/* Large devices (desktops, less than 1200px) */
-@media (max-width: 1199.98px) { 
-
+.nfont{
+    font-family: myFirstFont;
+    font-size:22px;
 }
 .modal {
     position: fixed !important;
