@@ -40,3 +40,7 @@
 table{
     width: 100% !important;
 }
+.modal-content {
+    width: 130% !important;
+    right: 15% !important;
+}
