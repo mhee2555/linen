@@ -594,7 +594,7 @@ $array = json_decode($json, true);
                                 "<td style='width: 5%;'>" + chkDoc + "</td>" +
                                 "<td style='width: 25%;'>" + temp[i]['HptName'] + "</td>" +
                                 "<td style='width: 26%;'>" + temp[i]['MainCategoryName'] + "</td>" +
-									              "<td style='width: 25%;'>" + temp[i]['CategoryName'] + "</td>" +
+								"<td style='width: 25%;'>" + temp[i]['CategoryName'] + "</td>" +
                                 "<td style='width: 19%;'>" + temp[i]['Price'] + " </td>" +
                                 "</tr>";
 
@@ -1020,7 +1020,8 @@ $array = json_decode($json, true);
                                     </div>
                                 </div>
                             </div> <!-- tag column 2 -->
-                            <div class="col-md-4" <?php if($PmID == 1) echo 'hidden'; ?>>
+                            <!-- <?php if($PmID == 1) echo 'hidden'; ?> -->
+                            <div class="col-md-4" >
                                 <!-- tag column 1 -->
                                 <div class="container-fluid">
                                     <div class="card-body" style="padding:0px; margin-top:50px;">
