@@ -53,6 +53,7 @@ $array = json_decode($json,TRUE);
   <script src="../jQuery-ui/jquery-1.12.4.js"></script>
   <script src="../jQuery-ui/jquery-ui.js"></script>
   <script type="text/javascript">
+    jqui = jQuery.noConflict(true);
   </script>
 
 <link href="../dist/css/sweetalert2.min.css" rel="stylesheet">
