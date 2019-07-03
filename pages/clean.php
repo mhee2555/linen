@@ -53,44 +53,58 @@ $array = json_decode($json,TRUE);
   <script src="../jQuery-ui/jquery-1.12.4.js"></script>
   <script src="../jQuery-ui/jquery-ui.js"></script>
   <script type="text/javascript">
-    jqui = jQuery.noConflict(true);
-  </script>
+ /script>
 
-  <link href="../dist/css/sweetalert2.min.css" rel="stylesheet">
-  <script src="../dist/js/sweetalert2.min.js"></script>
-  <script src="../dist/js/jquery-3.3.1.min.js"></script>
+<link href="../dist/css/sweetalert2.min.css" rel="stylesheet">
+<script src="../dist/js/sweetalert2.min.js"></script>
+<script src="../dist/js/jquery-3.3.1.min.js"></script>
 
 
-  <link href="../datepicker/dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
-  <script src="../datepicker/dist/js/datepicker.min.js"></script>
-  <!-- Include English language -->
-  <script src="../datepicker/dist/js/i18n/datepicker.en.js"></script>
+<link href="../datepicker/dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
+<script src="../datepicker/dist/js/datepicker.min.js"></script>
+<!-- Include English language -->
+<script src="../datepicker/dist/js/i18n/datepicker.en.js"></script>
 
-    <script type="text/javascript">
-      var summary = [];
-      var xItemcode;
-      var RowCnt=0;
+<script type="text/javascript">
+var summary = [];
+var xItemcode;
+var RowCnt=0;
 
-      $(document).ready(function(e){
-        OnLoadPage();
-        getDepartment();
-        get_dirty_doc();
+$(document).ready(function(e){
+  OnLoadPage();
+  getDepartment();
 
-      // CreateDocument();
-      //==============================
-      $('.TagImage').bind('click', {
-        imgId: $(this).attr('id') }, function (evt) { alert(evt.imgId); });
-        //On create
-        var userid = '<?php echo $Userid; ?>';
-        if(userid!="" && userid!=null && userid!=undefined){
-          var dept = '<?php echo $_SESSION['Deptid']; ?>';
-          var data = {
-            'STATUS'  : 'getDocument',
-            'DEPT'    : dept
-          };
+  // CreateDocument();
+  //==============================
+  $('.TagImage').bind('click', {
+    imgId: $(this).attr('id') }, function (evt) { alert(evt.imgId); });
+    //On create
+    var userid = '<?php echo $Userid; ?>';
+    if(userid!="" && userid!=null && userid!=undefined){
+      var dept = '<?php echo $_SESSION['Deptid']; ?>';
+      var data = {
+        'STATUS'  : 'getDocument',
+        'DEPT'    : dept
+      };
 
-          // console.log(JSON.stringify(data));
-          senddata(JSON.stringify(data));
+      // console.log(JSON.stringify(data));
+      senddata(JSON.stringify(data));
+    }
+}).mousemove(function(e) { parent.last_move = new Date();;
+}).keyup(function(e) { parent.last_move = new Date();;
+});
+
+
+  jqui(document).ready(function($){
+
+    dialogRefDocNo = jqui( "#dialogRefDocNo" ).dialog({
+      autoOpen: false,
+      height: 670,
+      width: 1200,
+      modal: true,
+      buttons: {
+        "<?php echo $array['close'][$language]; ?>": function() {
+          dialogRefDocNo.dialog( "close" )
         }
       }).mousemove(function(e) { parent.last_move = new Date();;
       }).keyup(function(e) { parent.last_move = new Date();;
