@@ -3,6 +3,8 @@ date_default_timezone_set("Asia/Bangkok");
 session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
+$PmID = $_SESSION['PmID'];
+
 if($Userid==""){
   // header("location:../index.html");
 }
@@ -130,10 +132,13 @@ $array = json_decode($json,TRUE);
       }
 
       function getDepartment(){
+        var Hotp = $('#hotpital option:selected').attr("value");
+                  if( typeof Hotp == 'undefined' ) Hotp = "BHQ";
     	  var userid = "<?php echo $_SESSION['Userid']; ?>";
         var data = {
           'STATUS'  : 'getDepartment',
-      		'Userid'	: userid
+      		'Userid'	: userid,
+          'Hotp'	: Hotp
             };
         senddata(JSON.stringify(data));
     	}
@@ -830,6 +835,7 @@ $array = json_decode($json,TRUE);
                                 $("#hotpital").prop('checked',true);
         											}
                             }else if( (temp["form"]=='getDepartment') ){
+                              $("#department").empty();
                               for (var i = 0; i < (Object.keys(temp).length-2); i++) {
         												var Str = "<option value="+temp[i]['DepCode']+">"+temp[i]['DepName']+"</option>";
         												$("#department").append(Str);
@@ -1292,7 +1298,7 @@ $array = json_decode($json,TRUE);
                         </div>
                         <div style="width:150px;">
                           <div class="row" style="font-size:24px;margin-left:2px;">
-                            <select style='font-size:24px;width:220px;' class="form-control" id="hotpital" onchange="getDepartment();" disabled>
+                            <select style='font-size:24px;width:179px;' class="form-control" id="hotpital" onchange="getDepartment();" <?php if($PmID != 1) echo 'disabled'; ?>>
                             </select>
                           </div>
                         </div>
