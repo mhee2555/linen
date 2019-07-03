@@ -858,8 +858,8 @@ $array = json_decode($json,TRUE);
                         $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
                         "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
                         "<td style='width: 20%;'>"+temp[i]['ItemCode']+"</td>"+
-                        "<td style='width: 25%;'>"+temp[i]['ItemName']+"</td>"+
-                        "<td style='width: 15%;'>"+nUnit+"</td>"+
+                        "<td style='width: 20%;'>"+temp[i]['ItemName']+"</td>"+
+                        "<td style='width: 20%;'>"+chkunit+"</td>"+
                         "<td style='width: 15%;'>"+Qty+"</td>"+
                         "<td style='width: 13%;'>"+Weight+"</td>"+
                         "</tr>";
