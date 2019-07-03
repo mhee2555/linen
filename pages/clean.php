@@ -225,6 +225,7 @@ $(document).ready(function(e){
 
       function open_dirty_doc(){
         dialogRefDocNo.dialog( "open" );
+        get_dirty_doc();
       }
 
       function get_dirty_doc(){
