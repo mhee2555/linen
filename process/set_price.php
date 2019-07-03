@@ -117,17 +117,17 @@ function ShowItem1($conn, $DATA)
   $CgSubID = $DATA['CgSubID'];
 
   $Sql = "SELECT category_price.RowID,side.HptName,item_main_category.MainCategoryName,item_category.CategoryName,category_price.Price
-FROM category_price
-INNER JOIN side ON category_price.HptCode = side.HptCode
-INNER JOIN item_category ON category_price.CategoryCode = item_category.CategoryCode
-INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode ";
-if( ('$xHptCode'!="-") && ($CgMainID=="-") && ($CgSubID=="-") ){
-    $Sql .= "WHERE side.HptCode = '$xHptCode'";
-}else if( ('$xHptCode'!="-") && ($CgMainID!="-")  && ($CgSubID=="-") ){
-    $Sql .= "WHERE side.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID";
-}else if( ('$xHptCode'!="-") && ($CgMainID!="-") && ($CgSubID!="-") ){
-    $Sql .= "WHERE side.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
-}
+  FROM category_price
+  INNER JOIN side ON category_price.HptCode = side.HptCode
+  INNER JOIN item_category ON category_price.CategoryCode = item_category.CategoryCode
+  INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode ";
+  if( ('$xHptCode'!="-") && ($CgMainID=="-") && ($CgSubID=="-") ){
+      $Sql .= "WHERE side.HptCode = '$xHptCode'";
+  }else if( ('$xHptCode'!="-") && ($CgMainID!="-")  && ($CgSubID=="-") ){
+      $Sql .= "WHERE side.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID";
+  }else if( ('$xHptCode'!="-") && ($CgMainID!="-") && ($CgSubID!="-") ){
+      $Sql .= "WHERE side.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
+  }
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
