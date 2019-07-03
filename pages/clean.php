@@ -53,166 +53,166 @@ $array = json_decode($json,TRUE);
   <script src="../jQuery-ui/jquery-1.12.4.js"></script>
   <script src="../jQuery-ui/jquery-ui.js"></script>
   <script type="text/javascript">
-  jqui = jQuery.noConflict(true);
-</script>
+    jqui = jQuery.noConflict(true);
+  </script>
 
-<link href="../dist/css/sweetalert2.min.css" rel="stylesheet">
-<script src="../dist/js/sweetalert2.min.js"></script>
-<script src="../dist/js/jquery-3.3.1.min.js"></script>
-
-
-<link href="../datepicker/dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
-<script src="../datepicker/dist/js/datepicker.min.js"></script>
-<!-- Include English language -->
-<script src="../datepicker/dist/js/i18n/datepicker.en.js"></script>
-
-<script type="text/javascript">
-var summary = [];
-var xItemcode;
-var RowCnt=0;
-
-$(document).ready(function(e){
-  OnLoadPage();
-  getDepartment();
-  get_dirty_doc();
-
-  // CreateDocument();
-  //==============================
-  $('.TagImage').bind('click', {
-    imgId: $(this).attr('id') }, function (evt) { alert(evt.imgId); });
-    //On create
-    var userid = '<?php echo $Userid; ?>';
-    if(userid!="" && userid!=null && userid!=undefined){
-      var dept = '<?php echo $_SESSION['Deptid']; ?>';
-      var data = {
-        'STATUS'  : 'getDocument',
-        'DEPT'    : dept
-      };
-
-      // console.log(JSON.stringify(data));
-      senddata(JSON.stringify(data));
-    }
-}).mousemove(function(e) { parent.last_move = new Date();;
-}).keyup(function(e) { parent.last_move = new Date();;
-});
+  <link href="../dist/css/sweetalert2.min.css" rel="stylesheet">
+  <script src="../dist/js/sweetalert2.min.js"></script>
+  <script src="../dist/js/jquery-3.3.1.min.js"></script>
 
 
-  jqui(document).ready(function($){
+  <link href="../datepicker/dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
+  <script src="../datepicker/dist/js/datepicker.min.js"></script>
+  <!-- Include English language -->
+  <script src="../datepicker/dist/js/i18n/datepicker.en.js"></script>
 
-    dialogRefDocNo = jqui( "#dialogRefDocNo" ).dialog({
-      autoOpen: false,
-      height: 670,
-      width: 1200,
-      modal: true,
-      buttons: {
-        "<?php echo $array['close'][$language]; ?>": function() {
-          dialogRefDocNo.dialog( "close" );
+    <script type="text/javascript">
+      var summary = [];
+      var xItemcode;
+      var RowCnt=0;
+
+      $(document).ready(function(e){
+        OnLoadPage();
+        getDepartment();
+        get_dirty_doc();
+
+      // CreateDocument();
+      //==============================
+      $('.TagImage').bind('click', {
+        imgId: $(this).attr('id') }, function (evt) { alert(evt.imgId); });
+        //On create
+        var userid = '<?php echo $Userid; ?>';
+        if(userid!="" && userid!=null && userid!=undefined){
+          var dept = '<?php echo $_SESSION['Deptid']; ?>';
+          var data = {
+            'STATUS'  : 'getDocument',
+            'DEPT'    : dept
+          };
+
+          // console.log(JSON.stringify(data));
+          senddata(JSON.stringify(data));
         }
-      },
-      close: function() {
-        console.log("close");
-      }
-    });
+      }).mousemove(function(e) { parent.last_move = new Date();;
+      }).keyup(function(e) { parent.last_move = new Date();;
+      });
 
-    dialogItemCode = jqui( "#dialogItemCode" ).dialog({
-      autoOpen: false,
-      height: 670,
-      width: 1200,
-      modal: true,
-      buttons: {
-        "<?php echo $array['close'][$language]; ?>": function() {
+
+      jqui(document).ready(function($){
+
+        dialogRefDocNo = jqui( "#dialogRefDocNo" ).dialog({
+          autoOpen: false,
+          height: 670,
+          width: 1200,
+          modal: true,
+          buttons: {
+            "<?php echo $array['close'][$language]; ?>": function() {
+              dialogRefDocNo.dialog( "close" );
+            }
+          },
+          close: function() {
+            console.log("close");
+          }
+        });
+
+        dialogItemCode = jqui( "#dialogItemCode" ).dialog({
+          autoOpen: false,
+          height: 670,
+          width: 1200,
+          modal: true,
+          buttons: {
+            "<?php echo $array['close'][$language]; ?>": function() {
+              dialogItemCode.dialog( "close" );
+            }
+          },
+          close: function() {
+            console.log("close");
+          }
+        });
+
+        // jqui( "#dialogItemCode" ).button().on( "click", function() {
+        //   dialogItemCode.dialog( "open" );
+        // });
+
+        dialogUsageCode = jqui( "#dialogUsageCode" ).dialog({
+          autoOpen: false,
+          height: 670,
+          width: 1200,
+          modal: true,
+          buttons: {
+            "<?php echo $array['close'][$language]; ?>": function() {
+              dialogUsageCode.dialog( "close" );
+            }
+          },
+          close: function() {
+            console.log("close");
+          }
+        });
+
+        // jqui( "#dialogUsageCode" ).button().on( "click", function() {
+        //   dialogUsageCode.dialog( "open" );
+        // });
+
+      });
+
+      function OpenDialogItem(){
+        var docno = $("#docno").val();
+        if( docno != "" ) dialogItemCode.dialog( "open" );
+      }
+
+      function OpenDialogUsageCode(itemcode){
+        xItemcode = itemcode;
+        var docno = $("#docno").val();
+        if( docno != "" ){
           dialogItemCode.dialog( "close" );
+          dialogUsageCode.dialog( "open" );
+          ShowUsageCode();
         }
-      },
-      close: function() {
-        console.log("close");
       }
-    });
 
-    // jqui( "#dialogItemCode" ).button().on( "click", function() {
-    //   dialogItemCode.dialog( "open" );
-    // });
-
-    dialogUsageCode = jqui( "#dialogUsageCode" ).dialog({
-      autoOpen: false,
-      height: 670,
-      width: 1200,
-      modal: true,
-      buttons: {
-        "<?php echo $array['close'][$language]; ?>": function() {
-          dialogUsageCode.dialog( "close" );
-        }
-      },
-      close: function() {
-        console.log("close");
+      function DeleteItem(){
+        var docno = $("#docno").val();
+        var xrow = $("#checkrow:checked").val() ;
+        xrow = xrow.split(",");
+        swal({
+          title: "<?php echo $array['confirm'][$language]; ?>",
+          text: "<?php echo $array['confirm1'][$language]; ?>"+xrow[1]+"<?php echo $array['confirm2'][$language]; ?>",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
+          cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          closeOnConfirm: false,
+          closeOnCancel: false,
+          showCancelButton: true}).then(result => {
+            var data = {
+              'STATUS'    : 'DeleteItem',
+              'rowid'  : xrow[0],
+              'DocNo'   : docno
+            };
+            senddata(JSON.stringify(data));
+          })
       }
-    });
 
-    // jqui( "#dialogUsageCode" ).button().on( "click", function() {
-    //   dialogUsageCode.dialog( "open" );
-    // });
+      function CancelDocument(){
+        var docno = $("#docno").val();
 
-  });
-
-  function OpenDialogItem(){
-    var docno = $("#docno").val();
-    if( docno != "" ) dialogItemCode.dialog( "open" );
-  }
-
-  function OpenDialogUsageCode(itemcode){
-    xItemcode = itemcode;
-    var docno = $("#docno").val();
-    if( docno != "" ){
-      dialogItemCode.dialog( "close" );
-      dialogUsageCode.dialog( "open" );
-      ShowUsageCode();
-    }
-  }
-
-  function DeleteItem(){
-    var docno = $("#docno").val();
-    var xrow = $("#checkrow:checked").val() ;
-    xrow = xrow.split(",");
-    swal({
-      title: "<?php echo $array['confirm'][$language]; ?>",
-      text: "<?php echo $array['confirm1'][$language]; ?>"+xrow[1]+"<?php echo $array['confirm2'][$language]; ?>",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonClass: "btn-danger",
-      confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
-      cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      closeOnConfirm: false,
-      closeOnCancel: false,
-      showCancelButton: true}).then(result => {
-        var data = {
-          'STATUS'    : 'DeleteItem',
-          'rowid'  : xrow[0],
-          'DocNo'   : docno
-        };
-        senddata(JSON.stringify(data));
-      })
-    }
-
-    function CancelDocument(){
-      var docno = $("#docno").val();
-
-      swal({
-        title: "<?php echo $array['confirm'][$language]; ?>",
-        text: "<?php echo $array['canceldata4'][$language];?> "+docno+" ?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
-        cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        closeOnConfirm: false,
-        closeOnCancel: false,
-        showCancelButton: true}).then(result => {
-          CancelBill();
-        })
+        swal({
+          title: "<?php echo $array['confirm'][$language]; ?>",
+          text: "<?php echo $array['canceldata4'][$language];?> "+docno+" ?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
+          cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          closeOnConfirm: false,
+          closeOnCancel: false,
+          showCancelButton: true}).then(result => {
+            CancelBill();
+          })
       }
 
       //======= On create =======
@@ -474,657 +474,657 @@ $(document).ready(function(e){
             };
             senddata(JSON.stringify(data));
           })
-        }
+      }
 
-        function canceldocno(docno) {
-          swal({
-            title: "<?php echo $array['confirmdelete'][$language]; ?>",
-            text: "<?php echo $array['confirmdelete1'][$language]; ?>" +docno+ "<?php echo $array['confirmdelete2'][$language]; ?>",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "<?php echo $array['delete'][$language]; ?>",
-            cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            closeOnConfirm: false,
-            closeOnCancel: false,
-            showCancelButton: true}).then(result => {
-              var data = {
-                'STATUS'      : 'CancelDocNo',
-                'DocNo'       : docno
-              };
-              senddata(JSON.stringify(data));
-              getSearchDocNo();
-            })
-          }
-
-          function addnum(cnt) {
-            var add = parseInt($('#iqty'+cnt).val())+1;
-            if((add>0) && (add<=500)){
-              $('#iqty'+cnt).val(add);
-            }
-          }
-
-          function subtractnum(cnt) {
-            var sub = parseInt($('#iqty'+cnt).val())-1;
-            if((sub>0) && (sub<=500)) {
-              $('#iqty'+cnt).val(sub);
-            }
-          }
-
-          function addnum1(rowid,cnt,unitcode) {
-            var Dep = $("#Dep_").val();
-            var docno = $("#docno").val();
-            var add = parseInt($('#qty1_'+cnt).val())+1;
-            var newQty = parseInt($('#OleQty_'+cnt).val())+1;
-            var isStatus = $("#IsStatus").val();
-            if(isStatus==0){
-              if((add>=0) && (add<=500)){
-                $('#qty1_'+cnt).val(add);
-                $('#OleQty_'+cnt).val(newQty);
-              }
-              var data = {
-                'STATUS'      : 'UpdateDetailQty',
-                'Rowid'       : rowid,
-                'DocNo'       : docno,
-                'Qty'			: add,
-                'OleQty'		: newQty,
-                'unitcode'	: unitcode
-              };
-              senddata(JSON.stringify(data));
-            }
-          }
-
-          function subtractnum1(rowid,cnt,unitcode) {
-            var Dep = $("#Dep_").val();
-            var docno = $("#docno").val();
-            var sub = parseInt($('#qty1_'+cnt).val())-1;
-            var newQty = parseInt($('#OleQty_'+cnt).val())-1;
-            var isStatus = $("#IsStatus").val();
-            if(isStatus==0){
-              if((sub>=0) && (sub<=500)) {
-                $('#qty1_'+cnt).val(sub);
-                $('#OleQty_'+cnt).val(newQty);
-              }
-              var data = {
-                'STATUS'      : 'UpdateDetailQty',
-                'Rowid'       : rowid,
-                'DocNo'       : docno,
-                'Qty'			: sub,
-                'OleQty'		: newQty,
-                'unitcode'	: unitcode
-              };
-              senddata(JSON.stringify(data));
-            }
-          }
-
-          function updateWeight(row,rowid) {
-            var docno = $("#docno").val();
-            var weight = $("#weight_"+row).val();
-            var price = 0; //$("#price_"+row).val();
-            var isStatus = $("#IsStatus").val();
-            //alert(rowid+" :: "+docno+" :: "+weight);
-            if(isStatus==0){
-              var data = {
-                'STATUS'      : 'UpdateDetailWeight',
-                'Rowid'       : rowid,
-                'DocNo'       : docno,
-                'Weight'      : weight,
-                'Price'      : price
-              };
-              senddata(JSON.stringify(data));
-            }
-          }
-
-          function SaveBill(){
-            var docno = $("#docno").val();
-            var docno2 = $("#RefDocNo").val();
-            var isStatus = $("#IsStatus").val();
-            var dept = $("#Dep2").val();
-            // alert( isStatus );
-            if(isStatus==1)
-            isStatus=0;
-            else
-            isStatus=1;
-
-            if(isStatus==1){
-              var data = {
-                'STATUS'      : 'SaveBill',
-                'xdocno'      : docno,
-                'xdocno2'      : docno2,
-                'isStatus'    : isStatus,
-                'deptCode'    : dept
-              };
-              console.log(data);
-              senddata(JSON.stringify(data));
-
-              $('#profile-tab').tab('show');
-              $("#bImport").prop('disabled', true);
-              $("#bDelete").prop('disabled', true);
-              $("#bSave").prop('disabled', true);
-              $("#bCancel").prop('disabled', true);
-
-              ShowDocument();
-            }else{
-              $("#bImport").prop('disabled', false);
-              $("#bDelete").prop('disabled', false);
-              $("#bSave").prop('disabled', false);
-              $("#bCancel").prop('disabled', false);
-              $("#bSave").text('<?php echo $array['save'][$language]; ?>');
-              $("#IsStatus").val("0");
-              $("#docno").prop('disabled', false);
-              $("#docdate").prop('disabled', false);
-              $("#recorder").prop('disabled', false);
-              $("#timerec").prop('disabled', false);
-              $("#total").prop('disabled', false);
-              var rowCount = $('#TableItemDetail >tbody >tr').length;
-              for (var i = 0; i < rowCount; i++) {
-
-                $('#qty1_'+i).prop('disabled', false);
-                $('#weight_'+i).prop('disabled', false);
-                $('#price_'+i).prop('disabled', false);
-
-                $('#unit'+i).prop('disabled', false);
-              }
-            }
-          }
-
-          function UpdateRefDocNo(){
-            var docno = $("#docno").val();
-            var RefDocNo;
-            //get value from radio button
-            $("#checkitem:checked").each(function() {
-              RefDocNo = $(this).val();
-            });
-
-            var deptCode = $('#Dep2 option:selected').attr("value");
+      function canceldocno(docno) {
+        swal({
+          title: "<?php echo $array['confirmdelete'][$language]; ?>",
+          text: "<?php echo $array['confirmdelete1'][$language]; ?>" +docno+ "<?php echo $array['confirmdelete2'][$language]; ?>",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "<?php echo $array['delete'][$language]; ?>",
+          cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          closeOnConfirm: false,
+          closeOnCancel: false,
+          showCancelButton: true}).then(result => {
             var data = {
-              'STATUS'      : 'UpdateRefDocNo',
-              'xdocno'      : docno,
-              'RefDocNo'    : RefDocNo,
-              'selecta'     : 0,
-              'deptCode'	  : deptCode,
-              'checkitem'   : checkitem
+              'STATUS'      : 'CancelDocNo',
+              'DocNo'       : docno
             };
-            console.log(checkitem);
             senddata(JSON.stringify(data));
-            dialogRefDocNo.dialog( "close" );
+            getSearchDocNo();
+          })
+      }
+
+      function addnum(cnt) {
+        var add = parseInt($('#iqty'+cnt).val())+1;
+        if((add>0) && (add<=500)){
+          $('#iqty'+cnt).val(add);
+        }
+      }
+
+      function subtractnum(cnt) {
+        var sub = parseInt($('#iqty'+cnt).val())-1;
+        if((sub>0) && (sub<=500)) {
+          $('#iqty'+cnt).val(sub);
+        }
+      }
+
+      function addnum1(rowid,cnt,unitcode) {
+        var Dep = $("#Dep_").val();
+        var docno = $("#docno").val();
+        var add = parseInt($('#qty1_'+cnt).val())+1;
+        var newQty = parseInt($('#OleQty_'+cnt).val())+1;
+        var isStatus = $("#IsStatus").val();
+        if(isStatus==0){
+          if((add>=0) && (add<=500)){
+            $('#qty1_'+cnt).val(add);
+            $('#OleQty_'+cnt).val(newQty);
           }
+          var data = {
+            'STATUS'      : 'UpdateDetailQty',
+            'Rowid'       : rowid,
+            'DocNo'       : docno,
+            'Qty'			: add,
+            'OleQty'		: newQty,
+            'unitcode'	: unitcode
+          };
+          senddata(JSON.stringify(data));
+        }
+      }
 
-          function logoff() {
-            swal({
-              title: '',
-              text: '<?php echo $array['logout'][$language]; ?>',
-              type: 'success',
-              showCancelButton: false,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              showConfirmButton: false,
-              timer: 1000,
-              confirmButtonText: 'Ok'
-            }).then(function () {
-              window.location.href="../logoff.php";
-            }, function (dismiss) {
-              window.location.href="../logoff.php";
-              if (dismiss === 'cancel') {
-
-              }
-            })
+      function subtractnum1(rowid,cnt,unitcode) {
+        var Dep = $("#Dep_").val();
+        var docno = $("#docno").val();
+        var sub = parseInt($('#qty1_'+cnt).val())-1;
+        var newQty = parseInt($('#OleQty_'+cnt).val())-1;
+        var isStatus = $("#IsStatus").val();
+        if(isStatus==0){
+          if((sub>=0) && (sub<=500)) {
+            $('#qty1_'+cnt).val(sub);
+            $('#OleQty_'+cnt).val(newQty);
           }
+          var data = {
+            'STATUS'      : 'UpdateDetailQty',
+            'Rowid'       : rowid,
+            'DocNo'       : docno,
+            'Qty'			: sub,
+            'OleQty'		: newQty,
+            'unitcode'	: unitcode
+          };
+          senddata(JSON.stringify(data));
+        }
+      }
 
-          function senddata(data){
-            var form_data = new FormData();
-            form_data.append("DATA",data);
-            var URL = '../process/clean.php';
-            $.ajax({
-              url: URL,
-              dataType: 'text',
-              cache: false,
-              contentType: false,
-              processData: false,
-              data: form_data,
-              type: 'post',
-              success: function (result) {
-                try {
-                  var temp = $.parseJSON(result);
-                } catch (e) {
-                  console.log('Error#542-decode error');
+      function updateWeight(row,rowid) {
+        var docno = $("#docno").val();
+        var weight = $("#weight_"+row).val();
+        var price = 0; //$("#price_"+row).val();
+        var isStatus = $("#IsStatus").val();
+        //alert(rowid+" :: "+docno+" :: "+weight);
+        if(isStatus==0){
+          var data = {
+            'STATUS'      : 'UpdateDetailWeight',
+            'Rowid'       : rowid,
+            'DocNo'       : docno,
+            'Weight'      : weight,
+            'Price'      : price
+          };
+          senddata(JSON.stringify(data));
+        }
+      }
+
+      function SaveBill(){
+        var docno = $("#docno").val();
+        var docno2 = $("#RefDocNo").val();
+        var isStatus = $("#IsStatus").val();
+        var dept = $("#Dep2").val();
+        // alert( isStatus );
+        if(isStatus==1)
+        isStatus=0;
+        else
+        isStatus=1;
+
+        if(isStatus==1){
+          var data = {
+            'STATUS'      : 'SaveBill',
+            'xdocno'      : docno,
+            'xdocno2'      : docno2,
+            'isStatus'    : isStatus,
+            'deptCode'    : dept
+          };
+          console.log(data);
+          senddata(JSON.stringify(data));
+
+          $('#profile-tab').tab('show');
+          $("#bImport").prop('disabled', true);
+          $("#bDelete").prop('disabled', true);
+          $("#bSave").prop('disabled', true);
+          $("#bCancel").prop('disabled', true);
+
+          ShowDocument();
+        }else{
+          $("#bImport").prop('disabled', false);
+          $("#bDelete").prop('disabled', false);
+          $("#bSave").prop('disabled', false);
+          $("#bCancel").prop('disabled', false);
+          $("#bSave").text('<?php echo $array['save'][$language]; ?>');
+          $("#IsStatus").val("0");
+          $("#docno").prop('disabled', false);
+          $("#docdate").prop('disabled', false);
+          $("#recorder").prop('disabled', false);
+          $("#timerec").prop('disabled', false);
+          $("#total").prop('disabled', false);
+          var rowCount = $('#TableItemDetail >tbody >tr').length;
+          for (var i = 0; i < rowCount; i++) {
+
+            $('#qty1_'+i).prop('disabled', false);
+            $('#weight_'+i).prop('disabled', false);
+            $('#price_'+i).prop('disabled', false);
+
+            $('#unit'+i).prop('disabled', false);
+          }
+        }
+      }
+
+      function UpdateRefDocNo(){
+        var docno = $("#docno").val();
+        var RefDocNo;
+        //get value from radio button
+        $("#checkitem:checked").each(function() {
+          RefDocNo = $(this).val();
+        });
+
+        var deptCode = $('#Dep2 option:selected').attr("value");
+        var data = {
+          'STATUS'      : 'UpdateRefDocNo',
+          'xdocno'      : docno,
+          'RefDocNo'    : RefDocNo,
+          'selecta'     : 0,
+          'deptCode'	  : deptCode,
+          'checkitem'   : checkitem
+        };
+        console.log(checkitem);
+        senddata(JSON.stringify(data));
+        dialogRefDocNo.dialog( "close" );
+      }
+
+      function logoff() {
+        swal({
+          title: '',
+          text: '<?php echo $array['logout'][$language]; ?>',
+          type: 'success',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          showConfirmButton: false,
+          timer: 1000,
+          confirmButtonText: 'Ok'
+        }).then(function () {
+          window.location.href="../logoff.php";
+        }, function (dismiss) {
+          window.location.href="../logoff.php";
+          if (dismiss === 'cancel') {
+
+          }
+        })
+      }
+
+      function senddata(data){
+        var form_data = new FormData();
+        form_data.append("DATA",data);
+        var URL = '../process/clean.php';
+        $.ajax({
+          url: URL,
+          dataType: 'text',
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: form_data,
+          type: 'post',
+          success: function (result) {
+            try {
+              var temp = $.parseJSON(result);
+            } catch (e) {
+              console.log('Error#542-decode error');
+            }
+
+            if(temp["status"]=='success'){
+              if(temp["form"]=='OnLoadPage'){
+                for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+                  var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
+                  $("#hotpital").append(Str);
+                }
+              }else if(temp["form"]=='getDepartment'){
+                $("#department").empty();
+                $("#Dep2").empty();
+                for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+                  var Str = "<option value="+temp[i]['DepCode']+">"+temp[i]['DepName']+"</option>";
+                  $("#department").append(Str);
+                  $("#Dep2").append(Str);
+                }
+              }else if( (temp["form"]=='CreateDocument') ){
+                swal({
+                  title: "<?php echo $array['createdocno'][$language]; ?>",
+                  text: temp[0]['DocNo'] + " <?php echo $array['success'][$language]; ?>",
+                  type: "success",
+                  showCancelButton: false,
+                  timer: 1000,
+                  confirmButtonText: 'Ok',
+                  showConfirmButton: false
+                  });
+                setTimeout(function () {
+                  parent.OnLoadPage();
+                }, 1000);
+                $( "#TableItemDetail tbody" ).empty();
+                $("#wTotal").val(0);
+                $("#bSave").text('<?php echo $array['save'][$language]; ?>');
+                $("#bImport").prop('disabled', false);
+                $("#bDelete").prop('disabled', false);
+                $("#bSave").prop('disabled', false);
+                $("#bCancel").prop('disabled', false);
+                $("#docno").prop('disabled', false);
+                $("#docdate").prop('disabled', false);
+                $("#recorder").prop('disabled', false);
+                $("#timerec").prop('disabled', false);
+                $("#total").prop('disabled', false);
+                $("#docno").val(temp[0]['DocNo']);
+                $("#docdate").val(temp[0]['DocDate']);
+                $("#recorder").val(temp[0]['Record']);
+                $("#timerec").val(temp[0]['RecNow']);
+                $("#RefDocNo").val("");
+              }else if(temp["form"]=='ShowDocument'){
+                $( "#TableDocument tbody" ).empty();
+                $( "#TableItemDetail tbody" ).empty();
+                //$("#docno").val(temp[0]['DocNo']);
+                //											  $("#docdate").val(temp[0]['DocDate']);
+                //											  $("#recorder").val(temp[0]['Record']);
+                //											  $("#timerec").val(temp[0]['RecNow']);
+                //											  $("#wTotal").val(temp[0]['Total']);
+                for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+                  var rowCount = $('#TableDocument >tbody >tr').length;
+                  var chkDoc = "<input type='radio' name='checkdocno' id='checkdocno' value='"+temp[i]['DocNo']+"' >";
+                  var Status = "";
+                  var Style  = "";
+                  if(temp[i]['IsStatus']==1){
+                    Status = "<?php echo $array['savesuccess'][$language]; ?>";
+                    Style  = "style='width: 10%;color: #20B80E;'";
+                  }else{
+                    Status = "<?php echo $array['draft'][$language]; ?>";
+                    Style  = "style='width: 10%;color: #3399ff;'";
+                  }if(temp[i]['IsStatus']==2){
+                    Status = "<?php echo $array['cancelbill'][$language]; ?>";
+                    Style  = "style='width: 10%;color: #ff0000;'";
+                  }
+
+                  $StrTr="<tr id='tr"+temp[i]['DocNo']+"'>"+
+                  "<td style='width: 10%;'>"+chkDoc+"</td>"+
+                  "<td style='width: 15%;'>"+temp[i]['DocDate']+"</td>"+
+                  "<td style='width: 15%;'>"+temp[i]['DocNo']+"</td>"+
+                  "<td style='width: 15%;'>"+temp[i]['RefDocNo']+"</td>"+
+                  "<td style='width: 15%;'>"+temp[i]['Record']+"</td>"+
+                  "<td style='width: 10%;'>"+temp[i]['RecNow']+"</td>"+
+                  "<td style='width: 10%;'>"+temp[i]['Total']+"</td>"+
+                  "<td "+Style+">"+Status+"</td>"+
+                  "</tr>";
+
+                  if(rowCount == 0){
+                    $("#TableDocument tbody").append( $StrTr );
+                  }else{
+                    $('#TableDocument tbody:last-child').append(  $StrTr );
+                  }
                 }
 
-                if(temp["status"]=='success'){
-                  if(temp["form"]=='OnLoadPage'){
-                    for (var i = 0; i < (Object.keys(temp).length-2); i++) {
-                      var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
-                      $("#hotpital").append(Str);
+              }else if(temp["form"]=='SelectDocument'){
+                $('#home-tab').tab('show')
+                $( "#TableItemDetail tbody" ).empty();
+                $("#docno").val(temp[0]['DocNo']);
+                $("#docdate").val(temp[0]['DocDate']);
+                $("#recorder").val(temp[0]['Record']);
+                $("#timerec").val(temp[0]['RecNow']);
+                $("#wTotal").val(temp[0]['Total']);
+                $("#IsStatus").val(temp[0]['IsStatus']);
+                $("#RefDocNo").val(temp[0]['RefDocNo']);
+
+                if(temp[0]['IsStatus']==0){
+                  $("#bSave").text('<?php echo $array['save'][$language]; ?>');
+                  $("#bImport").prop('disabled', false);
+                  $("#bDelete").prop('disabled', false);
+                  $("#bSave").prop('disabled', false);
+                  $("#bCancel").prop('disabled', false);
+                }else if(temp[0]['IsStatus']==1){
+                  $("#bSave").text('<?php echo $array['edit'][$language]; ?>');
+                  $("#bImport").prop('disabled', true);
+                  $("#bDelete").prop('disabled', true);
+                  //$("#bSave").prop('disabled', true);
+                  $("#bCancel").prop('disabled', true);
+                }else{
+                  $("#bImport").prop('disabled', true);
+                  $("#bDelete").prop('disabled', true);
+                  $("#bSave").prop('disabled', false);
+                  $("#bCancel").prop('disabled', true);
+
+                  $("#docno").prop('disabled', true);
+                  $("#docdate").prop('disabled', true);
+                  $("#recorder").prop('disabled', true);
+                  $("#timerec").prop('disabled', true);
+                  $("#total").prop('disabled', true);
+
+                  $('#qty1_'+i).prop('disabled', true);
+                  $('#weight_'+i).prop('disabled', true);
+                  $('#price_'+i).prop('disabled', true);
+
+                  $('#unit'+i).prop('disabled', true);
+                }
+                ShowDetail();
+              }else if(temp["form"]=='getImport'  || temp["form"]=='ShowDetail'){
+                $( "#TableItemDetail tbody" ).empty();
+                if(temp["Row"] > 0)
+                $("#wTotal").val(temp[0]['Total']);
+                else
+                $("#wTotal").val(0);
+                var st1 = "style='font-size:24px;margin-left:3px; width:130px;font-family:THSarabunNew;font-size:24px;'";
+                var isStatus = $("#IsStatus").val();
+                for (var i = 0; i < temp["Row"]; i++) {
+                  var rowCount = $('#TableItem >tbody >tr').length;
+
+                  var chkunit ="<select "+st1+" onchange='convertUnit(\""+temp[i]['RowID']+"\",this)' class='form-control' style='font-size:24px;' id='Unit_"+i+"'>";
+                  var nUnit = temp[i]['UnitName'];
+                  for(var j = 0; j < temp['Cnt_'+temp[i]['ItemCode']][i]; j++){
+                    if(temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]==temp[i]['UnitCode']){
+                      chkunit += "<option selected value="+i+","+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+","+temp['Multiply_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
+                    }else{
+                      chkunit += "<option value="+i+","+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+","+temp['Multiply_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
                     }
-                  }else if(temp["form"]=='getDepartment'){
-                    $("#department").empty();
-                    $("#Dep2").empty();
-                    for (var i = 0; i < (Object.keys(temp).length-2); i++) {
-                      var Str = "<option value="+temp[i]['DepCode']+">"+temp[i]['DepName']+"</option>";
-                      $("#department").append(Str);
-                      $("#Dep2").append(Str);
-                    }
-                  }else if( (temp["form"]=='CreateDocument') ){
-                    swal({
-                      title: "<?php echo $array['createdocno'][$language]; ?>",
-                      text: temp[0]['DocNo'] + " <?php echo $array['success'][$language]; ?>",
-                      type: "success",
-                      showCancelButton: false,
-                      timer: 1000,
-                      confirmButtonText: 'Ok',
-                      showConfirmButton: false
-                      });
-                    setTimeout(function () {
-                      parent.OnLoadPage();
-                    }, 1000);
-                    $( "#TableItemDetail tbody" ).empty();
-                    $("#wTotal").val(0);
-                    $("#bSave").text('<?php echo $array['save'][$language]; ?>');
-                    $("#bImport").prop('disabled', false);
-                    $("#bDelete").prop('disabled', false);
-                    $("#bSave").prop('disabled', false);
-                    $("#bCancel").prop('disabled', false);
+                  }
+                  chkunit += "</select>";
+
+                  var chkDoc = "<input type='radio' name='checkrow' id='checkrow' value='"+temp[i]['RowID']+","+temp[i]['ItemName']+"'>";
+
+                  var Qty = "<div class='row' style='margin-left:0px;'><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='qty1_"+i+"' value='"+temp[i]['Qty']+"' ></div>";
+                  // var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode']+"\")'>-</button><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['ParQty']+"' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode']+"\")'>+</button></div>";
+                  //var OleQty = "<div class='row' style='margin-left:2px;'><input type='hidden' class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='OleQty_"+i+"' value='"+temp[i]['MaxQty']+"' ></div>";
+                  var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;font-family:THSarabunNew;font-size:24px;' id='weight_"+i+"' value='"+temp[i]['Weight']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
+
+                  var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:110px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='price_"+i+"' value='"+temp[i]['Price']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
+
+                  $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
+                  "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+                  "<td style='width: 20%;'>"+temp[i]['ItemCode']+"</td>"+
+                  "<td style='width: 25%;'>"+temp[i]['ItemName']+"</td>"+
+                  "<td style='width: 15%;font-size:24px;'>"+chkunit+"</td>"+
+                  "<td style='width: 15%;'>"+Qty+"</td>"+
+                  "<td style='width: 13%;'>"+Weight+"</td>"+
+                  "</tr>";
+
+
+                  if(rowCount == 0){
+                    $("#TableItemDetail tbody").append( $StrTR );
+                  }else{
+                    $('#TableItemDetail tbody:last-child').append( $StrTR );
+                  }
+                  if(isStatus==0){
                     $("#docno").prop('disabled', false);
                     $("#docdate").prop('disabled', false);
                     $("#recorder").prop('disabled', false);
                     $("#timerec").prop('disabled', false);
                     $("#total").prop('disabled', false);
-                    $("#docno").val(temp[0]['DocNo']);
-                    $("#docdate").val(temp[0]['DocDate']);
-                    $("#recorder").val(temp[0]['Record']);
-                    $("#timerec").val(temp[0]['RecNow']);
-                    $("#RefDocNo").val("");
-                  }else if(temp["form"]=='ShowDocument'){
-                    $( "#TableDocument tbody" ).empty();
-                    $( "#TableItemDetail tbody" ).empty();
-                    //$("#docno").val(temp[0]['DocNo']);
-                    //											  $("#docdate").val(temp[0]['DocDate']);
-                    //											  $("#recorder").val(temp[0]['Record']);
-                    //											  $("#timerec").val(temp[0]['RecNow']);
-                    //											  $("#wTotal").val(temp[0]['Total']);
-                    for (var i = 0; i < (Object.keys(temp).length-2); i++) {
-                      var rowCount = $('#TableDocument >tbody >tr').length;
-                      var chkDoc = "<input type='radio' name='checkdocno' id='checkdocno' value='"+temp[i]['DocNo']+"' >";
-                      var Status = "";
-                      var Style  = "";
-                      if(temp[i]['IsStatus']==1){
-                        Status = "<?php echo $array['savesuccess'][$language]; ?>";
-                        Style  = "style='width: 10%;color: #20B80E;'";
-                      }else{
-                        Status = "<?php echo $array['draft'][$language]; ?>";
-                        Style  = "style='width: 10%;color: #3399ff;'";
-                      }if(temp[i]['IsStatus']==2){
-                        Status = "<?php echo $array['cancelbill'][$language]; ?>";
-                        Style  = "style='width: 10%;color: #ff0000;'";
-                      }
 
-                      $StrTr="<tr id='tr"+temp[i]['DocNo']+"'>"+
-                      "<td style='width: 10%;'>"+chkDoc+"</td>"+
-                      "<td style='width: 15%;'>"+temp[i]['DocDate']+"</td>"+
-                      "<td style='width: 15%;'>"+temp[i]['DocNo']+"</td>"+
-                      "<td style='width: 15%;'>"+temp[i]['RefDocNo']+"</td>"+
-                      "<td style='width: 15%;'>"+temp[i]['Record']+"</td>"+
-                      "<td style='width: 10%;'>"+temp[i]['RecNow']+"</td>"+
-                      "<td style='width: 10%;'>"+temp[i]['Total']+"</td>"+
-                      "<td "+Style+">"+Status+"</td>"+
-                      "</tr>";
+                    $('#qty1_'+i).prop('disabled', false);
+                    $('#weight_'+i).prop('disabled', false);
+                    $('#price_'+i).prop('disabled', false);
+                    $('#price_'+i).prop('disabled', false);
 
-                      if(rowCount == 0){
-                        $("#TableDocument tbody").append( $StrTr );
-                      }else{
-                        $('#TableDocument tbody:last-child').append(  $StrTr );
-                      }
-                    }
+                    $('#unit'+i).prop('disabled', false);
+                  }else{
+                    $("#docno").prop('disabled', true);
+                    $("#docdate").prop('disabled', true);
+                    $("#recorder").prop('disabled', true);
+                    $("#timerec").prop('disabled', true);
+                    $("#total").prop('disabled', true);
 
-                  }else if(temp["form"]=='SelectDocument'){
-                    $('#home-tab').tab('show')
-                    $( "#TableItemDetail tbody" ).empty();
-                    $("#docno").val(temp[0]['DocNo']);
-                    $("#docdate").val(temp[0]['DocDate']);
-                    $("#recorder").val(temp[0]['Record']);
-                    $("#timerec").val(temp[0]['RecNow']);
-                    $("#wTotal").val(temp[0]['Total']);
-                    $("#IsStatus").val(temp[0]['IsStatus']);
-                    $("#RefDocNo").val(temp[0]['RefDocNo']);
+                    $('#qty1_'+i).prop('disabled', true);
+                    $('#weight_'+i).prop('disabled', true);
+                    $('#price_'+i).prop('disabled', true);
 
-                    if(temp[0]['IsStatus']==0){
-                      $("#bSave").text('<?php echo $array['save'][$language]; ?>');
-                      $("#bImport").prop('disabled', false);
-                      $("#bDelete").prop('disabled', false);
-                      $("#bSave").prop('disabled', false);
-                      $("#bCancel").prop('disabled', false);
-                    }else if(temp[0]['IsStatus']==1){
-                      $("#bSave").text('<?php echo $array['edit'][$language]; ?>');
-                      $("#bImport").prop('disabled', true);
-                      $("#bDelete").prop('disabled', true);
-                      //$("#bSave").prop('disabled', true);
-                      $("#bCancel").prop('disabled', true);
-                    }else{
-                      $("#bImport").prop('disabled', true);
-                      $("#bDelete").prop('disabled', true);
-                      $("#bSave").prop('disabled', false);
-                      $("#bCancel").prop('disabled', true);
-
-                      $("#docno").prop('disabled', true);
-                      $("#docdate").prop('disabled', true);
-                      $("#recorder").prop('disabled', true);
-                      $("#timerec").prop('disabled', true);
-                      $("#total").prop('disabled', true);
-
-                      $('#qty1_'+i).prop('disabled', true);
-                      $('#weight_'+i).prop('disabled', true);
-                      $('#price_'+i).prop('disabled', true);
-
-                      $('#unit'+i).prop('disabled', true);
-                    }
-                    ShowDetail();
-                  }else if(temp["form"]=='getImport'  || temp["form"]=='ShowDetail'){
-                    $( "#TableItemDetail tbody" ).empty();
-                    if(temp["Row"] > 0)
-                    $("#wTotal").val(temp[0]['Total']);
-                    else
-                    $("#wTotal").val(0);
-                    var st1 = "style='font-size:24px;margin-left:3px; width:130px;font-family:THSarabunNew;font-size:24px;'";
-                    var isStatus = $("#IsStatus").val();
-                    for (var i = 0; i < temp["Row"]; i++) {
-                      var rowCount = $('#TableItem >tbody >tr').length;
-
-                      var chkunit ="<select "+st1+" onchange='convertUnit(\""+temp[i]['RowID']+"\",this)' class='form-control' style='font-size:24px;' id='Unit_"+i+"'>";
-                      var nUnit = temp[i]['UnitName'];
-                      for(var j = 0; j < temp['Cnt_'+temp[i]['ItemCode']][i]; j++){
-                        if(temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]==temp[i]['UnitCode']){
-                          chkunit += "<option selected value="+i+","+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+","+temp['Multiply_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
-                        }else{
-                          chkunit += "<option value="+i+","+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+","+temp['Multiply_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
-                        }
-                      }
-                      chkunit += "</select>";
-
-                      var chkDoc = "<input type='radio' name='checkrow' id='checkrow' value='"+temp[i]['RowID']+","+temp[i]['ItemName']+"'>";
-
-                      var Qty = "<div class='row' style='margin-left:0px;'><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='qty1_"+i+"' value='"+temp[i]['Qty']+"' ></div>";
-                      // var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode']+"\")'>-</button><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['ParQty']+"' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode']+"\")'>+</button></div>";
-                      //var OleQty = "<div class='row' style='margin-left:2px;'><input type='hidden' class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='OleQty_"+i+"' value='"+temp[i]['MaxQty']+"' ></div>";
-                      var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;font-family:THSarabunNew;font-size:24px;' id='weight_"+i+"' value='"+temp[i]['Weight']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
-
-                      var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:110px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='price_"+i+"' value='"+temp[i]['Price']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
-
-                      $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
-                      "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-                      "<td style='width: 20%;'>"+temp[i]['ItemCode']+"</td>"+
-                      "<td style='width: 25%;'>"+temp[i]['ItemName']+"</td>"+
-                      "<td style='width: 15%;font-size:24px;'>"+chkunit+"</td>"+
-                      "<td style='width: 15%;'>"+Qty+"</td>"+
-                      "<td style='width: 13%;'>"+Weight+"</td>"+
-                      "</tr>";
-
-
-                      if(rowCount == 0){
-                        $("#TableItemDetail tbody").append( $StrTR );
-                      }else{
-                        $('#TableItemDetail tbody:last-child').append( $StrTR );
-                      }
-                      if(isStatus==0){
-                        $("#docno").prop('disabled', false);
-                        $("#docdate").prop('disabled', false);
-                        $("#recorder").prop('disabled', false);
-                        $("#timerec").prop('disabled', false);
-                        $("#total").prop('disabled', false);
-
-                        $('#qty1_'+i).prop('disabled', false);
-                        $('#weight_'+i).prop('disabled', false);
-                        $('#price_'+i).prop('disabled', false);
-                        $('#price_'+i).prop('disabled', false);
-
-                        $('#unit'+i).prop('disabled', false);
-                      }else{
-                        $("#docno").prop('disabled', true);
-                        $("#docdate").prop('disabled', true);
-                        $("#recorder").prop('disabled', true);
-                        $("#timerec").prop('disabled', true);
-                        $("#total").prop('disabled', true);
-
-                        $('#qty1_'+i).prop('disabled', true);
-                        $('#weight_'+i).prop('disabled', true);
-                        $('#price_'+i).prop('disabled', true);
-
-                        $('#unit'+i).prop('disabled', true);
-                      }
-                    }
-                  }else if( (temp["form"]=='ShowItem') ){
-                    var st1 = "style='font-size:24px;margin-left:3px; width:130px;font-family:THSarabunNew;font-size:24px;'";
-                    var st2 = "style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;font-family:THSarabunNew'"
-                    $( "#TableItem tbody" ).empty();
-                    for (var i = 0; i < temp["Row"]; i++) {
-                      var rowCount = $('#TableItem >tbody >tr').length;
-
-                      var chkunit ="<div class='row' style='margin:auto;'><select "+st1+" onchange='convertUnit(\""+temp[i]['RowID']+"\",this)' class='form-control' id='iUnit_"+i+"'></div>";
-
-                      for(var j = 0; j < temp['Cnt_'+temp[i]['ItemCode']][i]; j++){
-                        if(temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]==temp[i]['UnitCode'])
-                        chkunit += "<option selected value="+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
-                        else
-                        chkunit += "<option value="+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
-                      }
-                      chkunit += "</select>";
-
-                      var chkDoc = "<input type='checkbox' name='checkitem' id='checkitem' value='"+i+"'><input type='hidden' id='RowID"+i+"' value='"+temp[i]['RowID']+"'>";
-
-                      var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum(\""+i+"\")'>-</button><input class='form-control' "+st2+" id='iqty"+i+"' value='0' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum(\""+i+"\")'>+</button></div>";
-
-                      var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;;font-family:THSarabunNew;font-size:24px;' id='iweight"+i+"' value='0' ></div>";
-
-                      $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
-                      "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-                      "<td style='width: 20%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''>"+temp[i]['ItemCode']+"</td>"+
-                      "<td style='width: 25%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''>"+temp[i]['ItemName']+"</td>"+
-                      "<td style='width: 15%;'>"+chkunit+"</td>"+
-                      "<td style='width: 15%;' align='center'>"+Qty+"</td>"+
-                      "<td style='width: 10%;' align='center'>"+Weight+"</td>"+
-                      "</tr>";
-                      if(rowCount == 0){
-                        $("#TableItem tbody").append( $StrTR );
-                      }else{
-                        $('#TableItem tbody:last-child').append( $StrTR );
-                      }
-                    }
-                  }else if( (temp["form"]=='ShowUsageCode') ){
-                    var st1 = "style='font-size:18px;margin-left:3px; width:100px;font-family:THSarabunNew;font-size:24px;'";
-                    var st2 = "style='height:40px;width:60px; margin-left:0px; text-align:center;font-family:THSarabunNew;font-size:32px;'"
-                    $( "#TableUsageCode tbody" ).empty();
-                    for (var i = 0; i < temp["Row"]; i++) {
-                      var rowCount = $('#TableUsageCode >tbody >tr').length;
-
-                      var chkunit ="<select "+st1+" onchange='convertUnit(\""+temp[i]['RowID']+"\",this)' class='form-control' style='font-size:32px;' id='iUnit_"+i+"'>";
-
-                      for(var j = 0; j < temp['Cnt_'+temp[i]['ItemCode']][i]; j++){
-                        if(temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]==temp[i]['UnitCode'])
-                        chkunit += "<option selected value="+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
-                        else
-                        chkunit += "<option value="+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
-                      }
-                      chkunit += "</select>";
-
-                      var chkDoc = "<input type='checkbox' name='checkitemSub' id='checkitemSub' value='"+i+"'><input type='hidden' id='RowIDSub"+i+"' value='"+temp[i]['RowID']+"'>";
-
-                      //var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum(\""+i+"\")'>-</button><input class='form-control' "+st2+" id='iqty"+i+"' value='1' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum(\""+i+"\")'>+</button></div>";
-
-                      var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='iweight"+i+"' value='0' ></div>";
-
-                      $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
-                      "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-                      "<td style='width: 20%;'>"+temp[i]['UsageCode']+"</td>"+
-                      "<td style='width: 40%;'>"+temp[i]['ItemName']+" [ "+temp[i]['RowID']+" ]</td>"+
-                      "<td style='width: 15%;'>"+chkunit+"</td>"+
-                      "<td style='width: 13%;' align='center'>1</td>"+
-                      "</tr>";
-                      if(rowCount == 0){
-                        $("#TableUsageCode tbody").append( $StrTR );
-                      }else{
-                        $('#TableUsageCode tbody:last-child').append( $StrTR );
-                      }
-                    }
-
-                  }else if(temp['form']=="get_dirty_doc"){
-                    var st1 = "style='font-size:18px;margin-left:3px; width:100px;font-family:THSarabunNew;font-size:24px;'";
-                    var st2 = "style='height:40px;width:60px; margin-left:0px; text-align:center;font-family:THSarabunNew;font-size:32px;'"
-                    var checkitem = $("#checkitem").val();
-                    $( "#TableRefDocNo tbody" ).empty();
-                    for (var i = 0; i < temp["Row"]; i++) {
-                      var rowCount = $('#TableRefDocNo >tbody >tr').length;
-                      var chkDoc = "<input type='radio' name='checkitem' id='checkitem' value='"+temp[i]['RefDocNo']+"'><input type='hidden' id='RowId"+i+"' value='"+temp[i]['RefDocNo']+"'>";
-                      $StrTR = "<tr id='tr"+temp[i]['RefDocNo']+"'>"+
-                      "<td style='width: 15%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-                      "<td style='width: 85%;'>"+temp[i]['RefDocNo']+"</td>"+
-                      "</tr>";
-                      if(rowCount == 0){
-                        $("#TableRefDocNo tbody").append( $StrTR );
-                      }else{
-                        $('#TableRefDocNo tbody:last-child').append( $StrTR );
-                      }
-                    }
+                    $('#unit'+i).prop('disabled', true);
                   }
-
-                }else if (temp['status']=="failed") {
-                  switch (temp['msg']) {
-                    case "notchosen":
-                    temp['msg'] = "<?php echo $array['choosemsg'][$language]; ?>";
-                    break;
-                    case "cantcreate":
-                    temp['msg'] = "<?php echo $array['cantcreatemsg'][$language]; ?>";
-                    break;
-                    case "noinput":
-                    temp['msg'] = "<?php echo $array['noinputmsg'][$language]; ?>";
-                    break;
-                    case "notfound":
-                    temp['msg'] = "<?php echo $array['notfoundmsg'][$language]; ?>";
-                    break;
-                    case "addsuccess":
-                    temp['msg'] = "<?php echo $array['addsuccessmsg'][$language]; ?>";
-                    break;
-                    case "addfailed":
-                    temp['msg'] = "<?php echo $array['addfailedmsg'][$language]; ?>";
-                    break;
-                    case "editsuccess":
-                    temp['msg'] = "<?php echo $array['editsuccessmsg'][$language]; ?>";
-                    break;
-                    case "editfailed":
-                    temp['msg'] = "<?php echo $array['editfailedmsg'][$language]; ?>";
-                    break;
-                    case "cancelsuccess":
-                    temp['msg'] = "<?php echo $array['cancelsuccessmsg'][$language]; ?>";
-                    break;
-                    case "cancelfailed":
-                    temp['msg'] = "<?php echo $array['cancelfailed'][$language]; ?>";
-                    break;
-                    case "nodetail":
-                    temp['msg'] = "<?php echo $array['nodetail'][$language]; ?>";
-                    break;
-                  }
-                  swal({
-                    title: '',
-                    text: temp['msg'],
-                    type: 'warning',
-                    showCancelButton: false,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    confirmButtonText: 'Ok'
-                  })
-
-                  $( "#docnofield" ).val( temp[0]['DocNo'] );
-                  $( "#TableDocumentSS tbody" ).empty();
-                  $( "#TableSendSterileDetail tbody" ).empty();
-                  $( "#TableUsageCode tbody" ).empty();
-                  $( "#TableItem tbody" ).empty();
-                }else{
-                  console.log(temp['msg']);
                 }
-              },
-              failure: function (result) {
-                alert(result);
-              },
-              error: function (xhr, status, p3, p4) {
-                var err = "Error " + " " + status + " " + p3 + " " + p4;
-                if (xhr.responseText && xhr.responseText[0] == "{")
-                err = JSON.parse(xhr.responseText).Message;
-                console.log(err);
-                alert(err);
-              }
-            });
-          }
+              }else if( (temp["form"]=='ShowItem') ){
+                var st1 = "style='font-size:24px;margin-left:3px; width:130px;font-family:THSarabunNew;font-size:24px;'";
+                var st2 = "style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;font-family:THSarabunNew'"
+                $( "#TableItem tbody" ).empty();
+                for (var i = 0; i < temp["Row"]; i++) {
+                  var rowCount = $('#TableItem >tbody >tr').length;
 
-          </script>
-          <style media="screen">
+                  var chkunit ="<div class='row' style='margin:auto;'><select "+st1+" onchange='convertUnit(\""+temp[i]['RowID']+"\",this)' class='form-control' id='iUnit_"+i+"'></div>";
+
+                  for(var j = 0; j < temp['Cnt_'+temp[i]['ItemCode']][i]; j++){
+                    if(temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]==temp[i]['UnitCode'])
+                    chkunit += "<option selected value="+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
+                    else
+                    chkunit += "<option value="+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
+                  }
+                  chkunit += "</select>";
+
+                  var chkDoc = "<input type='checkbox' name='checkitem' id='checkitem' value='"+i+"'><input type='hidden' id='RowID"+i+"' value='"+temp[i]['RowID']+"'>";
+
+                  var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum(\""+i+"\")'>-</button><input class='form-control' "+st2+" id='iqty"+i+"' value='0' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum(\""+i+"\")'>+</button></div>";
+
+                  var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;;font-family:THSarabunNew;font-size:24px;' id='iweight"+i+"' value='0' ></div>";
+
+                  $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
+                  "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+                  "<td style='width: 20%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''>"+temp[i]['ItemCode']+"</td>"+
+                  "<td style='width: 25%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''>"+temp[i]['ItemName']+"</td>"+
+                  "<td style='width: 15%;'>"+chkunit+"</td>"+
+                  "<td style='width: 15%;' align='center'>"+Qty+"</td>"+
+                  "<td style='width: 10%;' align='center'>"+Weight+"</td>"+
+                  "</tr>";
+                  if(rowCount == 0){
+                    $("#TableItem tbody").append( $StrTR );
+                  }else{
+                    $('#TableItem tbody:last-child').append( $StrTR );
+                  }
+                }
+              }else if( (temp["form"]=='ShowUsageCode') ){
+                var st1 = "style='font-size:18px;margin-left:3px; width:100px;font-family:THSarabunNew;font-size:24px;'";
+                var st2 = "style='height:40px;width:60px; margin-left:0px; text-align:center;font-family:THSarabunNew;font-size:32px;'"
+                $( "#TableUsageCode tbody" ).empty();
+                for (var i = 0; i < temp["Row"]; i++) {
+                  var rowCount = $('#TableUsageCode >tbody >tr').length;
+
+                  var chkunit ="<select "+st1+" onchange='convertUnit(\""+temp[i]['RowID']+"\",this)' class='form-control' style='font-size:32px;' id='iUnit_"+i+"'>";
+
+                  for(var j = 0; j < temp['Cnt_'+temp[i]['ItemCode']][i]; j++){
+                    if(temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]==temp[i]['UnitCode'])
+                    chkunit += "<option selected value="+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
+                    else
+                    chkunit += "<option value="+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
+                  }
+                  chkunit += "</select>";
+
+                  var chkDoc = "<input type='checkbox' name='checkitemSub' id='checkitemSub' value='"+i+"'><input type='hidden' id='RowIDSub"+i+"' value='"+temp[i]['RowID']+"'>";
+
+                  //var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum(\""+i+"\")'>-</button><input class='form-control' "+st2+" id='iqty"+i+"' value='1' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum(\""+i+"\")'>+</button></div>";
+
+                  var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='iweight"+i+"' value='0' ></div>";
+
+                  $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
+                  "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+                  "<td style='width: 20%;'>"+temp[i]['UsageCode']+"</td>"+
+                  "<td style='width: 40%;'>"+temp[i]['ItemName']+" [ "+temp[i]['RowID']+" ]</td>"+
+                  "<td style='width: 15%;'>"+chkunit+"</td>"+
+                  "<td style='width: 13%;' align='center'>1</td>"+
+                  "</tr>";
+                  if(rowCount == 0){
+                    $("#TableUsageCode tbody").append( $StrTR );
+                  }else{
+                    $('#TableUsageCode tbody:last-child').append( $StrTR );
+                  }
+                }
+
+              }else if(temp['form']=="get_dirty_doc"){
+                var st1 = "style='font-size:18px;margin-left:3px; width:100px;font-family:THSarabunNew;font-size:24px;'";
+                var st2 = "style='height:40px;width:60px; margin-left:0px; text-align:center;font-family:THSarabunNew;font-size:32px;'"
+                var checkitem = $("#checkitem").val();
+                $( "#TableRefDocNo tbody" ).empty();
+                for (var i = 0; i < temp["Row"]; i++) {
+                  var rowCount = $('#TableRefDocNo >tbody >tr').length;
+                  var chkDoc = "<input type='radio' name='checkitem' id='checkitem' value='"+temp[i]['RefDocNo']+"'><input type='hidden' id='RowId"+i+"' value='"+temp[i]['RefDocNo']+"'>";
+                  $StrTR = "<tr id='tr"+temp[i]['RefDocNo']+"'>"+
+                  "<td style='width: 15%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+                  "<td style='width: 85%;'>"+temp[i]['RefDocNo']+"</td>"+
+                  "</tr>";
+                  if(rowCount == 0){
+                    $("#TableRefDocNo tbody").append( $StrTR );
+                  }else{
+                    $('#TableRefDocNo tbody:last-child').append( $StrTR );
+                  }
+                }
+              }
+
+            }else if (temp['status']=="failed") {
+              switch (temp['msg']) {
+                case "notchosen":
+                temp['msg'] = "<?php echo $array['choosemsg'][$language]; ?>";
+                break;
+                case "cantcreate":
+                temp['msg'] = "<?php echo $array['cantcreatemsg'][$language]; ?>";
+                break;
+                case "noinput":
+                temp['msg'] = "<?php echo $array['noinputmsg'][$language]; ?>";
+                break;
+                case "notfound":
+                temp['msg'] = "<?php echo $array['notfoundmsg'][$language]; ?>";
+                break;
+                case "addsuccess":
+                temp['msg'] = "<?php echo $array['addsuccessmsg'][$language]; ?>";
+                break;
+                case "addfailed":
+                temp['msg'] = "<?php echo $array['addfailedmsg'][$language]; ?>";
+                break;
+                case "editsuccess":
+                temp['msg'] = "<?php echo $array['editsuccessmsg'][$language]; ?>";
+                break;
+                case "editfailed":
+                temp['msg'] = "<?php echo $array['editfailedmsg'][$language]; ?>";
+                break;
+                case "cancelsuccess":
+                temp['msg'] = "<?php echo $array['cancelsuccessmsg'][$language]; ?>";
+                break;
+                case "cancelfailed":
+                temp['msg'] = "<?php echo $array['cancelfailed'][$language]; ?>";
+                break;
+                case "nodetail":
+                temp['msg'] = "<?php echo $array['nodetail'][$language]; ?>";
+                break;
+              }
+              swal({
+                title: '',
+                text: temp['msg'],
+                type: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                showConfirmButton: false,
+                timer: 2000,
+                confirmButtonText: 'Ok'
+              })
+
+              $( "#docnofield" ).val( temp[0]['DocNo'] );
+              $( "#TableDocumentSS tbody" ).empty();
+              $( "#TableSendSterileDetail tbody" ).empty();
+              $( "#TableUsageCode tbody" ).empty();
+              $( "#TableItem tbody" ).empty();
+            }else{
+              console.log(temp['msg']);
+            }
+          },
+          failure: function (result) {
+            alert(result);
+          },
+          error: function (xhr, status, p3, p4) {
+            var err = "Error " + " " + status + " " + p3 + " " + p4;
+            if (xhr.responseText && xhr.responseText[0] == "{")
+            err = JSON.parse(xhr.responseText).Message;
+            console.log(err);
+            alert(err);
+          }
+        });
+      }
+
+    </script>
+    <style media="screen">
 
       @font-face {
-            font-family: myFirstFont;
-            src: url("../fonts/DB Helvethaica X.ttf");
-            }
-        body{
           font-family: myFirstFont;
-          font-size:22px;
-        }
+          src: url("../fonts/DB Helvethaica X.ttf");
+          }
+      body{
+        font-family: myFirstFont;
+        font-size:22px;
+      }
 
-        .nfont{
-          font-family: myFirstFont;
-          font-size:22px;
-        }
+      .nfont{
+        font-family: myFirstFont;
+        font-size:22px;
+      }
 
-          button,input[id^='qty'],input[id^='order'],input[id^='max'] {
-            font-size: 24px!important;
-          }
+      button,input[id^='qty'],input[id^='order'],input[id^='max'] {
+        font-size: 24px!important;
+      }
 
-          .table > thead > tr >th {
-            background: #4f88e3!important;
-          }
+      .table > thead > tr >th {
+        background: #4f88e3!important;
+      }
 
-          table tr th,
-          table tr td {
-            border-right: 0px solid #bbb;
-            border-bottom: 0px solid #bbb;
-            padding: 5px;
-          }
-          table tr th:first-child,
-          table tr td:first-child {
-            border-left: 0px solid #bbb;
-          }
-          table tr th {
-            background: #eee;
-            border-top: 0px solid #bbb;
-            text-align: left;
-          }
+      table tr th,
+      table tr td {
+        border-right: 0px solid #bbb;
+        border-bottom: 0px solid #bbb;
+        padding: 5px;
+      }
+      table tr th:first-child,
+      table tr td:first-child {
+        border-left: 0px solid #bbb;
+      }
+      table tr th {
+        background: #eee;
+        border-top: 0px solid #bbb;
+        text-align: left;
+      }
 
-          /* top-left border-radius */
-          table tr:first-child th:first-child {
-            border-top-left-radius: 6px;
-          }
+      /* top-left border-radius */
+      table tr:first-child th:first-child {
+        border-top-left-radius: 6px;
+      }
 
-          /* top-right border-radius */
-          table tr:first-child th:last-child {
-            border-top-right-radius: 6px;
-          }
+      /* top-right border-radius */
+      table tr:first-child th:last-child {
+        border-top-right-radius: 6px;
+      }
 
-          /* bottom-left border-radius */
-          table tr:last-child td:first-child {
-            border-bottom-left-radius: 6px;
-          }
+      /* bottom-left border-radius */
+      table tr:last-child td:first-child {
+        border-bottom-left-radius: 6px;
+      }
 
-          /* bottom-right border-radius */
-          table tr:last-child td:last-child {
-            border-bottom-right-radius: 6px;
-          }
+      /* bottom-right border-radius */
+      table tr:last-child td:last-child {
+        border-bottom-right-radius: 6px;
+      }
 
-          a.nav-link{
-            width:auto!important;
-          }
-          .datepicker{z-index:9999 !important}
-          .hidden{visibility: hidden;}
-          </style>
-        </head>
+      a.nav-link{
+        width:auto!important;
+      }
+      .datepicker{z-index:9999 !important}
+      .hidden{visibility: hidden;}
+    </style>
+  </head>
 
         <body id="page-top">
           <input class='form-control' type="hidden" style="margin-left:-48px;margin-top:10px;font-size:16px;width:100px;height:30px;text-align:right;padding-top: 15px;" id='IsStatus'>
