@@ -776,13 +776,13 @@ switch ($PmID) {
               <em></em><?php echo $array['menu']['general']['sub'][8][$language]; ?></a>
           </li>
           <?php } ?>
-          <?php if($gen_s10== 1){ ?>
+          <!-- <?php if($gen_s10== 1){ ?>
           <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;"
-              href="pages/process_wash.php?lang=<?php echo $language; ?>" class="current_page"
+              href="pages/datechangeprice.php?lang=<?php echo $language; ?>" class="current_page"
               onclick="return loadIframe('ifrm', this.href)">
               <em></em><?php echo $array['menu']['general']['sub'][9][$language]; ?></a>
           </li>
-          <?php } ?>
+          <?php } ?> -->
         </ul>
 
       </li>
