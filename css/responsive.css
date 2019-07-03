@@ -1,0 +1,42 @@
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+    
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+    /* #dialogItemCode{
+        position: absolute !important;
+        width: 86% !important;
+        top: 13% !important;
+        left: 5% !important;
+        display: block !important;
+        z-index: 106 !important;
+    } */
+}
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) { 
+
+}
+.modal {
+    position: fixed !important;
+    top: 11% !important;
+    right: 0 !important;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+}
+table{
+    width: 100% !important;
+}
