@@ -74,7 +74,6 @@ var RowCnt=0;
 $(document).ready(function(e){
   OnLoadPage();
   getDepartment();
-  get_dirty_doc();
 
   // CreateDocument();
   //==============================
