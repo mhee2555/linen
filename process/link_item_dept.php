@@ -7,17 +7,18 @@ function getHospital($conn, $DATA)
   $count = 0;
   $userid = $DATA['Userid'];
   $Sql = "SELECT
-          side.HptCode,
-          side.HptName
+          side.HptCode,side.HptName
           FROM side
-          WHERE side.IsStatus = 0 AND side.HptCode = (SELECT
-					users.HptCode
-					FROM
-					users
-					INNER JOIN employee ON users.ID = employee.EmpCode
-					INNER JOIN department ON employee.DepCode = department.DepCode
-					INNER JOIN side ON department.HptCode = side.HptCode
-          WHERE users.ID = $userid) 
+          WHERE side.IsStatus = 0 
+          -- AND side.HptCode 
+          -- = (SELECT
+					-- users.HptCode
+					-- FROM
+					-- users
+					-- INNER JOIN employee ON users.ID = employee.EmpCode
+					-- INNER JOIN department ON employee.DepCode = department.DepCode
+					-- INNER JOIN side ON department.HptCode = side.HptCode
+          -- WHERE users.ID = $userid) 
           ";
   //var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
@@ -44,44 +45,96 @@ function getHospital($conn, $DATA)
 
 function getDepartment($conn, $DATA)
 {
+
   $count = 0;
-  $userid = $DATA['Userid'];
-  $Sql = "SELECT
-          department.DepCode,
-          department.DepName
-          FROM
-          department
-          WHERE department.DepCode = (
-          SELECT
-          department.DepCode
-          FROM
-          users
-          INNER JOIN employee ON users.ID = employee.EmpCode
-          INNER JOIN department ON employee.DepCode = department.DepCode
-          WHERE users.ID = $userid ) AND department.IsStatus = 0
-          ORDER BY department.DepCode DESC
-          ";
-  // var_dump($Sql); die;
+  $boolean = false;
+  $Hotp = $DATA["Hotp"];
+  $Sql = "SELECT department.DepCode,department.DepName
+  FROM department
+  WHERE department.HptCode = '$Hotp'
+  AND department.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['DepCode'] = $Result['DepCode'];
     $return[$count]['DepName'] = $Result['DepName'];
     $count++;
+    $boolean = true;
   }
 
-  if($count>0){
+  if ($boolean) {
     $return['status'] = "success";
     $return['form'] = "getDepartment";
     echo json_encode($return);
     mysqli_close($conn);
     die;
-  }else{
-    $return['status'] = "notfound";
-    $return['msg'] = "notfound";
+  } else {
+    $return['status'] = "failed";
+    $return['form'] = "getDepartment";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // $count = 0;
+  // $userid = $DATA['Userid'];
+  // $Sql = "SELECT
+  //         department.DepCode,
+  //         department.DepName
+  //         FROM
+  //         department
+  //         WHERE department.DepCode = (
+  //         SELECT
+  //         department.DepCode
+  //         FROM
+  //         users
+  //         INNER JOIN employee ON users.ID = employee.EmpCode
+  //         INNER JOIN department ON employee.DepCode = department.DepCode
+  //         WHERE users.ID = $userid ) AND department.IsStatus = 0
+  //         ORDER BY department.DepCode DESC
+  //         ";
+  // // var_dump($Sql); die;
+  // $meQuery = mysqli_query($conn, $Sql);
+  // while ($Result = mysqli_fetch_assoc($meQuery)) {
+  //   $return[$count]['DepCode'] = $Result['DepCode'];
+  //   $return[$count]['DepName'] = $Result['DepName'];
+  //   $count++;
+  // }
+
+  // if($count>0){
+  //   $return['status'] = "success";
+  //   $return['form'] = "getDepartment";
+  //   echo json_encode($return);
+  //   mysqli_close($conn);
+  //   die;
+  // }else{
+  //   $return['status'] = "notfound";
+  //   $return['msg'] = "notfound";
+  //   echo json_encode($return);
+  //   mysqli_close($conn);
+  //   die;
+  // }
 }
 
 function ShowItem($conn, $DATA)
