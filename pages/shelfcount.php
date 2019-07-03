@@ -749,7 +749,7 @@ $array = json_decode($json,TRUE);
                   $("#recorder").val(temp[0]['Record']);
                   $("#timerec").val(temp[0]['RecNow']);
                   
-                  ShowDocument_sub();
+                  // ShowDocument_sub();
                   swal({
                     title: "<?php echo $array['createdocno'][$language]; ?>",
                     text: temp[0]['DocNo'] + " <?php echo $array['success'][$language]; ?>",
