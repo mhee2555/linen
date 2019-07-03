@@ -59,7 +59,7 @@ $array = json_decode($json,TRUE);
 <link href="../dist/css/sweetalert2.min.css" rel="stylesheet">
 <script src="../dist/js/sweetalert2.min.js"></script>
 <script src="../dist/js/jquery-3.3.1.min.js"></script>
-
+<!--  -->
 
 <link href="../datepicker/dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
 <script src="../datepicker/dist/js/datepicker.min.js"></script>
