@@ -637,8 +637,8 @@ $array = json_decode($json, true);
                             if ((Object.keys(temp).length - 2) > 0) {
                                 $('#RowID').val(temp['RowID']);
                                 $('#HotName').val(temp['HptName']);
-                                $('#CategoryMain').val(temp['MainCategoryName']);
-                                $('#CategorySub').val(temp['CategoryName']);
+                                $('#Category_Main2').val(temp['MainCategoryName']);
+                                $('#Category_Sub2').val(temp['CategoryName']);
                                 $('#Price').val(temp['Price']);
                             }
                         } else if ((temp["form"] == 'SavePrice')) {
@@ -984,7 +984,7 @@ $array = json_decode($json, true);
                                             </div>
                                             <div class="col-md-6" style="margin-left:15px;">
                                                 <div class="row">
-                                                    <input type="text" class="form-control" style="width:90%;" name="Category_Main" id="Category_Main" placeholder="<?php echo $array['categorymain'][$language]; ?>" readonly>
+                                                    <input type="text" class="form-control" style="width:90%;" name="Category_Main" id="Category_Main2" placeholder="<?php echo $array['categorymain'][$language]; ?>" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -998,7 +998,7 @@ $array = json_decode($json, true);
                                             </div>
                                             <div class="col-md-6" style="margin-left:15px;">
                                                 <div class="row">
-                                                    <input type="text" class="form-control" style="width:90%;" name="Category_Sub" id="Category_Sub" placeholder="<?php echo $array['categorysub'][$language]; ?>" readonly>
+                                                    <input type="text" class="form-control" style="width:90%;" name="Category_Sub" id="Category_Sub2" placeholder="<?php echo $array['categorysub'][$language]; ?>" readonly>
                                                 </div>
                                             </div>
                                         </div>

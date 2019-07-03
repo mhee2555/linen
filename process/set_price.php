@@ -8,12 +8,12 @@ function CreateDoc($conn, $DATA)
     $HptCode = $DATA['HptCode'];
     $xDate = $DATA['xDate'];
 
-    $Sql = "SELECT CONCAT('CD',lpad($HptCode, 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'-',
+    $Sql = "SELECT CONCAT('CD',lpad('$HptCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'-',
           LPAD( (COALESCE(MAX(CONVERT(SUBSTRING(DocNo,12,5),UNSIGNED INTEGER)),0)+1) ,5,0)) AS DocNo,DATE(NOW()) AS DocDate,
           CURRENT_TIME() AS RecNow
           FROM category_price_time
-          WHERE DocNo Like CONCAT('CD',lpad($HptCode, 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'%')
-          AND HptCode = $HptCode
+          WHERE DocNo Like CONCAT('CD',lpad('$HptCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'%')
+          AND HptCode = '$HptCode'
           ORDER BY DocNo DESC LIMIT 1";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -21,7 +21,7 @@ function CreateDoc($conn, $DATA)
         $return['DocNo'] = $DocNo;
     }
 
-    $Sql = "SELECT COUNT(*) AS Cnt FROM category_price WHERE category_price.HptCode = $HptCode";
+    $Sql = "SELECT COUNT(*) AS Cnt FROM category_price WHERE category_price.HptCode = '$HptCode'";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $Cnt = $Result['Cnt'];
@@ -39,7 +39,7 @@ function CreateDoc($conn, $DATA)
         INNER JOIN item_category ON category_price.CategoryCode = item_category.CategoryCode
         INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode
         WHERE item_category.IsStatus = 0 
-        AND category_price.HptCode = $HptCode";
+        AND category_price.HptCode = '$HptCode'";
     }
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -49,7 +49,7 @@ function CreateDoc($conn, $DATA)
     }
 
     for($i=0;$i<$count;$i++){
-        $Sql_Insert = "INSERT INTO category_price_time (DocNo,xDate,HptCode,CategoryCode,Price,Cnt) VALUES ('$DocNo','$xDate',$HptCode,".$CategoryCode[$i].",".$Price[$i].",$count)";
+        $Sql_Insert = "INSERT INTO category_price_time (DocNo,xDate,HptCode,CategoryCode,Price,Cnt) VALUES ('$DocNo','$xDate','$HptCode',".$CategoryCode[$i].",".$Price[$i].",$count)";
         mysqli_query($conn, $Sql_Insert);
     }
 
@@ -117,17 +117,17 @@ function ShowItem1($conn, $DATA)
   $CgSubID = $DATA['CgSubID'];
 
   $Sql = "SELECT category_price.RowID,side.HptName,item_main_category.MainCategoryName,item_category.CategoryName,category_price.Price
-FROM category_price
-INNER JOIN side ON category_price.HptCode = side.HptCode
-INNER JOIN item_category ON category_price.CategoryCode = item_category.CategoryCode
-INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode ";
-if( ('$xHptCode'!="-") && ($CgMainID=="-") && ($CgSubID=="-") ){
-    $Sql .= "WHERE side.HptCode = '$xHptCode'";
-}else if( ('$xHptCode'!="-") && ($CgMainID!="-")  && ($CgSubID=="-") ){
-    $Sql .= "WHERE side.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID";
-}else if( ('$xHptCode'!="-") && ($CgMainID!="-") && ($CgSubID!="-") ){
-    $Sql .= "WHERE side.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
-}
+  FROM category_price
+  INNER JOIN side ON category_price.HptCode = side.HptCode
+  INNER JOIN item_category ON category_price.CategoryCode = item_category.CategoryCode
+  INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode ";
+  if( ('$xHptCode'!="-") && ($CgMainID=="-") && ($CgSubID=="-") ){
+      $Sql .= "WHERE side.HptCode = '$xHptCode'";
+  }else if( ('$xHptCode'!="-") && ($CgMainID!="-")  && ($CgSubID=="-") ){
+      $Sql .= "WHERE side.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID";
+  }else if( ('$xHptCode'!="-") && ($CgMainID!="-") && ($CgSubID!="-") ){
+      $Sql .= "WHERE side.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
+  }
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
