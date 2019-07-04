@@ -97,6 +97,7 @@ function alert_SetPrice($conn,$DATA)
 {
   $PmID = $DATA['PmID'];
   $HptCode = $DATA['HptCode'];
+  $Userid = $DATA['Userid'];
   $boolean = false;
   $count = 0;
   if($PmID == 1){
@@ -126,10 +127,18 @@ function alert_SetPrice($conn,$DATA)
       side.HptName,
       item_category.CategoryName
       FROM category_price_time cat_P
-      INNER JOIN users ON users.ID = 98
+      INNER JOIN users ON users.ID = $Userid 
       INNER JOIN side ON side.HptCode = '$HptCode'
       INNER JOIN item_category ON item_category.CategoryCode = cat_P.CategoryCode
-      WHERE cat_P.HptCode = '$HptCode'
+      WHERE  DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 7 
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 6 
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 5 
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 4 
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 3
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 2
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 1 
+     AND cat_P.HptCode = '$HptCode'
       GROUP BY cat_P.DocNo ORDER BY cat_P.xDate";
   }
   $return['sql'] = $Sql;

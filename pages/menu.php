@@ -134,11 +134,13 @@ $array = json_decode($json,TRUE);
   }
   function alert_SetPrice(){
     var PmID = '<?php echo $PmID; ?>';
+    var Userid = '<?php echo $Userid; ?>';
     var HptCode = '<?php echo $HptCode; ?>';
     var data = { 
       'STATUS'  : 'alert_SetPrice',
       'PmID'  : PmID,
-      'HptCode'  : HptCode
+      'HptCode'  : HptCode,
+      'Userid'  : Userid
     };
     senddata(JSON.stringify(data));
   }
