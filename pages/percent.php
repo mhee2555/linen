@@ -229,14 +229,14 @@ $array = json_decode($json,TRUE);
 												   }
 
 												   $StrTr="<tr id='tr"+temp[i]['DocNo']+"'>"+
-															  "<td style='width: 5%;'>"+(i+1)+"</td>"+
-															  "<td style='width: 15%;'>"+temp[i]['DocNo1']+"</td>"+
-															  "<td style='width: 10%;'>"+temp[i]['DocDate1']+"</td>"+
-															  "<td style='width: 10%;'>"+temp[i]['Total1']+"</td>"+
-															  "<td style='width: 15%;'>"+temp[i]['DocNo2']+"</td>"+
-															  "<td style='width: 10%;'>"+temp[i]['DocDate2']+"</td>"+
-															  "<td style='width: 10%;'>"+temp[i]['Total2']+"</td>"+
-															  "<td style='width: 25%;text-align: center'>"+temp[i]['Precent']+"</td>"+
+															  "<td style='width: 5%;'nowrap>"+(i+1)+"</td>"+
+															  "<td style='width: 15%;'nowrap>"+temp[i]['DocNo1']+"</td>"+
+															  "<td style='width: 10%;'nowrap>"+temp[i]['DocDate1']+"</td>"+
+															  "<td style='width: 10%;'nowrap>"+temp[i]['Total1']+"</td>"+
+															  "<td style='width: 15%;'nowrap>"+temp[i]['DocNo2']+"</td>"+
+															  "<td style='width: 10%;'nowrap>"+temp[i]['DocDate2']+"</td>"+
+															  "<td style='width: 10%;'nowrap>"+temp[i]['Total2']+"</td>"+
+															  "<td style='width: 25%;text-align: center'nowrap>"+temp[i]['Precent']+"</td>"+
 														  "</tr>";
 
 					                               if(rowCount == 0){
@@ -393,67 +393,67 @@ $array = json_decode($json,TRUE);
     <div class="row" style="margin-top:-15px;"> <!-- start row tab -->
 <div class="col-md-12"> <!-- tag column 1 -->
 <!-- /.content-wrapper -->
-<div class="row">
-              <div class="col-md-11"> <!-- tag column 1 -->
-                  <div class="container-fluid">
-                    <div class="card-body" style="padding:0px; margin-top:10px;">
-                        <div class="row">
-                                      <div style="margin-left:20px;width:100px;">
-										   <label><?php echo $array['side'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
-                                        <div class="row" style="font-size:24px;margin-left:2px;">
-                        					<select style='font-size:24px;width:220px;' class="form-control" id="hotpital" onchange="getDepartment();" disabled="true">
-                     		                </select>
-                        				</div>
-                                      </div>
-                                      <div style="margin-left:30px;width:120px;">
-												<label><?php echo $array['department'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
-                                        <div class="row" style="font-size:24px;margin-left:2px;">
-                        						<select style='font-size:24px;width:220px;' class="form-control" id="department" disabled="true">
+          
 
-                                                </select>
-                        				</div>
-                                      </div>
+                      <div class="row">
+                        <div class="col-md-11"> <!-- tag column 1 -->
+                          <div class="container-fluid">
+                            <div class="card-body mt-3" >
 
-                        </div>
-                        <div class="row" style="margin-top:5px">
-                                      <div style="margin-left:20px;width:100px;">
-												<label><?php echo $array['datestart'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
-                                                  <input type="text" class="form-control datepicker-here" style="font-size:24px;" id="datepicker1" data-language='en' data-date-format='dd/mm/yyyy'>
-                                      </div>
-                                      <div style="margin-left:30px;width:120px;">
-												<label><?php echo $array['dateend'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
-                                                  <input type="text" class="form-control datepicker-here" style="font-size:24px;" id="datepicker2" data-language='en' data-date-format='dd/mm/yyyy'>
-                                      </div>
-                                      <div style="margin-left:30px;width:220px;">
- <button style="width:105px"; type="button" class="btn btn-info" onclick="ShowDocument()" id="bSearch"><?php echo $array['search'][$language]; ?></button>
-                                      </div>
-                        </div>
+                            <div class="row">
+                              <div class="col-md-5">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                  <select class="form-control col-sm-8" id="hotpital" onchange="getDepartment();" disabled="true"></select>
+                                </div>
+                              </div>
+                              <div class="col-md-5">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                    <select  class="form-control col-sm-7" id="department" disabled="true"></select>
+                                </div>
+                              </div>
+                            </div>
 
+
+
+
+                            <div class="row">
+                              <div class="col-md-5">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['datestart'][$language]; ?></label>
+                                  <input type="text" class="form-control col-sm-8"  id="datepicker1"  data-language='en' data-date-format='dd/mm/yyyy' >
+                                </div>
+                              </div>
+                              <div class="col-md-5">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['dateend'][$language]; ?></label>
+                                  <input type="text" class="form-control col-sm-7"  id="datepicker2"  data-language='en' data-date-format='dd/mm/yyyy' >
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                <div class='form-group row'>
+                                <button  type="button" class="btn btn-info col-sm-9" onclick="ShowDocument()" id="bSearch"><?php echo $array['search'][$language]; ?></button>
+                                </div>
+                              </div>
+                            </div>
                     </div>
                   </div>
               </div> <!-- tag column 1 -->
     </div>
 
-<div class="row">
+          <div class="row">
               <div style='width: 98%;'> <!-- tag column 1 -->
               		<table style="margin-top:10px;margin-left:15px;" class="table table-fixed table-condensed table-striped" id="TableDocument" width="100%" cellspacing="0" role="grid" style="">
                           <thead id="theadsum" style="font-size:24px;">
                             <tr role="row">
-                              <th style='width: 5%;'><?php echo $array['no'][$language]; ?></th>
-                              <th style='width: 15%;'><?php echo $array['dirtydoc'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['date'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['weight'][$language]; ?></th>
-                              <th style='width: 15%;'><?php echo $array['cleandoc'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['date'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['weight'][$language]; ?></th>
+                              <th style='width: 5%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                              <th style='width: 15%;'nowrap><?php echo $array['dirtydoc'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['date'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['weight'][$language]; ?></th>
+                              <th style='width: 15%;'nowrap><?php echo $array['cleandoc'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['date'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['weight'][$language]; ?></th>
                               <th style='width: 25%;padding-left:150px;'><?php echo $array['percent'][$language]; ?></th>
                             </tr>
                           </thead>

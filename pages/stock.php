@@ -199,12 +199,12 @@ $array = json_decode($json,TRUE);
               var rowCount = $('#TableDocument >tbody >tr').length;
 
               StrTr="<tr id='tr"+temp[i]['DocNo']+"'>"+
-              "<td style='width: 5%;'>"+(i+1)+"</td>"+
-              "<td style='width: 15%;'>"+temp[i]['ItemCode']+"</td>"+
-              "<td style='width: 36%;'>"+temp[i]['ItemName']+"</td>"+
-              "<td style='width: 15%;'>"+temp[i]['CategoryName']+"</td>"+
-              "<td style='width: 15%;'><center>"+temp[i]['Qty']+"</center></td>"+
-              "<td style='width: 14%;'><center>"+temp[i]['DepName']+"</center></td>"+
+              "<td style='width: 5%;'nowrap>"+(i+1)+"</td>"+
+              "<td style='width: 15%;'nowrap>"+temp[i]['ItemCode']+"</td>"+
+              "<td style='width: 36%;'nowrap>"+temp[i]['ItemName']+"</td>"+
+              "<td style='width: 15%;'nowrap>"+temp[i]['CategoryName']+"</td>"+
+              "<td style='width: 15%;'nowrap><center>"+temp[i]['Qty']+"</center></td>"+
+              "<td style='width: 14%;'nowrap><center>"+temp[i]['DepName']+"</center></td>"+
               "</tr>";
 
               if(rowCount == 0){
@@ -361,41 +361,44 @@ $array = json_decode($json,TRUE);
       <div class="row" style="margin-top:-15px;"> <!-- start row tab -->
         <div class="col-md-12"> <!-- tag column 1 -->
           <!-- /.content-wrapper -->
-          <div class="row">
-            <div class="col-md-11"> <!-- tag column 1 -->
-              <div class="container-fluid">
-                <div class="card-body" style="padding:0px; margin-top:10px;">
-                  <div class="row">
-                    <div style="margin-left:20px;width:80px;">
-                      <label><?php echo $array['side'][$language]; ?></label>
-                    </div>
-                    <div style="width:220px;">
-                      <div class="row" style="font-size:24px;margin-left:2px;">
-                        <select style='font-size:24px;width:220px;' class="form-control" id="hotpital" onchange="getDepartment();">
-                        </select>
-                      </div>
-                    </div>
-                    <div style="margin-left:30px;width:85px;">
-                      <label><?php echo $array['department'][$language]; ?></label>
-                    </div>
-                    <div style="width:220px;">
-                      <div class="row" style="font-size:24px;margin-left:2px;">
-                        <select style='font-size:24px;width:220px;' class="form-control" id="department">
 
-                        </select>
-                      </div>
-                    </div>
-                    <div style="width:200px;">
-                      <div class="row" style="font-size:24px;margin-left:50px;">
-                        <input type="text" style="font-size:24px;" class="form-control" name="searchtxt" id="searchtxt" value="" placeholder="<?php echo $array['searchplace'][$language]; ?>">
-                      </div>
-                    </div>
-                    <div style="margin-left:30px;width:300px;">
-                      <button  style="width:130px" type="button" class="btn btn-info" onclick="ShowDocument(0)" id="bSearch"><?php echo $array['searchdep'][$language]; ?></button>
-                      <button  style="width:130px" type="button" class="btn btn-info" onclick="ShowDocument(2)" id="bSearch"><?php echo $array['searchall'][$language]; ?></button>
-                    </div>
+                
+                <div class="row">
+                        <div class="col-md-11"> <!-- tag column 1 -->
+                          <div class="container-fluid">
+                            <div class="card-body " >
 
-                  </div>
+                            <div class="row">
+                              <div class="col-md-5">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                  <select class="form-control col-sm-8" id="hotpital" onchange="getDepartment();" disabled="true"></select>
+                                </div>
+                              </div>
+                              <div class="col-md-5">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                    <select  class="form-control col-sm-8" id="department" disabled="true"></select>
+                                </div>
+                              </div>
+                            </div>                 
+                    <div class="row">
+                              <div class="col-md-5">
+                                <div class='form-group row'>
+                                  <input type="text" class="form-control col-sm-12"  id="searchtxt" name="searchtxt" value="" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                <div class='form-group row'>
+                                <button  type="button" class="btn btn-info col-sm-9" onclick="ShowDocument(0)" id="bSearch"><?php echo $array['search'][$language]; ?></button>
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                <div class='form-group row'>
+                                <button  type="button" class="btn btn-info col-sm-9"style="right:-154px;" onclick="ShowDocument(2)" id="bSearch"><?php echo $array['searchall'][$language]; ?></button>
+                                </div>
+                              </div>
+                            </div>
 
                 </div>
               </div>
@@ -407,12 +410,12 @@ $array = json_decode($json,TRUE);
               <table style="margin-top:10px;margin-left:15px;" class="table table-fixed table-condensed table-striped" id="TableDocument" width="100%" cellspacing="0" role="grid" style="">
                 <thead id="theadsum" style="font-size:24px;">
                   <tr role="row">
-                    <th style='width: 5%;'><?php echo $array['no'][$language]; ?></th>
-                    <th style='width: 15%;'><?php echo $array['code'][$language]; ?></th>
-                    <th style='width: 35%;'><?php echo $array['item'][$language]; ?></th>
-                    <th style='width: 15%;'><?php echo $array['category'][$language]; ?></th>
-                    <th style='width: 15%;'><center><?php echo $array['total'][$language]; ?></center></th>
-                    <th style='width: 15%;'><center><?php echo $array['department'][$language]; ?></center></th>
+                    <th style='width: 5%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                    <th style='width: 15%;'nowrap><?php echo $array['code'][$language]; ?></th>
+                    <th style='width: 35%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                    <th style='width: 15%;'nowrap><?php echo $array['category'][$language]; ?></th>
+                    <th style='width: 15%;'nowrap><center><?php echo $array['total'][$language]; ?></center></th>
+                    <th style='width: 15%;'nowrap><center><?php echo $array['department'][$language]; ?></center></th>
                   </tr>
                 </thead>
                 <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:360px;">
@@ -425,7 +428,6 @@ $array = json_decode($json,TRUE);
       </div> <!-- end row tab -->
 
 
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="../template/vendor/jquery/jquery.min.js"></script>
