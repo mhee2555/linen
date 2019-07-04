@@ -123,22 +123,23 @@ function alert_SetPrice($conn,$DATA)
       $Sql = "SELECT cat_P.DocNo, 
       CURDATE() AS cur, 
       cat_P.xDate, 
-      DATEDIFF(cat_P.xDate+1, CURDATE()) AS dateDiff,
       side.HptName,
-      item_category.CategoryName
+      item_category.CategoryName,
+      CASE
+          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 THEN 30
+          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 7 THEN 7
+          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 6 THEN 6
+          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 5 THEN 5
+          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 4 THEN 4
+          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 3 THEN 3
+          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 2 THEN 2
+          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 1 THEN 1
+      END AS dateDiff
       FROM category_price_time cat_P
       INNER JOIN users ON users.ID = $Userid 
       INNER JOIN side ON side.HptCode = '$HptCode'
       INNER JOIN item_category ON item_category.CategoryCode = cat_P.CategoryCode
-      WHERE  DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 7 
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 6 
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 5 
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 4 
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 3
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 2
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 1 
-     AND cat_P.HptCode = '$HptCode'
+      WHERE cat_P.HptCode = '$HptCode'
       GROUP BY cat_P.DocNo ORDER BY cat_P.xDate";
   }
   $return['sql'] = $Sql;
