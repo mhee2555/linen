@@ -200,6 +200,8 @@ $array = json_decode($json,TRUE);
               $("#CardView").append( $StrTr );
             }
           } else if(temp["form"]=='alert_SetPrice'){
+
+            
             for (var i = 0; i < (Object.keys(temp).length-2); i++) {
               var result = "<li>"+temp[i][DocNo]+" "+"กำหนดเวลาเปลี่ยนเวลา"+temp[i]['xDate']+"</li>";
             }
