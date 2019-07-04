@@ -9,7 +9,7 @@ function ShowItem($conn, $DATA)
   if($xHptCode==""){
     $xHptCode = 1;
   }
-
+// 
   $Keyword = $DATA['Keyword'];
   $Sql="SELECT users.ID,users.FName,users.`Password`,users.UserName,
         -- CONCAT(IFNULL(employee.FirstName,''),' ',IFNULL(employee.LastName,'')) AS xName
