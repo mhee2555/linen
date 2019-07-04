@@ -364,46 +364,38 @@ $array = json_decode($json,TRUE);
 
                 
                 <div class="row">
-                        <div class="col-md-11"> <!-- tag column 1 -->
-                          <div class="container-fluid">
-                            <div class="card-body " >
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class='form-group row'>
-                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
-                                  <select class="form-control col-sm-8" id="hotpital" onchange="getDepartment();" disabled="true"></select>
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class='form-group row'>
-                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
-                                    <select  class="form-control col-sm-8" id="department" disabled="true"></select>
-                                </div>
-                              </div>
-                            </div>                 
-                    <div class="row">
-                              <div class="col-md-5">
-                                <div class='form-group row'>
-                                  <input type="text" class="form-control col-sm-12"  id="searchtxt" name="searchtxt" value="" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                                </div>
-                              </div>
-                              <div class="col-md-2">
-                                <div class='form-group row'>
-                                <button  type="button" class="btn btn-info col-sm-9" onclick="ShowDocument(0)" id="bSearch"><?php echo $array['search'][$language]; ?></button>
-                                </div>
-                              </div>
-                              <div class="col-md-2">
-                                <div class='form-group row'>
-                                <button  type="button" class="btn btn-info col-sm-9"style="right:-154px;" onclick="ShowDocument(2)" id="bSearch"><?php echo $array['searchall'][$language]; ?></button>
-                                </div>
-                              </div>
+                  <div class="col-md-11"> <!-- tag column 1 -->
+                    <div class="container-fluid">
+                      <div class="card-body" >
+                        <div class="row col-12">
+                          <div class="col-md-4">
+                            <div class='form-group row'>
+                              <label class="col-sm-5 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                              <select class="form-control col-sm-6" id="hotpital" onchange="getDepartment();" disabled="true"></select>
                             </div>
+                          </div>
 
-                </div>
-              </div>
-            </div> <!-- tag column 1 -->
-          </div>
+                          <div class="col-md-4">
+                            <div class='form-group row'>
+                              <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                              <select  class="form-control col-sm-7" id="department" disabled="true"></select>
+                            </div>
+                          </div>
+
+                          <div class="col-md-4">
+                            <div class='form-group row'>
+                              <input  type="text" class="form-control col-sm-6"  id="searchtxt" name="searchtxt" value="" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                              <button type="button" class="btn btn-info col-sm-2 btn-sm ml-1" onclick="ShowDocument(0)" id="bSearch"><?php echo $array['search'][$language]; ?></button>
+                              <button type="button" class="btn btn-info col-sm-3 btn-sm ml-1" onclick="ShowDocument(2)" id="bSearch"><?php echo $array['searchall'][$language]; ?></button>
+                            </div>
+                          </div>
+                        </div>                 
+                      </div>
+                    </div>
+                  </div>
+                </div> <!-- tag column 1 -->
+        </div>
+      </div>
 
           <div class="row">
             <div style='width: 98%;'> <!-- tag column 1 -->
