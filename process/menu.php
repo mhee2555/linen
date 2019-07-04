@@ -76,7 +76,7 @@ function getnotification($conn,$DATA){
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return['daily_request_Cnt'] = $Result['Cnt'];
     $boolean = true;
-  }
+  }//dd
   if($boolean){
     $return['status'] = "success";
     $return['form'] = "getnotification";
