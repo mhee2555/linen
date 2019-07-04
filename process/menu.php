@@ -8,18 +8,18 @@ function OnLoadPage($conn,$DATA){
   $count = 0;
   $boolean = false;
   $Sql = "SELECT
-shelfcount.DocNo,
-shelfcount.DocDate,
-department.DepName,
-side.HptName,
-shelfcount.IsStatus,
-shelfcount.RefDocNo,
-shelfcount.Detail
-FROM shelfcount
-INNER JOIN department ON shelfcount.DepCode = department.DepCode
-INNER JOIN side ON department.HptCode = side.HptCode
-WHERE shelfcount.IsStatus = 0
-ORDER BY shelfcount.DocNo DESC";
+  shelfcount.DocNo,
+  shelfcount.DocDate,
+  department.DepName,
+  side.HptName,
+  shelfcount.IsStatus,
+  shelfcount.RefDocNo,
+  shelfcount.Detail
+  FROM shelfcount
+  INNER JOIN department ON shelfcount.DepCode = department.DepCode
+  INNER JOIN side ON department.HptCode = side.HptCode
+  WHERE shelfcount.IsStatus = 0
+  ORDER BY shelfcount.DocNo DESC";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['DocNo'] = $Result['DocNo'];
@@ -91,6 +91,51 @@ function getnotification($conn,$DATA){
     die;
   }
 }
+
+function alert_SetPrice($conn,$DATA)
+{
+  $boolean = false;
+  $count = 0;
+  $Sql = "SELECT cat_P.DocNo, CURDATE() AS cur, cat_P.xDate
+          FROM category_price_time cat_P
+          WHERE DATEDIFF(cat_P.xDate, CURDATE()) = 30 
+            OR DATEDIFF(cat_P.xDate, CURDATE()) = 7 
+            OR DATEDIFF(cat_P.xDate, CURDATE()) = 6 
+            OR DATEDIFF(cat_P.xDate, CURDATE()) = 5 
+            OR DATEDIFF(cat_P.xDate, CURDATE()) = 4 
+            OR DATEDIFF(cat_P.xDate, CURDATE()) = 3
+            OR DATEDIFF(cat_P.xDate, CURDATE()) = 2
+            OR DATEDIFF(cat_P.xDate, CURDATE()) = 1 
+          GROUP BY cat_P.DocNo";
+
+  $return['sql'] = $Sql;
+  $meQuery = mysqli_query($conn,$Sql);
+
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $return[$count]['DocNo'] == $Result['DocNo'];
+    $return[$count]['cur'] == $Result['cur'];
+    $return[$count]['xDate'] == $Result['xDate'];
+    $count++;
+    $boolean = true;
+  }
+
+  $return['countRow'] == $count;
+
+  if($boolean){
+    $return['status'] = "success";
+    $return['form'] = "alert_SetPrice";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }else{
+    $return['status'] = "failed";
+    $return['form'] = "alert_SetPrice";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }
+
+}
 //==========================================================
 //==========================================================
 if(isset($_POST['DATA']))
@@ -102,8 +147,9 @@ if(isset($_POST['DATA']))
     OnLoadPage($conn,$DATA);
   }elseif ($DATA['STATUS']=='getnotification') {
     getnotification($conn,$DATA);
+  }elseif ($DATA['STATUS']=='alert_SetPrice') {
+    alert_SetPrice($conn,$DATA);
   }
-
 }else{
   $return['status'] = "error";
   $return['msg'] = 'noinput';

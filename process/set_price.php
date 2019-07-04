@@ -81,7 +81,7 @@ function ShowDoc($conn, $DATA)
     $Sql="SELECT category_price_time.DocNo,category_price_time.xDate,side.HptCode,side.HptName
     FROM category_price_time
     INNER JOIN side ON category_price_time.HptCode = side.HptCode
-    WHERE side.HptCode = $HptCode AND category_price_time.`Status` = 0 
+    WHERE side.HptCode = '$HptCode' AND category_price_time.`Status` = 0 
     GROUP BY side.HptCode,category_price_time.xDate,category_price_time.DocNo
     ORDER BY category_price_time.xDate ASC";
     $meQuery = mysqli_query($conn, $Sql);
