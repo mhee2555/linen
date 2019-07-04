@@ -1430,7 +1430,7 @@ $array = json_decode($json,TRUE);
     </div>
   </div>
 
-  <!-- -----------------------------Custome1------------------------------------ -->
+  <!-- -----------------------------Custom1------------------------------------ -->
   <div class="modal" id="dialogItemCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
