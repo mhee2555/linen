@@ -76,7 +76,8 @@ function getnotification($conn,$DATA){
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return['daily_request_Cnt'] = $Result['Cnt'];
     $boolean = true;
-  }//dd
+  }
+
   if($boolean){
     $return['status'] = "success";
     $return['form'] = "getnotification";
@@ -96,16 +97,16 @@ function alert_SetPrice($conn,$DATA)
 {
   $boolean = false;
   $count = 0;
-  $Sql = "SELECT cat_P.DocNo, CURDATE() AS cur, cat_P.xDate
+  $Sql = "SELECT cat_P.DocNo, CURDATE() AS cur, cat_P.xDate, DATEDIFF(cat_P.xDate+1, CURDATE()) AS DateDiff
           FROM category_price_time cat_P
-          WHERE DATEDIFF(cat_P.xDate, CURDATE()) = 30 
-            OR DATEDIFF(cat_P.xDate, CURDATE()) = 7 
-            OR DATEDIFF(cat_P.xDate, CURDATE()) = 6 
-            OR DATEDIFF(cat_P.xDate, CURDATE()) = 5 
-            OR DATEDIFF(cat_P.xDate, CURDATE()) = 4 
-            OR DATEDIFF(cat_P.xDate, CURDATE()) = 3
-            OR DATEDIFF(cat_P.xDate, CURDATE()) = 2
-            OR DATEDIFF(cat_P.xDate, CURDATE()) = 1 
+          WHERE DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 
+              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 7 
+              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 6 
+              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 5 
+              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 4 
+              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 3
+              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 2
+              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 1
           GROUP BY cat_P.DocNo ORDER BY cat_P.xDate";
 //ddd
   $return['sql'] = $Sql;
@@ -116,7 +117,9 @@ function alert_SetPrice($conn,$DATA)
     $newDate = $date[2].'-'.$date[1].'-'.$date[0];
     $return[$count]['DocNo'] = $Result['DocNo'];
     $return[$count]['cur'] = $Result['cur'];
-    $return[$count]['xDate'] = $newDate;
+    $return[$count]['xDate'] = $Result['xDate'];
+    $return[$count]['DateDiff'] = $Result['DateDiff'];
+    $return[$count]['newDate'] = $newDate;
     $count++;
     $boolean = true; 
   }

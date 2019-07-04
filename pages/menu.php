@@ -206,10 +206,12 @@ $array = json_decode($json,TRUE);
               for (var i = 0; i < temp['countRow']; i++) {
                 result += '<div class="row">'+
                               // '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
-                              '<div class="col-sm">เอกสารเลขที่</div>'+
+                              '<div class="col-sm-2">เอกสารเลขที่</div>'+
                               '<div class="col-sm">'+temp[i]['DocNo']+'</div>'+
                               '<div class="col-sm text-right">กำหนดวันที่เปลี่ยนเวลา</div>'+
-                              '<div class="col-sm">'+temp[i]['xDate']+'</div>'+
+                              '<div class="col-sm">'+temp[i]['newDate']+'</div>'+
+                              '<div class="col-sm">เหลือเวลาอีก</div>'+
+                              '<div class="col-sm-1 text-right pr-4">'+temp[i]['DateDiff']+' วัน</div>'+
                             '</div>';
               }
               $("#result_alert").html(result);
@@ -218,10 +220,12 @@ $array = json_decode($json,TRUE);
               for (var i = 0; i < temp['countRow']; i++) {
                 result += '<div class="row">'+
                               '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
-                              '<div class="col-sm">เอกสารเลขที่</div>'+
+                              '<div class="col-sm-2">เอกสารเลขที่</div>'+
                               '<div class="col-sm">'+temp[i]['DocNo']+'</div>'+
                               '<div class="col-sm text-right">กำหนดวันที่เปลี่ยนเวลา</div>'+
                               '<div class="col-sm">'+temp[i]['xDate']+'</div>'+
+                              '<div class="col-sm">เหลือเวลาอีก</div>'+
+                              '<div class="col-sm-1 text-right pr-4">'+temp[i]['DateDiff']+' วัน</div>'+
                             '</div>';
                 // result += "<li>เอกสารเลขที่ " +temp[i]['DocNo']+ " กำหนดเวลาเปลี่ยนเวลา " +temp[i]['xDate']+ "</li>";
               }
@@ -384,7 +388,11 @@ $array = json_decode($json,TRUE);
     #red-color {
       color: #D32F2F;
     }
-
+    /* -------------------------- */
+    .modal-content {
+      left: -15% !important;
+      width: 130% !important;
+  }
   </style>
 </head>
 
