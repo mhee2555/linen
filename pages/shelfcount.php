@@ -98,20 +98,20 @@ $array = json_decode($json,TRUE);
       }
     });
 
-    dialog1 = jqui( "#dialogListDetail" ).dialog({
-      autoOpen: false,
-      height: 650,
-      width: 1200,
-      modal: true,
-      buttons: {
-        "<?php echo $array['close'][$language]; ?>": function() {
-          dialog1.dialog( "close" );
-        }
-      },
-      close: function() {
-        console.log("close");
-      }
-    });
+    // dialog1 = jqui( "#dialogListDetail" ).dialog({
+    //   autoOpen: false,
+    //   height: 650,
+    //   width: 1200,
+    //   modal: true,
+    //   buttons: {
+    //     "<?php echo $array['close'][$language]; ?>": function() {
+    //       dialog1.dialog( "close" );
+    //     }
+    //   },
+    //   close: function() {
+    //     console.log("close");
+    //   }
+    // });
 
     //    jqui( "#dialogItem" ).button().on( "click", function() {
     //      dialog.dialog( "open" );
@@ -161,7 +161,7 @@ function OpenDialogItem(){
 
   function ShowDetailSub() {
     var docno = $("#docno").val();
-    if( docno != "" ) dialog1.dialog( "open" );
+    if( docno != "" )  $('#dialogListDetail').modal('show');
     var data = {
       'STATUS'  : 'ShowDetailSub',
       'DocNo'   : docno
@@ -1483,8 +1483,8 @@ function OpenDialogItem(){
                           <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
                         </div>
                       </div>
-                      <div class="col-md-2">
-                        <button type="button" style="margin-left:90px;" class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
+                      <div class="col-md-2 text-right">
+                        <button type="button"  class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
                       </div>
                     </div>
 
@@ -1633,8 +1633,37 @@ function OpenDialogItem(){
       </div>
     </div>
   </div>
-
+  <!-- custom modal2 -->
+  <div class="modal" id="dialogListDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="card-body" style="padding:0px;">
+                    <div class="row">
+                    </div>
+                    <table class="table table-fixed table-condensed table-striped" id="TableRefDocNo" cellspacing="0" role="grid">
+                      <thead style="font-size:24px;">
+                        <tr role="row">
+                        <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                        <th style='width: 25%;'nowrap><?php echo $array['rfid'][$language]; ?></th>
+                        <th style='width: 50%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                        <th style='width: 15%;'nowrap><?php echo $array['unit'][$language]; ?></th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
+            </div>
+          </div>
+    
               
               <!-- Bootstrap core JavaScript-->
               <script src="../template/vendor/jquery/jquery.min.js"></script>
