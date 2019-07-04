@@ -211,8 +211,8 @@ $array = json_decode($json,TRUE);
               if(PmID == 1){
                 for (var i = 0; i < temp['countRow']; i++) {
                   result += '<div class="row">'+
-                                '<div class="col-sm">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
-                                '<div class="col-sm text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
+                                '<div class="col-sm-3">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
+                                '<div class="col-sm-4 text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
                                 '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
                                 '<div class="col-sm-2 text-right pr-5">เหลือเวลา: '+temp[i]['DateDiff']+' วัน</div>'+
                               '</div>';
@@ -221,8 +221,8 @@ $array = json_decode($json,TRUE);
                 for (var i = 0; i < temp['countRow']; i++) {
                   result += '<div class="row">'+
                                 // '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
-                                '<div class="col-sm">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
-                                '<div class="col-sm text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
+                                '<div class="col-sm-3">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
+                                '<div class="col-sm-3 text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
                                 '<div class="col-sm text-left">หมวดหมู่: '+temp[i]['CategoryName']+'</div>'+
                                 '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
                                 '<div class="col-sm-2 text-right pr-5">เหลือเวลา: '+temp[i]['DateDiff']+' วัน</div>'+
@@ -236,8 +236,8 @@ $array = json_decode($json,TRUE);
                 for (var i = 0; i < temp['countRow']; i++) {
                   result += '<div class="row">'+
                                 '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
-                                '<div class="col-sm text-left">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
-                                '<div class="col-sm text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
+                                '<div class="col-sm-3 text-left">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
+                                '<div class="col-sm-4 text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
                                 '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
                                 '<div class="col-sm text-right pr-5">เหลือเวลา : '+temp[i]['DateDiff']+'</div>'+
                               '</div>';
@@ -246,11 +246,11 @@ $array = json_decode($json,TRUE);
                 for (var i = 0; i < temp['countRow']; i++) {
                   result += '<div class="row">'+
                                 '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
-                                '<div class="col-sm text-left">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
-                                '<div class="col-sm text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
+                                '<div class="col-sm-3 text-left">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
+                                '<div class="col-sm-3 text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
                                 '<div class="col-sm text-left">หมวดหมู่: '+temp[i]['CategoryName']+'</div>'+
                                 '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
-                                '<div class="col-sm text-right pr-5">เหลือเวลา: '+temp[i]['DateDiff']+' วัน</div>'+
+                                '<div class="col-sm text-right pr-3">เหลือเวลา: '+temp[i]['DateDiff']+' วัน</div>'+
                               '</div>';
                 }
               }
