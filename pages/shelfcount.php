@@ -50,7 +50,7 @@ $array = json_decode($json,TRUE);
   <link href="../template/css/sb-admin.css" rel="stylesheet">
   <link href="../css/xfont.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
   <script src="../jQuery-ui/jquery-1.12.4.js"></script>
   <script src="../jQuery-ui/jquery-ui.js"></script>
   <script type="text/javascript">
@@ -60,7 +60,7 @@ $array = json_decode($json,TRUE);
   <link href="../dist/css/sweetalert2.min.css" rel="stylesheet">
   <script src="../dist/js/sweetalert2.min.js"></script>
   <script src="../dist/js/jquery-3.3.1.min.js"></script>
-
+  <link href="../css/responsive.css" rel="stylesheet">
 
   <link href="../datepicker/dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
   <script src="../datepicker/dist/js/datepicker.min.js"></script>
@@ -1305,30 +1305,27 @@ $array = json_decode($json,TRUE);
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                       <!-- /.content-wrapper -->
-                      <div class="row">
+                    <div class="row">
                         <div class="col-md-11"> <!-- tag column 1 -->
                           <div class="container-fluid">
                             <div class="card-body" style="padding:0px; margin-top:10px;">
-                              <div class="row">
-                                <div style="margin-left:20px;width:100px;">
-                                  <label><?php echo $array['side'][$language]; ?></label>
-                                </div>
-                                <div style="width:220px;">
-                                  <div class="row" style="font-size:24px;margin-left:2px;">
-                                    <select style='font-size:24px;width:220px;' class="form-control" id="hotpital" onchange="getDepartment();"></select>
-                                  </div>
-                                </div>
-                                <div style="margin-left:30px;width:120px;">
-                                  <label><?php echo $array['department'][$language]; ?></label>
-                                </div>
-                                <div style="width:220px;">
-                                  <div class="row" style="font-size:24px;margin-left:2px;">
-                                    <select style='font-size:24px;width:220px;' class="form-control" id="department">
 
-                                    </select>
-                                  </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class='form-group row'>
+                                  <label class="col-sm-3 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                  <select class="form-control col-sm-9" id="hotpital" onchange="getDepartment();"></select>
                                 </div>
-
+                              </div>
+                              <div class="col-md-6">
+                                <div class='form-group row'>
+                                  <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                    <select  class="form-control col-sm-9" id="department"></select>
+                                </div>
+                              </div>
+                            </div>
+                            
+                       
                               </div>
                               <div class="row" style="margin-top:5px">
                                 <div style="margin-left:20px;width:100px;">
