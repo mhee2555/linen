@@ -107,7 +107,7 @@ function alert_SetPrice($conn,$DATA)
             OR DATEDIFF(cat_P.xDate, CURDATE()) = 2
             OR DATEDIFF(cat_P.xDate, CURDATE()) = 1 
           GROUP BY cat_P.DocNo ORDER BY cat_P.xDate";
-
+//ddd
   $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn,$Sql);
 
