@@ -66,58 +66,59 @@ $array = json_decode($json,TRUE);
   <!-- Include English language -->
   <script src="../datepicker/dist/js/i18n/datepicker.en.js"></script>
     <!-- Bootstrap core JavaScript-->
-    <script src="../template/vendor/jquery/jquery.min.js"></script>
-    <script src="../template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../template/vendor/jquery/jquery.min.js"></script>
+  <script src="../template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../template/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="../template/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Page level plugin JavaScript-->
-    <script src="../template/vendor/datatables/jquery.dataTables.js"></script>
-    <script src="../template/vendor/datatables/dataTables.bootstrap4.js"></script>
+  <!-- Page level plugin JavaScript-->
+  <script src="../template/vendor/datatables/jquery.dataTables.js"></script>
+  <script src="../template/vendor/datatables/dataTables.bootstrap4.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="../template/js/sb-admin.min.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="../template/js/sb-admin.min.js"></script>
 
-    <!-- Demo scripts for this page-->
-    <script src="../template/js/demo/datatables-demo.js"></script>
+  <!-- Demo scripts for this page-->
+  <script src="../template/js/demo/datatables-demo.js"></script>
   <script type="text/javascript">
   var summary = [];
 
   $(document).ready(function(e) {
       OnLoadPage();
+      alert_SetPrice();
   }).mousemove(function(e) { parent.afk();parent.last_move = new Date();
   }).keyup(function(e) { parent.last_move = new Date();
   });
 
   $.ajaxSetup({ cache: false });
 
-  jqui(document).ready(function($){
-    dialog = jqui( "#dialog" ).dialog({
-      autoOpen: false,
-      height: 650,
-      width: 1200,
-      modal: true,
-      buttons: {
-        "ปิด": function() {
-          dialog.dialog( "close" );
-        }
-      },
-      close: function() {
-        console.log("close");
-      }
-    });
+  // jqui(document).ready(function($){
+  //   dialog = jqui( "#dialog" ).dialog({
+  //     autoOpen: false,
+  //     height: 650,
+  //     width: 1200,
+  //     modal: true,
+  //     buttons: {
+  //       "ปิด": function() {
+  //         dialog.dialog( "close" );
+  //       }
+  //     },
+  //     close: function() {
+  //       console.log("close");
+  //     }
+  //   });
 
-    jqui( "#dialogItem" ).button().on( "click", function() {
-      dialog.dialog( "open" );
-    });
+  //   jqui( "#dialogItem" ).button().on( "click", function() {
+  //     dialog.dialog( "open" );
+  //   });
 
-  });
+  // });
 
-  function OpenDialogItem(){
-    var docno = $("#docno").val();
-    if( docno != "" ) dialog.dialog( "open" );
-  }
+  // function OpenDialogItem(){
+  //   var docno = $("#docno").val();
+  //   if( docno != "" ) dialog.dialog( "open" );
+  // }
 
   //======= On create =======
   //console.log(JSON.stringify(data));
@@ -129,7 +130,10 @@ $array = json_decode($json,TRUE);
     };
     senddata(JSON.stringify(data));
   }
-
+  function alert_SetPrice(){
+    var data = { 'STATUS'  : 'alert_SetPrice' };
+    senddata(JSON.stringify(data));
+  }
   function get_last_move() {
       last_move = new Date();
       return last_move;
@@ -195,11 +199,13 @@ $array = json_decode($json,TRUE);
               $StrTr=setCard(temp[i]['DepName'],temp[i]['DocNo'],temp[i]['DocDate']);
               $("#CardView").append( $StrTr );
             }
-
-            // for (var i = 0; i < 50; i++) {
-            //   $StrTr=setCard(i,"SS-00001","2019-04-10");
-            //   $("#CardView").append( $StrTr );
-            // }
+          } else if(temp["form"]=='alert_SetPrice'){
+            for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+              var result = "<li>"+temp[i][DocNo]+" "+"กำหนดเวลาเปลี่ยนเวลา"+temp[i]['xDate']+"</li>";
+            }
+            $('#countRow').val(temp['countRow']);
+            $("#result_alert").html(result);
+            $("#alert_SetPrice").modal('show');
           }
         }else{
           console.log(temp['msg']);
@@ -219,146 +225,146 @@ $array = json_decode($json,TRUE);
   }
   </script>
 
-<style media="screen">
+  <style media="screen">
 
-  body{
-    font-family: 'THSarabunNew';
-    font-size:22px;
-  }
+    body{
+      font-family: 'THSarabunNew';
+      font-size:22px;
+    }
 
-  .nfont{
-    font-family: 'THSarabunNew';
-    font-size:22px;
-  }
+    .nfont{
+      font-family: 'THSarabunNew';
+      font-size:22px;
+    }
 
-  button,input[id^='qty'] {
-    font-size: 24px!important;
-  }
-  .table > thead > tr >th {
-    background: #4f88e3!important;
-  }
+    button,input[id^='qty'] {
+      font-size: 24px!important;
+    }
+    .table > thead > tr >th {
+      background: #4f88e3!important;
+    }
 
-  table tr th,
-  table tr td {
-    border-right: 0px solid #bbb;
-    border-bottom: 0px solid #bbb;
-    padding: 5px;
-  }
-  table tr th:first-child,
-  table tr td:first-child {
-    border-left: 0px solid #bbb;
-  }
-  table tr th {
-    background: #eee;
-    border-top: 0px solid #bbb;
-    text-align: left;
-  }
+    table tr th,
+    table tr td {
+      border-right: 0px solid #bbb;
+      border-bottom: 0px solid #bbb;
+      padding: 5px;
+    }
+    table tr th:first-child,
+    table tr td:first-child {
+      border-left: 0px solid #bbb;
+    }
+    table tr th {
+      background: #eee;
+      border-top: 0px solid #bbb;
+      text-align: left;
+    }
 
-  /* top-left border-radius */
-  table tr:first-child th:first-child {
-    border-top-left-radius: 6px;
-  }
+    /* top-left border-radius */
+    table tr:first-child th:first-child {
+      border-top-left-radius: 6px;
+    }
 
-  /* top-right border-radius */
-  table tr:first-child th:last-child {
-    border-top-right-radius: 6px;
-  }
+    /* top-right border-radius */
+    table tr:first-child th:last-child {
+      border-top-right-radius: 6px;
+    }
 
-  /* bottom-left border-radius */
-  table tr:last-child td:first-child {
-    border-bottom-left-radius: 6px;
-  }
+    /* bottom-left border-radius */
+    table tr:last-child td:first-child {
+      border-bottom-left-radius: 6px;
+    }
 
-  /* bottom-right border-radius */
-  table tr:last-child td:last-child {
-    border-bottom-right-radius: 6px;
-  }
-  a:link{
-    text-decoration:none;
-  }
-  a.nav-link{
-    width:auto!important;
-  }
-  .datepicker{z-index:9999 !important}
-  .hidden{visibility: hidden;}
+    /* bottom-right border-radius */
+    table tr:last-child td:last-child {
+      border-bottom-right-radius: 6px;
+    }
+    a:link{
+      text-decoration:none;
+    }
+    a.nav-link{
+      width:auto!important;
+    }
+    .datepicker{z-index:9999 !important}
+    .hidden{visibility: hidden;}
 
-/*=====================================*/
-.card {
-  width: 250px;                 /* Set width of cards */
-  display: flex;                /* Children use Flexbox */
-  flex-direction: column;       /* Rotate Axis */
-  border: 1px solid #589fe5;    /* Set up Border */
-  border-radius: 4px;           /* Slightly Curve edges */
-  overflow: hidden;             /* Fixes the corners */
-  margin: 5px;                  /* Add space between cards */
-}
+    /*=====================================*/
+    .card {
+      width: 250px;                 /* Set width of cards */
+      display: flex;                /* Children use Flexbox */
+      flex-direction: column;       /* Rotate Axis */
+      border: 1px solid #589fe5;    /* Set up Border */
+      border-radius: 4px;           /* Slightly Curve edges */
+      overflow: hidden;             /* Fixes the corners */
+      margin: 5px;                  /* Add space between cards */
+    }
 
-.card-header {
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 24px;
-  font-weight: 600;
-  border-bottom: 1px solid #589fe5;
-  background-color: #2077cc;
-  padding: 5px 10px;
-}
+    .card-header {
+      color: #FFFFFF;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      border-bottom: 1px solid #589fe5;
+      background-color: #2077cc;
+      padding: 5px 10px;
+    }
 
-.card-main {
-  display: flex;              /* Children use Flexbox */
-  flex-direction: column;     /* Rotate Axis to Vertical */
-  justify-content: center;    /* Group Children in Center */
-  align-items: center;        /* Group Children in Center (on cross axis) */
-  padding: 15px 0;            /* Add padding to the top/bottom */
-}
+    .card-main {
+      display: flex;              /* Children use Flexbox */
+      flex-direction: column;     /* Rotate Axis to Vertical */
+      justify-content: center;    /* Group Children in Center */
+      align-items: center;        /* Group Children in Center (on cross axis) */
+      padding: 15px 0;            /* Add padding to the top/bottom */
+    }
 
-.material-icons {
-  font-size: 36px;
-  color: #589fe5;
-  margin-bottom: 5px;
-}
+    .material-icons {
+      font-size: 36px;
+      color: #589fe5;
+      margin-bottom: 5px;
+    }
 
-.main-description {
-  color: #0627F7;
-  font-size: 18px;
-  text-align: center;
-}
+    .main-description {
+      color: #0627F7;
+      font-size: 18px;
+      text-align: center;
+    }
 
-/* IDs for additional colors*/
-/* Colors from Google Material Design: https://material.io/guidelines/style/color.html*/
+    /* IDs for additional colors*/
+    /* Colors from Google Material Design: https://material.io/guidelines/style/color.html*/
 
-#or-border {
-  border-color: #FFE082;
-}
+    #or-border {
+      border-color: #FFE082;
+    }
 
-#or-header {
-  background-color: #FFF8E1;
-  border-color: #FFE082;
-  color: #FFA000;
-}
+    #or-header {
+      background-color: #FFF8E1;
+      border-color: #FFE082;
+      color: #FFA000;
+    }
 
-#or-color {
-  color: #FFA000;
-}
+    #or-color {
+      color: #FFA000;
+    }
 
-#red-border {
-  border-color: #EF9A9A;
-}
+    #red-border {
+      border-color: #EF9A9A;
+    }
 
-#red-header {
-  background-color: #FFEBEE;
-  border-color: #EF9A9A;
-  color: #D32F2F;
-}
+    #red-header {
+      background-color: #FFEBEE;
+      border-color: #EF9A9A;
+      color: #D32F2F;
+    }
 
-#red-color {
-  color: #D32F2F;
-}
+    #red-color {
+      color: #D32F2F;
+    }
 
   </style>
 </head>
 
 <body id="page-top">
-
+    <input type="text" id='countRow'>
   <div id="wrapper">
     <div id="content-wrapper">
       <div style="margin-top:5px;margin-left:15px;width=100%"> <!-- start row tab -->
@@ -377,8 +383,27 @@ $array = json_decode($json,TRUE);
     </div>
   </div>
 
-
-
-      </body>
-
-      </html>
+  <!-- Modal -->
+<div class="modal fade" id="alert_SetPrice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ol id='result_alert'>
+          
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
