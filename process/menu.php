@@ -112,14 +112,16 @@ function alert_SetPrice($conn,$DATA)
   $meQuery = mysqli_query($conn,$Sql);
 
   while ($Result = mysqli_fetch_assoc($meQuery)) {
-    $return[$count]['DocNo'] == $Result['DocNo'];
-    $return[$count]['cur'] == $Result['cur'];
-    $return[$count]['xDate'] == $Result['xDate'];
+    $date = explode('-',$Result['xDate']);
+    $newDate = $date[2].'-'.$date[1].'-'.$date[0];
+    $return[$count]['DocNo'] = $Result['DocNo'];
+    $return[$count]['cur'] = $Result['cur'];
+    $return[$count]['xDate'] = $newDate;
     $count++;
-    $boolean = true;
+    $boolean = true; 
   }
 
-  $return['countRow'] == $count;
+  $return['countRow'] = $count;
 
   if($boolean){
     $return['status'] = "success";

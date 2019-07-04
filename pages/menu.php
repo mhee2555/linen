@@ -190,7 +190,7 @@ $array = json_decode($json,TRUE);
           console.log('Error#542-decode error');
         }
 
-        if(temp["status"]=='success'){
+        if(temp["status"]=='success'){ 
           if(temp["form"]=='OnLoadPage'){
             $( "#CardView" ).empty();
             $( "#dd" ).empty();
@@ -200,12 +200,34 @@ $array = json_decode($json,TRUE);
               $("#CardView").append( $StrTr );
             }
           } else if(temp["form"]=='alert_SetPrice'){
-            for (var i = 0; i < (Object.keys(temp).length-2); i++) {
-              var result = "<li>"+temp[i][DocNo]+" "+"กำหนดเวลาเปลี่ยนเวลา"+temp[i]['xDate']+"</li>";
-            }
             $('#countRow').val(temp['countRow']);
-            $("#result_alert").html(result);
-            $("#alert_SetPrice").modal('show');
+            var result = '';
+            if(temp['countRow']==1){
+              for (var i = 0; i < temp['countRow']; i++) {
+                result += '<div class="row">'+
+                              // '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
+                              '<div class="col-sm">เอกสารเลขที่</div>'+
+                              '<div class="col-sm">'+temp[i]['DocNo']+'</div>'+
+                              '<div class="col-sm text-right">กำหนดวันที่เปลี่ยนเวลา</div>'+
+                              '<div class="col-sm">'+temp[i]['xDate']+'</div>'+
+                            '</div>';
+              }
+              $("#result_alert").html(result);
+              $("#alert_SetPrice").modal('show');
+            }else if(temp['countRow']>1){
+              for (var i = 0; i < temp['countRow']; i++) {
+                result += '<div class="row">'+
+                              '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
+                              '<div class="col-sm">เอกสารเลขที่</div>'+
+                              '<div class="col-sm">'+temp[i]['DocNo']+'</div>'+
+                              '<div class="col-sm text-right">กำหนดวันที่เปลี่ยนเวลา</div>'+
+                              '<div class="col-sm">'+temp[i]['xDate']+'</div>'+
+                            '</div>';
+                // result += "<li>เอกสารเลขที่ " +temp[i]['DocNo']+ " กำหนดเวลาเปลี่ยนเวลา " +temp[i]['xDate']+ "</li>";
+              }
+              $("#result_alert").html(result);
+              $("#alert_SetPrice").modal('show');
+            }
           }
         }else{
           console.log(temp['msg']);
@@ -364,7 +386,7 @@ $array = json_decode($json,TRUE);
 </head>
 
 <body id="page-top">
-    <input type="text" id='countRow'>
+    <input type="hidden" id='countRow'>
   <div id="wrapper">
     <div id="content-wrapper">
       <div style="margin-top:5px;margin-left:15px;width=100%"> <!-- start row tab -->
@@ -385,22 +407,21 @@ $array = json_decode($json,TRUE);
 
   <!-- Modal -->
 <div class="modal fade" id="alert_SetPrice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content ">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h1 class="modal-title" style='font-size:30px;'>กำหนดเวลาเปลี่ยนราคา</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <ol id='result_alert'>
+      <div class="modal-body text-center">
+        <div id='result_alert'>
           
-        </ol>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
