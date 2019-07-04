@@ -95,20 +95,49 @@ function getnotification($conn,$DATA){
 
 function alert_SetPrice($conn,$DATA)
 {
+  $PmID = $DATA['PmID'];
   $boolean = false;
   $count = 0;
-  $Sql = "SELECT cat_P.DocNo, CURDATE() AS cur, cat_P.xDate, DATEDIFF(cat_P.xDate+1, CURDATE()) AS DateDiff
-          FROM category_price_time cat_P
-          WHERE DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 
-              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 7 
-              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 6 
-              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 5 
-              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 4 
-              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 3
-              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 2
-              OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 1
-          GROUP BY cat_P.DocNo ORDER BY cat_P.xDate";
-//ddd
+  if($PmID == 1){
+    $Sql = "SELECT cat_P.DocNo, 
+    CURDATE() AS cur, 
+    cat_P.xDate, 
+    DATEDIFF(cat_P.xDate+1, CURDATE()) AS dateDiff,
+    side.HptName,
+    item_category.CategoryName
+    FROM category_price_time cat_P
+    INNER JOIN side ON side.HptCode = cat_P.HptCode
+    INNER JOIN item_category ON item_category.CategoryCode = cat_P.CategoryCode
+    WHERE DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 7 
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 6 
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 5 
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 4 
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 3
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 2
+     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 1
+    GROUP BY cat_P.DocNo ORDER BY cat_P.xDate";
+  }else{
+      $Sql = "SELECT cat_P.DocNo, 
+      CURDATE() AS cur, 
+      cat_P.xDate, 
+      DATEDIFF(cat_P.xDate+1, CURDATE()) AS dateDiff,
+      side.HptName,
+      item_category.CategoryName
+      FROM category_price_time cat_P
+      INNER JOIN users ON users.HptCode = cat_P.HptCode
+      INNER JOIN side ON side.HptCode = cat_P.HptCode
+      INNER JOIN item_category ON item_category.CategoryCode = cat_P.CategoryCode
+      WHERE DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 
+       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 7 
+       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 6 
+       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 5 
+       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 4 
+       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 3
+       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 2
+       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 1
+      GROUP BY cat_P.DocNo ORDER BY cat_P.xDate";
+  }
   $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn,$Sql);
 
@@ -116,9 +145,10 @@ function alert_SetPrice($conn,$DATA)
     $date = explode('-',$Result['xDate']);
     $newDate = $date[2].'-'.$date[1].'-'.$date[0];
     $return[$count]['DocNo'] = $Result['DocNo'];
-    $return[$count]['cur'] = $Result['cur'];
-    $return[$count]['xDate'] = $Result['xDate'];
-    $return[$count]['DateDiff'] = $Result['DateDiff'];
+    $return[$count]['HptName'] = $Result['HptName'];
+    $return[$count]['CategoryName'] = $Result['CategoryName'];
+    $return[$count]['DateDiff'] = $Result['dateDiff'];
+    $return[$count]['newDate'] = $newDate;
     $return[$count]['newDate'] = $newDate;
     $count++;
     $boolean = true; 

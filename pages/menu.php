@@ -2,6 +2,7 @@
 session_start();
 date_default_timezone_set("Asia/Bangkok");
 $Userid = $_SESSION['Userid'];
+$PmID = $_SESSION['PmID'];
 $TimeOut = $_SESSION['TimeOut'];
 
 if($Userid==""){
@@ -131,7 +132,10 @@ $array = json_decode($json,TRUE);
     senddata(JSON.stringify(data));
   }
   function alert_SetPrice(){
-    var data = { 'STATUS'  : 'alert_SetPrice' };
+    var data = { 
+      'STATUS'  : 'alert_SetPrice',
+      'PmID'  : <?php echo $PmID; ?>,
+    };
     senddata(JSON.stringify(data));
   }
   function get_last_move() {
@@ -202,38 +206,56 @@ $array = json_decode($json,TRUE);
           } else if(temp["form"]=='alert_SetPrice'){
             $('#countRow').val(temp['countRow']);
             var result = '';
+            var PmID = <?php echo $PmID; ?>;
             if(temp['countRow']==1){
-              for (var i = 0; i < temp['countRow']; i++) {
-                result += '<div class="row">'+
-                              // '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
-                              '<div class="col-sm-2">เอกสารเลขที่</div>'+
-                              '<div class="col-sm">'+temp[i]['DocNo']+'</div>'+
-                              '<div class="col-sm text-right">กำหนดวันที่เปลี่ยนเวลา</div>'+
-                              '<div class="col-sm">'+temp[i]['newDate']+'</div>'+
-                              '<div class="col-sm">เหลือเวลาอีก</div>'+
-                              '<div class="col-sm-1 text-right pr-4">'+temp[i]['DateDiff']+' วัน</div>'+
-                            '</div>';
+              if(PmID == 1){
+                for (var i = 0; i < temp['countRow']; i++) {
+                  result += '<div class="row">'+
+                                '<div class="col-sm">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
+                                '<div class="col-sm text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
+                                '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
+                                '<div class="col-sm-2 text-right pr-5">เหลือเวลา: '+temp[i]['DateDiff']+' วัน</div>'+
+                              '</div>';
+                }
+              }else{
+                for (var i = 0; i < temp['countRow']; i++) {
+                  result += '<div class="row">'+
+                                // '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
+                                '<div class="col-sm">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
+                                '<div class="col-sm text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
+                                '<div class="col-sm text-left">หมวดหมู่: '+temp[i]['CategoryName']+'</div>'+
+                                '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
+                                '<div class="col-sm-2 text-right pr-5">เหลือเวลา: '+temp[i]['DateDiff']+' วัน</div>'+
+                              '</div>';
+                }
               }
               $("#result_alert").html(result);
               $("#alert_SetPrice").modal('show');
             }else if(temp['countRow']>1){
-              for (var i = 0; i < temp['countRow']; i++) {
-                result += '<div class="row">'+
-                              '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
-                              '<div class="col-sm-2">เอกสารเลขที่</div>'+
-                              '<div class="col-sm">'+temp[i]['DocNo']+'</div>'+
-                              '<div class="col-sm text-right">กำหนดวันที่เปลี่ยนเวลา</div>'+
-                              '<div class="col-sm">'+temp[i]['xDate']+'</div>'+
-                              '<div class="col-sm">เหลือเวลาอีก</div>'+
-                              '<div class="col-sm-1 text-right pr-4">'+temp[i]['DateDiff']+' วัน</div>'+
-                            '</div>';
-                // result += "<li>เอกสารเลขที่ " +temp[i]['DocNo']+ " กำหนดเวลาเปลี่ยนเวลา " +temp[i]['xDate']+ "</li>";
+              if(PmID == 1){
+                for (var i = 0; i < temp['countRow']; i++) {
+                  result += '<div class="row">'+
+                                '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
+                                '<div class="col-sm text-left">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
+                                '<div class="col-sm text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
+                                '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
+                                '<div class="col-sm text-right pr-5">เหลือเวลา : '+temp[i]['DateDiff']+'</div>'+
+                              '</div>';
+                }
+              }else{
+                for (var i = 0; i < temp['countRow']; i++) {
+                  result += '<div class="row">'+
+                                '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
+                                '<div class="col-sm text-left">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
+                                '<div class="col-sm text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
+                                '<div class="col-sm text-left">หมวดหมู่: '+temp[i]['CategoryName']+'</div>'+
+                                '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
+                                '<div class="col-sm text-right pr-5">เหลือเวลา: '+temp[i]['DateDiff']+' วัน</div>'+
+                              '</div>';
+                }
               }
               $("#result_alert").html(result);
               $("#alert_SetPrice").modal('show');
-              // setTimeout(function(){ 
-              //   $("#alert_SetPrice").modal('toggle');
-              // }, 6000);
             }
           }
         }else{
