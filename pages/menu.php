@@ -3,6 +3,7 @@ session_start();
 date_default_timezone_set("Asia/Bangkok");
 $Userid = $_SESSION['Userid'];
 $PmID = $_SESSION['PmID'];
+$HptCode = $_SESSION['HptCode'];
 $TimeOut = $_SESSION['TimeOut'];
 
 if($Userid==""){
@@ -132,9 +133,12 @@ $array = json_decode($json,TRUE);
     senddata(JSON.stringify(data));
   }
   function alert_SetPrice(){
+    var PmID = '<?php echo $PmID; ?>';
+    var HptCode = '<?php echo $HptCode; ?>';
     var data = { 
       'STATUS'  : 'alert_SetPrice',
-      'PmID'  : <?php echo $PmID; ?>,
+      'PmID'  : PmID,
+      'HptCode'  : HptCode
     };
     senddata(JSON.stringify(data));
   }
@@ -205,56 +209,53 @@ $array = json_decode($json,TRUE);
             }
           } else if(temp["form"]=='alert_SetPrice'){
             $('#countRow').val(temp['countRow']);
-            var result = '';
+            var result = '<table class="table table-fixed table-condensed table-striped">';
             var PmID = <?php echo $PmID; ?>;
             if(temp['countRow']==1){
               if(PmID == 1){
-                for (var i = 0; i < temp['countRow']; i++) {
-                  result += '<div class="row">'+
-                                '<div class="col-sm-3">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
-                                '<div class="col-sm-4 text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
-                                '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
-                                '<div class="col-sm-2 text-right pr-5">เหลือเวลา: '+temp[i]['DateDiff']+' วัน</div>'+
-                              '</div>';
-                }
+                  for (var i = 0; i < temp['countRow']; i++) {
+                      result += "<tr class='text-left'>"+
+                      '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
+                      '<td nowrap style="width: 26%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
+                      '<td nowrap style="width: 30%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
+                      '<td nowrap style="width: 20%;">วันที่: '+temp[i]['newDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
+                    "</tr>";
+                  }
               }else{
                 for (var i = 0; i < temp['countRow']; i++) {
-                  result += '<div class="row">'+
-                                // '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
-                                '<div class="col-sm-3">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
-                                '<div class="col-sm-3 text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
-                                '<div class="col-sm text-left">หมวดหมู่: '+temp[i]['CategoryName']+'</div>'+
-                                '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
-                                '<div class="col-sm-2 text-right pr-5">เหลือเวลา: '+temp[i]['DateDiff']+' วัน</div>'+
-                              '</div>';
+                  result += "<tr class='text-left'>"+
+                      // '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
+                      '<td nowrap style="width: 26%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
+                      '<td nowrap style="width: 30%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
+                      '<td nowrap style="width: 18%;">หมวดหมู่: '+temp[i]['CategoryName']+'</td>'+
+                      '<td nowrap style="width: 20%;">วันที่: '+temp[i]['newDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
+                    "</tr>";
                 }
               }
-              $("#result_alert").html(result);
+              $("#result_alert").append(result);
               $("#alert_SetPrice").modal('show');
             }else if(temp['countRow']>1){
               if(PmID == 1){
                 for (var i = 0; i < temp['countRow']; i++) {
-                  result += '<div class="row">'+
-                                '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
-                                '<div class="col-sm-3 text-left">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
-                                '<div class="col-sm-4 text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
-                                '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
-                                '<div class="col-sm text-right pr-5">เหลือเวลา : '+temp[i]['DateDiff']+'</div>'+
-                              '</div>';
+                    result += "<tr class='text-left'>"+
+                    '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
+                    '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
+                    '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
+                    '<td nowrap style="width: 20%;">วันที่: '+temp[i]['newDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
+                  "</tr>";
                 }
               }else{
                 for (var i = 0; i < temp['countRow']; i++) {
-                  result += '<div class="row">'+
-                                '<div class="col-sm-1">'+(i+1)+'. '+'</div>'+
-                                '<div class="col-sm-3 text-left">เอกสารเลขที่: '+temp[i]['DocNo']+'</div>'+
-                                '<div class="col-sm-3 text-left">โรงพยาบาล: '+temp[i]['HptName']+'</div>'+
-                                '<div class="col-sm text-left">หมวดหมู่: '+temp[i]['CategoryName']+'</div>'+
-                                '<div class="col-sm-2 text-left">วันที่: '+temp[i]['newDate']+'</div>'+
-                                '<div class="col-sm text-right pr-3">เหลือเวลา: '+temp[i]['DateDiff']+' วัน</div>'+
-                              '</div>';
+                  result += "<tr class='text-left'>"+
+                      '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
+                      '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
+                      '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
+                      // '<td nowrap style="width: 18%;">หมวดหมู่: '+temp[i]['CategoryName']+'</td>'+
+                      '<td nowrap style="width: 20%;">วันที่: '+temp[i]['newDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
+                    "</tr>";
                 }
               }
-              $("#result_alert").html(result);
+              $("#result_alert tbody").append(result);
               $("#alert_SetPrice").modal('show');
             }
           }
@@ -412,9 +413,9 @@ $array = json_decode($json,TRUE);
     }
     /* -------------------------- */
     .modal-content {
-      left: -15% !important;
       width: 130% !important;
-  }
+      right: 17% !important;
+    }
   </style>
 </head>
 
@@ -449,9 +450,10 @@ $array = json_decode($json,TRUE);
         </button>
       </div>
       <div class="modal-body text-center">
-        <div id='result_alert'>
-          
-        </div>
+      <table style="margin-top:10px;" class="table-borderless" id="result_alert" width="100%" cellspacing="0" role="grid" style="">
+        <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:auto">
+        </tbody>
+      </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

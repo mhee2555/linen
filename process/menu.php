@@ -96,6 +96,7 @@ function getnotification($conn,$DATA){
 function alert_SetPrice($conn,$DATA)
 {
   $PmID = $DATA['PmID'];
+  $HptCode = $DATA['HptCode'];
   $boolean = false;
   $count = 0;
   if($PmID == 1){
@@ -125,33 +126,29 @@ function alert_SetPrice($conn,$DATA)
       side.HptName,
       item_category.CategoryName
       FROM category_price_time cat_P
-      INNER JOIN users ON users.HptCode = cat_P.HptCode
-      INNER JOIN side ON side.HptCode = cat_P.HptCode
+      INNER JOIN users ON users.ID = 98
+      INNER JOIN side ON side.HptCode = '$HptCode'
       INNER JOIN item_category ON item_category.CategoryCode = cat_P.CategoryCode
-      WHERE DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 
-       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 7 
-       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 6 
-       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 5 
-       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 4 
-       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 3
-       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 2
-       OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 1
+      WHERE cat_P.HptCode = '$HptCode'
       GROUP BY cat_P.DocNo ORDER BY cat_P.xDate";
   }
   $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn,$Sql);
 
   while ($Result = mysqli_fetch_assoc($meQuery)) {
-    $date = explode('-',$Result['xDate']);
-    $newDate = $date[2].'-'.$date[1].'-'.$date[0];
-    $return[$count]['DocNo'] = $Result['DocNo'];
-    $return[$count]['HptName'] = $Result['HptName'];
-    $return[$count]['CategoryName'] = $Result['CategoryName'];
-    $return[$count]['DateDiff'] = $Result['dateDiff'];
-    $return[$count]['newDate'] = $newDate;
-    $return[$count]['newDate'] = $newDate;
-    $count++;
-    $boolean = true; 
+    if($Result['dateDiff']!=null){
+      $date = explode('-',$Result['xDate']);
+      $newDate = $date[2].'-'.$date[1].'-'.$date[0];
+      $return[$count]['DocNo'] = $Result['DocNo'];
+      $return[$count]['HptName'] = $Result['HptName'];
+      $return[$count]['CategoryName'] = $Result['CategoryName'];
+      $return[$count]['DateDiff'] = $Result['dateDiff'];
+      $return[$count]['newDate'] = $newDate;
+      $return[$count]['newDate'] = $newDate;
+      $count++;
+      $boolean = true; 
+    }
+    
   }
 
   $return['countRow'] = $count;

@@ -30,6 +30,7 @@ function checklogin($conn,$DATA)
       $_SESSION['Userid'] = $Result['ID'];
       $_SESSION['Username'] = $Result['UserName'];
       $_SESSION['PmID'] = $Result['PmID'];
+      $_SESSION['HptCode'] = $Result['HptCode'];
       $_SESSION['TimeOut'] = $Result['TimeOut'];
 
       $Count = $Result['Count'];
