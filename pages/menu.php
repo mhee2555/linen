@@ -227,6 +227,9 @@ $array = json_decode($json,TRUE);
               }
               $("#result_alert").html(result);
               $("#alert_SetPrice").modal('show');
+              // setTimeout(function(){ 
+              //   $("#alert_SetPrice").modal('toggle');
+              // }, 6000);
             }
           }
         }else{
@@ -410,7 +413,7 @@ $array = json_decode($json,TRUE);
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content ">
       <div class="modal-header">
-        <h1 class="modal-title" style='font-size:30px;'>กำหนดเวลาเปลี่ยนราคา</h1>
+        <h1 class="modal-title" style='font-size:30px;color: rgb(0, 51, 141) '>กำหนดเวลาเปลี่ยนราคา</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
