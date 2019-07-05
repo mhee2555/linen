@@ -10,11 +10,11 @@ if($Userid==""){
   header("location:../index.html");
 }
 
-$language = $_GET['lang'];
-if($language=="en"){
-  $language = "en";
+if(empty($_SESSION['lang'])){
+  $language ='th';
 }else{
-  $language = "th";
+  $language =$_SESSION['lang'];
+
 }
 
 header ('Content-type: text/html; charset=utf-8');
@@ -22,7 +22,7 @@ $xml = simplexml_load_file('../xml/general_lang.xml');
 $json = json_encode($xml);
 $array = json_decode($json,TRUE);
 ?>
-
+<!--  -->
 <!DOCTYPE html>
 <html lang="en">
 

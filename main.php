@@ -463,15 +463,19 @@ switch ($PmID) {
           var href = $('#url_page').val() + '?lang=' + lang;
           // window.location.href = "main.php?lang=" + lang + "#" + url[1];
           loadIframe('ifrm', href);
+          OnLoadPage();
         } else {
           var href = $('#url_page').val()  + '?lang=' + lang + url[1];
           // window.location.href = "main.php?lang=" + lang + "#" + url[1];
           loadIframe('ifrm', href);
+          OnLoadPage();
 
         }
       } else {
         window.location.href = "main.php?lang=" + lang;
       }
+      OnLoadPage();
+
     }
     function senddata(data) {
       var form_data = new FormData();
