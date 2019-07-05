@@ -416,7 +416,7 @@ $array = json_decode($json,TRUE);
     /* -------------------------- */
     .modal-content {
       width: 130% !important;
-      right: 17% !important;
+      right: 15% !important;
     }
   </style>
 </head>
