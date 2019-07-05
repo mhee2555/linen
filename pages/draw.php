@@ -505,8 +505,8 @@ function OpenDialogItem(){
             'userid'	: userid
           };
           senddata(JSON.stringify(data));
-        })
-      }
+      })
+    }
 
       function canceldocno(docno) {
         swal({
@@ -529,7 +529,7 @@ function OpenDialogItem(){
             senddata(JSON.stringify(data));
             getSearchDocNo();
           })
-        }
+      }
 
         function addnum(cnt) {
           var add = parseInt($('#iqty'+cnt).val())+1;

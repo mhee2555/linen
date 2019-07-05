@@ -14,6 +14,7 @@ function checklogin($conn,$DATA)
             users.ID,
             users.UserName,
             users.`Password`,
+            users.lang,
             permission.PmID,
             permission.Permission,
             site.HptCode,
@@ -32,6 +33,7 @@ function checklogin($conn,$DATA)
       $_SESSION['PmID'] = $Result['PmID'];
       $_SESSION['HptCode'] = $Result['HptCode'];
       $_SESSION['TimeOut'] = $Result['TimeOut'];
+      $_SESSION['lang'] = $Result['lang']==null?'th':$Result['lang'];
 
       $Count = $Result['Count'];
 
