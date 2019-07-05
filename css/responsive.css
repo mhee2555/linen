@@ -26,3 +26,26 @@ table{
     width: 130% !important;
     right: 15% !important;
 }
+
+@media (min-width: 1200px){
+    #btn_margin {
+        max-width: 14.333333%;
+        margin-top: 26%;
+    }
+
+    #magin_cus{
+        margin-top: 25%;
+    }
+}
+
+@media (max-width: 1199.98px){ 
+    #btn_margin {
+        margin-top: 1%;
+    }
+    #size_custom{
+        font-size: 20px!important;
+    }
+    #rotate_custom{
+        transform: rotate(90deg);
+    }
+}

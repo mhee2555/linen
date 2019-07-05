@@ -817,10 +817,10 @@ $array = json_decode($json,TRUE);
                                  var btn = "<center><button class='btn btn-primary' onclick=''>สร้างรายการ</button></center>";
                                  var txtno = "<input type='number' style='text-align:center;' class='form-control numonly' name='txtno' id='txtno_"+temp[i]['ItemCode']+"' placeholder='0' maxlength='3' min='0'>";
                                  StrTR = "<tr id='tr"+temp[i]['ItemCode']+"'>"+
-                                                "<td style='width: 10%;'>"+chkDoc+"</td>"+
-                                                "<td style='width: 28%;'>"+temp[i]['ItemCode']+"</td>"+
-                                                "<td style='width: 42%;'>"+temp[i]['ItemName']+"</td>"+
-                                                "<td style='width: 20%;'>"+txtno+"</td>"+
+                                                "<td style='width: 10%;' nowrap>"+chkDoc+"</td>"+
+                                                "<td style='width: 28%;' nowrap>"+temp[i]['ItemCode']+"</td>"+
+                                                "<td style='width: 42%;' nowrap>"+temp[i]['ItemName']+"</td>"+
+                                                "<td style='width: 20%;' nowrap>"+txtno+"</td>"+
                                                 "</tr>";
 
                                  if(rowCount == 0){
@@ -1080,11 +1080,11 @@ $array = json_decode($json,TRUE);
                                  var rowCount = $('#TableItemStock >tbody >tr').length;
                                  var txtno = '<input type="text" style="font-size:24px;text-align:center;" class="form-control" id="exp_'+temp[i]['RowID']+'" onclick="datedialog(\''+temp[i]['RowID']+'\')" value="'+temp[i]['ExpireDate']+'" placeholder="<?php echo $array['choose'][$language]; ?>" READONLY>';
                                  StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
-                                                "<td style='width: 5%;'></td>"+
-                                                "<td style='width: 25%;'>"+temp[i]['ItemCode']+"</td>"+
-                                                "<td style='width: 36%;'>"+temp[i]['ItemName']+"</td>"+
-                                                "<td style='width: 10%;'><center>"+temp[i]['ParQty']+"</center></td>"+
-                                                "<td style='width: 24%;'>"+txtno+"</td>"+
+                                                "<td style='width: 5%;' nowrap></td>"+
+                                                "<td style='width: 25%;' nowrap>"+temp[i]['ItemCode']+"</td>"+
+                                                "<td style='width: 36%;' nowrap>"+temp[i]['ItemName']+"</td>"+
+                                                "<td style='width: 10%;' nowrap><center>"+temp[i]['ParQty']+"</center></td>"+
+                                                "<td style='width: 24%;' nowrap>"+txtno+"</td>"+
                                                 "</tr>";
 
                                  if(rowCount == 0){
@@ -1276,139 +1276,113 @@ $array = json_decode($json,TRUE);
 
   <body id="page-top">
     <div id="wrapper">
-      <!-- content-wrapper -->
       <div id="content-wrapper">
-
         <div class="row">
-          <div class="col-md-5">
-              <div class="container-fluid">
-                <div class="card-body" style="padding:0px; margin-top:-12px;">
+
+          <div class="container-fluid">
+            <div class="card-body p-3" style="margin-top:16px;">
+
+              <div class="row">
+                <div class="col-xl-5 col-12">
                   <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-bottom:10px;">
                     <li class="nav-item">
                       <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['item'][$language]; ?></a>
                     </li>
                   </ul>
-                  <div class="row" style='margin-top:15px;'>
-                    <div class='form-group row'>
-                      <label class='col-sm-3 col-md-2'><?php echo $array['side'][$language]; ?></label>
-                      <select class="form-control col-sm-9 col-md-4" id="hotpital" onchange="getDepartment();" <?php if($PmID != 1) echo 'disabled'; ?>>
-                      </select>
-                    </div>
-                    <!-- <div style="width:150px;">
-                      <div class="row" style="font-size:24px;margin-left:2px;">
-                        <select style='font-size:24px;width:179px;' class="form-control" id="hotpital" onchange="getDepartment();" <?php if($PmID != 1) echo 'disabled'; ?>>
-                        </select>
+                  <div class="row">
+                    <div class="col-12 mt-3">
+                      <div class='form-group form-inline'>
+                        <label  style='width:25%' class='text-right mr-sm-2'><?php echo $array['side'][$language]; ?></label>
+                        <select class="form-control " style='width:55%' id="hotpital" onchange="getDepartment();" <?php if($PmID != 1) echo 'disabled'; ?>> </select>
                       </div>
-                    </div> -->
-                    <div class='form-group row'>
-                        <label class='col-sm-3 col-md-2'><?php echo $array['department'][$language]; ?></label>
-                        <select class="form-control col-sm-9 col-md-4" id="department" >
-                        </select>
-                    </div>
-                    <!-- <div style="width:150px;">
-                      <div class="row" style="font-size:24px;margin-left:2px;">
-                        <select style='font-size:24px;width:220px;' class="form-control" id="department" >
-                        </select>
-                      </div>
-                    </div> -->
-                  </div>
-
-                <div class="row" style='margin-top:24px;'>
-                  <div style="margin-left:22px;width:100px;">
-                    <?php echo $array['parnum'][$language]; ?>
-                  </div>
-                  <div style="width:163px;">
-                    <div class="row" style="font-size:24px;margin-left:2px;">
-                      <input type="text" class="form-control numonly" id="parnum" name="parnum" value="" placeholder="<?php echo $array['parnum'][$language]; ?>">
                     </div>
                   </div>
-                </div>
-                <br>
-                <div class="row" style='margin-bottom:18px;'>
-                  <div style="margin-left:20px;width:100px;">
-                    <?php echo $array['search'][$language]; ?>
-                  </div>
-                  <div style="width:163px;">
-                    <div class="row" style="font-size:24px;margin-left:2px;">
-                      <input type="text" class="form-control"  name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                    </div>
-                  </div>
-                </div>
 
                   <div class="row">
-                  <div class="col-md-5">
-                    <div class="row" style="margin-left:5px;">
-                    </div>
-                  </div>
-
-                  </div>
-                  <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid">
-                    <thead id="theadsum" style="font-size:11px;">
-                      <tr role="row">
-                        <th style='width: 10%;'>&nbsp;</th>
-                        <th style='width: 28%;'><?php echo $array['nono'][$language]; ?></th>
-                        <th style='width: 42%;'><center><?php echo $array['item'][$language]; ?></center></th>
-                        <th style='width: 20%;'><?php echo $array['total'][$language]; ?></th>
-                      </tr>
-                    </thead>
-                    <tbody id="tbody" class="nicescrolled" style="font-size:11px;height:420px;">
-                    </tbody>
-                  </table>
-
-              </div>
-            </div>
-        </div> <!-- tag column 1 -->
-
-          <div class="col-md-1" style="margin-top:300px;">
-            <center>
-              <button class="btn btn-primary" type="button" onclick="Addtodoc();"> <?php echo $array['addnewitem'][$language]; ?> <div style="padding-top:10px;">🡆</div> </button>
-            </center>
-          </div>
-
-          <div class="col-md-6"> <!-- tag column 1 -->
-              <div class="container-fluid">
-                <div class="card-body" style="padding:0px; margin-top:-12px;">
-                  <br><br><br /><br>
-                  <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-top:10px;margin-bottom:10px;">
-                    <li class="nav-item">
-                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['itemnew'][$language]; ?></a>
-                    </li>
-                  </ul>
-                  <div class="row" style='margin-top:10px;'>
-                    <div style="margin-left:20px;width:70px;">
-                      <label><?php echo $array['search'][$language]; ?></label>
-                    </div>
-                    <div style="width:150px;">
-                      <div class="row" style="font-size:24px;margin-left:2px;">
-                        <input type="text" class="form-control" style="width:100%;" name="searchitemstock" id="searchitemstock" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                      </div>
-                    </div>
-                    
-                    <div style="width:150px;">
-                      <div class="row" style="font-size:24px;margin-left:27px;">
-                        <button type="button" class="btn btn-success" name="btnsubmit" id="btnsubmit" onclick="submititemstock();"><?php echo $array['confirm'][$language]; ?></button>
+                    <div class="col-12 mt-3">
+                      <div class='form-group form-inline'>
+                        <label style='width:25%' class='text-right mr-sm-2 pl-4'><?php echo $array['department'][$language]; ?></label>
+                        <select class="form-control " style='width:55%' id="department" > </select>
                       </div>
                     </div>
                   </div>
 
+                  <div class="row">
+                    <div class="col-12 mt-3">
+                      <div class='form-group form-inline'>
+                          <label style='width:25%' class='text-right mr-sm-2'><?php echo $array['parnum'][$language]; ?></label>
+                          <input type="text" class="form-control numonly" style='width:55%' id="parnum" name="parnum" value="" placeholder="<?php echo $array['parnum'][$language]; ?>">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12 mt-3">
+                      <div class='form-group form-inline'>
+                        <label style='width:25% 'class='text-right mr-sm-2 pl-4'><?php echo $array['search'][$language]; ?></label>
+                        <input type="text" class="form-control" style='width:55%' name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid">
+                        <thead id="theadsum" style="font-size:11px;">
+                          <tr role="row">
+                            <th style='width: 10%;' nowrap>&nbsp;</th>
+                            <th style='width: 28%;' nowrap><?php echo $array['nono'][$language]; ?></th>
+                            <th style='width: 42%;' nowrap><center><?php echo $array['item'][$language]; ?></center></th>
+                            <th style='width: 20%;' nowrap><?php echo $array['total'][$language]; ?></th>
+                          </tr>
+                        </thead>
+                        <tbody id="tbody" class="nicescrolled" style="font-size:11px;height:420px;">
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-1 col-12 text-center" id='btn_margin'>
+                  <button class="btn btn-primary btn-sm" id='size_custom' type="button" onclick="Addtodoc();"> <?php echo $array['addnewitem'][$language]; ?> <div style="padding-top:10px;" id='rotate_custom'>🡆</div> </button>
+                </div>
+
+                <div class="col-xl-6 col-12">
+                  <div class="card-body" id='magin_cus'>
+                      <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-bottom:10px;">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['itemnew'][$language]; ?></a>
+                        </li>
+                      </ul>
+                      <div class="row ml-2" style='margin-top:10px;'>
+                        <div class='form-group form-inline'>
+                          <label class="mr-2"><?php echo $array['search'][$language]; ?></label>
+                          <input type="text" class="form-control mr-2" name="searchitemstock" id="searchitemstock" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                          <button type="button" class="btn btn-success btn-sm" name="btnsubmit" id="btnsubmit" onclick="submititemstock();"><?php echo $array['confirm'][$language]; ?></button>
+                        </div>
+                      </div>
                     <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItemStock" width="100%" cellspacing="0" role="grid">
                       <thead id="theadsum" style="font-size:11px;">
                         <tr role="row">
-                          <th style='width: 5%;'>&nbsp;</th>
-                          <th style='width: 24%;'><?php echo $array['nono'][$language]; ?></th>
-                          <th style='width: 36%;'><?php echo $array['item'][$language]; ?></th>
-                          <th style='width: 11%;'>Par</th>
-                          <th style='width: 24%;'><?php echo $array['expireday'][$language]; ?></th>
+                          <th style='width: 5%;' nowrap>&nbsp;</th>
+                          <th style='width: 24%;' nowrap><?php echo $array['nono'][$language]; ?></th>
+                          <th style='width: 36%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                          <th style='width: 11%;' nowrap>Par</th>
+                          <th style='width: 24%;' nowrap><?php echo $array['expireday'][$language]; ?></th>
                         </tr>
                       </thead>
                       <tbody id="tbody" class="nicescrolled" style="font-size:11px;height:420px;">
                       </tbody>
                     </table>
-
+                  </div>
                 </div>
               </div>
-          </div> <!-- tag column 1 -->
+            </div>
+          </div>
+
         </div>
+      </div>
+    </div>
         <!-- Dialog Modal-->
         <div id="dialog" title=""  style="z-index:999999 !important;">
           <div class="container">
