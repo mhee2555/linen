@@ -48,4 +48,7 @@ table{
     #rotate_custom{
         transform: rotate(90deg);
     }
+    #magin_cus{
+        margin-top: -4%;
+    }
 }
