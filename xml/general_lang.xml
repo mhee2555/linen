@@ -162,4 +162,7 @@
 <saveprice><en>Save Time</en><th>บันทึกราคา</th></saveprice>
 <back><en>Back</en><th>กลับ</th></back>
 <changetimeout><en>Change Timeout</en><th>แก้ไขเวลาพักหน้าจอ</th></changetimeout>
+<changelang><en>Change Language</en><th>เปลี่ยนภาษา</th></changelang>
+<thai><en>Thai</en><th>ไทย</th></thai>
+<eng><en>English</en><th>อังกฤษ</th></eng>
 </lang>

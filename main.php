@@ -10,24 +10,10 @@ $last_move = $_GET["last_move"];
 if($Userid==""){
    header("location:index.html");
 }
-// $language = $_GET['lang'];
-// if($language=="en"){
-//   $language = "en";
-// }else{
-//   $language = "th";
-// }
-if(empty($_SESSION['lang'])){
-  $_SESSION['lang'] = 'th';
-}else{
-  $language = $_GET['lang'];
-  if($language=="en"){
-    $language = "en";
-    $_SESSION['lang'] = 'en';
-  }else{
-    $language = "th";
-    $_SESSION['lang'] = 'th';
-  }
-}
+
+$language = $_SESSION['lang'];
+
+
 
 header ('Content-type: text/html; charset=utf-8');
 $xml = simplexml_load_file('xml/main_lang.xml');
@@ -341,7 +327,6 @@ switch ($PmID) {
     var redirect_url = 'http://poseintelligence.dyndns.biz:8181/linen/login.html'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
     $(document).ready(function (e) {
       OnLoadPage();
-      setlang();
       target = redirectInSecond * 1000; // แปลงค่าเป็น microsecond
       target = target * 60;
       last_move = new Date() // กำหนดค่าเริ่มต้นให้ last_move
@@ -679,8 +664,8 @@ switch ($PmID) {
 
     </form>
     <!-- Navbar -->
-    <ul class="navbar-nav ml-auto ml-md-0">
-      <div style="padding-top:15px;"><a href="#" onclick="switchlang('th');">TH</a> / <a href="#" onclick="switchlang('en');">EN</a></div>
+    <ul class="navbar-nav ml-auto ml-md-0" >
+      <div style="padding-top:15px;" hidden><a href="#" onclick="switchlang('th');">TH</a> / <a href="#" onclick="switchlang('en');">EN</a></div>
       <li class="nav-item dropdown no-arrow" style="padding-top:12px;">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -701,7 +686,7 @@ switch ($PmID) {
   </article>
 
   <nav id="mainNav" style="margin-top:25px;">
-  <input type="text" id='url_page'>
+  <input type="hidden" id='url_page'>
     <ul class="accordion" id="navmenu">
       <?php if($gen_head== 1){ ?>
       <li id="general">
@@ -960,6 +945,11 @@ switch ($PmID) {
               <em></em><?php echo $array['menu']['system']['sub'][11][$language]; ?></a>
           </li>
           <?php } ?>
+          <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;"
+              href="pages/change_lang.php?lang=<?php echo $language; ?>" class="current_page"
+              onclick="return loadIframe('ifrm', this.href)">
+              <em></em><?php echo $array['menu']['system']['sub'][12][$language]; ?></a>
+          </li>
           <!-- <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;" href="pages/item_multiple_unit.php" onclick="return loadIframe('ifrm', this.href)">
                     	<em></em>หลายหน่วยนับ</a>
                     </li> -->
