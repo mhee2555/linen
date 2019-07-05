@@ -13,10 +13,10 @@ function ShowItem($conn, $DATA)
   $Keyword = $DATA['Keyword'];
   $Sql="SELECT users.ID,users.FName,users.`Password`,users.UserName,
         -- CONCAT(IFNULL(employee.FirstName,''),' ',IFNULL(employee.LastName,'')) AS xName
-        permission.Permission
+        permission.Permission, HptName
         FROM users
         INNER JOIN permission ON users.PmID = permission.PmID
-        -- INNER JOIN employee ON users.EmpCode = employee.EmpCode
+        INNER JOIN site ON site.HptCode = users.HptCode
         WHERE users.IsCancel = 0 AND ( users.FName LIKE '%$Keyword%')";
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
@@ -25,7 +25,8 @@ function ShowItem($conn, $DATA)
     $return[$count]['FName'] = $Result['FName'];
     $return[$count]['Password'] = $Result['Password'];
     $return[$count]['UserName'] = $Result['UserName'];
-	$return[$count]['Permission'] = $Result['Permission'];
+	  $return[$count]['Permission'] = $Result['Permission'];
+	  $return[$count]['HptName'] = $Result['HptName'];
     $count++;
   }
 
@@ -149,9 +150,9 @@ function getEmployee($conn, $DATA)
   function getHotpital_user($conn, $DATA)
   {
     $count = 0;
-    $Sql = "SELECT users.HptCode,site.HptName 
-    FROM users 
-    INNER JOIN site ON users.HptCode = site.HptCode 
+    $Sql = "SELECT site.HptCode,site.HptName 
+    FROM site  
+    -- INNER JOIN site ON users.HptCode = site.HptCode 
     WHERE IsStatus = 0 ";
     
     $meQuery = mysqli_query($conn, $Sql);

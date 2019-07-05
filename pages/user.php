@@ -355,12 +355,13 @@ $array = json_decode($json, true);
                                 var chkDoc = "<input type='radio' name='checkitem' id='checkitem' value='" + temp[i]['ID'] + "' onclick='getdetail(\"" + temp[i]["ID"] + "\")'>";
                                 // var Qty = "<div class='row' style='margin-left:5px;'><button class='btn btn-danger' style='width:35px;' onclick='subtractnum(\""+i+"\")'>-</button><input class='form-control' style='width:50px; margin-left:3px; margin-right:3px; text-align:center;' id='qty"+i+"' value='0' disabled><button class='btn btn-success' style='width:35px;' onclick='addnum(\""+i+"\")'>+</button></div>";
                                 StrTR = "<tr id='tr" + temp[i]['DepCode'] + "'>" +
-                                    "<td style='width: 5%;'>" + chkDoc + "</td>" +
-                                    "<td style='width: 10%;'>" + (i + 1) + "</td>" +
-                                    "<td style='width: 29%;'>" + temp[i]['FName'] + "</td>" +
-                                    "<td style='width: 15%;'>" + temp[i]['UserName'] + "</td>" +
-                                    "<td style='width: 22%;'>" + temp[i]['Password'] + "</td>" +
-									"<td style='width: 3%;'>" + temp[i]['Permission'] + "</td>" +
+                                    "<td style='width: 5%;' nowrap>" + chkDoc + "</td>" +
+                                    "<td style='width: 10%;' nowrap>" + (i + 1) + "</td>" +
+                                    "<td style='width: 22%;' nowrap>" + temp[i]['FName'] + "</td>" +
+                                    "<td style='width: 16%;' nowrap>" + temp[i]['UserName'] + "</td>" +
+                                    "<td style='width: 10%;' nowrap>" + temp[i]['Password'] + "</td>" +
+									"<td style='width: 15%;' nowrap>" + temp[i]['Permission'] + "</td>" +
+									"<td style='width: 22%;' nowrap>" + temp[i]['HptName'] + "</td>" +
                                     "</tr>";
 
                                 if (rowCount == 0) {
@@ -772,22 +773,13 @@ $array = json_decode($json, true);
                             <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid">
                                 <thead id="theadsum" style="font-size:11px;">
                                     <tr role="row">
-                                        <th style='width: 5%;'>&nbsp;</th>
-                                        <th style='width: 10%;'>
-                                            <?php echo $array['no'][$language]; ?>
-                                        </th>
-                                        <th style='width: 29%;'>
-                                            <?php echo $array['flname'][$language]; ?>
-                                        </th>
-                                        <th style='width: 16%;'>
-                                            <?php echo $array['username'][$language]; ?>
-                                        </th>
-                                        <th style='width: 20%;'>
-                                            <?php echo $array['password'][$language]; ?>
-                                        </th>
-                                        <th style='width: 20%;'>
-                                            <?php echo $array['permission'][$language]; ?>
-                                        </th>
+                                        <th style='width: 5%;' nowrap>&nbsp;</th>
+                                        <th style='width: 10%;' nowrap> <?php echo $array['no'][$language]; ?> </th>
+                                        <th style='width: 22%;' nowrap> <?php echo $array['flname'][$language]; ?> </th>
+                                        <th style='width: 16%;' nowrap> <?php echo $array['username'][$language]; ?> </th>
+                                        <th style='width: 10%;' nowrap> <?php echo $array['password'][$language]; ?> </th>
+                                        <th style='width: 15%;' nowrap> <?php echo $array['permission'][$language]; ?> </th>
+                                        <th style='width: 22%;' nowrap> <?php echo $array['side'][$language]; ?>  </th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody" class="nicescrolled" style="font-size:11px;height:250px;">
