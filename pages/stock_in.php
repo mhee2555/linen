@@ -704,7 +704,7 @@ $array = json_decode($json,TRUE);
                         "<td style='width: 15%;'nowrap>"+temp[i]['Record']+"</td>"+
                         "<td style='width: 10%;'nowrap>"+temp[i]['RecNow']+"</td>"+
                         "<td style='width: 10%;'nowrap>"+temp[i]['Total']+"</td>"+
-                        "<td "+Style+">"+Status+"</td>"+
+                        "<td "+Style+"nowrap>"+Status+"</td>"+
                         "</tr>";
 
                         if(rowCount == 0){
@@ -1244,8 +1244,8 @@ $array = json_decode($json,TRUE);
                                 <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
                               </div>
                             </div>
-                            <div class="col-md-2">
-                              <button type="button" style="margin-left:90px;" class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
+                            <div class="col-md-2 text-right">
+                              <button type="button"  class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
                             </div>
                           </div>
 
