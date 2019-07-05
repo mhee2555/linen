@@ -22,7 +22,7 @@ $xml = simplexml_load_file('../xml/general_lang.xml');
 $json = json_encode($xml);
 $array = json_decode($json,TRUE);
 ?>
-
+<!--  -->
 <!DOCTYPE html>
 <html lang="en">
 
