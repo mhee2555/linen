@@ -343,6 +343,8 @@ switch ($PmID) {
       $('.current_page').click(function () {
         $("a").removeClass("active_li");
         $(this).attr("class", "active_li");
+        var href = $(this).attr('href');
+        $('#url_page').val(href);
       });
 
 
@@ -470,7 +472,6 @@ switch ($PmID) {
         window.location.href = "main.php?lang=" + lang;
       }
     }
-
     function senddata(data) {
       var form_data = new FormData();
       form_data.append("DATA", data);
@@ -684,6 +685,7 @@ switch ($PmID) {
   </article>
 
   <nav id="mainNav" style="margin-top:25px;">
+  <input type="text" id='url_page'>
     <ul class="accordion" id="navmenu">
       <?php if($gen_head== 1){ ?>
       <li id="general">
@@ -693,8 +695,7 @@ switch ($PmID) {
 
         <ul class="sub-menu">
           <?php if($gen_s1== 1){ ?>
-          <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;"
-              href="pages/menu.php?lang=<?php echo $language; ?>" class="current_page" onclick="return loadIframe('ifrm', this.href)">
+          <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;" href="pages/menu.php?lang=<?php echo $language; ?>" class="current_page" onclick="return loadIframe('ifrm', this.href)">
               <em></em><?php echo $array['menu']['general']['sub'][0][$language]; ?></a>
           </li>
           <?php } ?>
