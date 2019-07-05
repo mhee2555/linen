@@ -115,15 +115,13 @@ $Sql = "SELECT
             draw.DocNo,
             DATE_FORMAT(draw.DocDate,'%d-%m-%Y')AS DocDate,
             draw.Total,
-            employee.FirstName,
-            employee.LastName,
+            users.FName,
             TIME(draw.Modify_Date) AS xTime,
             draw.IsStatus
         FROM draw
         INNER JOIN department ON department.DepCode = draw.DepCode
         INNER JOIN site ON department.HptCode = site.HptCode
         INNER JOIN users ON draw.Modify_Code = users.ID
-        INNER JOIN employee ON users.EmpCode = employee.EmpCode
         WHERE draw.DocNo = '$DocNo'";
         // echo $Sql;
 $meQuery = mysqli_query($conn,$Sql);
@@ -133,8 +131,7 @@ while ($Result = mysqli_fetch_assoc($meQuery)) {
   $DocNo = $Result['DocNo'];
   $DocDate = $Result['DocDate'];
   $Total = $Result['Total'];
-  $FirstName = $Result['FirstName'];
-  $LastName = $Result['LastName'];
+  $FirstName = $Result['FName'];
   $xTime = $Result['xTime'];
 }
 
