@@ -350,7 +350,7 @@ $array = json_decode($json,TRUE);
           'Hotp'		: Hotp
         };
         senddata(JSON.stringify(data));
-          $('#dialogItemCode').modal('toggle')
+          $('#dialogItemCode').modal('toggle');
         dialogUsageCode.dialog( "close" );
       }
 

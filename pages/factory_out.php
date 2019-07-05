@@ -1083,68 +1083,67 @@ var isChecked2 = false;
               <div class="col-md-11"> <!-- tag column 1 -->
                   <div class="container-fluid">
                     <div class="card-body" style="padding:0px; margin-top:10px;">
-                        <div class="row">
-                                      <div style="margin-left:20px;width:100px;">
-										   <label><?php echo $array['side'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
-                                        <div class="row" style="font-size:24px;margin-left:2px;">
-                        					<select style='font-size:24px;width:220px;' class="form-control" id="hotpital" onchange="getDepartment();" disabled="true">
-                     		                </select>
-                        				</div>
-                                      </div>
-                                      <div style="margin-left:30px;width:120px;">
-												<label><?php echo $array['department'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
-                                        <div class="row" style="font-size:24px;margin-left:2px;">
-                        						<select style='font-size:24px;width:220px;' class="form-control" id="department">
-
-                                                </select>
-                        				</div>
-                                      </div>
-
-                        </div>
-                        <div class="row" style="margin-top:5px">
-                                      <div style="margin-left:20px;width:100px;">
-												<label><?php echo $array['docdate'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
- <input type="text" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
-                                      </div>
-                                      <div style="margin-left:30px;width:120px;">
-												<label><?php echo $array['docno'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
- <input type="text" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
-                                      </div>
-                                      <div style="margin-left:20px;width:100px;">
-												<label><?php echo $array['refdocno'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
-												<input class='form-control' style="font-size:20px;width:220px;height:40px;padding-top:6px;" id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" onclick="open_dirty_doc()">
-                                      </div>
-                        </div>
-                        <div class="row" style="margin-top:5px;">
-                                      <div style="margin-left:20px;width:100px;">
-												<label><?php echo $array['employee'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
- <input type="text" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
-                                      </div>
-                                      <div style="margin-left:30px;width:120px;">
-												<label><?php echo $array['time'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
- <input type="text" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
-                                      </div>
-                                      <div style="margin-left:20px;width:100px;">
-												<label><?php echo $array['totalweight'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
-												<input class='form-control' style="font-size:20px;width:220px;height:40px;padding-top:6px;" id='wTotal' placeholder="0.00">
-                                      </div>
-                        </div>
+                    <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                      <select  class="form-control col-sm-9" id="hotpital" onchange="getDepartment();" disabled="true">
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                        <select class="form-control col-sm-9" id="department" disabled="true">
+                                        </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-9"  name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-9" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
+                                      <input class="form-control col-sm-9" id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" onclick="open_dirty_doc()">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-9" style="font-size:24px;width:220px;" name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-9" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['totalweight'][$language]; ?></label>
+                                      <input class="form-control col-sm-9" style="font-size:20px;width:220px;height:40px;padding-top:6px;" id='wTotal' placeholder="0.00">
+                                    </div>
+                                  </div>
+                                </div>
 
                     </div>
                   </div>
