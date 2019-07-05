@@ -353,29 +353,6 @@ switch ($PmID) {
       last_move = afk();
     });
 
-    // function afk() {
-    //   last_move = new Date();
-    //   $('#last_move').val(last_move.getTime());
-    //   return last_move;
-    // }
-
-    // function chk_last_move() {
-    //   cur_date = new Date(); // อ่านเวลาปัจจุบันไว้ใน cur_date
-    //   last_move = $('#last_move').val();
-    //   cur = cur_date.getTime();
-    //   if (cur > last_move) {
-    //     var micro = parseInt(cur_date - last_move);
-    //     if (micro > target) {
-    //       location.href = redirect_url;
-    //     } else {
-    //       var new_time = target - micro;
-    //       setTimeout('chk_last_move()', new_time);
-    //     }
-    //   } else {
-    //     var micro = parseInt(cur_date - last_move);
-    //     setTimeout('chk_last_move()', target);
-    //   }
-    // }
     <!-- ============================================================================ -->
     function afk() {
           last_move = new Date();
@@ -434,8 +411,7 @@ switch ($PmID) {
     function logoff() {
       swal({
         title: '',
-        text: '<?php echo $array['
-        logout '][$language]; ?>',
+        text: '<?php echo $array[' logout '][$language]; ?>',
         type: 'success',
         showCancelButton: false,
         confirmButtonColor: '#3085d6',
@@ -473,14 +449,24 @@ switch ($PmID) {
     }
 
     function switchlang(lang) {
+      
       if (document.URL.indexOf('#') >= 0) {
+        alert('t');
         var url = document.URL.split("#");
         if (url[1] == "") {
-          window.location.href = "main.php?lang=" + lang;
+          alert('1');
+          alert(lang);
+          // window.location.href = "main.php?lang=" + lang + "#" + url[1];
+          loadIframe('ifrm', 'pages/dirty.php?lang=th');
         } else {
-          window.location.href = "main.php?lang=" + lang + "#" + url[1];
+          alert('2');
+          alert(lang);
+          // window.location.href = "main.php?lang=" + lang + "#" + url[1];
+          loadIframe('ifrm', 'pages/dirty.php?lang=en');
+
         }
       } else {
+        alert('b');
         window.location.href = "main.php?lang=" + lang;
       }
     }
@@ -677,8 +663,7 @@ switch ($PmID) {
     </form>
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
-      <div style="padding-top:15px;"><a href="#" onclick="switchlang('th');">TH</a> / <a href="#"
-          onclick="switchlang('en');">EN</a></div>
+      <div style="padding-top:15px;"><a href="#" onclick="switchlang('th');">TH</a> / <a href="#" onclick="switchlang('en');">EN</a></div>
       <li class="nav-item dropdown no-arrow" style="padding-top:12px;">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -709,8 +694,7 @@ switch ($PmID) {
         <ul class="sub-menu">
           <?php if($gen_s1== 1){ ?>
           <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;"
-              href="pages/menu.php?lang=<?php echo $language; ?>" class="current_page"
-              onclick="return loadIframe('ifrm', this.href)">
+              href="pages/menu.php?lang=<?php echo $language; ?>" class="current_page" onclick="return loadIframe('ifrm', this.href)">
               <em></em><?php echo $array['menu']['general']['sub'][0][$language]; ?></a>
           </li>
           <?php } ?>

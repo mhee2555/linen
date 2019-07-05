@@ -186,7 +186,7 @@ $array = json_decode($json,TRUE);
           };
           senddata(JSON.stringify(data));
         })
-      }
+    }
 
       //======= On create =======
       //console.log(JSON.stringify(data));
