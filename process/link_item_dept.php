@@ -7,17 +7,17 @@ function getHospital($conn, $DATA)
   $count = 0;
   $userid = $DATA['Userid'];
   $Sql = "SELECT
-          side.HptCode,side.HptName
-          FROM side
-          WHERE side.IsStatus = 0 
-          -- AND side.HptCode 
+          site.HptCode,site.HptName
+          FROM site
+          WHERE site.IsStatus = 0 
+          -- AND site.HptCode 
           -- = (SELECT
 					-- users.HptCode
 					-- FROM
 					-- users
 					-- INNER JOIN employee ON users.ID = employee.EmpCode
 					-- INNER JOIN department ON employee.DepCode = department.DepCode
-					-- INNER JOIN side ON department.HptCode = side.HptCode
+					-- INNER JOIN site ON department.HptCode = site.HptCode
           -- WHERE users.ID = $userid) 
           ";
   //var_dump($Sql); die;

@@ -7,7 +7,7 @@ $xDate = date('Y-m-d');
 function OnLoadPage($conn,$DATA){
   $count = 0;
   $boolean = false;
-  $Sql = "SELECT side.HptCode,side.HptName FROM side WHERE side.IsStatus = 0";
+  $Sql = "SELECT site.HptCode,site.HptName FROM site WHERE site.IsStatus = 0";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptCode'] = $Result['HptCode'];
@@ -71,8 +71,8 @@ function getRow($conn,$DATA){
   $Sql = "SELECT
 item.ItemName,
 item_stock.ExpireDate,
-side.HptCode,
-side.HptName,
+site.HptCode,
+site.HptName,
 department.DepCode,
 department.DepName,
 item.ItemCode
@@ -80,7 +80,7 @@ FROM
 item_stock
 INNER JOIN item ON item.ItemCode = item_stock.ItemCode
 INNER JOIN department ON item_stock.DepCode = department.DepCode
-INNER JOIN side ON department.HptCode = side.HptCode
+INNER JOIN site ON department.HptCode = site.HptCode
 WHERE item_stock.IsStatus = 0
 AND RowID = $RowID";
 $meQuery = mysqli_query($conn,$Sql);
@@ -148,8 +148,8 @@ function ShowDocument($conn,$DATA){
   $Sql = "SELECT
 item.ItemName,
 item_stock.ExpireDate,
-side.HptCode,
-side.HptName,
+site.HptCode,
+site.HptName,
 department.DepCode,
 department.DepName,
 item.ItemCode
@@ -157,7 +157,7 @@ FROM
 item_stock
 INNER JOIN item ON item.ItemCode = item_stock.ItemCode
 INNER JOIN department ON item_stock.DepCode = department.DepCode
-INNER JOIN side ON department.HptCode = side.HptCode
+INNER JOIN site ON department.HptCode = site.HptCode
 WHERE item_stock.DepCode = $deptCode
 AND item_stock.IsStatus = 0
 AND (DATE(item_stock.ExpireDate) BETWEEN DATE(NOW()) AND

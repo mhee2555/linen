@@ -8,7 +8,7 @@ function OnLoadPage($conn, $DATA)
 {
   $count = 0;
   $boolean = false;
-  $Sql = "SELECT side.HptCode,side.HptName FROM side WHERE side.IsStatus = 0";
+  $Sql = "SELECT site.HptCode,site.HptName FROM site WHERE site.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptCode'] = $Result['HptCode'];
@@ -152,10 +152,10 @@ function ShowMenu($conn, $DATA)
   $boolean = false;
   $count = 0;
   $DocnoXXX = $DATA["DocnoXXX"];
-  $Sql = "SELECT   side.HptName,department.DepName,shelfcount.DocNo,shelfcount.DocDate,shelfcount.Total,users.FName,TIME(shelfcount.Modify_Date) AS xTime,shelfcount.IsStatus
+  $Sql = "SELECT   site.HptName,department.DepName,shelfcount.DocNo,shelfcount.DocDate,shelfcount.Total,users.FName,TIME(shelfcount.Modify_Date) AS xTime,shelfcount.IsStatus
   FROM shelfcount
   INNER JOIN department ON shelfcount.DepCode = department.DepCode
-  INNER JOIN side ON department.HptCode = side.HptCode
+  INNER JOIN site ON department.HptCode = site.HptCode
   INNER JOIN users ON shelfcount.Modify_Code = users.ID
   WHERE shelfcount.DocNo = '$DocnoXXX'";
   $meQuery = mysqli_query($conn, $Sql);
@@ -208,7 +208,7 @@ function ShowDocument($conn, $DATA)
   //	 $Sql = "INSERT INTO log ( log ) VALUES ('$deptCode : $DocNo')";
   //     mysqli_query($conn,$Sql);
 
-  $Sql = "SELECT side.HptName,
+  $Sql = "SELECT site.HptName,
   department.DepName,
   shelfcount.DocNo,
   shelfcount.DocDate,
@@ -216,15 +216,15 @@ function ShowDocument($conn, $DATA)
   users.FName,
   TIME(shelfcount.Modify_Date)
   AS xTime,shelfcount.IsStatus,
-  side.HptCode
+  site.HptCode
   FROM shelfcount
   INNER JOIN department ON shelfcount.DepCode = department.DepCode
-  INNER JOIN side ON department.HptCode = side.HptCode
+  INNER JOIN site ON department.HptCode = site.HptCode
   INNER JOIN users ON shelfcount.Modify_Code = users.ID ";
   if ($selecta == 0) {
     $Sql.= "WHERE shelfcount.DepCode = $deptCode AND shelfcount.DocNo LIKE '%$DocNo%' ";
   }
-  $Sql.= "AND side.HptCode = '$hosCode' ";
+  $Sql.= "AND site.HptCode = '$hosCode' ";
   $Sql.= "ORDER BY shelfcount.DocNo DESC LIMIT 500 ";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -266,7 +266,7 @@ function SelectDocument($conn, $DATA)
   $count = 0;
   $DocNo = $DATA["xdocno"];
   $Datepicker = $DATA["Datepicker"];
-  $Sql = "SELECT   side.HptName,
+  $Sql = "SELECT   site.HptName,
     department.DepName,
     shelfcount.DocNo,
     shelfcount.DocDate,
@@ -275,7 +275,7 @@ function SelectDocument($conn, $DATA)
   shelfcount.IsStatus
   FROM shelfcount
   INNER JOIN department ON shelfcount.DepCode = department.DepCode
-  INNER JOIN side ON department.HptCode = side.HptCode
+  INNER JOIN site ON department.HptCode = site.HptCode
   INNER JOIN users ON shelfcount.Modify_Code = users.ID
   WHERE shelfcount.DocNo = '$DocNo'";
   $meQuery = mysqli_query($conn, $Sql);
@@ -326,7 +326,7 @@ function ShowItem($conn, $DATA)
 
   $Sql = "SELECT
     item_stock.RowID,
-    side.HptName,
+    site.HptName,
     department.DepName,
     item_category.CategoryName,
     item_stock.UsageCode,
@@ -338,8 +338,8 @@ function ShowItem($conn, $DATA)
     item_stock.CcQty,
     item_stock.TotalQty,
     i_detail.Qty
-  FROM side
-  INNER JOIN department ON side.HptCode = department.HptCode
+  FROM site
+  INNER JOIN department ON site.HptCode = department.HptCode
   INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
   INNER JOIN item ON item_stock.ItemCode = item.ItemCode
   LEFT  JOIN item_stock_detail i_detail ON i_detail.ItemCode = item.ItemCode
@@ -416,7 +416,7 @@ function ShowUsageCode($conn, $DATA)
 
   $Sql = "SELECT
   item_stock.RowID,
-  side.HptName,
+  site.HptName,
   department.DepName,
   item_category.CategoryName,
   item_stock.UsageCode,
@@ -427,8 +427,8 @@ function ShowUsageCode($conn, $DATA)
   item_stock.ParQty,
   item_stock.CcQty,
   item_stock.TotalQty
-  FROM side
-  INNER JOIN department ON side.HptCode = department.HptCode
+  FROM site
+  INNER JOIN department ON site.HptCode = department.HptCode
   INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
   INNER JOIN item ON item_stock.ItemCode = item.ItemCode
   INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
@@ -1060,11 +1060,11 @@ function ShowDocument_sub($conn, $DATA)
   //	 $Sql = "INSERT INTO log ( log ) VALUES ('$deptCode : $DocNo')";
   //     mysqli_query($conn,$Sql);
 
-  $Sql = "SELECT side.HptName,department.DepName,shelfcount.DocNo,shelfcount.DocDate,shelfcount.Total,
+  $Sql = "SELECT site.HptName,department.DepName,shelfcount.DocNo,shelfcount.DocDate,shelfcount.Total,
   users.FName,TIME(shelfcount.Modify_Date) AS xTime,shelfcount.IsStatus
   FROM shelfcount
   INNER JOIN department ON shelfcount.DepCode = department.DepCode
-  INNER JOIN side ON department.HptCode = side.HptCode
+  INNER JOIN site ON department.HptCode = site.HptCode
   INNER JOIN users ON shelfcount.Modify_Code = users.ID
   WHERE shelfcount.DepCode = $deptCode
   AND shelfcount.DocNo LIKE '%$DocNo%'

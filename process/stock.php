@@ -7,7 +7,7 @@ $xDate = date('Y-m-d');
 function OnLoadPage($conn,$DATA){
   $count = 0;
   $boolean = false;
-  $Sql = "SELECT side.HptCode,side.HptName FROM side WHERE side.IsStatus = 0";
+  $Sql = "SELECT site.HptCode,site.HptName FROM site WHERE site.IsStatus = 0";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptCode'] = $Result['HptCode'];
@@ -79,17 +79,17 @@ function ShowDocument($conn,$DATA){
   item.ItemName,
   department.DepCode,
   department.DepName,
-  side.HptName,
+  site.HptName,
   item_stock_detail.Qty,
   item_category.CategoryName
   FROM
   item_stock_detail
   INNER JOIN item ON item_stock_detail.ItemCode = item.ItemCode
   INNER JOIN department ON item_stock_detail.DepCode = department.DepCode
-  INNER JOIN side ON department.HptCode = side.HptCode
+  INNER JOIN site ON department.HptCode = site.HptCode
   INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode ";
   if ($selecta==0) {
-    $Sql.="WHERE side.HptCode = '$hos' AND item_stock_detail.DepCode =  $dept AND item.ItemName LIKE '%$search%' ";
+    $Sql.="WHERE site.HptCode = '$hos' AND item_stock_detail.DepCode =  $dept AND item.ItemName LIKE '%$search%' ";
   }
   $Sql.="ORDER BY department.DepCode,item_stock_detail.ItemCode";
 

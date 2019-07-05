@@ -7,14 +7,14 @@ function ShowItem($conn, $DATA)
   $count = 0;
   $Keyword = $DATA['Keyword'];
   $Sql = "SELECT
-          side.HptCode,
-          side.HptName,
-          side.IsStatus
+          site.HptCode,
+          site.HptName,
+          site.IsStatus
           FROM
-          side
-           WHERE side.IsStatus = 0
-                    AND (side.HptCode LIKE '%$Keyword%' OR
-                    side.HptName LIKE '%$Keyword%'
+          site
+           WHERE site.IsStatus = 0
+                    AND (site.HptCode LIKE '%$Keyword%' OR
+                    site.HptName LIKE '%$Keyword%'
           )";
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
@@ -47,13 +47,13 @@ function getdetail($conn, $DATA)
   $HptCode = $DATA['HptCode'];
   //---------------HERE------------------//
   $Sql = "SELECT
-          side.HptCode,
-          side.HptName,
-          CASE side.IsStatus WHEN 0 THEN '0' WHEN 1 THEN '1' END AS IsStatus
+          site.HptCode,
+          site.HptName,
+          CASE site.IsStatus WHEN 0 THEN '0' WHEN 1 THEN '1' END AS IsStatus
           FROM
-          side
-          WHERE side.IsStatus = 0
-          AND side.HptCode = '$HptCode' LIMIT 1
+          site
+          WHERE site.IsStatus = 0
+          AND site.HptCode = '$HptCode' LIMIT 1
           ";
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
@@ -112,8 +112,8 @@ function AddItem($conn, $DATA)
 
   $Sql = "SELECT COUNT(*) AS Countn
           FROM
-          side
-          WHERE side.HptCode = '$HptCode'";
+          site
+          WHERE site.HptCode = '$HptCode'";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $boolcount = $Result['Countn'];
@@ -121,7 +121,7 @@ function AddItem($conn, $DATA)
 
   if($boolcount==0){
     $count = 0;
-    $Sql="INSERT INTO side (side.HptCode , side.HptName , side.IsStatus) VALUE ('$HptCode','$HptName',0)";
+    $Sql="INSERT INTO site (site.HptCode , site.HptName , site.IsStatus) VALUE ('$HptCode','$HptName',0)";
  
   if(mysqli_query($conn, $Sql)){
     $return['status'] = "success";
@@ -138,7 +138,7 @@ function AddItem($conn, $DATA)
     die;
   }
 }else{
-    $Sql="UPDATE side SET  side.HptName = '$HptName' WHERE side.HptCode = '$HptCode'";
+    $Sql="UPDATE site SET  site.HptName = '$HptName' WHERE site.HptCode = '$HptCode'";
     if(mysqli_query($conn, $Sql)){
       $return['status'] = "success";
       $return['form'] = "AddItem";
@@ -165,7 +165,7 @@ function EditItem($conn, $DATA)
 {
   $count = 0;
   if($DATA["HptCode"]!=""){
-    $Sql = "UPDATE side SET
+    $Sql = "UPDATE site SET
             HptName = '".$DATA['HptName']."'
             WHERE HptCode = ".$DATA['HptCode']."
     ";
@@ -199,7 +199,7 @@ function CancelItem($conn, $DATA)
   $HptCode = $DATA["HptCode"];
   $count = 0;
   if('$HptCode'!=""){
-    $Sql = "UPDATE side SET
+    $Sql = "UPDATE site SET
             IsStatus = 1
             WHERE HptCode = '$HptCode'";
     // var_dump($Sql); die;

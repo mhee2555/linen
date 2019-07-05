@@ -10,14 +10,14 @@ function ShowItem($conn, $DATA)
     $xHptCode = 'BHQ';
   }
   $Keyword = $DATA['Keyword'];
-  $Sql = "SELECT side.HptCode,
-          CASE side.IsStatus WHEN 0 THEN '0' WHEN 1 THEN '1' END AS IsStatus,
+  $Sql = "SELECT site.HptCode,
+          CASE site.IsStatus WHEN 0 THEN '0' WHEN 1 THEN '1' END AS IsStatus,
           department.DepCode,department.DepName,department.IsDefault,
 		  CASE department.IsDefault WHEN 0 THEN '' WHEN 1 THEN 'X' END AS DefaultName
-          FROM side
-          INNER JOIN department ON side.HptCode = department.HptCode
+          FROM site
+          INNER JOIN department ON site.HptCode = department.HptCode
           WHERE department.IsStatus = 0
-          AND side.HptCode = '$xHptCode'
+          AND site.HptCode = '$xHptCode'
           AND ( department.DepCode LIKE '%$Keyword%' OR
           department.DepName LIKE '%$Keyword%')";
           $return['sql'] = $Sql;
@@ -93,10 +93,10 @@ function getSection($conn, $DATA)
 {
   $count = 0;
   $Sql = "SELECT
-          side.HptCode,
-          side.HptName
+          site.HptCode,
+          site.HptName
           FROM
-          side
+          site
 					WHERE IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {

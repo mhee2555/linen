@@ -11,13 +11,13 @@ function OnLoadPage($conn,$DATA){
   shelfcount.DocNo,
   shelfcount.DocDate,
   department.DepName,
-  side.HptName,
+  site.HptName,
   shelfcount.IsStatus,
   shelfcount.RefDocNo,
   shelfcount.Detail
   FROM shelfcount
   INNER JOIN department ON shelfcount.DepCode = department.DepCode
-  INNER JOIN side ON department.HptCode = side.HptCode
+  INNER JOIN site ON department.HptCode = site.HptCode
   WHERE shelfcount.IsStatus = 0
   ORDER BY shelfcount.DocNo DESC";
   $meQuery = mysqli_query($conn,$Sql);
@@ -105,10 +105,10 @@ function alert_SetPrice($conn,$DATA)
     CURDATE() AS cur, 
     cat_P.xDate, 
     DATEDIFF(cat_P.xDate+1, CURDATE()) AS dateDiff,
-    side.HptName,
+    site.HptName,
     item_category.CategoryName
     FROM category_price_time cat_P
-    INNER JOIN side ON side.HptCode = cat_P.HptCode
+    INNER JOIN site ON site.HptCode = cat_P.HptCode
     INNER JOIN item_category ON item_category.CategoryCode = cat_P.CategoryCode
     WHERE DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 
      OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 7 
@@ -123,7 +123,7 @@ function alert_SetPrice($conn,$DATA)
       $Sql = "SELECT cat_P.DocNo, 
       CURDATE() AS cur, 
       cat_P.xDate, 
-      side.HptName,
+      site.HptName,
       item_category.CategoryName,
       CASE
           WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 THEN 30
@@ -137,7 +137,7 @@ function alert_SetPrice($conn,$DATA)
       END AS dateDiff
       FROM category_price_time cat_P
       INNER JOIN users ON users.ID = $Userid 
-      INNER JOIN side ON side.HptCode = '$HptCode'
+      INNER JOIN site ON site.HptCode = '$HptCode'
       INNER JOIN item_category ON item_category.CategoryCode = cat_P.CategoryCode
       WHERE cat_P.HptCode = '$HptCode'
       GROUP BY cat_P.DocNo ORDER BY cat_P.xDate";

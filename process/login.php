@@ -16,14 +16,14 @@ function checklogin($conn,$DATA)
             users.`Password`,
             permission.PmID,
             permission.Permission,
-            side.HptCode,
-            side.HptName,
+            site.HptCode,
+            site.HptName,
             users.Count,
             users.TimeOut
             FROM
             permission
             INNER JOIN users ON users.PmID = permission.PmID
-            INNER JOIN side ON users.HptCode = side.HptCode
+            INNER JOIN site ON users.HptCode = site.HptCode
         WHERE users.UserName = '$user' AND users.`Password` = '$password' AND users.IsCancel = 0";
     $meQuery = mysqli_query($conn,$Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {

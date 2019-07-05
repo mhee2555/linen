@@ -14,11 +14,11 @@ function OnLoadPage($conn,$DATA){
   daily_request.DocDate,
   TIME(daily_request.Modify_Date) AS xTime,
   department.DepName,
-  side.HptName
+  site.HptName
   FROM
   daily_request
   INNER JOIN department ON daily_request.DepCode = department.DepCode
-  INNER JOIN side ON department.HptCode = side.HptCode
+  INNER JOIN site ON department.HptCode = site.HptCode
   WHERE daily_request.DocDate = DATE(NOW())
   ORDER BY daily_request.Modify_Date DESC";
   $meQuery = mysqli_query($conn,$Sql);

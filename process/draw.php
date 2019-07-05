@@ -8,7 +8,7 @@ function OnLoadPage($conn, $DATA)
 {
   $count = 0;
   $boolean = false;
-  $Sql = "SELECT side.HptCode,side.HptName FROM side WHERE side.IsStatus = 0";
+  $Sql = "SELECT site.HptCode,site.HptName FROM site WHERE site.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptCode'] = $Result['HptCode'];
@@ -160,7 +160,7 @@ function CreateDocument($conn, $DATA)
     //	 $Sql = "INSERT INTO log ( log ) VALUES ('$deptCode : $DocNo')";
     //     mysqli_query($conn,$Sql);
 
-    $Sql = "SELECT side.HptName,
+    $Sql = "SELECT site.HptName,
     department.DepName,
     draw.DocNo,
     draw.DocDate,
@@ -168,15 +168,15 @@ function CreateDocument($conn, $DATA)
     users.FName,
     TIME(draw.Modify_Date)
     AS xTime,draw.IsStatus,
-    side.HptCode
+    site.HptCode
     FROM draw
     INNER JOIN department ON draw.DepCode = department.DepCode
-    INNER JOIN side ON department.HptCode = side.HptCode
+    INNER JOIN site ON department.HptCode = site.HptCode
     INNER JOIN users ON draw.Modify_Code = users.ID ";
     if ($selecta == 0) {
       $Sql.= "WHERE draw.DepCode = $deptCode AND draw.DocNo LIKE '%$DocNo%' ";
     }
-    $Sql.= "AND side.HptCode = '$hosCode' ";
+    $Sql.= "AND site.HptCode = '$hosCode' ";
     $Sql.= "ORDER BY draw.DocNo DESC LIMIT 500 ";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -218,10 +218,10 @@ function CreateDocument($conn, $DATA)
     $count = 0;
     $DocNo = $DATA["xdocno"];
     $Datepicker = $DATA["Datepicker"];
-    $Sql = "SELECT   side.HptName,department.DepName,draw.DocNo,draw.DocDate,draw.Total,users.FName,TIME(draw.Modify_Date) AS xTime,draw.IsStatus,draw.RefDocNo
+    $Sql = "SELECT   site.HptName,department.DepName,draw.DocNo,draw.DocDate,draw.Total,users.FName,TIME(draw.Modify_Date) AS xTime,draw.IsStatus,draw.RefDocNo
     FROM draw
     INNER JOIN department ON draw.DepCode = department.DepCode
-    INNER JOIN side ON department.HptCode = side.HptCode
+    INNER JOIN site ON department.HptCode = site.HptCode
     INNER JOIN users ON draw.Modify_Code = users.ID
     WHERE draw.DocNo = '$DocNo'";
     $meQuery = mysqli_query($conn, $Sql);
@@ -273,7 +273,7 @@ function CreateDocument($conn, $DATA)
 
     $Sql = "SELECT
     item_stock.RowID,
-    side.HptName,
+    site.HptName,
     department.DepName,
     item_category.CategoryName,
     item_stock.UsageCode,
@@ -284,8 +284,8 @@ function CreateDocument($conn, $DATA)
     item_stock.ParQty,
     item_stock.CcQty,
     item_stock.TotalQty
-    FROM side
-    INNER JOIN department ON side.HptCode = department.HptCode
+    FROM site
+    INNER JOIN department ON site.HptCode = department.HptCode
     INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
     INNER JOIN item ON item_stock.ItemCode = item.ItemCode
     INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
@@ -359,7 +359,7 @@ function CreateDocument($conn, $DATA)
 
     $Sql = "SELECT
     item_stock.RowID,
-    side.HptName,
+    site.HptName,
     department.DepName,
     item_category.CategoryName,
     item_stock.UsageCode,
@@ -370,8 +370,8 @@ function CreateDocument($conn, $DATA)
     item_stock.ParQty,
     item_stock.CcQty,
     item_stock.TotalQty
-    FROM side
-    INNER JOIN department ON side.HptCode = department.HptCode
+    FROM site
+    INNER JOIN department ON site.HptCode = department.HptCode
     INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
     INNER JOIN item ON item_stock.ItemCode = item.ItemCode
     INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
@@ -1070,11 +1070,11 @@ function CreateDocument($conn, $DATA)
     //	 $Sql = "INSERT INTO log ( log ) VALUES ('$deptCode : $DocNo')";
     //     mysqli_query($conn,$Sql);
 
-    $Sql = "SELECT side.HptName,department.DepName,draw.DocNo,draw.DocDate,draw.Total,
+    $Sql = "SELECT site.HptName,department.DepName,draw.DocNo,draw.DocDate,draw.Total,
     users.FName,TIME(draw.Modify_Date) AS xTime,draw.IsStatus
     FROM draw
     INNER JOIN department ON draw.DepCode = department.DepCode
-    INNER JOIN side ON department.HptCode = side.HptCode
+    INNER JOIN site ON department.HptCode = site.HptCode
     INNER JOIN users ON draw.Modify_Code = users.ID
     WHERE draw.DepCode = $deptCode
     AND draw.DocNo LIKE '%$DocNo%'

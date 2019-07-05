@@ -8,7 +8,7 @@ function OnLoadPage($conn, $DATA)
 {
   $count = 0;
   $boolean = false;
-  $Sql = "SELECT side.HptCode,side.HptName FROM side WHERE side.IsStatus = 0";
+  $Sql = "SELECT site.HptCode,site.HptName FROM site WHERE site.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptCode'] = $Result['HptCode'];
@@ -157,10 +157,10 @@ function ShowDocument($conn, $DATA)
   $selecta = $DATA["selecta"];
   // $Sql = "INSERT INTO log ( log ) VALUES ('$max : $DocNo')";
   // mysqli_query($conn,$Sql);
-  $Sql = "SELECT side.HptName,department.DepName,factory_in.DocNo,factory_in.DocDate,factory_in.RefDocNo,factory_in.Total,users.FName,TIME(factory_in.Modify_Date) AS xTime,factory_in.IsStatus
+  $Sql = "SELECT site.HptName,department.DepName,factory_in.DocNo,factory_in.DocDate,factory_in.RefDocNo,factory_in.Total,users.FName,TIME(factory_in.Modify_Date) AS xTime,factory_in.IsStatus
 FROM factory_in
 INNER JOIN department ON factory_in.DepCode = department.DepCode
-INNER JOIN side ON department.HptCode = side.HptCode
+INNER JOIN site ON department.HptCode = site.HptCode
 INNER JOIN users ON factory_in.Modify_Code = users.ID ";
   if ($selecta == 0) {
     $Sql .= "WHERE factory_in.DepCode = $deptCode AND factory_in.DocNo LIKE '%$DocNo%'";
@@ -206,10 +206,10 @@ function SelectDocument($conn, $DATA)
   $count = 0;
   $DocNo = $DATA["xdocno"];
   $Datepicker = $DATA["Datepicker"];
-  $Sql = "SELECT   side.HptName,department.DepName,factory_in.DocNo,factory_in.DocDate,factory_in.Total,users.FName,TIME(factory_in.Modify_Date) AS xTime,factory_in.IsStatus,factory_in.RefDocNo
+  $Sql = "SELECT   site.HptName,department.DepName,factory_in.DocNo,factory_in.DocDate,factory_in.Total,users.FName,TIME(factory_in.Modify_Date) AS xTime,factory_in.IsStatus,factory_in.RefDocNo
 FROM factory_in
 INNER JOIN department ON factory_in.DepCode = department.DepCode
-INNER JOIN side ON department.HptCode = side.HptCode
+INNER JOIN site ON department.HptCode = site.HptCode
 INNER JOIN users ON factory_in.Modify_Code = users.ID
 WHERE factory_in.DocNo = '$DocNo'";
   $meQuery = mysqli_query($conn, $Sql);
@@ -262,7 +262,7 @@ function ShowItem($conn, $DATA)
 
   $Sql = "SELECT
   	item_stock.RowID,
-		side.HptName,
+		site.HptName,
 		department.DepName,
 		item_category.CategoryName,
 		item_stock.UsageCode,
@@ -273,8 +273,8 @@ function ShowItem($conn, $DATA)
 		item_stock.ParQty,
 		item_stock.CcQty,
 		item_stock.TotalQty
-		FROM side
-		INNER JOIN department ON side.HptCode = department.HptCode
+		FROM site
+		INNER JOIN department ON site.HptCode = department.HptCode
 		INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
 		INNER JOIN item ON item_stock.ItemCode = item.ItemCode
 		INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
@@ -348,7 +348,7 @@ function ShowUsageCode($conn, $DATA)
 
   $Sql = "SELECT
   		item_stock.RowID,
-		side.HptName,
+		site.HptName,
 		department.DepName,
 		item_category.CategoryName,
 		item_stock.UsageCode,
@@ -359,8 +359,8 @@ function ShowUsageCode($conn, $DATA)
 		item_stock.ParQty,
 		item_stock.CcQty,
 		item_stock.TotalQty
-		FROM side
-		INNER JOIN department ON side.HptCode = department.HptCode
+		FROM site
+		INNER JOIN department ON site.HptCode = department.HptCode
 		INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
 		INNER JOIN item ON item_stock.ItemCode = item.ItemCode
 		INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
