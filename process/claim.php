@@ -502,22 +502,22 @@ function CreateDocument($conn, $DATA)
     $DocNo = $DATA["DocNo"];
     //==========================================================
     $Sql = "SELECT
-    claim_detail.Id,
-    claim_detail.ItemCode,
-    item.ItemName,
-    item_unit.UnitName,
-    claim_detail.UnitCode1,
-    claim_detail.Qty1,
-    claim_detail.UnitCode2,
-    claim_detail.Qty2,
-    claim_detail.Weight,
-    claim_detail.Total
-    FROM item
-    INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
-    INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
-    INNER JOIN claim_detail ON claim_detail.ItemCode = item.ItemCode
-    WHERE claim_detail.DocNo = '$DocNo'
-    ORDER BY claim_detail.Id DESC";
+      claim_detail.Id,
+      claim_detail.ItemCode,
+      item.ItemName,
+      item_unit.UnitName,
+      claim_detail.UnitCode1,
+      claim_detail.Qty1,
+      claim_detail.UnitCode2,
+      claim_detail.Qty2,
+      claim_detail.Weight,
+      claim_detail.Total
+      FROM item
+      INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
+      INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
+      INNER JOIN claim_detail ON claim_detail.ItemCode = item.ItemCode
+      WHERE claim_detail.DocNo = '$DocNo'
+      ORDER BY claim_detail.Id DESC";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $return[$count]['RowID']    = $Result['Id'];
@@ -533,11 +533,19 @@ function CreateDocument($conn, $DATA)
       $ItemCode           = $Result['ItemCode'];
       $UnitCode           = $Result['UnitCode1'];
       $count2 = 0;
+      $count3 = 0;
       $xSql = "SELECT item_multiple_unit.MpCode,item_multiple_unit.UnitCode,item_unit.UnitName,item_multiple_unit.Multiply
       FROM item_multiple_unit
       INNER JOIN item_unit ON item_multiple_unit.MpCode = item_unit.UnitCode
       WHERE item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
+
+      $Price = "SELECT item.CusPrice FROM item WHERE item.ItemCode = '$ItemCode'";
+
       $xQuery = mysqli_query($conn, $xSql);
+      $PQuery = mysqli_query($conn, $Price);
+      while ($PResult = mysqli_fetch_assoc($PQuery)) {
+        $return[$count]['CusPrice']   = $PResult['CusPrice'] * $Result['Qty2'];
+      }
       while ($xResult = mysqli_fetch_assoc($xQuery)) {
         $m1 = "MpCode_" . $ItemCode . "_" . $count;
         $m2 = "UnitCode_" . $ItemCode . "_" . $count;
@@ -551,6 +559,8 @@ function CreateDocument($conn, $DATA)
         $return[$m4][$count2] = $xResult['Multiply'];
         $count2++;
       }
+
+
       $return[$m5][$count] = $count2;
       //================================================================
       $Total += $Result['Total'];

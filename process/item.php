@@ -18,8 +18,7 @@ function ShowItem($conn, $DATA)
           WHEN '3' THEN 'M'
           WHEN '4' THEN 'L'
           WHEN '5' THEN 'XL'
-          WHEN '6' THEN 'XXL' END AS SizeCode
-          ,
+          WHEN '6' THEN 'XXL' END AS SizeCode,
           item.CusPrice,
           item.FacPrice,
           item.Weight,
@@ -28,12 +27,12 @@ function ShowItem($conn, $DATA)
           item
           INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
           INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
-          WHERE item.CategoryCode = $Catagory AND (item.ItemCode LIKE '%$Keyword%' OR
+          WHERE item.CategoryCode = $Catagory OR (item.ItemCode LIKE '%$Keyword%' OR
           item.ItemName LIKE '%$Keyword%' OR
           item.Weight LIKE '%$Keyword%' OR
           item_unit.UnitName LIKE '%$Keyword%')
-          ORDER BY item.ItemCode ASC
-          ";
+          ORDER BY item.ItemCode ASC ";
+          $return['sql'] = $Sql;
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
