@@ -27,7 +27,7 @@ table{
     right: 15% !important;
 }
 
-@media (min-width: 1200px){
+@media (min-width: 1000px){
     #btn_margin {
         max-width: 14.333333%;
         margin-top: 26%;
@@ -38,7 +38,7 @@ table{
     }
 }
 
-@media (max-width: 1199.98px){ 
+@media (max-width: 1000px){ 
     #btn_margin {
         margin-top: 1%;
     }
