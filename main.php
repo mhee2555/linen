@@ -16,18 +16,8 @@ if($Userid==""){
 // }else{
 //   $language = "th";
 // }
-if(empty($_SESSION['lang'])){
-  $_SESSION['lang'] = 'th';
-}else{
-  $language = $_GET['lang'];
-  if($language=="en"){
-    $language = "en";
-    $_SESSION['lang'] = 'en';
-  }else{
-    $language = "th";
-    $_SESSION['lang'] = 'th';
-  }
-}
+$language =$_SESSION['lang'];
+
 
 header ('Content-type: text/html; charset=utf-8');
 $xml = simplexml_load_file('xml/main_lang.xml');
@@ -341,7 +331,6 @@ switch ($PmID) {
     var redirect_url = 'http://poseintelligence.dyndns.biz:8181/linen/login.html'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
     $(document).ready(function (e) {
       OnLoadPage();
-      setlang();
       target = redirectInSecond * 1000; // แปลงค่าเป็น microsecond
       target = target * 60;
       last_move = new Date() // กำหนดค่าเริ่มต้นให้ last_move
@@ -478,15 +467,19 @@ switch ($PmID) {
           var href = $('#url_page').val() + '?lang=' + lang;
           // window.location.href = "main.php?lang=" + lang + "#" + url[1];
           loadIframe('ifrm', href);
+          OnLoadPage();
         } else {
           var href = $('#url_page').val()  + '?lang=' + lang + url[1];
           // window.location.href = "main.php?lang=" + lang + "#" + url[1];
           loadIframe('ifrm', href);
+          OnLoadPage();
 
         }
       } else {
         window.location.href = "main.php?lang=" + lang;
       }
+      OnLoadPage();
+
     }
     function senddata(data) {
       var form_data = new FormData();
