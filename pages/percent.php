@@ -2,6 +2,9 @@
 session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
+$HptCode = $_SESSION['HptCode'];
+$PmID = $_SESSION['PmID'];
+
 if($Userid==""){
    header("location:../index.html");
 }
@@ -190,20 +193,25 @@ $array = json_decode($json,TRUE);
 							} catch (e) {
 								console.log('Error#542-decode error');
 							}
-                        	if(temp["status"]=='success'){
-										  if(temp["form"]=='OnLoadPage'){
-											for (var i = 0; i < (Object.keys(temp).length-2); i++) {
-												var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
-												$("#hotpital").append(Str);
-											}
-										  }else if(temp["form"]=='getDepartment'){
-											$("#department").empty();
-											$("#Dep2").empty();
-											for (var i = 0; i < (Object.keys(temp).length-2); i++) {
-												var Str = "<option value="+temp[i]['DepCode']+">"+temp[i]['DepName']+"</option>";
-												$("#department").append(Str);
-												$("#Dep2").append(Str);
-											}
+              if(temp["status"]=='success'){
+                if(temp["form"]=='OnLoadPage'){
+                  var PmID = <?php echo $PmID;?>;
+                  var HptCode = '<?php echo $HptCode;?>';
+                  for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+                    var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
+                    $("#hotpital").append(Str);
+                  }
+                  if(PmID != 1){
+                      $("#hotpital").val(HptCode);
+                    }
+                }else if(temp["form"]=='getDepartment'){
+                  $("#department").empty();
+                  $("#Dep2").empty();
+                  for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+                    var Str = "<option value="+temp[i]['DepCode']+">"+temp[i]['DepName']+"</option>";
+                    $("#department").append(Str);
+                    $("#Dep2").append(Str);
+                  }
 										  }else if(temp["form"]=='ShowDocument'){
 				                              $( "#TableDocument tbody" ).empty();
 				                              $("#docno").val(temp[0]['DocNo']);

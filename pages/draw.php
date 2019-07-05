@@ -3,6 +3,7 @@ session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
 $PmID = $_SESSION['PmID'];
+$HptCode = $_SESSION['HptCode'];
 if($Userid==""){
   header("location:../index.html");
 }
@@ -763,10 +764,16 @@ function OpenDialogItem(){
 
               if(temp["status"]=='success'){
                 if(temp["form"]=='OnLoadPage'){
+                  var PmID = <?php echo $PmID;?>;
+                  var HptCode = '<?php echo $HptCode;?>';
                   for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                     var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
                     $("#side").append(Str);
                     $("#hotpital").append(Str);
+                  }
+                  if(PmID != 1){
+                    $("#hotpital").val(HptCode);
+                    $("#hotpital").attr('disabled', true);
                   }
                 }else if(temp["form"]=='getDepartment'){
                   $("#department").empty();

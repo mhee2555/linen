@@ -3,6 +3,8 @@ session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
 $PmID = $_SESSION['PmID'];
+$HptCode = $_SESSION['HptCode'];
+
 
 if($Userid==""){
   header("location:../index.html");
@@ -638,9 +640,14 @@ $array = json_decode($json,TRUE);
 
                   if(temp["status"]=='success'){
                     if(temp["form"]=='OnLoadPage'){
+                      var PmID = <?php echo $PmID;?>;
+                      var HptCode = '<?php echo $HptCode;?>';
                       for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                         var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
                         $("#hotpital").append(Str);
+                      }
+                      if(PmID != 1){
+                        $("#hotpital").val(HptCode);
                       }
                     }else if(temp["form"]=='getDepartment'){
                       $("#department").empty();
