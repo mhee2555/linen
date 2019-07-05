@@ -10,11 +10,17 @@ $last_move = $_GET["last_move"];
 if($Userid==""){
    header("location:index.html");
 }
-$language = $_GET['lang'];
-if($language=="en"){
+// $language = $_GET['lang'];
+// if($language=="en"){
+//   $_SESSION['lang'] = $language;
+//   $language = "en";
+// }else{
+//   $_SESSION['lang'] = $language;
+//   $language = "th";
+// }
+if($_GET['lang']){
+  $_SESSION['lang'] = $language;
   $language = "en";
-}else{
-  $language = "th";
 }
 
 header ('Content-type: text/html; charset=utf-8');
@@ -344,7 +350,8 @@ switch ($PmID) {
         $("a").removeClass("active_li");
         $(this).attr("class", "active_li");
         var href = $(this).attr('href');
-        $('#url_page').val(href);
+        var sub = href.split("?");
+        $('#url_page').val(sub[0]);
       });
 
 
@@ -453,22 +460,18 @@ switch ($PmID) {
     function switchlang(lang) {
       
       if (document.URL.indexOf('#') >= 0) {
-        alert('t');
         var url = document.URL.split("#");
         if (url[1] == "") {
-          alert('1');
-          alert(lang);
+          var href = $('#url_page').val() + '?lang=' + lang;
           // window.location.href = "main.php?lang=" + lang + "#" + url[1];
-          loadIframe('ifrm', 'pages/dirty.php?lang=th');
+          loadIframe('ifrm', href);
         } else {
-          alert('2');
-          alert(lang);
+          var href = $('#url_page').val()  + '?lang=' + lang + url[1];
           // window.location.href = "main.php?lang=" + lang + "#" + url[1];
-          loadIframe('ifrm', 'pages/dirty.php?lang=en');
+          loadIframe('ifrm', href);
 
         }
       } else {
-        alert('b');
         window.location.href = "main.php?lang=" + lang;
       }
     }
