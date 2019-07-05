@@ -523,6 +523,13 @@ function CreateDocument($conn,$DATA){
       $ItemCode   				    = $Result['ItemCode'];
       $UnitCode 					= $Result['UnitCode1'];
       $count2=0;
+
+      $Price = "SELECT item.CusPrice FROM item WHERE item.ItemCode = '$ItemCode'";
+      $PQuery = mysqli_query($conn, $Price);
+      while ($PResult = mysqli_fetch_assoc($PQuery)) {
+        $return[$count]['CusPrice']   = $PResult['CusPrice'] * $Result['Qty2'];
+      }
+
       $xSql = "SELECT item_multiple_unit.MpCode,item_multiple_unit.UnitCode,item_unit.UnitName,item_multiple_unit.Multiply
       FROM item_multiple_unit
       INNER JOIN item_unit ON item_multiple_unit.MpCode = item_unit.UnitCode

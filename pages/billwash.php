@@ -786,7 +786,7 @@ $array = json_decode($json,TRUE);
                       "<td style='width: 17%;' align='center'nowrap>"+chkunit+"</td>"+
                       "<td style='width: 15%;' align='center'nowrap>"+Qty+OleQty+"</td>"+
                       "<td style='width: 10%;' align='center'nowrap>"+Weight+"</td>"+
-                      "<td style='width: 17%;' align='center'nowrap>"+Price+"</td>"+
+                      "<td style='width: 17%;' align='center'nowrap>"+temp[i]['CusPrice']+"</td>"+
                       "</tr>";
                       if(rowCount == 0){
                         $("#TableItemDetail tbody").append( $StrTR );
