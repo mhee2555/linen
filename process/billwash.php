@@ -528,6 +528,8 @@ function ShowDetail($conn, $DATA)
     $PQuery = mysqli_query($conn, $Price);
     while ($PResult = mysqli_fetch_assoc($PQuery)) {
       $return[$count]['CusPrice']   = $PResult['CusPrice'] * $Result['Qty2'];
+      $return['TotalPrice']  += $return[$count]['CusPrice'];
+
     }
 
     $xSql = "SELECT item_multiple_unit.MpCode,item_multiple_unit.UnitCode,item_unit.UnitName,item_multiple_unit.Multiply

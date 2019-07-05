@@ -534,18 +534,19 @@ function CreateDocument($conn, $DATA)
       $UnitCode           = $Result['UnitCode1'];
       $count2 = 0;
 
+      $Price = "SELECT item.CusPrice FROM item WHERE item.ItemCode = '$ItemCode'";
+      $PQuery = mysqli_query($conn, $Price);
+      while ($PResult = mysqli_fetch_assoc($PQuery)) {
+        $return[$count]['CusPrice']   = $PResult['CusPrice'] * $Result['Qty2'];
+        $return['TotalPrice']  += $return[$count]['CusPrice'];
+
+      }
+
       $xSql = "SELECT item_multiple_unit.MpCode,item_multiple_unit.UnitCode,item_unit.UnitName,item_multiple_unit.Multiply
       FROM item_multiple_unit
       INNER JOIN item_unit ON item_multiple_unit.MpCode = item_unit.UnitCode
       WHERE item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
-
-      $Price = "SELECT item.CusPrice FROM item WHERE item.ItemCode = '$ItemCode'";
       $xQuery = mysqli_query($conn, $xSql);
-      $PQuery = mysqli_query($conn, $Price);
-      while ($PResult = mysqli_fetch_assoc($PQuery)) {
-        $return[$count]['CusPrice']   = $PResult['CusPrice'] * $Result['Qty2'];
-      }
-
       while ($xResult = mysqli_fetch_assoc($xQuery)) {
         $m1 = "MpCode_" . $ItemCode . "_" . $count;
         $m2 = "UnitCode_" . $ItemCode . "_" . $count;

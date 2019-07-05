@@ -755,7 +755,7 @@ $array = json_decode($json,TRUE);
                     ShowDetail();
                   }else if(temp["form"]=='getImport'  || temp["form"]=='ShowDetail'){
                     $( "#TableItemDetail tbody" ).empty();
-                    $("#total").val(temp[0]['Total']);
+                    $("#total").val(temp['TotalPrice']);
                     var isStatus = $("#IsStatus").val();
                     var st1 = "style='font-size:24px;margin-left:30px; width:140px;font-family:THSarabunNew'";
                     for (var i = 0; i < temp["Row"]; i++) {
