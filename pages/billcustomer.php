@@ -1049,72 +1049,73 @@ $array = json_decode($json,TRUE);
                     <div class="tab-content" id="myTabContent">
                       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <!-- /.content-wrapper -->
-                        <div class="row">
+                        <div class="row mt-3">
                           <div class="col-md-9"> <!-- tag column 1 -->
                             <div class="container-fluid">
                               <div class="card-body" style="padding:0px; margin-top:10px;">
-                                <div class="row">
-                                  <div style="margin-left:30px;width:100px;">
-                                    <label><?php echo $array['side'][$language]; ?></label>
-                                  </div>
-                                  <div style="width:250px;">
-                                    <div class="row" style="font-size:24px;margin-left:2px;">
-                                      <select style='font-size:24px;' class="form-control" id="hotpital" onchange="getDepartment();" disabled="true">
+
+                              <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                      <select  class="form-control col-sm-7" id="hotpital" onchange="getDepartment();" >
                                       </select>
                                     </div>
                                   </div>
-                                  <div style="margin-left:50px;width:120px;">
-                                    <label><?php echo $array['department'][$language]; ?></label>
-                                  </div>
-                                  <div style="width:250px;">
-                                    <div class="row" style="font-size:24px;margin-left:2px;">
-                                      <select style='font-size:24px;' class="form-control" id="department">
-
-                                      </select>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                        <select class="form-control col-sm-7" id="department" >
+                                        </select>
                                     </div>
                                   </div>
-
                                 </div>
-                                <div class="row" style="margin-top:5px">
-                                  <div style="margin-left:30px;width:100px;">
-                                    <label><?php echo $array['docdate'][$language]; ?></label>
+                    <!-- =================================================================== -->
+                    <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-7"  name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
+                                    </div>
                                   </div>
-                                  <div style="width:250px;">
-                                    <input type="text" class="form-control" style="font-size:24px;width:250px;" name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
-                                  </div>
-                                  <div style="margin-left:50px;width:120px;">
-                                    <label><?php echo $array['docno'][$language]; ?></label>
-                                  </div>
-                                  <div style="width:250px;">
-                                    <input type="text" class="form-control" style="font-size:24px;width:250px;" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
-                                  </div>
-
-                                </div>
-                                <div class="row" style="margin-top:5px;">
-                                  <div style="margin-left:30px;width:100px;">
-                                    <label><?php echo $array['employee'][$language]; ?></label>
-                                  </div>
-                                  <div style="width:250px;">
-                                    <input type="text" class="form-control" style="font-size:24px;width:250px;" name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
-                                  </div>
-                                  <div style="margin-left:50px;width:120px;">
-                                    <label><?php echo $array['time'][$language]; ?></label>
-                                  </div>
-                                  <div style="width:250px;">
-                                    <input type="text" class="form-control" style="font-size:24px;width:250px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-7" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
+                                    </div>
                                   </div>
                                 </div>
+                    <!-- =================================================================== -->
 
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
+                                  <input type="text" class="form-control col-sm-7"  name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
+                                    <input type="text" class="form-control col-sm-7" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                </div>
                               </div>
                             </div>
+                    <!-- =================================================================== -->
+
+                             
+                    </div>
+                            </div>
                           </div> <!-- tag column 1 -->
-                          <div class="col-md-2"> <!-- tag column 2 -->
+                          <div class="col-md-1"> <!-- tag column 2 -->
                             <div class='row' style='margin-left:2px;'>
-                              <input class='form-control' style="margin-left:-48px;margin-top:10px;font-size:90px;width:300px;height:130px;text-align:right;padding-top: 15px;" id='total' placeholder="0.00" >
+                              <input class='form-control' style="margin-left:-48px;margin-top:10px;font-size:60px;width:273px;height:130px;text-align:right;padding-top: 15px;" id='total' placeholder="0.00" >
                             </div>
 
                           </div> <!-- tag column 2 -->
                         </div>
+
 
                         <div class="row">
                           <div class="col-md-10"> <!-- tag column 1 -->
