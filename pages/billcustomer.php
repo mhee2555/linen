@@ -47,6 +47,7 @@ $array = json_decode($json,TRUE);
   <!-- Custom styles for this template-->
   <link href="../template/css/sb-admin.css" rel="stylesheet">
   <link href="../css/xfont.css" rel="stylesheet">
+  <link href="../css/responsive.css" rel="stylesheet">
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="../jQuery-ui/jquery-1.12.4.js"></script>
@@ -93,24 +94,24 @@ $array = json_decode($json,TRUE);
 
     jqui(document).ready(function($){
 
-      dialog = jqui( "#dialog" ).dialog({
-        autoOpen: false,
-        height: 650,
-        width: 1200,
-        modal: true,
-        buttons: {
-          "<?php echo $array['close'][$language]; ?>": function() {
-            dialog.dialog( "close" );
-          }
-        },
-        close: function() {
-          console.log("close");
-        }
-      });
+      // dialog = jqui( "#dialog" ).dialog({
+      //   autoOpen: false,
+      //   height: 650,
+      //   width: 1200,
+      //   modal: true,
+      //   buttons: {
+      //     "<?php echo $array['close'][$language]; ?>": function() {
+      //       dialog.dialog( "close" );
+      //     }
+      //   },
+      //   close: function() {
+      //     console.log("close");
+      //   }
+      // });
 
-      jqui( "#dialogItem" ).button().on( "click", function() {
-        dialog.dialog( "open" );
-      });
+      // jqui( "#dialogItem" ).button().on( "click", function() {
+      //   dialog.dialog( "open" );
+      // });
 
       dialogUsageCode = jqui( "#dialogUsageCode" ).dialog({
         autoOpen: false,
@@ -133,7 +134,9 @@ $array = json_decode($json,TRUE);
       var docno = $("#docno").val();
       if( docno != "" ){
         $( "#TableItem tbody" ).empty();
-        dialog.dialog( "open" );
+        // dialogItemCode.dialog( "open" );
+        $('#dialogItemCode').modal('show');
+
       }
     }
 
@@ -331,7 +334,7 @@ $array = json_decode($json,TRUE);
           'Hotp'		: Hotp
         };
         senddata(JSON.stringify(data));
-        dialog.dialog( "close" );
+        $('#dialogItemCode').modal('toggle');
         dialogUsageCode.dialog( "close" );
       }
 
@@ -1264,7 +1267,7 @@ $array = json_decode($json,TRUE);
                     </a>
 
                     <!-- Dialog Modal-->
-                    <div id="dialog" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
+                    <!-- <div id="dialog" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
                       <div class="container">
                         <div class="row">
                           <div class="col-md-10">
@@ -1300,7 +1303,7 @@ $array = json_decode($json,TRUE);
                               </tbody>
                             </table>
                           </div>
-                        </div>
+                        </div> -->
                         <div id="dialogUsageCode" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
                           <div class="container">
                             <div class="row">
@@ -1341,6 +1344,50 @@ $array = json_decode($json,TRUE);
                       </div>
                     </div>
                   </div>
+                            <!-- -----------------------------Custom1------------------------------------ -->
+ <div class="modal" id="dialogItemCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body" style="padding:0px;">
+            <div class="row">
+              <div class="col-md-8">
+                <div class='form-group row'>
+                  <label class="col-sm-3 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
+                  <input type="text" class="form-control col-sm-9" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-primary btn-block" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
+              </div>
+              <div class="col-md-2">
+                  <button type="button" class="btn btn-warning  btn-block" name="button" onclick="getImport(1);"><?php echo $array['import'][$language]; ?></button>
+              </div>
+            </div>
+            <table class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
+              <thead style="font-size:24px;">
+                <tr role="row">
+                  <th style='width: 10%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                  <th style='width: 20%;' nowrap><?php echo $array['code'][$language]; ?></th>
+                  <th style='width: 25%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                  <th style='width: 15%;' nowrap><center><?php echo $array['unit'][$language]; ?></center></th>
+                  <th style='width: 15%;' nowrap><?php echo $array['numofpiece'][$language]; ?></th>
+                  <th style='width: 15%;' nowrap><?php echo $array['weight'][$language]; ?></th>
+                </tr>
+              </thead>
+              <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
                         <!-- Bootstrap core JavaScript-->
                         <script src="../template/vendor/jquery/jquery.min.js"></script>
                         <script src="../template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
