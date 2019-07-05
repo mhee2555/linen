@@ -8,12 +8,14 @@ if($Userid==""){
   header("location:../index.html");
 }
 
-$language = $_GET['lang'];
-if($language=="en"){
-  $language = "en";
-}else{
-  $language = "th";
-}
+$language =$_SESSION['lang'];
+
+// $language = $_GET['lang'];
+// if($language=="en"){
+//   $language = "en";
+// }else{
+//   $language = "th";
+// }
 
 header ('Content-type: text/html; charset=utf-8');
 $xml = simplexml_load_file('../xml/general_lang.xml');

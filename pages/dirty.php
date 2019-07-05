@@ -6,7 +6,7 @@ $PmID = $_SESSION['PmID'];
 if($Userid==""){
   header("location:../index.html");
 }
-$lang = $_SESSION['lang'];
+$language =$_SESSION['lang'];
 // $language = $_GET['lang'];
 // if($language=="en"){
 //   $language = "en";

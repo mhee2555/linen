@@ -12,15 +12,21 @@ if($Userid==""){
 }
 // $language = $_GET['lang'];
 // if($language=="en"){
-//   $_SESSION['lang'] = $language;
 //   $language = "en";
 // }else{
-//   $_SESSION['lang'] = $language;
 //   $language = "th";
 // }
-if($_GET['lang']){
-  $_SESSION['lang'] = $language;
-  $language = "en";
+if(empty($_SESSION['lang'])){
+  $_SESSION['lang'] = 'th';
+}else{
+  $language = $_GET['lang'];
+  if($language=="en"){
+    $language = "en";
+    $_SESSION['lang'] = 'en';
+  }else{
+    $language = "th";
+    $_SESSION['lang'] = 'th';
+  }
 }
 
 header ('Content-type: text/html; charset=utf-8');
@@ -289,12 +295,7 @@ switch ($PmID) {
         $sys_s13=0;
         break;
 }
-// $arraytemp = $xml->xpath('//menu//general//title//en');
-// foreach ($arraytemp as $temp) {
-//   echo $temp->name;
-// }
-// die;
-// var_dump($array['menu']['general']['sub'][4]['en']); die;
+
 ?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -340,6 +341,7 @@ switch ($PmID) {
     var redirect_url = 'http://poseintelligence.dyndns.biz:8181/linen/login.html'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
     $(document).ready(function (e) {
       OnLoadPage();
+      setlang();
       target = redirectInSecond * 1000; // แปลงค่าเป็น microsecond
       target = target * 60;
       last_move = new Date() // กำหนดค่าเริ่มต้นให้ last_move
@@ -456,10 +458,21 @@ switch ($PmID) {
 
 
     }
-
+    function setlang(){
+      var data = {
+          'STATUS' : 'SETLANG',
+          'lang':'th'
+        }
+        senddata(JSON.stringify(data));
+    }
     function switchlang(lang) {
       
       if (document.URL.indexOf('#') >= 0) {
+        var data = {
+          'STATUS' : 'SETLANG',
+          'lang':lang
+        }
+        senddata(JSON.stringify(data));
         var url = document.URL.split("#");
         if (url[1] == "") {
           var href = $('#url_page').val() + '?lang=' + lang;

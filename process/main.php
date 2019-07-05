@@ -74,7 +74,10 @@ $boolean = true;
 // $Sqlx = "INSERT INTO log ( log ) VALUES ('$DocNo : ".$xUsageCode[$i]."')";
 // mysqli_query($conn,$Sqlx);
 
-
+function SETLANG($conn, $DATA){
+  $lang = $DATA['lang'];
+  $_SESSION['lang'] = $lang;
+}
 //==========================================================
 //
 //==========================================================
@@ -85,6 +88,8 @@ if(isset($_POST['DATA']))
 
       if($DATA['STATUS']=='OnLoadPage'){
         OnLoadPage($conn,$DATA);
+      }else if($DATA['STATUS']=='SETLANG'){
+        SETLANG($conn,$DATA);
       }
 
 }else{
