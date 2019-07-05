@@ -94,8 +94,6 @@ function CreateDocument($conn, $DATA)
     $return[0]['DocDate'] = $Result['DocDate'];
     $return[0]['RecNow']  = $Result['RecNow'];
     $count = 1;
-    //	  $Sql = "INSERT INTO log ( log ) VALUES ('".$Result['DocDate']." : ".$Result['DocNo']." :: $hotpCode :: $deptCode')";
-    //      mysqli_query($conn,$Sql);
   }
 
   if ($count == 1) {
@@ -1065,10 +1063,6 @@ function CreateDocument($conn, $DATA)
     $count = 0;
     $deptCode = $DATA["deptCode"];
     $DocNo = str_replace(' ', '%', $DATA["xdocno"]);
-    //$Datepicker = $DATA["Datepicker"];
-
-    //	 $Sql = "INSERT INTO log ( log ) VALUES ('$deptCode : $DocNo')";
-    //     mysqli_query($conn,$Sql);
 
     $Sql = "SELECT site.HptName,department.DepName,draw.DocNo,draw.DocDate,draw.Total,
     users.FName,TIME(draw.Modify_Date) AS xTime,draw.IsStatus
@@ -1079,6 +1073,7 @@ function CreateDocument($conn, $DATA)
     WHERE draw.DepCode = $deptCode
     AND draw.DocNo LIKE '%$DocNo%'
     ORDER BY draw.DocNo DESC LIMIT 500";
+    $return['sql'] = $Sql;
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $return[$count]['HptName']   = $Result['HptName'];

@@ -781,7 +781,7 @@ function OpenDialogItem(){
                   $("#docdate").val(temp[0]['DocDate']);
                   $("#recorder").val(temp[0]['Record']);
                   $("#timerec").val(temp[0]['RecNow']);
-                  ShowDocument_sub();
+                  // ShowDocument_sub();
                   swal({
                     title: "<?php echo $array['createdocno'][$language]; ?>",
                     text: temp[0]['DocNo'] + " <?php echo $array['success'][$language]; ?>",
@@ -845,18 +845,6 @@ function OpenDialogItem(){
                 }else if(temp["form"]=='ShowDocument_sub'){
                   $( "#TableDocument tbody" ).empty();
                   $( "#TableItemDetail tbody" ).empty();
-                  //               $("#docno").val(temp[0]['DocNo']);
-                  // $("#docdate").val(temp[0]['DocDate']);
-                  // $("#recorder").val(temp[0]['Record']);
-                  // $("#timerec").val(temp[0]['RecNow']);
-                  // $("#docno").val("");
-                  // $("#docdate").val("");
-                  // $("#recorder").val("");
-                  // $("#timerec").val("");
-                  // $("#docno").prop('disabled', false);
-                  // $("#docdate").prop('disabled', false);
-                  // $("#recorder").prop('disabled', false);
-                  // $("#timerec").prop('disabled', false);
 
                   for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                     var rowCount = $('#TableDocument >tbody >tr').length;
