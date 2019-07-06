@@ -35,11 +35,14 @@ function getDepartment($conn,$DATA){
   $count = 0;
   $boolean = false;
   $Hotp = $DATA["Hotp"];
+
   $Sql = "SELECT department.DepCode,department.DepName,department.IsDefault
   FROM department
-  WHERE department.HptCode = '$Hotp'
+  WHERE department.HptCode = '$Hotp' 
+  AND  department.IsDefault = 1
   AND department.IsStatus = 0
   ORDER BY department.DepCode DESC";
+  $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['DepCode'] = $Result['DepCode'];

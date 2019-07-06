@@ -115,8 +115,9 @@ $array = json_decode($json,TRUE);
   }
 
   function getDepartment(){
+    var HptCode = '<?php echo $HptCode; ?>';
     var Hotp = $('#hotpital option:selected').attr("value");
-    if( typeof Hotp == 'undefined' ) Hotp = "BHQ";
+    if( typeof Hotp == 'undefined' ) Hotp = HptCode;
     var data = {
       'STATUS'  : 'getDepartment',
       'Hotp'	: Hotp
@@ -185,12 +186,16 @@ $array = json_decode($json,TRUE);
             var PmID = <?php echo $PmID;?>;
             var HptCode = '<?php echo $HptCode;?>';
             for (var i = 0; i < (Object.keys(temp).length-2); i++) {
-              var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
+              if(PmID != 1 && HptCode == temp[i]['HptCode']){
+                var Str = "<option value="+temp[i]['HptCode']+" selected>"+temp[i]['HptName']+"</option>";
+              }else{
+                var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
+              }
               $("#hotpital").append(Str);
             }
-            if(PmID != 1){
-              $("#hotpital").val(HptCode);
-            }
+            // if(PmID != 1){
+            //   $("#hotpital").val(HptCode);
+            // }
           }else if(temp["form"]=='getDepartment'){
             $("#department").empty();
             $("#Dep2").empty();
