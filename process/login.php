@@ -14,23 +14,27 @@ function checklogin($conn,$DATA)
             users.ID,
             users.UserName,
             users.`Password`,
+            users.lang,
             permission.PmID,
             permission.Permission,
-            side.HptCode,
-            side.HptName,
+            site.HptCode,
+            site.HptName,
             users.Count,
             users.TimeOut
             FROM
             permission
             INNER JOIN users ON users.PmID = permission.PmID
-            INNER JOIN side ON users.HptCode = side.HptCode
+            INNER JOIN site ON users.HptCode = site.HptCode
         WHERE users.UserName = '$user' AND users.`Password` = '$password' AND users.IsCancel = 0";
     $meQuery = mysqli_query($conn,$Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $_SESSION['Userid'] = $Result['ID'];
       $_SESSION['Username'] = $Result['UserName'];
       $_SESSION['PmID'] = $Result['PmID'];
+      $_SESSION['HptCode'] = $Result['HptCode'];
+      $_SESSION['HptName'] = $Result['HptName'];
       $_SESSION['TimeOut'] = $Result['TimeOut'];
+      $_SESSION['lang'] = $Result['lang']==null?'th':$Result['lang'];
 
       $Count = $Result['Count'];
 

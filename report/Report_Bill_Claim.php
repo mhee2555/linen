@@ -112,7 +112,7 @@ $pdf->AddPage("L","A5");
 $Sql = "SELECT
         claim.DocNo,
         DATE_FORMAT(claim.DocDate,'%d-%m-%Y') AS DocDate,
-        side.HptName,
+        site.HptName,
         department.DepName,
         employee.FirstName,
         employee.LastName,
@@ -122,7 +122,7 @@ $Sql = "SELECT
         FROM
         claim
         INNER JOIN claim_detail ON claim.DocNo = claim_detail.DocNo
-        INNER JOIN side ON claim.HptCode = side.HptCode
+        INNER JOIN site ON claim.HptCode = site.HptCode
         INNER JOIN department ON claim.DepCode = department.DepCode
         INNER JOIN item ON claim_detail.ItemCode = item.ItemCode
         INNER JOIN users ON claim.Modify_Code = users.ID
@@ -143,7 +143,7 @@ while ($Result = mysqli_fetch_assoc($meQuery)) {
 
 $pdf->SetFont('THSarabun','b',11);
 $pdf->Cell(15);
-$pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['side'][$language]),0,0,'L');
+$pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['site'][$language]),0,0,'L');
 $pdf->Cell(78,10,iconv("UTF-8","TIS-620",": ".$HptName),0,0,'L');
 $pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['department'][$language]),0,0,'L');
 $pdf->Cell(40,10,iconv("UTF-8","TIS-620",": ".$DepName),0,0,'L');

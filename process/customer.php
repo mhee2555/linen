@@ -156,12 +156,12 @@ function getHospital($conn, $DATA)
 {
   $count = 0;
   $Sql = "SELECT
-          side.HptCode,
-          side.HptName,
-          side.IsStatus
+          site.HptCode,
+          site.HptName,
+          site.IsStatus
           FROM
-          side
-          WHERE side.IsStatus = 0
+          site
+          WHERE site.IsStatus = 0
           ";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {

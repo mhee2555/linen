@@ -7,8 +7,8 @@ $xDate = date('Y-m-d');
 function OnLoadPage($conn,$DATA){
   $count = 0;
   $boolean = false;
-  $Sql = "SELECT side.HptCode,side.HptName
-FROM side WHERE side.IsStatus = 0";
+  $Sql = "SELECT site.HptCode,site.HptName
+FROM site WHERE site.IsStatus = 0";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptCode'] = $Result['HptCode'];
@@ -86,11 +86,11 @@ function ShowDocument($conn,$DATA){
     contract_parties_hospital.EndDate, 
     IFNULL(Detail,'') AS Detail, 
     (EndDate-DATE(NOW())) AS LeftDay, 
-    side.HptName, department.DepCode, 
+    site.HptName, department.DepCode, 
     department.DepName 
   FROM  contract_parties_hospital 
   INNER JOIN department ON  contract_parties_hospital.DepCode = department.DepCode
-  INNER JOIN side ON department.HptCode = side.HptCode
+  INNER JOIN site ON department.HptCode = site.HptCode
   WHERE contract_parties_hospital.IsStatus = 0 ";
   if(($sl1 > 9) && ($sl2 > 9)) $Sql .= "AND EndDate BETWEEN '$sDate' AND '$eDate' ";
   $Sql .= "ORDER BY (EndDate-DATE(NOW())) ASC";
@@ -143,13 +143,13 @@ function getRow($conn,$DATA){
   contract_parties_hospital.EndDate,
   IFNULL(Detail,'') AS Detail,
   (EndDate-DATE(NOW())) AS LeftDay,
-  side.HptCode,
-  side.HptName,
+  site.HptCode,
+  site.HptName,
   department.DepCode,
   department.DepName
   FROM contract_parties_hospital
   INNER JOIN department ON contract_parties_hospital.DepCode = department.DepCode
-  INNER JOIN side ON department.HptCode = side.HptCode
+  INNER JOIN site ON department.HptCode = site.HptCode
   WHERE contract_parties_hospital.IsStatus = 0
   AND RowID = $RowID";
   $meQuery = mysqli_query($conn,$Sql);

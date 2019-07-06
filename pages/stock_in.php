@@ -3,16 +3,18 @@ session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
 $PmID = $_SESSION['PmID'];
+$HptCode = $_SESSION['HptCode'];
+
 
 if($Userid==""){
   header("location:../index.html");
 }
 
-$language = $_GET['lang'];
-if($language=="en"){
-  $language = "en";
+if(empty($_SESSION['lang'])){
+  $language ='th';
 }else{
-  $language = "th";
+  $language =$_SESSION['lang'];
+
 }
 
 header ('Content-type: text/html; charset=utf-8');
@@ -59,6 +61,7 @@ $array = json_decode($json,TRUE);
   <link href="../dist/css/sweetalert2.min.css" rel="stylesheet">
   <script src="../dist/js/sweetalert2.min.js"></script>
   <script src="../dist/js/jquery-3.3.1.min.js"></script>
+  <link href="../css/responsive.css" rel="stylesheet">
 
 
   <link href="../datepicker/dist/css/datepicker.min.css" rel="stylesheet" type="text/css">
@@ -96,20 +99,20 @@ $array = json_decode($json,TRUE);
 
     jqui(document).ready(function($){
 
-      dialogItemCode = jqui( "#dialogItemCode" ).dialog({
-        autoOpen: false,
-        height: 680,
-        width: 1200,
-        modal: true,
-        buttons: {
-          "<?php echo $array['close'][$language]; ?>": function() {
-            dialogItemCode.dialog( "close" );
-          }
-        },
-        close: function() {
-          console.log("close");
-        }
-      });
+      // dialogItemCode = jqui( "#dialogItemCode" ).dialog({
+      //   autoOpen: false,
+      //   height: 680,
+      //   width: 1200,
+      //   modal: true,
+      //   buttons: {
+      //     "<?php echo $array['close'][$language]; ?>": function() {
+      //       dialogItemCode.dialog( "close" );
+      //     }
+      //   },
+      //   close: function() {
+      //     console.log("close");
+      //   }
+      // });
 
       dialogUsageCode = jqui( "#dialogUsageCode" ).dialog({
         autoOpen: false,
@@ -131,9 +134,12 @@ $array = json_decode($json,TRUE);
       var docno = $("#docno").val();
       if( docno != "" ){
         $( "#TableItem tbody" ).empty();
-        dialogItemCode.dialog( "open" );
+        // dialogItemCode.dialog( "open" );
+        $('#dialogItemCode').modal('show');
+
       }
     }
+
 
     function OpenDialogUsageCode(itemcode){
       xItemcode = itemcode;
@@ -355,7 +361,7 @@ $array = json_decode($json,TRUE);
             'Hotp'		: Hotp
           };
           senddata(JSON.stringify(data));
-          dialogItemCode.dialog( "close" );
+          $('#dialogItemCode').modal('toggle')
           dialogUsageCode.dialog( "close" );
         }
 
@@ -634,9 +640,14 @@ $array = json_decode($json,TRUE);
 
                   if(temp["status"]=='success'){
                     if(temp["form"]=='OnLoadPage'){
+                      var PmID = <?php echo $PmID;?>;
+                      var HptCode = '<?php echo $HptCode;?>';
                       for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                         var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
                         $("#hotpital").append(Str);
+                      }
+                      if(PmID != 1){
+                        $("#hotpital").val(HptCode);
                       }
                     }else if(temp["form"]=='getDepartment'){
                       $("#department").empty();
@@ -693,14 +704,14 @@ $array = json_decode($json,TRUE);
                         }
 
                         $StrTr="<tr id='tr"+temp[i]['DocNo']+"'>"+
-                        "<td style='width: 10%;'>"+chkDoc+"</td>"+
-                        "<td style='width: 15%;'>"+temp[i]['DocDate']+"</td>"+
-                        "<td style='width: 15%;'>"+temp[i]['DocNo']+"</td>"+
-                        "<td style='width: 15%;'>"+temp[i]['DepName']+"</td>"+
-                        "<td style='width: 15%;'>"+temp[i]['Record']+"</td>"+
-                        "<td style='width: 10%;'>"+temp[i]['RecNow']+"</td>"+
-                        "<td style='width: 10%;'>"+temp[i]['Total']+"</td>"+
-                        "<td "+Style+">"+Status+"</td>"+
+                        "<td style='width: 10%;'nowrap>"+chkDoc+"</td>"+
+                        "<td style='width: 15%;'nowrap>"+temp[i]['DocDate']+"</td>"+
+                        "<td style='width: 15%;'nowrap>"+temp[i]['DocNo']+"</td>"+
+                        "<td style='width: 15%;'nowrap>"+temp[i]['DepName']+"</td>"+
+                        "<td style='width: 15%;'nowrap>"+temp[i]['Record']+"</td>"+
+                        "<td style='width: 10%;'nowrap>"+temp[i]['RecNow']+"</td>"+
+                        "<td style='width: 10%;'nowrap>"+temp[i]['Total']+"</td>"+
+                        "<td "+Style+"nowrap>"+Status+"</td>"+
                         "</tr>";
 
                         if(rowCount == 0){
@@ -783,12 +794,12 @@ $array = json_decode($json,TRUE);
                         var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:110px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='price_"+i+"' value='"+temp[i]['Price']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
 
                         $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
-                        "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-                        "<td style='width: 20%;'>"+temp[i]['ItemCode']+"</td>"+
-                        "<td style='width: 25%;'>"+temp[i]['ItemName']+"</td>"+
-                        "<td style='width: 15%;font-size:24px;'>"+nUnit+"</td>"+
-                        "<td style='width: 15%;'>"+Qty+"</td>"+
-                        "<td style='width: 13%;'>"+Weight+"</td>"+
+                        "<td style='width: 10%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+                        "<td style='width: 20%;'nowrap>"+temp[i]['ItemCode']+"</td>"+
+                        "<td style='width: 25%;'nowrap>"+temp[i]['ItemName']+"</td>"+
+                        "<td style='width: 15%;font-size:24px;'nowrap>"+nUnit+"</td>"+
+                        "<td style='width: 15%;'nowrap>"+Qty+"</td>"+
+                        "<td style='width: 13%;'nowrap>"+Weight+"</td>"+
                         "</tr>";
                         if(rowCount == 0){
                           $("#TableItemDetail tbody").append( $StrTR );
@@ -849,12 +860,12 @@ $array = json_decode($json,TRUE);
                         var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='iweight"+i+"' value='0' ></div>";
 
                         $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
-                        "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-                        "<td style='width: 20%;'>"+temp[i]['ItemCode']+"</td>"+
-                        "<td style='width: 25%;'>"+temp[i]['ItemName']+"</td>"+
-                        "<td style='width: 15%;'>"+chkunit+"</td>"+
-                        "<td style='width: 15%;'>"+Qty+"</td>"+
-                        "<td style='width: 10%;'>"+Weight+"</td>"+
+                        "<td style='width: 10%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+                        "<td style='width: 20%;'nowrap>"+temp[i]['ItemCode']+"</td>"+
+                        "<td style='width: 25%;'nowrap>"+temp[i]['ItemName']+"</td>"+
+                        "<td style='width: 15%;'nowrap>"+chkunit+"</td>"+
+                        "<td style='width: 15%;'nowrap>"+Qty+"</td>"+
+                        "<td style='width: 10%;'nowrap>"+Weight+"</td>"+
                         "</tr>";
                         if(rowCount == 0){
                           $("#TableItem tbody").append( $StrTR );
@@ -886,11 +897,11 @@ $array = json_decode($json,TRUE);
                         var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='iweight"+i+"' value='0' ></div>";
 
                         $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
-                        "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-                        "<td style='width: 20%;'>"+temp[i]['UsageCode']+"</td>"+
-                        "<td style='width: 40%;'>"+temp[i]['ItemName']+"</td>"+
-                        "<td style='width: 15%;'>"+chkunit+"</td>"+
-                        "<td style='width: 13%;' align='center'>1</td>"+
+                        "<td style='width: 10%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+                        "<td style='width: 20%;'nowrap>"+temp[i]['UsageCode']+"</td>"+
+                        "<td style='width: 40%;'nowrap>"+temp[i]['ItemName']+"</td>"+
+                        "<td style='width: 15%;'nowrap>"+chkunit+"</td>"+
+                        "<td style='width: 13%;' align='center'nowrap>1</td>"+
                         "</tr>";
                         if(rowCount == 0){
                           $("#TableUsageCode tbody").append( $StrTR );
@@ -1064,69 +1075,69 @@ $array = json_decode($json,TRUE);
                           <div class="row">
                             <div class="col-md-11"> <!-- tag column 1 -->
                               <div class="container-fluid">
-                                <div class="card-body" style="padding:0px; margin-top:10px;">
-                                  <div class="row">
-                                    <div style="margin-left:20px;width:100px;">
-                                      <label><?php echo $array['side'][$language]; ?></label>
-                                    </div>
-                                    <div style="width:220px;">
-                                      <div class="row" style="font-size:24px;margin-left:2px;">
-                                        <select style='font-size:24px;width:220px;' class="form-control" id="hotpital" onchange="getDepartment();" disabled="true">
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div style="margin-left:30px;width:120px;">
-                                      <label><?php echo $array['department'][$language]; ?></label>
-                                    </div>
-                                    <div style="width:220px;">
-                                      <div class="row" style="font-size:24px;margin-left:2px;">
-                                        <select style='font-size:24px;width:220px;' class="form-control" id="department" disabled="true">
+                                <div class="card-body mt-3">
 
-                                        </select>
-                                      </div>
-                                    </div>
+                                <div class="row">
+                      <div class="col-md-6">
+                        <div class='form-group row'>
+                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                          <select  class="form-control form-control col-sm-9" id="hotpital" onchange="getDepartment();" disabled="true"> </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class='form-group row'>
+                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                            <select class="form-control col-sm-9" id="department" disabled="true"> </select>
+                        </div>
+                      </div>
+                    </div>
 
-                                  </div>
-                                  <div class="row" style="margin-top:5px">
-                                    <div style="margin-left:20px;width:100px;">
-                                      <label><?php echo $array['docdate'][$language]; ?></label>
-                                    </div>
-                                    <div style="width:220px;">
-                                      <input type="text" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
-                                    </div>
-                                    <div style="margin-left:30px;width:120px;">
-                                      <label><?php echo $array['docno'][$language]; ?></label>
-                                    </div>
-                                    <div style="width:220px;">
-                                      <input type="text" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
-                                    </div>
-                                    <div style="margin-left:20px;width:100px;visibility: hidden">
-                                      <label><?php echo $array['refdocno'][$language]; ?></label>
-                                    </div>
-                                    <div style="width:220px;visibility: hidden">
-                                      <input class='form-control' style="font-size:20px;width:220px;height:40px;padding-top:6px;" id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" OnBlur='UpdateRefDocNo()'>
-                                    </div>
-                                  </div>
-                                  <div class="row" style="margin-top:5px;">
-                                    <div style="margin-left:20px;width:100px;">
-                                      <label><?php echo $array['employee'][$language]; ?></label>
-                                    </div>
-                                    <div style="width:220px;">
-                                      <input type="text" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
-                                    </div>
-                                    <div style="margin-left:30px;width:120px;">
-                                      <label><?php echo $array['time'][$language]; ?></label>
-                                    </div>
-                                    <div style="width:220px;">
-                                      <input type="text" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
-                                    </div>
-                                    <div style="margin-left:20px;width:100px;">
-                                      <label><?php echo $array['totalweight'][$language]; ?></label>
-                                    </div>
-                                    <div style="width:220px;">
-                                      <input class='form-control' style="font-size:20px;width:220px;height:40px;padding-top:6px;" id='wTotal' placeholder="0.00">
-                                    </div>
-                                  </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class='form-group row'>
+                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
+                          <input type="text" class="form-control col-sm-9" name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
+
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class='form-group row'>
+                            <label class="col-sm-3 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
+                            <input type="text" class="form-control col-sm-9"  name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class='form-group row'>
+                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
+                          <input type="text" class="form-control col-sm-9"  name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class='form-group row'>
+                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
+                            <input type="text" class="form-control col-sm-9" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class='form-group row'>
+                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['totalweight'][$language]; ?></label>
+                          <input class='form-control col-sm-9'  id='wTotal' placeholder="0.00">
+                        </div>
+                      </div>
+                      <div class="col-md-6" hidden>
+                        <div class='form-group row'>
+                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
+                            <input type="text" class="form-control col-sm-9" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                            <input class='form-control col-sm-9"' id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" OnBlur='UpdateRefDocNo()'>
+                        </div>
+                      </div>
+                    </div>
 
                                 </div>
                               </div>
@@ -1138,12 +1149,12 @@ $array = json_decode($json,TRUE);
                               <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItemDetail" width="100%" cellspacing="0" role="grid" style="">
                                 <thead id="theadsum" style="font-size:24px;">
                                   <tr role="row">
-                                    <th style='width: 10%;'><?php echo $array['no'][$language]; ?></th>
-                                    <th style='width: 20%;'><?php echo $array['code'][$language]; ?></th>
-                                    <th style='width: 25%;'><?php echo $array['item'][$language]; ?></th>
-                                    <th style='width: 15%;'><?php echo $array['unit'][$language]; ?></th>
-                                    <th style='width: 15%;'><?php echo $array['qty'][$language]; ?></th>
-                                    <th style='width: 15%;'><center><?php echo $array['weight'][$language]; ?></center></th>
+                                    <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                                    <th style='width: 20%;'nowrap><?php echo $array['code'][$language]; ?></th>
+                                    <th style='width: 25%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                                    <th style='width: 15%;'nowrap><?php echo $array['unit'][$language]; ?></th>
+                                    <th style='width: 15%;'nowrap><?php echo $array['qty'][$language]; ?></th>
+                                    <th style='width: 15%;'nowrap><center><?php echo $array['weight'][$language]; ?></center></th>
                                   </tr>
                                 </thead>
                                 <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:300px;">
@@ -1240,8 +1251,8 @@ $array = json_decode($json,TRUE);
                                 <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
                               </div>
                             </div>
-                            <div class="col-md-2">
-                              <button type="button" style="margin-left:90px;" class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
+                            <div class="col-md-2 text-right">
+                              <button type="button"  class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
                             </div>
                           </div>
 
@@ -1250,14 +1261,14 @@ $array = json_decode($json,TRUE);
                               <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableDocument" width="100%" cellspacing="0" role="grid">
                                 <thead id="theadsum" style="font-size:24px;">
                                   <tr role="row">
-                                    <th style='width: 10%;'>&nbsp;</th>
-                                    <th style='width: 15%;'><?php echo $array['docdate'][$language]; ?></th>
-                                    <th style='width: 15%;'><?php echo $array['docno'][$language]; ?></th>
-                                    <th style='width: 15%;'><?php echo $array['department'][$language]; ?></th>
-                                    <th style='width: 15%;'><?php echo $array['employee'][$language]; ?></th>
-                                    <th style='width: 10%;'><?php echo $array['time'][$language]; ?></th>
-                                    <th style='width: 10%;'><?php echo $array['weight'][$language]; ?></th>
-                                    <th style='width: 10%;'><?php echo $array['status'][$language]; ?></th>
+                                    <th style='width: 10%;'nowrap>&nbsp;</th>
+                                    <th style='width: 15%;'nowrap><?php echo $array['docdate'][$language]; ?></th>
+                                    <th style='width: 15%;'nowrap><?php echo $array['docno'][$language]; ?></th>
+                                    <th style='width: 15%;'nowrap><?php echo $array['department'][$language]; ?></th>
+                                    <th style='width: 15%;'nowrap><?php echo $array['employee'][$language]; ?></th>
+                                    <th style='width: 10%;'nowrap><?php echo $array['time'][$language]; ?></th>
+                                    <th style='width: 10%;'nowrap><?php echo $array['weight'][$language]; ?></th>
+                                    <th style='width: 10%;'nowrap><?php echo $array['status'][$language]; ?></th>
                                   </tr>
                                 </thead>
                                 <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:400px;">
@@ -1283,7 +1294,7 @@ $array = json_decode($json,TRUE);
                         <i class="fas fa-angle-up"></i>
                       </a>
 
-                      <!-- Dialog Modal-->
+                      <!-- Dialog Modal
                       <div id="dialogItemCode" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999998 !important;font-family: 'THSarabunNew';font-size:24px;">
                         <div class="container">
                           <div class="row">
@@ -1322,7 +1333,7 @@ $array = json_decode($json,TRUE);
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
 
                       <!-- Dialog Modal-->
                       <div id="dialogUsageCode" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
@@ -1351,11 +1362,11 @@ $array = json_decode($json,TRUE);
                         <table class="table table-fixed table-condensed table-striped" id="TableUsageCode" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
                           <thead style="font-size:24px;">
                             <tr role="row">
-                              <th style='width: 10%;'><?php echo $array['no'][$language]; ?></th>
-                              <th style='width: 20%;'><?php echo $array['rfid'][$language]; ?></th>
-                              <th style='width: 40%;'><?php echo $array['item'][$language]; ?></th>
-                              <th style='width: 15%;'><?php echo $array['unit'][$language]; ?></th>
-                              <th style='width: 15%;'><?php echo $array['numofpiece'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                              <th style='width: 20%;'nowrap><?php echo $array['rfid'][$language]; ?></th>
+                              <th style='width: 40%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                              <th style='width: 15%;'nowrap><?php echo $array['unit'][$language]; ?></th>
+                              <th style='width: 15%;'nowrap><?php echo $array['numofpiece'][$language]; ?></th>
                             </tr>
                           </thead>
                           <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
@@ -1365,7 +1376,50 @@ $array = json_decode($json,TRUE);
                     </div>
                   </div>
                 </div>
-
+  <!-- -----------------------------Custom1------------------------------------ -->
+  <div class="modal" id="dialogItemCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body" style="padding:0px;">
+            <div class="row">
+              <div class="col-md-8">
+                <div class='form-group row'>
+                  <label class="col-sm-3 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
+                  <input type="text" class="form-control col-sm-9" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-primary btn-block" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
+              </div>
+              <div class="col-md-2">
+                  <button type="button" class="btn btn-warning  btn-block" name="button" onclick="getImport(1);"><?php echo $array['import'][$language]; ?></button>
+              </div>
+            </div>
+            <table class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
+              <thead style="font-size:24px;">
+                <tr role="row">
+                  <th style='width: 10%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                  <th style='width: 20%;' nowrap><?php echo $array['code'][$language]; ?></th>
+                  <th style='width: 25%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                  <th style='width: 15%;' nowrap><center><?php echo $array['unit'][$language]; ?></center></th>
+                  <th style='width: 15%;' nowrap><?php echo $array['numofpiece'][$language]; ?></th>
+                  <th style='width: 15%;' nowrap><?php echo $array['weight'][$language]; ?></th>
+                </tr>
+              </thead>
+              <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
                 <!-- Bootstrap core JavaScript-->
                 <script src="../template/vendor/jquery/jquery.min.js"></script>
                 <script src="../template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -3,16 +3,17 @@ session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
 $PmID = $_SESSION['PmID'];
+$HptCode = $_SESSION['HptCode'];
 
 if($Userid==""){
   header("location:../index.html");
 }
 
-$language = $_GET['lang'];
-if($language=="en"){
-  $language = "en";
+if(empty($_SESSION['lang'])){
+  $language ='th';
 }else{
-  $language = "th";
+  $language =$_SESSION['lang'];
+
 }
 
 header ('Content-type: text/html; charset=utf-8');
@@ -691,9 +692,14 @@ $(document).ready(function(e){
 
             if(temp["status"]=='success'){
               if(temp["form"]=='OnLoadPage'){
+                var PmID = <?php echo $PmID;?>;
+                var HptCode = '<?php echo $HptCode;?>';
                 for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                   var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
                   $("#hotpital").append(Str);
+                }
+                if(PmID != 1){
+                  $("#hotpital").val(HptCode);
                 }
               }else if(temp["form"]=='getDepartment'){
                 $("#department").empty();
@@ -1141,6 +1147,7 @@ $(document).ready(function(e){
                           <div class="col-md-11"> <!-- tag column 1 -->
                             <div class="container-fluid">
                               <div class="card-body" style="padding:0px; margin-top:10px;">
+                              
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>

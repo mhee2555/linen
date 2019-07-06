@@ -110,20 +110,18 @@ $pdf->AddPage();
 
 
 $Sql = "SELECT   
-            side.HptName,
+            site.HptName,
             department.DepName,
             draw.DocNo,
             DATE_FORMAT(draw.DocDate,'%d-%m-%Y')AS DocDate,
             draw.Total,
-            employee.FirstName,
-            employee.LastName,
+            users.FName,
             TIME(draw.Modify_Date) AS xTime,
             draw.IsStatus
         FROM draw
         INNER JOIN department ON department.DepCode = draw.DepCode
-        INNER JOIN side ON department.HptCode = side.HptCode
+        INNER JOIN site ON department.HptCode = site.HptCode
         INNER JOIN users ON draw.Modify_Code = users.ID
-        INNER JOIN employee ON users.EmpCode = employee.EmpCode
         WHERE draw.DocNo = '$DocNo'";
         // echo $Sql;
 $meQuery = mysqli_query($conn,$Sql);
@@ -133,14 +131,13 @@ while ($Result = mysqli_fetch_assoc($meQuery)) {
   $DocNo = $Result['DocNo'];
   $DocDate = $Result['DocDate'];
   $Total = $Result['Total'];
-  $FirstName = $Result['FirstName'];
-  $LastName = $Result['LastName'];
+  $FirstName = $Result['FName'];
   $xTime = $Result['xTime'];
 }
 
 $pdf->SetFont('THSarabun','b',16);
 $pdf->Cell(15);
-$pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['side'][$language]),0,0,'L');
+$pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['site'][$language]),0,0,'L');
 $pdf->Cell(78,10,iconv("UTF-8","TIS-620",": ".$HptName),0,0,'L');
 $pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['department'][$language]),0,0,'L');
 $pdf->Cell(40,10,iconv("UTF-8","TIS-620",": ".$DepName),0,0,'L');

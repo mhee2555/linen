@@ -7,11 +7,11 @@ if($Userid==""){
   header("location:../index.html");
 }
 
-$language = $_GET['lang'];
-if($language=="en"){
-  $language = "en";
+if(empty($_SESSION['lang'])){
+  $language ='th';
 }else{
-  $language = "th";
+  $language =$_SESSION['lang'];
+
 }
 
 header ('Content-type: text/html; charset=utf-8');
@@ -47,6 +47,7 @@ $array = json_decode($json,TRUE);
   <!-- Custom styles for this template-->
   <link href="../template/css/sb-admin.css" rel="stylesheet">
   <link href="../css/xfont.css" rel="stylesheet">
+  <link href="../css/responsive.css" rel="stylesheet">
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="../jQuery-ui/jquery-1.12.4.js"></script>
@@ -93,24 +94,24 @@ $array = json_decode($json,TRUE);
 
     jqui(document).ready(function($){
 
-      dialog = jqui( "#dialog" ).dialog({
-        autoOpen: false,
-        height: 650,
-        width: 1200,
-        modal: true,
-        buttons: {
-          "<?php echo $array['close'][$language]; ?>": function() {
-            dialog.dialog( "close" );
-          }
-        },
-        close: function() {
-          console.log("close");
-        }
-      });
+      // dialog = jqui( "#dialog" ).dialog({
+      //   autoOpen: false,
+      //   height: 650,
+      //   width: 1200,
+      //   modal: true,
+      //   buttons: {
+      //     "<?php echo $array['close'][$language]; ?>": function() {
+      //       dialog.dialog( "close" );
+      //     }
+      //   },
+      //   close: function() {
+      //     console.log("close");
+      //   }
+      // });
 
-      jqui( "#dialogItem" ).button().on( "click", function() {
-        dialog.dialog( "open" );
-      });
+      // jqui( "#dialogItem" ).button().on( "click", function() {
+      //   dialog.dialog( "open" );
+      // });
 
       dialogUsageCode = jqui( "#dialogUsageCode" ).dialog({
         autoOpen: false,
@@ -133,7 +134,9 @@ $array = json_decode($json,TRUE);
       var docno = $("#docno").val();
       if( docno != "" ){
         $( "#TableItem tbody" ).empty();
-        dialog.dialog( "open" );
+        // dialogItemCode.dialog( "open" );
+        $('#dialogItemCode').modal('show');
+
       }
     }
 
@@ -183,7 +186,7 @@ $array = json_decode($json,TRUE);
           };
           senddata(JSON.stringify(data));
         })
-      }
+    }
 
       //======= On create =======
       //console.log(JSON.stringify(data));
@@ -331,7 +334,7 @@ $array = json_decode($json,TRUE);
           'Hotp'		: Hotp
         };
         senddata(JSON.stringify(data));
-        dialog.dialog( "close" );
+        $('#dialogItemCode').modal('toggle');
         dialogUsageCode.dialog( "close" );
       }
 
@@ -752,7 +755,7 @@ $array = json_decode($json,TRUE);
                     ShowDetail();
                   }else if(temp["form"]=='getImport'  || temp["form"]=='ShowDetail'){
                     $( "#TableItemDetail tbody" ).empty();
-                    $("#total").val(temp[0]['Total']);
+                    $("#total").val(temp['TotalPrice']);
                     var isStatus = $("#IsStatus").val();
                     var st1 = "style='font-size:24px;margin-left:30px; width:140px;font-family:THSarabunNew'";
                     for (var i = 0; i < temp["Row"]; i++) {
@@ -784,7 +787,7 @@ $array = json_decode($json,TRUE);
                       "<td style='width: 17%;' align='center'>"+chkunit+"</td>"+
                       "<td style='width: 15%;' align='center'>"+Qty+OleQty+"</td>"+
                       "<td style='width: 10%;' align='center'>"+Weight+"</td>"+
-                      "<td style='width: 17%;' align='center'>"+Price+"</td>"+
+                      "<td style='width: 17%;' align='center'>"+temp[i]['CusPrice']+"</td>"+
                       "</tr>";
                       if(rowCount == 0){
                         $("#TableItemDetail tbody").append( $StrTR );
@@ -1049,72 +1052,73 @@ $array = json_decode($json,TRUE);
                     <div class="tab-content" id="myTabContent">
                       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <!-- /.content-wrapper -->
-                        <div class="row">
+                        <div class="row mt-3">
                           <div class="col-md-9"> <!-- tag column 1 -->
                             <div class="container-fluid">
                               <div class="card-body" style="padding:0px; margin-top:10px;">
-                                <div class="row">
-                                  <div style="margin-left:30px;width:100px;">
-                                    <label><?php echo $array['side'][$language]; ?></label>
-                                  </div>
-                                  <div style="width:250px;">
-                                    <div class="row" style="font-size:24px;margin-left:2px;">
-                                      <select style='font-size:24px;' class="form-control" id="hotpital" onchange="getDepartment();" disabled="true">
+
+                              <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                      <select  class="form-control col-sm-7" id="hotpital" onchange="getDepartment();" >
                                       </select>
                                     </div>
                                   </div>
-                                  <div style="margin-left:50px;width:120px;">
-                                    <label><?php echo $array['department'][$language]; ?></label>
-                                  </div>
-                                  <div style="width:250px;">
-                                    <div class="row" style="font-size:24px;margin-left:2px;">
-                                      <select style='font-size:24px;' class="form-control" id="department">
-
-                                      </select>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                        <select class="form-control col-sm-7" id="department" >
+                                        </select>
                                     </div>
                                   </div>
-
                                 </div>
-                                <div class="row" style="margin-top:5px">
-                                  <div style="margin-left:30px;width:100px;">
-                                    <label><?php echo $array['docdate'][$language]; ?></label>
+                    <!-- =================================================================== -->
+                    <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-7"  name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
+                                    </div>
                                   </div>
-                                  <div style="width:250px;">
-                                    <input type="text" class="form-control" style="font-size:24px;width:250px;" name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
-                                  </div>
-                                  <div style="margin-left:50px;width:120px;">
-                                    <label><?php echo $array['docno'][$language]; ?></label>
-                                  </div>
-                                  <div style="width:250px;">
-                                    <input type="text" class="form-control" style="font-size:24px;width:250px;" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
-                                  </div>
-
-                                </div>
-                                <div class="row" style="margin-top:5px;">
-                                  <div style="margin-left:30px;width:100px;">
-                                    <label><?php echo $array['employee'][$language]; ?></label>
-                                  </div>
-                                  <div style="width:250px;">
-                                    <input type="text" class="form-control" style="font-size:24px;width:250px;" name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
-                                  </div>
-                                  <div style="margin-left:50px;width:120px;">
-                                    <label><?php echo $array['time'][$language]; ?></label>
-                                  </div>
-                                  <div style="width:250px;">
-                                    <input type="text" class="form-control" style="font-size:24px;width:250px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-7" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
+                                    </div>
                                   </div>
                                 </div>
+                    <!-- =================================================================== -->
 
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
+                                  <input type="text" class="form-control col-sm-7"  name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
+                                    <input type="text" class="form-control col-sm-7" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                </div>
                               </div>
                             </div>
+                    <!-- =================================================================== -->
+
+                             
+                    </div>
+                            </div>
                           </div> <!-- tag column 1 -->
-                          <div class="col-md-2"> <!-- tag column 2 -->
+                          <div class="col-md-1"> <!-- tag column 2 -->
                             <div class='row' style='margin-left:2px;'>
-                              <input class='form-control' style="margin-left:-48px;margin-top:10px;font-size:90px;width:300px;height:130px;text-align:right;padding-top: 15px;" id='total' placeholder="0.00" >
+                              <input class='form-control' style="margin-left:-48px;margin-top:10px;font-size:60px;width:273px;height:130px;text-align:right;padding-top: 15px;" id='total' placeholder="0.00" >
                             </div>
 
                           </div> <!-- tag column 2 -->
                         </div>
+
 
                         <div class="row">
                           <div class="col-md-10"> <!-- tag column 1 -->
@@ -1263,7 +1267,7 @@ $array = json_decode($json,TRUE);
                     </a>
 
                     <!-- Dialog Modal-->
-                    <div id="dialog" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
+                    <!-- <div id="dialog" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
                       <div class="container">
                         <div class="row">
                           <div class="col-md-10">
@@ -1299,7 +1303,7 @@ $array = json_decode($json,TRUE);
                               </tbody>
                             </table>
                           </div>
-                        </div>
+                        </div> -->
                         <div id="dialogUsageCode" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
                           <div class="container">
                             <div class="row">
@@ -1340,6 +1344,50 @@ $array = json_decode($json,TRUE);
                       </div>
                     </div>
                   </div>
+                            <!-- -----------------------------Custom1------------------------------------ -->
+ <div class="modal" id="dialogItemCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body" style="padding:0px;">
+            <div class="row">
+              <div class="col-md-8">
+                <div class='form-group row'>
+                  <label class="col-sm-3 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
+                  <input type="text" class="form-control col-sm-9" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-primary btn-block" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
+              </div>
+              <div class="col-md-2">
+                  <button type="button" class="btn btn-warning  btn-block" name="button" onclick="getImport(1);"><?php echo $array['import'][$language]; ?></button>
+              </div>
+            </div>
+            <table class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
+              <thead style="font-size:24px;">
+                <tr role="row">
+                  <th style='width: 10%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                  <th style='width: 20%;' nowrap><?php echo $array['code'][$language]; ?></th>
+                  <th style='width: 25%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                  <th style='width: 15%;' nowrap><center><?php echo $array['unit'][$language]; ?></center></th>
+                  <th style='width: 15%;' nowrap><?php echo $array['numofpiece'][$language]; ?></th>
+                  <th style='width: 15%;' nowrap><?php echo $array['weight'][$language]; ?></th>
+                </tr>
+              </thead>
+              <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
                         <!-- Bootstrap core JavaScript-->
                         <script src="../template/vendor/jquery/jquery.min.js"></script>
                         <script src="../template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

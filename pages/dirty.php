@@ -3,15 +3,16 @@ session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
 $PmID = $_SESSION['PmID'];
+$HptCode = $_SESSION['HptCode'];
+$HptName = $_SESSION['HptName'];
 if($Userid==""){
   header("location:../index.html");
 }
-
-$language = $_GET['lang'];
-if($language=="en"){
-  $language = "en";
+if(empty($_SESSION['lang'])){
+  $language ='th';
 }else{
-  $language = "th";
+  $language =$_SESSION['lang'];
+
 }
 
 header ('Content-type: text/html; charset=utf-8');
@@ -99,22 +100,6 @@ $array = json_decode($json,TRUE);
   });
 
     jqui(document).ready(function($){
-
-      // dialogItemCode = jqui( "#dialogItemCode" ).dialog({
-      //   autoOpen: false,
-      //   height: 680,
-      //   width: 1200,
-      //   modal: true,
-      //   buttons: {
-      //     "<?php echo $array['close'][$language]; ?>": function() {
-      //       dialogItemCode.dialog( "close" );
-      //     }
-      //   },
-      //   close: function() {
-      //   //  console.log("close");
-      //   }
-      // });
-
       dialogUsageCode = jqui( "#dialogUsageCode" ).dialog({
         autoOpen: false,
         height: 680,
@@ -189,27 +174,27 @@ $array = json_decode($json,TRUE);
           };
           senddata(JSON.stringify(data));
         })
-      }
+    }
 
-      function CancelDocument(){
-        var docno = $("#docno").val();
+    function CancelDocument(){
+      var docno = $("#docno").val();
 
-        swal({
-          title: "<?php echo $array['confirm'][$language]; ?>",
-          text: "<?php echo $array['canceldata4'][$language];?> "+docno+" ?",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonClass: "btn-danger",
-          confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
-          cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
-          confirmButtonColor: '#d33',
-          cancelButtonColor: '#3085d6',
-          closeOnConfirm: false,
-          closeOnCancel: false,
-          showCancelButton: true}).then(result => {
-            CancelBill();
-          })
-        }
+      swal({
+        title: "<?php echo $array['confirm'][$language]; ?>",
+        text: "<?php echo $array['canceldata4'][$language];?> "+docno+" ?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
+        cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        closeOnConfirm: false,
+        closeOnCancel: false,
+        showCancelButton: true}).then(result => {
+          CancelBill();
+        })
+    }
 
         //======= On create =======
         //console.log(JSON.stringify(data));
@@ -655,10 +640,16 @@ $array = json_decode($json,TRUE);
 
                   if(temp["status"]=='success'){
                     if(temp["form"]=='OnLoadPage'){
+                      var PmID = <?php echo $PmID;?>;
+                      var HptCode = '<?php echo $HptCode;?>';
                       for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                         var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
                         $("#hotpital").append(Str);
                       }
+                      if(PmID != 1){
+                        $("#hotpital").val(HptCode);
+                      }
+                      
                     }else if(temp["form"]=='getDepartment'){
                       $("#department").empty();
                       $("#Dep2").empty();

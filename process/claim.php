@@ -8,7 +8,7 @@ function OnLoadPage($conn, $DATA)
 {
   $count = 0;
   $boolean = false;
-  $Sql = "SELECT side.HptCode,side.HptName FROM side WHERE side.IsStatus = 0";
+  $Sql = "SELECT site.HptCode,site.HptName FROM site WHERE site.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptCode'] = $Result['HptCode'];
@@ -157,7 +157,7 @@ function CreateDocument($conn, $DATA)
     $selecta = $DATA["selecta"];
     // $Sql = "INSERT INTO log ( log ) VALUES ('$max : $DocNo')";
     // mysqli_query($conn,$Sql);
-    $Sql = "SELECT side.HptName,
+    $Sql = "SELECT site.HptName,
     department.DepName,
     claim.DocNo,
     claim.DocDate,
@@ -167,7 +167,7 @@ function CreateDocument($conn, $DATA)
     claim.IsStatus
     FROM claim
     INNER JOIN department ON claim.DepCode = department.DepCode
-    INNER JOIN side ON department.HptCode = side.HptCode
+    INNER JOIN site ON department.HptCode = site.HptCode
     INNER JOIN users ON claim.Modify_Code = users.ID ";
     if ($selecta == 0) {
       $Sql .= "WHERE claim.DepCode = $deptCode AND claim.DocNo LIKE '%$DocNo%'";
@@ -216,10 +216,10 @@ function CreateDocument($conn, $DATA)
     $count = 0;
     $DocNo = $DATA["xdocno"];
     $Datepicker = $DATA["Datepicker"];
-    $Sql = "SELECT   side.HptName,department.DepCode,department.DepName,claim.DocNo,claim.DocDate,claim.Total,users.FName,TIME(claim.Modify_Date) AS xTime,claim.IsStatus
+    $Sql = "SELECT   site.HptName,department.DepCode,department.DepName,claim.DocNo,claim.DocDate,claim.Total,users.FName,TIME(claim.Modify_Date) AS xTime,claim.IsStatus
     FROM claim
     INNER JOIN department ON claim.DepCode = department.DepCode
-    INNER JOIN side ON department.HptCode = side.HptCode
+    INNER JOIN site ON department.HptCode = site.HptCode
     INNER JOIN users ON claim.Modify_Code = users.ID
     WHERE claim.DocNo = '$DocNo'";
     $meQuery = mysqli_query($conn, $Sql);
@@ -272,7 +272,7 @@ function CreateDocument($conn, $DATA)
 
     $Sql = "SELECT
     	item_stock.RowID,
-  		side.HptName,
+  		site.HptName,
   		department.DepName,
   		item_category.CategoryName,
   		item_stock.UsageCode,
@@ -283,8 +283,8 @@ function CreateDocument($conn, $DATA)
   		item_stock.ParQty,
   		item_stock.CcQty,
   		item_stock.TotalQty
-  		FROM side
-  		INNER JOIN department ON side.HptCode = department.HptCode
+  		FROM site
+  		INNER JOIN department ON site.HptCode = department.HptCode
   		INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
   		INNER JOIN item ON item_stock.ItemCode = item.ItemCode
   		INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
@@ -502,22 +502,22 @@ function CreateDocument($conn, $DATA)
     $DocNo = $DATA["DocNo"];
     //==========================================================
     $Sql = "SELECT
-    claim_detail.Id,
-    claim_detail.ItemCode,
-    item.ItemName,
-    item_unit.UnitName,
-    claim_detail.UnitCode1,
-    claim_detail.Qty1,
-    claim_detail.UnitCode2,
-    claim_detail.Qty2,
-    claim_detail.Weight,
-    claim_detail.Total
-    FROM item
-    INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
-    INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
-    INNER JOIN claim_detail ON claim_detail.ItemCode = item.ItemCode
-    WHERE claim_detail.DocNo = '$DocNo'
-    ORDER BY claim_detail.Id DESC";
+      claim_detail.Id,
+      claim_detail.ItemCode,
+      item.ItemName,
+      item_unit.UnitName,
+      claim_detail.UnitCode1,
+      claim_detail.Qty1,
+      claim_detail.UnitCode2,
+      claim_detail.Qty2,
+      claim_detail.Weight,
+      claim_detail.Total
+      FROM item
+      INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
+      INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
+      INNER JOIN claim_detail ON claim_detail.ItemCode = item.ItemCode
+      WHERE claim_detail.DocNo = '$DocNo'
+      ORDER BY claim_detail.Id DESC";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $return[$count]['RowID']    = $Result['Id'];
@@ -533,6 +533,15 @@ function CreateDocument($conn, $DATA)
       $ItemCode           = $Result['ItemCode'];
       $UnitCode           = $Result['UnitCode1'];
       $count2 = 0;
+
+      $Price = "SELECT item.CusPrice FROM item WHERE item.ItemCode = '$ItemCode'";
+      $PQuery = mysqli_query($conn, $Price);
+      while ($PResult = mysqli_fetch_assoc($PQuery)) {
+        $return[$count]['CusPrice']   = $PResult['CusPrice'] * $Result['Qty2'];
+        $return['TotalPrice']  += $return[$count]['CusPrice'];
+
+      }
+
       $xSql = "SELECT item_multiple_unit.MpCode,item_multiple_unit.UnitCode,item_unit.UnitName,item_multiple_unit.Multiply
       FROM item_multiple_unit
       INNER JOIN item_unit ON item_multiple_unit.MpCode = item_unit.UnitCode
@@ -551,6 +560,8 @@ function CreateDocument($conn, $DATA)
         $return[$m4][$count2] = $xResult['Multiply'];
         $count2++;
       }
+
+
       $return[$m5][$count] = $count2;
       //================================================================
       $Total += $Result['Total'];
@@ -604,10 +615,10 @@ function CreateDocument($conn, $DATA)
     $Datepicker = $DATA["Datepicker"];
     // $Sql = "INSERT INTO log ( log ) VALUES ('$max : $DocNo')";
     // mysqli_query($conn,$Sql);
-    $Sql = "SELECT side.HptName,department.DepName,claim.DocNo,claim.DocDate,claim.Total,users.FName,TIME(claim.Modify_Date) AS xTime,claim.IsStatus
+    $Sql = "SELECT site.HptName,department.DepName,claim.DocNo,claim.DocDate,claim.Total,users.FName,TIME(claim.Modify_Date) AS xTime,claim.IsStatus
     FROM claim
     INNER JOIN department ON claim.DepCode = department.DepCode
-    INNER JOIN side ON department.HptCode = side.HptCode
+    INNER JOIN site ON department.HptCode = site.HptCode
     INNER JOIN users ON claim.Modify_Code = users.ID
     WHERE claim.DepCode = $deptCode
     AND claim.DocNo LIKE '%$DocNo%'

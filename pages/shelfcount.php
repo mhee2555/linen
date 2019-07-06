@@ -8,11 +8,11 @@ if($Userid==""){
   header("location:../index.html");
 }
 
-$language = $_GET['lang'];
-if($language=="en"){
-  $language = "en";
+if(empty($_SESSION['lang'])){
+  $language ='th';
 }else{
-  $language = "th";
+  $language =$_SESSION['lang'];
+
 }
 
 header ('Content-type: text/html; charset=utf-8');
@@ -98,20 +98,20 @@ $array = json_decode($json,TRUE);
       }
     });
 
-    dialog1 = jqui( "#dialogListDetail" ).dialog({
-      autoOpen: false,
-      height: 650,
-      width: 1200,
-      modal: true,
-      buttons: {
-        "<?php echo $array['close'][$language]; ?>": function() {
-          dialog1.dialog( "close" );
-        }
-      },
-      close: function() {
-        console.log("close");
-      }
-    });
+    // dialog1 = jqui( "#dialogListDetail" ).dialog({
+    //   autoOpen: false,
+    //   height: 650,
+    //   width: 1200,
+    //   modal: true,
+    //   buttons: {
+    //     "<?php echo $array['close'][$language]; ?>": function() {
+    //       dialog1.dialog( "close" );
+    //     }
+    //   },
+    //   close: function() {
+    //     console.log("close");
+    //   }
+    // });
 
     //    jqui( "#dialogItem" ).button().on( "click", function() {
     //      dialog.dialog( "open" );
@@ -161,7 +161,7 @@ function OpenDialogItem(){
 
   function ShowDetailSub() {
     var docno = $("#docno").val();
-    if( docno != "" ) dialog1.dialog( "open" );
+    if( docno != "" )  $('#dialogListDetail').modal('show');
     var data = {
       'STATUS'  : 'ShowDetailSub',
       'DocNo'   : docno
@@ -950,11 +950,11 @@ function OpenDialogItem(){
 
                     chkunit += "</select>";
 
-                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn_mhee' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:50px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onkeyup='if(this.value > "+temp[i]['Qty']+"){this.value="+temp[i]['Qty']+"}else if(this.value<0){this.value=0}' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn_mheesave' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
+                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn_mhee' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:90px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onkeyup='if(this.value > "+temp[i]['Qty']+"){this.value="+temp[i]['Qty']+"}else if(this.value<0){this.value=0}' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn_mheesave' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
 
                     var Order = "<input class='form-control' id='order"+i+"' type='text' style='text-align:center;' value='"+(temp[i]['TotalQty'])+"' disabled>";
 
-                    var Max = "<input class='form-control'style='width:70px; text-align:center;'; id='max"+i+"' type='text'  value='"+(temp[i]['Qty'])+"' disabled>";
+                    var Max = "<input class='form-control' id='max"+i+"' type='text' style='text-align:center;' value='"+(temp[i]['Qty'])+"' disabled>";
 
                     var Weight = "";
 
@@ -964,9 +964,9 @@ function OpenDialogItem(){
                     "<td style='width: 7%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
                     "<td style='width: 20%;'nowrap>"+temp[i]['ItemCode']+"</td>"+
                     "<td style='width: 20%;'nowrap>"+temp[i]['ItemName']+"</td>"+
-                    "<td style='width: 13%;'nowrap>"+temp[i]['UnitName']+"</td>"+
-                    "<td style='width: 12%;'nowrap>"+Max+"</td>"+
-                    "<td style='width: 17%;'nowrap>"+Qty+"</td>"+
+                    "<td style='width: 10%;'nowrap>"+temp[i]['UnitName']+"</td>"+
+                    "<td style='width: 10%;'nowrap>"+Max+"</td>"+
+                    "<td style='width: 22%;'nowrap>"+Qty+"</td>"+
                     "<td style='width: 10%;'nowrap>"+Order+"</td>"+
                     "</tr>";
 
@@ -1360,11 +1360,11 @@ function OpenDialogItem(){
                               <tr role="row" >
                                 <th style='width: 7%;'nowrap><?php echo $array['no'][$language]; ?></th>
                                 <th style='width: 20%;'nowrap><?php echo $array['code'][$language]; ?></th>
-                                <th style='width: 19%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                                <th style='width: 28%;'nowrap><?php echo $array['item'][$language]; ?></th>
                                 <th style='width: 10%;'nowrap><?php echo $array['unit'][$language]; ?></th>
-                                <th style='width: 13%;'nowrap><center><?php echo $array['parsc'][$language]; ?></center></th>
-                                <th style='width: 17%;'nowrap><center><?php echo $array['leftsc'][$language]; ?></center></th>
-                                <th style='width: 13%;'nowrap><center><?php echo $array['order'][$language]; ?><center></th>
+                                <th style='width: 10%;'nowrap><center><?php echo $array['parsc'][$language]; ?></center></th>
+                                <th style='width: 15%;'nowrap><center><?php echo $array['leftsc'][$language]; ?></center></th>
+                                <th style='width: 10%;'nowrap><center><?php echo $array['order'][$language]; ?><center></th>
                               </tr>
                             </thead>
                             <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:300px;">
@@ -1483,8 +1483,8 @@ function OpenDialogItem(){
                           <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
                         </div>
                       </div>
-                      <div class="col-md-2">
-                        <button type="button" style="margin-left:90px;" class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
+                      <div class="col-md-2 text-right">
+                        <button type="button"  class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
                       </div>
                     </div>
 
@@ -1633,8 +1633,37 @@ function OpenDialogItem(){
       </div>
     </div>
   </div>
-
+  <!-- custom modal2 -->
+  <div class="modal" id="dialogListDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="card-body" style="padding:0px;">
+                    <div class="row">
+                    </div>
+                    <table class="table table-fixed table-condensed table-striped" id="TableRefDocNo" cellspacing="0" role="grid">
+                      <thead style="font-size:24px;">
+                        <tr role="row">
+                        <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                        <th style='width: 25%;'nowrap><?php echo $array['rfid'][$language]; ?></th>
+                        <th style='width: 50%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                        <th style='width: 15%;'nowrap><?php echo $array['unit'][$language]; ?></th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
+            </div>
+          </div>
+    
               
               <!-- Bootstrap core JavaScript-->
               <script src="../template/vendor/jquery/jquery.min.js"></script>

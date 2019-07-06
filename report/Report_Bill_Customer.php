@@ -112,7 +112,7 @@ $pdf->AddPage("L","A5");
 $Sql = "SELECT
         billcustomer.DocNo,
         DATE_FORMAT(billcustomer.DocDate,'%d-%m-%Y') AS DocDate,
-        side.HptName,
+        site.HptName,
         department.DepName,
         employee.FirstName,
         employee.LastName,
@@ -122,7 +122,7 @@ $Sql = "SELECT
         FROM
         billcustomer
         INNER JOIN billcustomer_detail ON billcustomer.DocNo = billcustomer_detail.DocNo
-        INNER JOIN side ON billcustomer.HptCode = side.HptCode
+        INNER JOIN site ON billcustomer.HptCode = site.HptCode
         INNER JOIN department ON billcustomer.DepCode = department.DepCode
         INNER JOIN item ON billcustomer_detail.ItemCode = item.ItemCode
         INNER JOIN users ON billcustomer.Modify_Code = users.ID
@@ -142,7 +142,7 @@ while ($Result = mysqli_fetch_assoc($meQuery)) {
 
 $pdf->SetFont('THSarabun','b',11);
 $pdf->Cell(15);
-$pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['side'][$language]),0,0,'L');
+$pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['site'][$language]),0,0,'L');
 $pdf->Cell(78,10,iconv("UTF-8","TIS-620",": ".$HptName),0,0,'L');
 $pdf->Cell(22,10,iconv("UTF-8","TIS-620",$array['department'][$language]),0,0,'L');
 $pdf->Cell(40,10,iconv("UTF-8","TIS-620",": ".$DepName),0,0,'L');

@@ -10,12 +10,12 @@ function ShowItem($conn, $DATA)
     $xHptCode = 1;
   }
   $Keyword = $DATA['Keyword'];
-  $Sql = "SELECT employee.EmpCode,IFNULL(employee.FirstName,' ') AS FirstName,IFNULL(employee.LastName,' ') AS LastName,department.DepCode,department.DepName,side.HptCode,side.HptName
+  $Sql = "SELECT employee.EmpCode,IFNULL(employee.FirstName,' ') AS FirstName,IFNULL(employee.LastName,' ') AS LastName,department.DepCode,department.DepName,site.HptCode,site.HptName
           FROM employee
           INNER JOIN department ON employee.DepCode = department.DepCode
-          INNER JOIN side ON department.HptCode = side.HptCode
+          INNER JOIN site ON department.HptCode = site.HptCode
           WHERE employee.IsStatus = 1
-          AND side.HptCode = $xHptCode
+          AND site.HptCode = $xHptCode
           AND ( employee.EmpCode LIKE '%$Keyword%' OR
           employee.FirstName LIKE '%$Keyword%')";
   // var_dump($Sql); die;
@@ -52,10 +52,10 @@ function getdetail($conn, $DATA)
   $count = 0;
   $EmpCode = $DATA['EmpCode'];
   //---------------HERE------------------//
-  $Sql = "SELECT employee.EmpCode,IFNULL(employee.FirstName,' ') AS FirstName,IFNULL(employee.LastName,' ') AS LastName,department.DepCode,department.DepName,side.HptCode,side.HptName
+  $Sql = "SELECT employee.EmpCode,IFNULL(employee.FirstName,' ') AS FirstName,IFNULL(employee.LastName,' ') AS LastName,department.DepCode,department.DepName,site.HptCode,site.HptName
           FROM employee
           INNER JOIN department ON employee.DepCode = department.DepCode
-          INNER JOIN side ON department.HptCode = side.HptCode
+          INNER JOIN site ON department.HptCode = site.HptCode
           WHERE employee.EmpCode = $EmpCode AND employee.IsStatus = 1";
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
@@ -70,9 +70,9 @@ function getdetail($conn, $DATA)
   }
 
   $cnt = 0;
-  $Sql = "SELECT side.HptCode,side.HptName
-          FROM side
-          WHERE side.IsStatus = 0";
+  $Sql = "SELECT site.HptCode,site.HptName
+          FROM site
+          WHERE site.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return['Hpt'.$cnt]['HptCode']  = $Result['HptCode'];
@@ -134,9 +134,9 @@ function getSection($conn, $DATA)
 function getHotpital($conn, $DATA)
 {
   $count = 0;
-  $Sql = "SELECT side.HptCode,side.HptName
-          FROM side
-          WHERE side.IsStatus = 0";
+  $Sql = "SELECT site.HptCode,site.HptName
+          FROM site
+          WHERE site.IsStatus = 0";
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {

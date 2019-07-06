@@ -11,13 +11,13 @@ function OnLoadPage($conn,$DATA){
 shelfcount.DocNo,
 shelfcount.DocDate,
 department.DepName,
-side.HptName,
+site.HptName,
 shelfcount.IsStatus,
 shelfcount.RefDocNo,
 shelfcount.Detail
 FROM shelfcount
 INNER JOIN department ON shelfcount.DepCode = department.DepCode
-INNER JOIN side ON department.HptCode = side.HptCode
+INNER JOIN site ON department.HptCode = site.HptCode
 WHERE shelfcount.IsStatus = 0
 ORDER BY shelfcount.DocNo DESC";
   $meQuery = mysqli_query($conn,$Sql);

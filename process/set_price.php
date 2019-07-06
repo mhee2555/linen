@@ -35,7 +35,7 @@ function CreateDoc($conn, $DATA)
     }else{
         $Sql = "SELECT item_category.CategoryCode,category_price.Price
         FROM category_price
-        INNER JOIN side ON category_price.HptCode = side.HptCode
+        INNER JOIN site ON category_price.HptCode = site.HptCode
         INNER JOIN item_category ON category_price.CategoryCode = item_category.CategoryCode
         INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode
         WHERE item_category.IsStatus = 0 
@@ -78,11 +78,11 @@ function ShowDoc($conn, $DATA)
 {
     $count = 0;
     $HptCode = $DATA['HptCode'];
-    $Sql="SELECT category_price_time.DocNo,category_price_time.xDate,side.HptCode,side.HptName
+    $Sql="SELECT category_price_time.DocNo,category_price_time.xDate,site.HptCode,site.HptName
     FROM category_price_time
-    INNER JOIN side ON category_price_time.HptCode = side.HptCode
-    WHERE side.HptCode = '$HptCode' AND category_price_time.`Status` = 0 
-    GROUP BY side.HptCode,category_price_time.xDate,category_price_time.DocNo
+    INNER JOIN site ON category_price_time.HptCode = site.HptCode
+    WHERE site.HptCode = '$HptCode' AND category_price_time.`Status` = 0 
+    GROUP BY site.HptCode,category_price_time.xDate,category_price_time.DocNo
     ORDER BY category_price_time.xDate ASC";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -116,17 +116,17 @@ function ShowItem1($conn, $DATA)
   $CgMainID = $DATA['CgMainID'];
   $CgSubID = $DATA['CgSubID'];
 
-  $Sql = "SELECT category_price.RowID,side.HptName,item_main_category.MainCategoryName,item_category.CategoryName,category_price.Price
+  $Sql = "SELECT category_price.RowID,site.HptName,item_main_category.MainCategoryName,item_category.CategoryName,category_price.Price
   FROM category_price
-  INNER JOIN side ON category_price.HptCode = side.HptCode
+  INNER JOIN site ON category_price.HptCode = site.HptCode
   INNER JOIN item_category ON category_price.CategoryCode = item_category.CategoryCode
   INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode ";
   if( ('$xHptCode'!="-") && ($CgMainID=="-") && ($CgSubID=="-") ){
-      $Sql .= "WHERE side.HptCode = '$xHptCode'";
+      $Sql .= "WHERE site.HptCode = '$xHptCode'";
   }else if( ('$xHptCode'!="-") && ($CgMainID!="-")  && ($CgSubID=="-") ){
-      $Sql .= "WHERE side.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID";
+      $Sql .= "WHERE site.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID";
   }else if( ('$xHptCode'!="-") && ($CgMainID!="-") && ($CgSubID!="-") ){
-      $Sql .= "WHERE side.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
+      $Sql .= "WHERE site.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
   }
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
@@ -171,14 +171,14 @@ function ShowItem2($conn, $DATA)
 
     $Sql = "SELECT
         category_price_time.RowID,
-        side.HptName,
+        site.HptName,
         item_main_category.MainCategoryName,
         item_category.CategoryName,
         category_price_time.Price
         FROM category_price_time
         INNER JOIN item_category ON category_price_time.CategoryCode = item_category.CategoryCode
         INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode
-        INNER JOIN side ON category_price_time.HptCode = side.HptCode 
+        INNER JOIN site ON category_price_time.HptCode = site.HptCode 
         WHERE category_price_time.DocNo = '$DocNo' AND item_category.CategoryName LIKE '%$Keyword%'
         ORDER BY item_main_category.MainCategoryCode ASC,item_category.CategoryCode ASC";
 
@@ -214,9 +214,9 @@ function getdetail($conn, $DATA)
   $count = 0;
   $RowID = $DATA['RowID'];
   //---------------HERE------------------//
-  $Sql = "SELECT category_price.RowID,side.HptName,item_main_category.MainCategoryName,item_category.CategoryName,category_price.Price
+  $Sql = "SELECT category_price.RowID,site.HptName,item_main_category.MainCategoryName,item_category.CategoryName,category_price.Price
     FROM category_price
-    INNER JOIN side ON category_price.HptCode = side.HptCode
+    INNER JOIN site ON category_price.HptCode = site.HptCode
     INNER JOIN item_category ON category_price.CategoryCode = item_category.CategoryCode
     INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode
     WHERE category_price.RowID = $RowID";
@@ -251,10 +251,10 @@ function getHotpital($conn, $DATA)
 {
   $count = 0;
   $Sql = "SELECT
-          side.HptCode,
-          side.HptName
+          site.HptCode,
+          site.HptName
           FROM
-          side
+          site
 					WHERE IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {

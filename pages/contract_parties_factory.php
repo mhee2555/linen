@@ -6,11 +6,11 @@ if($Userid==""){
    header("location:../index.html");
 }
 
-$language = $_GET['lang'];
-if($language=="en"){
-  $language = "en";
+if(empty($_SESSION['lang'])){
+  $language ='th';
 }else{
-  $language = "th";
+  $language =$_SESSION['lang'];
+
 }
 
 header ('Content-type: text/html; charset=utf-8');
@@ -458,44 +458,40 @@ $array = json_decode($json,TRUE);
     <div class="row" style="margin-top:-15px;"> <!-- start row tab -->
 <div class="col-md-12"> <!-- tag column 1 -->
 <!-- /.content-wrapper -->
-<div class="row">
+            <div class="row mt-3">
               <div class="col-md-11"> <!-- tag column 1 -->
                   <div class="container-fluid">
-                    <div class="card-body" style="padding:0px; margin-top:10px;">
-                        <div class="row" style="margin-top:5px">
+                    <div class="card-body">
+                      <div class="row col-12">        
+                        <div class="col-md-4">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['datestart'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8 datepicker-here" id="datepicker1" data-language='en' data-date-format='dd/mm/yyyy' >
+                                    </div>
+                                  </div>
 
-<!-- Default switch
+                                  <div class="col-md-4">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['dateend'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8 datepicker-here" id="datepicker2" data-language='en' data-date-format='dd/mm/yyyy' >
+                                    </div>
+                                  </div>
 
-<div style="width:20px; float: right; margin: 0; padding: 0;  ">
-  <div style="margin: 5px 5px 5px 0; vertical-align:bottom;">
-    <div style="display: flex; align-items: flex-end; transform: rotate(90deg); vertical-align: bottom;margin-bottom: 0;left:0; font-size: 8px; width: 56px ; height: 55px">
-      TESTING NOW
-    </div>
-  </div>
-</div>
+                            <div class="col-md-4">
+                              <div class='form-group row'>
+                              <button type="button" class="btn btn-primary col-sm-3 btn-sm ml-3" onclick="ShowDocument()" id="bSearch"><?php echo $array['search'][$language]; ?></button>
 
-<input type="radio" id="r1" name="rr" />
--->
-
-                                      <div style="margin-left:20px;width:100px;">
-												<label><?php echo $array['datestart'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
-                                                  <input type="text" class="form-control datepicker-here" id="datepicker1" data-language='en' data-date-format='dd/mm/yyyy' >
-                                      </div>
-                                      <div style="margin-left:30px;width:120px;">
-												<label><?php echo $array['dateend'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:220px;">
-                                                  <input type="text" class="form-control datepicker-here" id="datepicker2" data-language='en' data-date-format='dd/mm/yyyy' >
-                                      </div>
-                                      <div style="margin-left:50px;width:305px;">
- <button style="width:105px"; type="button" class="btn btn-primary" onclick="ShowDocument()" id="bSearch"><?php echo $array['search'][$language]; ?></button>
-                                      </div>
+                            </div>
+                          </div>
                         </div>
-                    </div>
-                  </div>
-              </div> <!-- tag column 1 -->
+
+
+
+
+                  
+                </div>
+            </div>
+        </div> <!-- tag column 1 -->
     </div>
 
 <div class="row">
