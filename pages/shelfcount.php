@@ -3,6 +3,8 @@ session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
 $PmID = $_SESSION['PmID'];
+$HptCode = $_SESSION['HptCode'];
+
 $DocnoXXX = $_GET['DocNo'];
 if($Userid==""){
   header("location:../index.html");
@@ -720,10 +722,21 @@ function OpenDialogItem(){
 
               if(temp["status"]=='success'){
                 if(temp["form"]=='OnLoadPage'){
+                  var PmID = <?php echo $PmID;?>;
+                  var HptCode = '<?php echo $HptCode;?>';
                   for (var i = 0; i < (Object.keys(temp).length-2); i++) {
-                    var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
-                    $("#side").append(Str);
-                    $("#hotpital").append(Str);
+                    if(PmID != 1 && HptCode == temp[i]['HptCode']){
+                      var Str = "<option value="+temp[i]['HptCode']+" selected>"+temp[i]['HptName']+"</option>";
+                      $("#side").append(Str);
+                      $("#side").attr('disabled', true);
+                      $("#hotpital").append(Str);
+                      $("#hotpital").attr('disabled', true);
+                    }else{
+                      var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
+                      $("#side").append(Str);
+                      $("#hotpital").append(Str);
+                    }
+                    
                   }
                 }else if(temp["form"]=='getDepartment'){
                   $("#department").empty();
