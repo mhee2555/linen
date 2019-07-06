@@ -980,30 +980,25 @@ $array = json_decode($json,TRUE);
                           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['detail'][$language]; ?></a>
                         </li>
                       </ul>
-                        <div class="row" style=" margin-top:10px;">
-                                      <div class="col-md-2">
-                                        <div class="row" style="margin-left:30px;">
-												<label><?php echo $array['code'][$language]; ?></label>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <div class="row" style="margin-left:30px;">
- <input type="text" class="form-control" style="width:90%;" name="HptCode" id="HptCode" placeholder="<?php echo $array['code'][$language]; ?>">
-                                        </div>
-                                      </div>
-                        </div>
-                        <div class="row" style="margin-top:10px;">
-                                      <div class="col-md-2">
-                                        <div class="row" style="margin-left:30px;">
-												<label><?php echo $array['hosname'][$language]; ?></label>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-6" >
-                                        <div class="row" style="margin-left:30px;">
- <input type="text" class="form-control checkblank " style="width:90%;" name="HptName" id="HptName" placeholder="<?php echo $array['hosname'][$language]; ?>" >
-                                        </div>
-                                      </div>
-                        </div>
+   <!-- =================================================================== -->
+                                <div class="row mt-4">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['code'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 " id="HptCode"    placeholder="<?php echo $array['code'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div>                        
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['hosname'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 " id="HptName"    placeholder="<?php echo $array['hosname'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div>  
+   <!-- =================================================================== -->
                     </div>
                   </div>
               </div> <!-- tag column 2 -->

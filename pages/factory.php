@@ -1021,7 +1021,7 @@ $array = json_decode($json,TRUE);
               </div> <!-- tag column 1 -->
     </div>
     <!-- /.content-wrapper -->
-    <div class="row">
+    <div class="row mt-3">
               <div class="col-md-10"> <!-- tag column 1 -->
                   <div class="container-fluid">
                     <div class="card-body" style="padding:0px; margin-top:10px;">
@@ -1030,62 +1030,62 @@ $array = json_decode($json,TRUE);
                           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['detail'][$language]; ?></a>
                         </li>
                       </ul>
-                        <div class="row" style="margin-top:10px;">
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['faccode'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:300px;">
- <input type="text" class="form-control" style="width:300px;" name="FacCode" id="FacCode" placeholder="<?php echo $array['faccode'][$language]; ?>" readonly>
-                                      </div>
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['price'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:300px;">
- <input type="text" class="form-control checkblank numonly" style="width:300px;" name="Price" id="Price" placeholder="<?php echo $array['price'][$language]; ?>" >
-                                      </div>
+   <!-- =================================================================== -->
+                                <div class="row mt-4">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['faccode'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8" id="FacCode"  <?php echo $array['faccode'][$language]; ?> readonly>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['price'][$language]; ?></label>
+                                        <input type="text" class="form-control col-sm-8 checkblank numonly" id="Price"  placeholder="<?php echo $array['price'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                </div>          
+     <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['facname'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 checkblank" id="FacName"  <?php echo $array['facname'][$language]; ?>  placeholder="<?php echo $array['facname'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['address'][$language]; ?></label>
+                                        <input type="text" class="form-control col-sm-8 checkblank " id="Address"  placeholder="<?php echo $array['address'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                </div>               
+     <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['taxid'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 checkblank numonly" id="TaxID"  <?php echo $array['taxid'][$language]; ?>  placeholder="<?php echo $array['taxid'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['postid'][$language]; ?></label>
+                                        <input type="text" class="form-control col-sm-8 checkblank numonly" id="Post"  placeholder="<?php echo $array['postid'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                </div> 
+  <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['discount'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 checkblank numonly" id="DiscountPercent"  <?php echo $array['taxid'][$language]; ?>  placeholder="<?php echo $array['discount'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div>               
+<!-- =================================================================== -->
 
-                        </div>
-                        <div class="row" style="margin-top:5px;">
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['facname'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:300px;">
- <input type="text" class="form-control checkblank " style="width:300px;" name="FacName" id="FacName" placeholder="<?php echo $array['facname'][$language]; ?>" >
-                                      </div>
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['address'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:300px;">
- <input type="text" class="form-control checkblank" style="width:450px;" name="Address" id="Address" placeholder="<?php echo $array['address'][$language]; ?>" >
-                                      </div>
-                        </div>
-                        <div class="row" style="margin-top:5px;">
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['taxid'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:300px;">
- <input type="text" class="form-control checkblank numonly" style="width:300px;" name="TaxID" id="TaxID" placeholder="<?php echo $array['taxid'][$language]; ?>" >
-                                      </div>
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['postid'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:300px;">
- <input type="text" class="form-control checkblank numonly" style="width:300px;" name="Post" id="Post" placeholder="<?php echo $array['postid'][$language]; ?>" >
-                                      </div>
-                        </div>
-                        <div class="row" style="margin-top:10px;">
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['discount'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:300px;">
- <input type="text" class="form-control checkblank numonly" style="width:300px;" name="DiscountPercent" id="DiscountPercent" placeholder="<?php echo $array['discount'][$language]; ?>" >
-                                      </div>
-                                      <div style="margin-left:50px;width:120px;">
-
-                                      </div>
-                                      <div style="width:300px;">
-                                      </div>
-                        </div>
                     </div>
                   </div>
               </div> <!-- tag column 1 -->

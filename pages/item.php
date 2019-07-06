@@ -1269,74 +1269,77 @@ var isChecked2 = false;
               <div class="col-md-10"> <!-- tag column 1 -->
                   <div class="container-fluid">
                     <div class="card-body" style="padding:0px; margin-top:10px;">
-                        <div class="row">
-                                      <div style="margin-left:30px;width:100px;">
-												<label><?php echo $array['category'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
-                                      		<div style="font-size:24px;width:230px;">
-                                                    <select class="form-control" style="font-size:24px;" id="catagory2">
-                                                    </select>
-                                       		</div>
-                                      </div>
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['pricecus'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
- <input type="text" class="form-control checkblank numonly" style="font-size:24px;width:230px;" name="CusPrice" id="CusPrice" placeholder="<?php echo $array['pricecus'][$language]; ?>" >
-                                      </div>
-
-                        </div>
-                        <div class="row" style="margin-top:2px;">
-                                      <div style="margin-left:30px;width:100px;">
-												<label><?php echo $array['codecode'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
- <input type="text" class="form-control checkblank" style="font-size:24px;width:230px;" name="ItemCode" id="ItemCode" placeholder="<?php echo $array['codecode'][$language]; ?>" >
-                                      </div>
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['pricefac'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
- <input type="text" class="form-control  checkblank numonly" style="font-size:24px;width:230px;" name="FacPrice" id="FacPrice" placeholder="<?php echo $array['pricefac'][$language]; ?>" >
-                                      </div>
-                        </div>
-                        <div class="row" style="margin-top:2px;">
-                                      <div style="margin-left:30px;width:100px;">
-												<label><?php echo $array['item'][$language]; ?></label>
-                                      </div>
-                                       <input type="text" class="form-control checkblank" style="font-size:24px;width:630px;" name="ItemName" id="ItemName" placeholder="<?php echo $array['item'][$language]; ?>" >
-                        </div>
-                        <div class="row" style="margin-top:2px;">
-                                      <div style="margin-left:30px;width:100px;">
-												<label><?php echo $array['unit'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
-                                                    <select class="form-control"  style="font-size:24px;" id="UnitName">
-                                                    </select>
-                                      </div>
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['size'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
-                                        <select class="form-control" style="font-size:24px;" id="SizeCode">
-                                          <option value="1">SS</option>
+   <!-- =================================================================== -->
+                                <div class="row mt-4">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['category'][$language]; ?></label>
+                                      <select class="form-control col-sm-8" id="catagory2" ></select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['pricecus'][$language]; ?></label>
+                                        <input type="text" class="form-control col-sm-8 checkblank numonly" id="CusPrice"  placeholder="<?php echo $array['pricecus'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                </div>                    
+   <!-- =================================================================== -->
+                              <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['codecode'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8" id="ItemCode" placeholder="<?php echo $array['codecode'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['pricefac'][$language]; ?></label>
+                                        <input type="text" class="form-control col-sm-8 checkblank numonly" id="FacPrice"  placeholder="<?php echo $array['pricefac'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                </div> 
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['item'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8 checkblank" id="ItemName" placeholder="<?php echo $array['item'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div> 
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['unit'][$language]; ?></label>
+                                      <select class="form-control col-sm-8" id="UnitName"></select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['size'][$language]; ?></label>
+                                        <select class="form-control col-sm-8 checkblank numonly" id="SizeCode" >
+                                        <option value="1">SS</option>
                                           <option value="2">S</option>
                                           <option value="3">M</option>
                                           <option value="4">L</option>
                                           <option value="5">XL</option>
                                           <option value="6">XXL</option>
                                         </select>
-                                      </div>
-                        </div>
-                        <div class="row" style="margin-top:2px;">
-                                      <div style="margin-left:30px;width:100px;">
-												<label><?php echo $array['weight'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
- <input type="text" class="form-control checkblank numonly" style="font-size:24px;width:230px;" name="Weight" id="Weight" placeholder="<?php echo $array['weight'][$language]; ?>" >
-                                      </div>
-                        </div>
+                                    </div>
+                                  </div>
+                                </div> 
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['weight'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8 checkblank numonly" id="Weight" placeholder="<?php echo $array['weight'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div>
+   <!-- =================================================================== -->
                     </div>
                   </div>
               </div> <!-- tag column 1 -->

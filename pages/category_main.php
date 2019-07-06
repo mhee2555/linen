@@ -898,30 +898,25 @@ $array = json_decode($json,TRUE);
                       </li>
                     </ul>
                     <div class="card-body" style="padding:0px; margin-top:10px;">
-                        <div class="row">
-                                      <div class="col-md-2">
-                                        <div class="row" style="margin-left:30px;">
-												<label><?php echo $array['codecode'][$language]; ?></label>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <div class="row" style="margin-left:30px;">
- <input type="text" class="form-control" style="width:90%;" name="CategoryCode" id="CategoryCode" placeholder="<?php echo $array['codecode'][$language]; ?>" readonly>
-                                        </div>
-                                      </div>
-                        </div>
-                        <div class="row" style="margin-top:10px;">
-                                      <div class="col-md-2">
-                                        <div class="row" style="margin-left:30px;">
-												<label><?php echo $array['category'][$language]; ?></label>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-6" >
-                                        <div class="row" style="margin-left:30px;">
- <input type="text" class="form-control checkblank" style="width:90%;" name="CategoryName" id="CategoryName" placeholder="<?php echo $array['category'][$language]; ?>" >
-                                        </div>
-                                      </div>
-                        </div>
+   <!-- =================================================================== -->
+                                <div class="row mt-4">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['codecode'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 " id="CategoryCode"    placeholder="<?php echo $array['codecode'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div>  
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['category'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 " id="CategoryName"    placeholder="<?php echo $array['category'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div>  
+   <!-- =================================================================== -->
                     </div>
                   </div>
               </div> <!-- tag column 2 -->

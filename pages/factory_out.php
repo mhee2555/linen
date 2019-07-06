@@ -37,6 +37,7 @@ $array = json_decode($json,TRUE);
     <link href="../template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../bootstrap/css/tbody.css" rel="stylesheet">
     <link href="../bootstrap/css/myinput.css" rel="stylesheet">
+    <link href="../css/responsive.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
     <link href="../template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -93,35 +94,35 @@ $array = json_decode($json,TRUE);
 
   jqui(document).ready(function($){
 
-    dialogRefDocNo = jqui( "#dialogRefDocNo" ).dialog({
-      autoOpen: false,
-      height: 670,
-      width: 1200,
-      modal: true,
-      buttons: {
-        "<?php echo $array['close'][$language]; ?>": function() {
-          dialogRefDocNo.dialog( "close" );
-        }
-      },
-      close: function() {
-        console.log("close");
-      }
-    });
+    // dialogRefDocNo = jqui( "#dialogRefDocNo" ).dialog({
+    //   autoOpen: false,
+    //   height: 670,
+    //   width: 1200,
+    //   modal: true,
+    //   buttons: {
+    //     "<?php echo $array['close'][$language]; ?>": function() {
+    //       dialogRefDocNo.dialog( "close" );
+    //     }
+    //   },
+    //   close: function() {
+    //     console.log("close");
+    //   }
+    // });
 
-    dialogItemCode = jqui( "#dialogItemCode" ).dialog({
-      autoOpen: false,
-      height: 670,
-      width: 1200,
-      modal: true,
-      buttons: {
-        "<?php echo $array['close'][$language]; ?>": function() {
-          dialogItemCode.dialog( "close" );
-        }
-      },
-      close: function() {
-        console.log("close");
-      }
-    });
+    // dialogItemCode = jqui( "#dialogItemCode" ).dialog({
+    //   autoOpen: false,
+    //   height: 670,
+    //   width: 1200,
+    //   modal: true,
+    //   buttons: {
+    //     "<?php echo $array['close'][$language]; ?>": function() {
+    //       dialogItemCode.dialog( "close" );
+    //     }
+    //   },
+    //   close: function() {
+    //     console.log("close");
+    //   }
+    // });
 
     // jqui( "#dialogItemCode" ).button().on( "click", function() {
     //   dialogItemCode.dialog( "open" );
@@ -148,11 +149,13 @@ $array = json_decode($json,TRUE);
 
  });
 
-	function OpenDialogItem(){
-		var docno = $("#docno").val();
-    if( docno != "" ) dialogItemCode.dialog( "open" );
-  }
-
+ function OpenDialogItem(){
+        var docno = $("#docno").val();
+        // if( docno != "" ) dialogItemCode.dialog( "open" );
+        if(docno != ""){
+          $('#dialogItemCode').modal('show');
+        }
+      }
   function OpenDialogUsageCode(itemcode){
     xItemcode = itemcode;
     var docno = $("#docno").val();
@@ -200,9 +203,10 @@ $array = json_decode($json,TRUE);
 	}
 
   function open_dirty_doc(){
-    dialogRefDocNo.dialog( "open" );
-  }
-
+        // dialogRefDocNo.dialog( "open" );
+        $('#dialogRefDocNo').modal('show');
+        get_dirty_doc();
+      }
   function get_dirty_doc(){
     var docno = $("#docno").val();
     var data = {
@@ -375,7 +379,7 @@ $array = json_decode($json,TRUE);
         'Sel'       : Sel
       };
       senddata(JSON.stringify(data));
-      dialogItemCode.dialog( "close" );
+      $('#dialogItemCode').modal('toggle')
       dialogUsageCode.dialog( "close" );
     }
 
@@ -590,7 +594,7 @@ var isChecked2 = false;
       'deptCode'	  : deptCode
     };
     senddata(JSON.stringify(data));
-    dialogRefDocNo.dialog( "close" );
+    $('#dialogRefDocNo').modal('toggle')
 	}
 
     function logoff() {
@@ -698,14 +702,14 @@ var isChecked2 = false;
 												   }
 
 												   $StrTr="<tr id='tr"+temp[i]['DocNo']+"'>"+
-															  "<td style='width: 10%;'>"+chkDoc+"</td>"+
-															  "<td style='width: 15%;'>"+temp[i]['DocDate']+"</td>"+
-															  "<td style='width: 15%;'>"+temp[i]['DocNo']+"</td>"+
-															  "<td style='width: 15%;'>"+temp[i]['RefDocNo']+"</td>"+
-															  "<td style='width: 15%;'>"+temp[i]['Record']+"</td>"+
-															  "<td style='width: 10%;'>"+temp[i]['RecNow']+"</td>"+
-															  "<td style='width: 10%;'>"+temp[i]['Total']+"</td>"+
-															  "<td "+Style+">"+Status+"</td>"+
+															  "<td style='width: 10%;'nowrap>"+chkDoc+"</td>"+
+															  "<td style='width: 15%;'nowrap>"+temp[i]['DocDate']+"</td>"+
+															  "<td style='width: 15%;'nowrap>"+temp[i]['DocNo']+"</td>"+
+															  "<td style='width: 15%;'nowrap>"+temp[i]['RefDocNo']+"</td>"+
+															  "<td style='width: 15%;'nowrap>"+temp[i]['Record']+"</td>"+
+															  "<td style='width: 10%;'nowrap>"+temp[i]['RecNow']+"</td>"+
+															  "<td style='width: 10%;'nowrap>"+temp[i]['Total']+"</td>"+
+															  "<td "+Style+"nowrap>"+Status+"</td>"+
 														  "</tr>";
 
 					                               if(rowCount == 0){
@@ -790,12 +794,12 @@ var isChecked2 = false;
 												   var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:110px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='price_"+i+"' value='"+temp[i]['Price']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
 
 												   $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
-																  "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-																  "<td style='width: 10%;'>"+temp[i]['ItemCode']+"</td>"+
-																  "<td style='width: 35%;'>"+temp[i]['ItemName']+"</td>"+
-                                  "<td style='width: 15%;font-size:24px;'>"+nUnit+"</td>"+
-                                  "<td style='width: 15%;'>"+Qty+"</td>"+
-																  "<td style='width: 13%;'>"+Weight+"</td>"+
+																  "<td style='width: 10%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+																  "<td style='width: 10%;'nowrap>"+temp[i]['ItemCode']+"</td>"+
+																  "<td style='width: 35%;'nowrap>"+temp[i]['ItemName']+"</td>"+
+                                  "<td style='width: 15%;font-size:24px;'nowrap>"+nUnit+"</td>"+
+                                  "<td style='width: 15%;'nowrap>"+Qty+"</td>"+
+																  "<td style='width: 13%;'nowrap>"+Weight+"</td>"+
 																  "</tr>";
 
 
@@ -855,12 +859,12 @@ var isChecked2 = false;
 												   var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;;font-family:THSarabunNew;font-size:24px;' id='iweight"+i+"' value='0' ></div>";
 
 												   $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
-																  "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-																  "<td style='width: 10%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''>"+temp[i]['ItemCode']+"</td>"+
-																  "<td style='width: 30%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''>"+temp[i]['ItemName']+"</td>"+
+																  "<td style='width: 10%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+																  "<td style='width: 10%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''nowrap>"+temp[i]['ItemCode']+"</td>"+
+																  "<td style='width: 30%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''nowrap>"+temp[i]['ItemName']+"</td>"+
 																  "<td style='width: 20%;'>"+chkunit+"</td>"+
-																  "<td style='width: 15%;' align='center'>"+Qty+"</td>"+
-																  "<td style='width: 13%;' align='center'>"+Weight+"</td>"+
+																  "<td style='width: 15%;' align='center'nowrap>"+Qty+"</td>"+
+																  "<td style='width: 13%;' align='center'nowrap>"+Weight+"</td>"+
 																  "</tr>";
 												   if(rowCount == 0){
 													 $("#TableItem tbody").append( $StrTR );
@@ -892,11 +896,11 @@ var isChecked2 = false;
 												   var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='iweight"+i+"' value='0' ></div>";
 
 												   $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
-																  "<td style='width: 10%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-																  "<td style='width: 20%;'>"+temp[i]['UsageCode']+"</td>"+
-																  "<td style='width: 40%;'>"+temp[i]['ItemName']+" [ "+temp[i]['RowID']+" ]</td>"+
-																  "<td style='width: 15%;'>"+chkunit+"</td>"+
-																  "<td style='width: 13%;' align='center'>1</td>"+
+																  "<td style='width: 10%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+																  "<td style='width: 20%;'nowrap>"+temp[i]['UsageCode']+"</td>"+
+																  "<td style='width: 40%;'nowrap>"+temp[i]['ItemName']+" [ "+temp[i]['RowID']+" ]</td>"+
+																  "<td style='width: 15%;'nowrap>"+chkunit+"</td>"+
+																  "<td style='width: 13%;' align='center'nowrap>1</td>"+
 																  "</tr>";
 												   if(rowCount == 0){
 													 $("#TableUsageCode tbody").append( $StrTR );
@@ -1155,12 +1159,12 @@ var isChecked2 = false;
               		<table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItemDetail" width="100%" cellspacing="0" role="grid" style="">
                           <thead id="theadsum" style="font-size:24px;">
                             <tr role="row">
-                              <th style='width: 10%;'><?php echo $array['no'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['code'][$language]; ?></th>
-                              <th style='width: 35%;'><?php echo $array['item'][$language]; ?></th>
-                              <th style='width: 15%;'><?php echo $array['unit'][$language]; ?></th>
-                              <th style='width: 15%;'><?php echo $array['qty'][$language]; ?></th>
-                              <th style='width: 15%;'><?php echo $array['weight'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['code'][$language]; ?></th>
+                              <th style='width: 35%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                              <th style='width: 15%;'nowrap><?php echo $array['unit'][$language]; ?></th>
+                              <th style='width: 15%;'nowrap><?php echo $array['qty'][$language]; ?></th>
+                              <th style='width: 15%;'nowrap><?php echo $array['weight'][$language]; ?></th>
                             </tr>
                           </thead>
                           <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:300px;">
@@ -1243,8 +1247,8 @@ var isChecked2 = false;
                                           <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
                                         </div>
                                       </div>
-                                      <div class="col-md-2">
-                                         <button type="button" style="margin-left:90px;" class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
+                                      <div class="col-md-2 text-right">
+                                         <button type="button"  class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
                                       </div>
                         </div>
 
@@ -1253,14 +1257,14 @@ var isChecked2 = false;
               		<table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableDocument" width="100%" cellspacing="0" role="grid">
                           <thead id="theadsum" style="font-size:24px;">
                             <tr role="row">
-                              <th style='width: 10%;'>&nbsp;</th>
-                              <th style='width: 15%;'><?php echo $array['docdate'][$language]; ?></th>
-                              <th style='width: 15%;'><?php echo $array['docno'][$language]; ?></th>
-                              <th style='width: 15%;'><?php echo $array['refdocno'][$language]; ?></th>
-                              <th style='width: 15%;'><?php echo $array['employee'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['time'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['weight'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['status'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap>&nbsp;</th>
+                              <th style='width: 15%;'nowrap><?php echo $array['docdate'][$language]; ?></th>
+                              <th style='width: 15%;'nowrap><?php echo $array['docno'][$language]; ?></th>
+                              <th style='width: 15%;'nowrap><?php echo $array['refdocno'][$language]; ?></th>
+                              <th style='width: 15%;'nowrap><?php echo $array['employee'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['time'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['weight'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['status'][$language]; ?></th>
                             </tr>
                           </thead>
                           <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:400px;">
@@ -1286,7 +1290,7 @@ var isChecked2 = false;
       <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Dialog Modal-->
+    <!-- Dialog Modal
     <div id="dialogItemCode" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999998 !important;font-family: 'THSarabunNew';font-size:24px;">
       <div class="container">
         <div class="row">
@@ -1311,12 +1315,12 @@ var isChecked2 = false;
                 <table class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
                   <thead style="font-size:24px;">
                     <tr role="row">
-                      <th style='width: 10%;'><?php echo $array['no'][$language]; ?></th>
-                      <th style='width: 10%;'><?php echo $array['code'][$language]; ?></th>
-                      <th style='width: 30%;'><?php echo $array['item'][$language]; ?></th>
-                      <th style='width: 20%;'><?php echo $array['unit'][$language]; ?></th>
-                      <th style='width: 15%;'><?php echo $array['numofpiece'][$language]; ?></th>
-                      <th style='width: 15%;'><?php echo $array['weight'][$language]; ?></th>
+                      <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                      <th style='width: 10%;'nowrap><?php echo $array['code'][$language]; ?></th>
+                      <th style='width: 30%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                      <th style='width: 20%;'nowrap><?php echo $array['unit'][$language]; ?></th>
+                      <th style='width: 15%;'nowrap><?php echo $array['numofpiece'][$language]; ?></th>
+                      <th style='width: 15%;'nowrap><?php echo $array['weight'][$language]; ?></th>
                     </tr>
                   </thead>
                   <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
@@ -1325,7 +1329,7 @@ var isChecked2 = false;
             </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Dialog Modal-->
     <div id="dialogUsageCode" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
@@ -1354,11 +1358,11 @@ var isChecked2 = false;
                 <table class="table table-fixed table-condensed table-striped" id="TableUsageCode" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
                   <thead style="font-size:24px;">
                     <tr role="row">
-                      <th style='width: 10%;'><?php echo $array['no'][$language]; ?></th>
-                      <th style='width: 20%;'><?php echo $array['rfid'][$language]; ?></th>
-                      <th style='width: 40%;'><?php echo $array['item'][$language]; ?></th>
-                      <th style='width: 15%;'><?php echo $array['unit'][$language]; ?></th>
-                      <th style='width: 15%;'><?php echo $array['numofpiece'][$language]; ?></th>
+                      <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                      <th style='width: 20%;'nowrap><?php echo $array['rfid'][$language]; ?></th>
+                      <th style='width: 40%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                      <th style='width: 15%;'nowrap><?php echo $array['unit'][$language]; ?></th>
+                      <th style='width: 15%;'nowrap><?php echo $array['numofpiece'][$language]; ?></th>
                     </tr>
                   </thead>
                   <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
@@ -1369,7 +1373,7 @@ var isChecked2 = false;
       </div>
     </div>
 
-    <!-- Dialog Modal RefDocNo-->
+    <!-- Dialog Modal RefDocNo
     <div id="dialogRefDocNo" title="<?php echo $array['refdocno'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
       <div class="container">
         <div class="row">
@@ -1406,7 +1410,93 @@ var isChecked2 = false;
             </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
+     <!-- custom modal2 -->
+     <div class="modal" id="dialogRefDocNo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <?php echo $array['refdocno'][$language]; ?>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="card-body" style="padding:0px;">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class='form-group row'>
+                          <label class="col-sm-4 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
+                          <input type="text" class="form-control col-sm-9" name="searchitem1" id="searchitem1" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <button type="button" class="btn btn-primary  btn-block" name="button" onclick="get_dirty_doc();"><?php echo $array['search'][$language]; ?></button>
+                      </div>
+                      <div class="col-md-2">
+                        <button type="button" class="btn btn-warning btn-block" name="button" onclick="UpdateRefDocNo()"><?php echo $array['import'][$language]; ?></button>
+                      </div>
+                    </div>
+                    <table class="table table-fixed table-condensed table-striped" id="TableRefDocNo" cellspacing="0" role="grid">
+                      <thead style="font-size:24px;">
+                        <tr role="row">
+                          <th style='width: 15%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                          <th style='width: 85%;' nowrap><?php echo $array['refdocno'][$language]; ?></th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:300px;">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+               <!-- -----------------------------Custome1------------------------------------ -->
+               <div class="modal" id="dialogItemCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="card-body" style="padding:0px;">
+                              <div class="row">
+                                <div class="col-md-8">
+                                  <div class='form-group row'>
+                                    <label class="col-sm-3 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
+                                    <input type="text" class="form-control col-sm-9" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <button type="button" class="btn btn-primary btn-block" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-warning  btn-block" name="button" onclick="getImport(1);"><?php echo $array['import'][$language]; ?></button>
+                                </div>
+                              </div>
+                              <table class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
+                                <thead style="font-size:24px;">
+                                  <tr role="row">
+                                    <th style='width: 10%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                                    <th style='width: 20%;' nowrap><?php echo $array['code'][$language]; ?></th>
+                                    <th style='width: 25%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                                    <th style='width: 15%;' nowrap><center><?php echo $array['unit'][$language]; ?></center></th>
+                                    <th style='width: 15%;' nowrap><?php echo $array['numofpiece'][$language]; ?></th>
+                                    <th style='width: 15%;' nowrap><?php echo $array['weight'][$language]; ?></th>
+                                  </tr>
+                                </thead>
+                                <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
     <!-- Bootstrap core JavaScript-->
     <script src="../template/vendor/jquery/jquery.min.js"></script>
     <script src="../template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -1006,30 +1006,25 @@ $array = json_decode($json,TRUE);
                           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['detail'][$language]; ?></a>
                         </li>
                       </ul>
-                        <div class="row" style="margin-top:10px;">
-                                      <div class="col-md-2">
-                                        <div class="row" style="margin-left:30px;">
-												<label><?php echo $array['codecode'][$language]; ?></label>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <div class="row" style="margin-left:30px;">
- <input type="text" class="form-control" style="width:90%;" name="UnitCode" id="UnitCode" placeholder="<?php echo $array['codecode'][$language]; ?>" readonly>
-                                        </div>
-                                      </div>
-                        </div>
-                        <div class="row" style="margin-top:10px;">
-                                      <div class="col-md-2">
-                                        <div class="row" style="margin-left:30px;">
-												<label><?php echo $array['unit'][$language]; ?></label>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-6" >
-                                        <div class="row" style="margin-left:30px;">
- <input type="text" class="form-control checkblank" style="width:90%;" name="UnitName" id="UnitName" placeholder="<?php echo $array['unit'][$language]; ?>" >
-                                        </div>
-                                      </div>
-                        </div>
+   <!-- =================================================================== -->
+                                <div class="row mt-4">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['codecode'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 " id="UnitCode"    placeholder="<?php echo $array['codecode'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div>
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['unit'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 " id="UnitName"    placeholder="<?php echo $array['unit'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div>
+   <!-- =================================================================== -->
                     </div>
                   </div>
               </div> <!-- tag column 2 -->

@@ -1051,57 +1051,46 @@ $array = json_decode($json, true);
                                         <?php echo $array['detail'][$language]; ?></a>
                                 </li>
                             </ul>
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2">
-                                    <div class="row" style="margin-left:30px;">
-                                        <label>
-                                            <?php echo $array['side'][$language]; ?></label>
+   <!-- =================================================================== -->
+                                <div class="row mt-4">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                      <select  class="form-control col-sm-8 " id="hptsel2" >
+                                      </select>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <select class="form-control" id="hptsel2">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2">
-                                    <div class="row" style="margin-left:30px;">
-                                        <label>
-                                            <?php echo $array['codecode'][$language]; ?></label>
+                                  </div>
+                                </div> 
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['codecode'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 " id="DepCode" placeholder="<?php echo $array['codecode'][$language]; ?>" readonly>
                                     </div>
-                                </div>
-                                <div class="col-md-6" style="margin-left:15px;">
-                                    <div class="row">
-                                        <input type="text" class="form-control" style="width:90%;" name="DepCode" id="DepCode" placeholder="<?php echo $array['codecode'][$language]; ?>" readonly>
+                                  </div>
+                                </div> 
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 checkblank" id="DepName" placeholder="<?php echo $array['department'][$language]; ?>">
                                     </div>
+                                  </div>
                                 </div>
-                            </div>
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2">
-                                    <div class="row" style="margin-left:30px;">
-                                        <label>
-                                            <?php echo $array['department'][$language]; ?></label>
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['xcenter'][$language]; ?></label>
+                                      <input type="checkbox"  id="xCenter">
                                     </div>
+                                  </div>
                                 </div>
-                                <div class="col-md-6" style="margin-left:15px;">
-                                    <div class="row">
-                                        <input type="text" class="form-control checkblank " style="width:90%;" name="DepName" id="DepName" placeholder="<?php echo $array['department'][$language]; ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2">
-                                    <div class="row" style="margin-left:30px;">
-                                        <label>
-                                            <?php echo $array['xcenter'][$language]; ?></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6" style="margin-left:15px;">
-                                    <div class="row">
-                                        <input type="checkbox" name="xCenter" id="xCenter">
-                                    </div>
-                                </div>
-                            </div>
+                     
+   <!-- =================================================================== -->
+
                         </div>
                     </div>
                 </div> <!-- tag column 2 -->
