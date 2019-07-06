@@ -378,13 +378,13 @@ switch ($PmID) {
     // }
     <!-- ============================================================================ -->
     function afk() {
-          last_move = new Date();
-          if(redirectInSecond>=60)
-              hms = "00:00:00";
-          else
-              hms = "00:00";
-          $('#ShowTime').val( redirectInSecond + ' / Timeout : ' + hms );
-      }
+      last_move = new Date();
+      if(redirectInSecond>=60)
+          hms = "00:00:00";
+      else
+          hms = "00:00";
+      $('#ShowTime').val( redirectInSecond + ' / Timeout : ' + hms );
+    }
 
       function chk_last_move(){
           cur_date = new Date(); // อ่านเวลาปัจจุบันไว้ใน cur_date
