@@ -223,8 +223,9 @@ $array = json_decode($json,TRUE);
         }
 
         function getDepartment(){
+          var HptCode = '<?php echo $HptCode; ?>';
           var Hotp = $('#hotpital option:selected').attr("value");
-          if( typeof Hotp == 'undefined' ) Hotp = "BHQ";
+          if( typeof Hotp == 'undefined' ) Hotp = HptCode;
           var data = {
             'STATUS'  : 'getDepartment',
             'Hotp'	: Hotp
