@@ -867,7 +867,7 @@ function CreateDocument($conn, $DATA)
       $TotalQty   = $zTotalQty[$i];
       $IsCancel   = $zIsCancel[$i];
       $Sql = "INSERT INTO draw_detail
-      (DocNo,ItemCode,UnitCode,ParQty,CcQty,TotalQty,IsCancel)
+      (DocNo,ItemCode,UnitCode,ParQty,TotalQty,CcQty,IsCancel)
       VALUES
       ('$DocNo','$ItemCode',$UnitCode,$ParQty,$CcQty,$TotalQty,$IsCancel)";
       mysqli_query($conn, $Sql);
@@ -950,7 +950,7 @@ function CreateDocument($conn, $DATA)
       $return[$count]['UnitName']   = $Result['UnitName'];
       $return[$count]['ParQty']     = $Result['ParQty']==null?0:$Result['ParQty'];
       $return[$count]['CcQty']       = $Result['CcQty'];
-      $return[$count]['TotalQty']   = $Result['TotalQty'];
+      $return[$count]['TotalQty']   = $Result['TotalQty']==null?0:$Result['TotalQty'];
       $UnitCode                     = $Result['UnitCode'];
       $ItemCode                     = $Result['ItemCode'];
       $count2 = 0;

@@ -280,7 +280,8 @@ function ShowItem($conn, $DATA)
 		INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
 		WHERE item.ItemName LIKE '%$searchitem%'
         GROUP BY item.ItemCode
-		ORDER BY item.ItemCode ASC LImit 100";
+    ORDER BY item.ItemCode ASC LImit 100";
+    $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['RowID'] = $Result['RowID'];

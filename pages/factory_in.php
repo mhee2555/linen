@@ -2,6 +2,8 @@
 session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
+$HptCode = $_SESSION['HptCode'];
+
 if($Userid==""){
    header("location:../index.html");
 }
@@ -242,15 +244,19 @@ $array = json_decode($json,TRUE);
 
   }
 
-	function getDepartment(){
-	  var Hotp = $('#hotpital option:selected').attr("value");
-	  if( typeof Hotp == 'undefined' ) Hotp = "BHQ";
+  function getDepartment(){
+      var Hotp = $('#hotpital option:selected').attr("value");
+      if( typeof Hotp == 'undefined' ) 
+      {
+        Hotp = '<?php echo $HptCode; ?>';
       var data = {
         'STATUS'  : 'getDepartment',
-		'Hotp'	: Hotp
+        'Hotp'	: Hotp
       };
+
       senddata(JSON.stringify(data));
-	}
+      }
+    }
 
 	function ShowDocument(selecta){
 	  var searchdocument = $('#searchdocument').val();

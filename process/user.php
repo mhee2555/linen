@@ -223,7 +223,7 @@ function AddItem($conn, $DATA)
 
     if($UsID != ""){
         $Sql = "UPDATE users SET 
-        users.HptCode=$host,
+        users.HptCode='$host',
         users.UserName='$UserName',
         users.`Password`='$Password',
         users.FName='$FName',
@@ -231,6 +231,7 @@ function AddItem($conn, $DATA)
         users.Modify_Date=NOW() 
         WHERE users.ID = $UsID";
 
+$return['sql']=$Sql;
         if(mysqli_query($conn, $Sql)){
             $return['status'] = "success";
             $return['form'] = "AddItem";
@@ -253,7 +254,7 @@ function AddItem($conn, $DATA)
 		)
           VALUES
         (
-            $host,
+            '$host',
             '$UserName',
             '$Password',
             '$FName',

@@ -104,20 +104,22 @@ function alert_SetPrice($conn,$DATA)
     $Sql = "SELECT cat_P.DocNo, 
     CURDATE() AS cur, 
     cat_P.xDate, 
-    DATEDIFF(cat_P.xDate+1, CURDATE()) AS dateDiff,
     site.HptName,
-    item_category.CategoryName
+    item_category.CategoryName,
+    CASE
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 30 THEN 30
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 7 THEN 7
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 6 THEN 6
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 5 THEN 5
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 4 THEN 4
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 3 THEN 3
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 2 THEN 2
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 1 THEN 1
+      END AS dateDiff
     FROM category_price_time cat_P
     INNER JOIN site ON site.HptCode = cat_P.HptCode
     INNER JOIN item_category ON item_category.CategoryCode = cat_P.CategoryCode
-    WHERE DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 7 
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 6 
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 5 
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 4 
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 3
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 2
-     OR DATEDIFF(cat_P.xDate+1, CURDATE()) = 1
+    WHERE cat_P.Status = 0 
     GROUP BY cat_P.DocNo ORDER BY cat_P.xDate";
   }else{
       $Sql = "SELECT cat_P.DocNo, 
@@ -126,20 +128,20 @@ function alert_SetPrice($conn,$DATA)
       site.HptName,
       item_category.CategoryName,
       CASE
-          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 30 THEN 30
-          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 7 THEN 7
-          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 6 THEN 6
-          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 5 THEN 5
-          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 4 THEN 4
-          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 3 THEN 3
-          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 2 THEN 2
-          WHEN DATEDIFF(cat_P.xDate+1, CURDATE()) = 1 THEN 1
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 30 THEN 30
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 7 THEN 7
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 6 THEN 6
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 5 THEN 5
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 4 THEN 4
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 3 THEN 3
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 2 THEN 2
+          WHEN DATEDIFF(cat_P.xDate, CURDATE()) = 1 THEN 1
       END AS dateDiff
       FROM category_price_time cat_P
       INNER JOIN users ON users.ID = $Userid 
       INNER JOIN site ON site.HptCode = '$HptCode'
       INNER JOIN item_category ON item_category.CategoryCode = cat_P.CategoryCode
-      WHERE cat_P.HptCode = '$HptCode'
+      WHERE cat_P.HptCode = '$HptCode' AND cat_P.Status = 0 
       GROUP BY cat_P.DocNo ORDER BY cat_P.xDate";
   }
   $return['sql'] = $Sql;
@@ -147,14 +149,11 @@ function alert_SetPrice($conn,$DATA)
 
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     if($Result['dateDiff']!=null){
-      $date = explode('-',$Result['xDate']);
-      $newDate = $date[2].'-'.$date[1].'-'.$date[0];
       $return[$count]['DocNo'] = $Result['DocNo'];
       $return[$count]['HptName'] = $Result['HptName'];
       $return[$count]['CategoryName'] = $Result['CategoryName'];
       $return[$count]['DateDiff'] = $Result['dateDiff'];
-      $return[$count]['newDate'] = $newDate;
-      $return[$count]['newDate'] = $newDate;
+      $return[$count]['newDate'] = $Result['xDate'];
       $count++;
       $boolean = true; 
     }

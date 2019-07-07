@@ -41,6 +41,7 @@ function getDepartment($conn, $DATA)
   FROM department
   WHERE department.HptCode = '$Hotp'
   AND department.IsStatus = 0";
+  $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['DepCode'] = $Result['DepCode'];
@@ -87,6 +88,7 @@ function CreateDocument($conn, $DATA)
   AND department.HptCode = '$hotpCode'
   ORDER BY DocNo DESC LIMIT 1";
 
+$return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $DocNo = $Result['DocNo'];
@@ -226,6 +228,7 @@ function ShowDocument($conn, $DATA)
   }
   $Sql.= "AND site.HptCode = '$hosCode' ";
   $Sql.= "ORDER BY shelfcount.DocNo DESC LIMIT 500 ";
+  $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptName']   = $Result['HptName'];
@@ -675,13 +678,15 @@ function getImport($conn, $DATA)
 
 function UpdateDetailQty($conn, $DATA)
 {
+  $max  = $DATA["max"];
   $RowID  = $DATA["Rowid"];
   $CcQty  =  $DATA["CcQty"];
   $UnitCode =  $DATA["unitcode"];
   $Sql = "UPDATE shelfcount_detail
   INNER JOIN item_stock_detail ON item_stock_detail.ItemCode = shelfcount_detail.ItemCode
-  SET  shelfcount_detail.CcQty = $CcQty, shelfcount_detail.TotalQty = (item_stock_detail.Qty - shelfcount_detail.CcQty)
-  WHERE shelfcount_detail.Id = $RowID";
+  SET  shelfcount_detail.CcQty = $CcQty, shelfcount_detail.TotalQty = ($max - shelfcount_detail.CcQty)
+  WHERE shelfcount_detail.Id = $RowID ";
+
   // $return['sql'] =$Sql;
   // echo json_encode($return);
   // $Sql = "UPDATE shelfcount_detail
@@ -909,24 +914,47 @@ function ShowDetail($conn, $DATA)
   $Total = 0;
   $boolean = false;
   $DocNo = $DATA["DocNo"];
-  //==========================================================
+
+   //==========================================================
+   $Sql = "SELECT department.HptCode FROM shelfcount INNER JOIN department ON shelfcount.DepCode = department.DepCode WHERE shelfcount.DocNo = '$DocNo'";
+   $meQuery = mysqli_query($conn, $Sql);
+   while ($Result = mysqli_fetch_assoc($meQuery)) {
+       $HptCode = $Result['HptCode'];
+   }
+   $Sql = "SELECT department.DepCode 
+           FROM department
+           WHERE department.HptCode = '$HptCode'
+           AND department.IsDefault = 1
+           AND department.IsStatus =0";
+               $return['sql'] = $Sql;
+   $meQuery = mysqli_query($conn, $Sql);
+   while ($Result = mysqli_fetch_assoc($meQuery)) {
+       $DepCode = $Result['DepCode'];
+   }
+ //==========================================================
+  
   $Sql = "SELECT
   shelfcount_detail.Id,
   shelfcount_detail.ItemCode,
   item.ItemName,
   item_unit.UnitName,
   item_unit.UnitCode,
-  shelfcount_detail.ParQty,
+  (
+      SELECT item_stock_detail.Qty 
+      FROM item_stock_detail 
+      WHERE item_stock_detail.ItemCode = shelfcount_detail.ItemCode 
+      AND item_stock_detail.DepCode =  $DepCode 
+  ) AS ParQty,
   shelfcount_detail.CcQty,
-  shelfcount_detail.TotalQty,
-  i_detail.Qty
+  shelfcount_detail.TotalQty
   FROM item
   INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
   INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
   INNER JOIN shelfcount_detail ON shelfcount_detail.ItemCode = item.ItemCode
-  INNER JOIN item_stock_detail i_detail ON i_detail.ItemCode = item.ItemCode
+  INNER JOIN shelfcount ON shelfcount.DocNo = shelfcount_detail.DocNo
   WHERE shelfcount_detail.DocNo = '$DocNo'
-  ORDER BY shelfcount_detail.Id DESC";
+  ORDER BY shelfcount_detail.Id DESC
+";
   $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {

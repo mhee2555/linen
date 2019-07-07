@@ -252,6 +252,7 @@ $array = json_decode($json, true);
             var host = $('#host').val();
             var Permission = $('#Permission').val();
 
+
             var data = {
                 'STATUS': 'AddItem',
                 'UsID': UsID,
@@ -802,7 +803,6 @@ $array = json_decode($json, true);
                                         <?php echo $array['detail'][$language]; ?></a>
                                 </li>
                             </ul>
-
                             <div class="row" style="margin-top:10px;">
                                 <div class="col-md-2">
                                     <div class="row" style="margin-left:30px;">
@@ -815,75 +815,52 @@ $array = json_decode($json, true);
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2">
-                                    <div class="row" style="margin-left:30px;">
-                                        <label>
-                                            <?php echo $array['side'][$language]; ?></label>
+   <!-- =================================================================== -->
+                                <div class="row mt-4">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                      <select  class="form-control col-sm-8 " id="host"></select>
                                     </div>
+                                  </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <select class="form-control" id="host">
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2">
-                                    <div class="row" style="margin-left:30px;">
-                                        <label>
-                                            <?php echo $array['flname'][$language]; ?></label>
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['flname'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 checkblank" id="flname"    placeholder="<?php echo $array['flname'][$language]; ?>">
                                     </div>
+                                  </div>
                                 </div>
-                                <div class="col-md-6" style="margin-left:15px;">
-                                    <div class="row">
-                                        <input type="text" class="form-control checkblank " style="width:90%;" name="Password" id="flname" placeholder="<?php echo $array['flname'][$language]; ?>">
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['username'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 checkblank" id="username"    placeholder="<?php echo $array['username'][$language]; ?>">
                                     </div>
+                                  </div>
                                 </div>
-                            </div>
-
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2">
-                                    <div class="row" style="margin-left:30px;">
-                                        <label>
-                                            <?php echo $array['username'][$language]; ?></label>
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['password'][$language]; ?></label>
+                                      <input type="text"  class="form-control col-sm-8 checkblank" id="Password"    placeholder="<?php echo $array['password'][$language]; ?>">
                                     </div>
+                                  </div>
                                 </div>
-                                <div class="col-md-6" style="margin-left:15px;">
-                                    <div class="row">
-                                        <input type="text" class="form-control checkblank " style="width:90%;" name="Password" id="username" placeholder="<?php echo $array['username'][$language]; ?>">
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['permission'][$language]; ?></label>
+                                      <select  class="form-control col-sm-8 " id="Permission"></select>
                                     </div>
+                                  </div>
                                 </div>
-                            </div>
-
-
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2">
-                                    <div class="row" style="margin-left:30px;">
-                                        <label>
-                                            <?php echo $array['password'][$language]; ?></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6" style="margin-left:15px;">
-                                    <div class="row">
-                                        <input type="text" class="form-control checkblank " style="width:90%;" name="Password" id="Password" placeholder="<?php echo $array['password'][$language]; ?>">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2">
-                                    <div class="row" style="margin-left:30px;">
-                                        <label>
-                                            <?php echo $array['permission'][$language]; ?></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <select class="form-control" id="Permission">
-                                    </select>
-                                </div>
-                            </div>
+<!-- =================================================================== -->  
                         </div>
                     </div>
                 </div> <!-- tag column 2 -->

@@ -207,14 +207,18 @@ $array = json_decode($json,TRUE);
         }
 
         function getDepartment(){
-          var Hotp = $('#hotpital option:selected').attr("value");
-          if( typeof Hotp == 'undefined' ) Hotp = "BHQ";
-          var data = {
-            'STATUS'  : 'getDepartment',
-            'Hotp'	: Hotp
-          };
-          senddata(JSON.stringify(data));
-        }
+      var Hotp = $('#hotpital option:selected').attr("value");
+      if( typeof Hotp == 'undefined' ) 
+      {
+        Hotp = '<?php echo $HptCode; ?>';
+      var data = {
+        'STATUS'  : 'getDepartment',
+        'Hotp'	: Hotp
+      };
+
+      senddata(JSON.stringify(data));
+      }
+    }
 
         function ShowDocument(selecta){
           var searchdocument = $('#searchdocument').val();

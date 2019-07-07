@@ -3,7 +3,7 @@
 <search><en>Search</en><th>ค้นหา</th></search>
 <search_hp><en>Search Hotpital</en><th>ค้นหา โรงพยาบาล</th></search_hp>
 <search_ct_main><en>Search</en><th>ค้นหา หมวดหมู่หลัก</th></search_ct_main>
-<search_ct_sub><en>Search</en><th>ค้นหา หมวดหมู่ลอง</th></search_ct_sub>
+<search_ct_sub><en>Search</en><th>ค้นหา หมวดหมู่รอง</th></search_ct_sub>
 <searchalldep><en>Search All Department</en><th>ค้นหาทุกแผนก</th></searchalldep>
 <searchdep><en>Search To Department</en><th>ค้นหาตามแผนก</th></searchdep>
 <searchall><en>Search All</en><th>ค้นหาทั้งหมด</th></searchall>
