@@ -15,32 +15,20 @@ function CreateDoc($conn, $DATA)
           WHERE DocNo Like CONCAT('CD',lpad('$HptCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'%')
           AND HptCode = '$HptCode'
           ORDER BY DocNo DESC LIMIT 1";
+
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $DocNo = $Result['DocNo'];
         $return['DocNo'] = $DocNo;
+
     }
 
-    $Sql = "SELECT COUNT(*) AS Cnt FROM category_price WHERE category_price.HptCode = '$HptCode'";
-    $meQuery = mysqli_query($conn, $Sql);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-        $Cnt = $Result['Cnt'];
-    }
+    $Sql = "SELECT item_category.CategoryCode,category_price.Price
+            FROM item_main_category
+            INNER JOIN item_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode
+            INNER JOIN category_price ON category_price.CategoryCode = item_category.CategoryCode
+            WHERE item_category.IsStatus = 0";
 
-    if($Cnt == 0){
-        $Sql = "SELECT item_category.CategoryCode,item_category.Price
-        FROM item_main_category
-        INNER JOIN item_category ON item_main_category.MainCategoryCode = item_category.MainCategoryCode
-        WHERE item_category.IsStatus = 0";
-    }else{
-        $Sql = "SELECT item_category.CategoryCode,category_price.Price
-        FROM category_price
-        INNER JOIN site ON category_price.HptCode = site.HptCode
-        INNER JOIN item_category ON category_price.CategoryCode = item_category.CategoryCode
-        INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode
-        WHERE item_category.IsStatus = 0 
-        AND category_price.HptCode = '$HptCode'";
-    }
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $CategoryCode[$count] = $Result['CategoryCode'];
@@ -78,12 +66,14 @@ function ShowDoc($conn, $DATA)
 {
     $count = 0;
     $HptCode = $DATA['HptCode'];
-    $Sql="SELECT category_price_time.DocNo,category_price_time.xDate,site.HptCode,site.HptName
-    FROM category_price_time
-    INNER JOIN site ON category_price_time.HptCode = site.HptCode
-    WHERE site.HptCode = '$HptCode' AND category_price_time.`Status` = 0 
-    GROUP BY site.HptCode,category_price_time.xDate,category_price_time.DocNo
-    ORDER BY category_price_time.xDate ASC";
+    $Sql="SELECT category_price_time.DocNo,
+                    category_price_time.xDate,
+                    site.HptCode,site.HptName
+            FROM category_price_time
+            INNER JOIN site ON site.HptCode = category_price_time.HptCode
+            WHERE site.HptCode = '$HptCode'
+            GROUP BY site.HptCode,category_price_time.xDate,category_price_time.DocNo
+            ORDER BY category_price_time.RowID DESC";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $return[$count]['DocNo'] = $Result['DocNo'];
@@ -115,19 +105,31 @@ function ShowItem1($conn, $DATA)
   $xHptCode = $DATA['HptCode'];
   $CgMainID = $DATA['CgMainID'];
   $CgSubID = $DATA['CgSubID'];
+  $Chk = $DATA['chk'];
 
-  $Sql = "SELECT category_price.RowID,site.HptName,item_main_category.MainCategoryName,item_category.CategoryName,category_price.Price
-  FROM category_price
-  INNER JOIN site ON category_price.HptCode = site.HptCode
-  INNER JOIN item_category ON category_price.CategoryCode = item_category.CategoryCode
-  INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode ";
-  if( ('$xHptCode'!="-") && ($CgMainID=="-") && ($CgSubID=="-") ){
-      $Sql .= "WHERE site.HptCode = '$xHptCode'";
-  }else if( ('$xHptCode'!="-") && ($CgMainID!="-")  && ($CgSubID=="-") ){
-      $Sql .= "WHERE site.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID";
-  }else if( ('$xHptCode'!="-") && ($CgMainID!="-") && ($CgSubID!="-") ){
-      $Sql .= "WHERE site.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
-  }
+  $Sql = "SELECT category_price.RowID,
+            site.HptName,
+            item_main_category.MainCategoryName,
+            item_category.CategoryName,
+            category_price.Price
+        FROM category_price
+        INNER JOIN site ON site.HptCode = category_price.HptCode
+        INNER JOIN item_category ON item_category.CategoryCode = category_price.CategoryCode
+        INNER JOIN item_main_category ON item_main_category.MainCategoryCode = item_category.MainCategoryCode ";
+    if($Chk==1){
+        $Sql .= "WHERE site.HptCode = $xHptCode";
+    }else if($Chk==2){
+        $Sql .= "WHERE site.HptCode = $xHptCode AND item_main_category.MainCategoryCode = $CgMainID";
+    }else if($Chk==3){
+        $Sql .= "WHERE site.HptCode = $xHptCode AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
+    }
+//    if( ($xHptCode!="-") && ($CgMainID=="-") && ($CgSubID=="-") ){
+//        $Sql .= "WHERE site.HptCode = $xHptCode";
+//    }else if( ($xHptCode!="-") && ($CgMainID!="-")  && ($CgSubID=="-") ){
+//        $Sql .= "WHERE site.HptCode = $xHptCode AND item_main_category.MainCategoryCode = $CgMainID";
+//    }else if( ($xHptCode!="-") && ($CgMainID!="-") && ($CgSubID!="-") ){
+//        $Sql .= "WHERE site.HptCode = $xHptCode AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
+//    }
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -174,22 +176,21 @@ function ShowItem2($conn, $DATA)
         site.HptName,
         item_main_category.MainCategoryName,
         item_category.CategoryName,
-        category_price.Price
+        category_price_time.Price
         FROM category_price_time
-        INNER JOIN item_category ON category_price_time.CategoryCode = item_category.CategoryCode
-        INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode
-        INNER JOIN site ON category_price_time.HptCode = site.HptCode 
-        LEFT JOIN category_price ON category_price.HptCode = site.HptCode 
+        INNER JOIN item_category ON item_category.CategoryCode = category_price_time.CategoryCode
+        INNER JOIN item_main_category ON item_main_category.MainCategoryCode = item_category.MainCategoryCode
+        INNER JOIN site ON site.HptCode = category_price_time.HptCode 
         WHERE category_price_time.DocNo = '$DocNo' AND item_category.CategoryName LIKE '%$Keyword%'
-        ORDER BY item_main_category.MainCategoryCode ASC,item_category.CategoryCode ASC";
-        $return['sql'] = $Sql;
+        ORDER BY category_price_time.RowID ASC";
+
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $return[$count]['RowID'] = $Result['RowID'];
         $return[$count]['HptName'] = $Result['HptName'];
         $return[$count]['MainCategoryName'] = $Result['MainCategoryName'];
         $return[$count]['CategoryName'] = $Result['CategoryName'];
-        $return[$count]['Price'] = $Result['Price']==null?0:$Result['Price'];
+        $return[$count]['Price'] = $Result['Price'];
         $count++;
     }
 
@@ -215,12 +216,16 @@ function getdetail($conn, $DATA)
   $count = 0;
   $RowID = $DATA['RowID'];
   //---------------HERE------------------//
-  $Sql = "SELECT category_price.RowID,site.HptName,item_main_category.MainCategoryName,item_category.CategoryName,category_price.Price
-    FROM category_price
-    INNER JOIN site ON category_price.HptCode = site.HptCode
-    INNER JOIN item_category ON category_price.CategoryCode = item_category.CategoryCode
-    INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode
-    WHERE category_price.RowID = $RowID";
+  $Sql = "SELECT category_price.RowID,
+                    site.HptName,
+                    item_main_category.MainCategoryName,
+                    item_category.CategoryName,
+                    category_price.Price
+        FROM category_price
+        INNER JOIN site ON site.HptCode = category_price.HptCode
+        INNER JOIN item_category ON item_category.CategoryCode = category_price.CategoryCode
+        INNER JOIN item_main_category ON item_main_category.MainCategoryCode = item_category.MainCategoryCode
+        WHERE category_price.RowID = $RowID";
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -321,62 +326,43 @@ function SavePrice($conn, $DATA)
 {
   $RowID = $DATA['RowID'];
   $Price = $DATA['Price'];
+  $Sel = $DATA['Sel'];
+  $DocNo = $DATA['DocNo'];
 
-  $Sql = "UPDATE category_price SET Price = $Price WHERE RowID = $RowID";
+    $Sql = "SELECT COUNT(*) AS Cnt
+        FROM category_price_time
+        WHERE category_price_time.RowID = '$RowID'";
+    $meQuery = mysqli_query($conn, $Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+        $Cnt = $Result['Cnt'];
+    }
+    $UpdatePrice = "UPDATE category_price SET Price = $Price WHERE RowID = $RowID";
+    $Sql = "UPDATE category_price_time SET Price = $Price WHERE RowID = $RowID";
+
+    mysqli_query($conn, $UpdatePrice);
   if(mysqli_query($conn, $Sql)){
     $return['status'] = "success";
+    $return['Cnt'] = $Cnt;
+    $return['Sel'] = $Sel;
     $return['form'] = "SavePrice";
-    $return['msg'] = "Edit Success...";
+    $return['msg'] = "Save Success...";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }else{
     $return['status'] = "failed";
-    $return['msg'] = "Edit Failed";
+    $return['msg'] = "addfailed";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }
 }
 
-function SavePriceTime($conn, $DATA)
-{
-    $RowID = $DATA['RowID'];
-    $Price = $DATA['Price'];
-    $Sel = $DATA['Sel'];
-    $DocNo = $DATA['DocNo'];
-
-    $Sql = "SELECT COUNT(*) AS Cnt
-        FROM category_price_time
-        WHERE category_price_time.DocNo = '$DocNo'";
-    $meQuery = mysqli_query($conn, $Sql);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-        $Cnt = $Result['Cnt'];
-    }
-
-    $Sql = "UPDATE category_price_time SET Price = $Price WHERE RowID = $RowID";
-    if(mysqli_query($conn, $Sql)){
-        $return['status'] = "success";
-        $return['Cnt'] = $Cnt;
-        $return['Sel'] = $Sel;
-        $return['form'] = "SavePriceTime";
-        $return['msg'] = "Save Success...";
-        echo json_encode($return);
-        mysqli_close($conn);
-        die;
-    }else{
-        $return['status'] = "failed";
-        $return['msg'] = "addfailed";
-        echo json_encode($return);
-        mysqli_close($conn);
-        die;
-    }
-}
-
 function CheckPrice($conn,$HptCode,$CategoryCode)
 {
     $Cnt = 0;
-    $Sql = "SELECT COUNT(*) AS Cnt FROM category_price WHERE HptCode = $HptCode AND CategoryCode = $CategoryCode";
+    $Sql = "SELECT COUNT(*) AS Cnt FROM category_price WHERE HptCode = '$HptCode' AND CategoryCode = $CategoryCode";
+//    echo 'console.log('.$Sql.')';
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $Cnt = $Result['Cnt'];
@@ -386,59 +372,77 @@ function CheckPrice($conn,$HptCode,$CategoryCode)
 
 function UpdatePrice($conn, $DATA)
 {
-  $DocNo = $DATA['DocNo'];
-  $count = 0;
-  $chk = $DATA['chk'];
-  if($chk != 1){
-      $Sql = "SELECT category_price_time.HptCode,category_price_time.CategoryCode,category_price_time.Price
-          FROM category_price_time
-          WHERE category_price_time.DocNo = '$DocNo'";
-      $meQuery = mysqli_query($conn, $Sql);
-      while ($Result = mysqli_fetch_assoc($meQuery)) {
-          $HptCode = $Result['HptCode'];
-          $CategoryCode = $Result['CategoryCode'];
-          $Price = $Result['Price'];
+    $DocNo = $DATA['DocNo'];
+    $count = 0;
+    $chk = $DATA['chk'];
+    if($chk != 1){
+        $Sql = "SELECT category_price_time.HptCode,category_price_time.CategoryCode,category_price_time.Price
+            FROM category_price_time
+            WHERE category_price_time.DocNo = '$DocNo'";
+        $meQuery = mysqli_query($conn, $Sql);
+        while ($Result = mysqli_fetch_assoc($meQuery)) {
+            $HptCode = $Result['HptCode'];
+            $CategoryCode = $Result['CategoryCode'];
+            $Price = $Result['Price'];
 
-          $InsertSql = "INSERT INTO category_price (HptCode,CategoryCode,Price) VALUES ('$HptCode',$CategoryCode,$Price)";
-          mysqli_query($conn, $InsertSql);
+            $InsertSql = "INSERT INTO category_price (HptCode,CategoryCode,Price) VALUES ('$HptCode',$CategoryCode,$Price)";
+            mysqli_query($conn, $InsertSql);
 
-          $count++;
-      }
-  }else if($chk == 1){
-      $i = 0;
-      $Price = $DATA['Price'];
-      $Sql = "SELECT category_price_time.RowID,category_price_time.HptCode,category_price_time.CategoryCode
-          FROM category_price_time
-          WHERE category_price_time.DocNo = '$DocNo'";
-      $meQuery = mysqli_query($conn, $Sql);
-      while ($Result = mysqli_fetch_assoc($meQuery)) {
-          $HptCode = $Result['HptCode'];
-          $RowID = $Result['RowID'];
-          $UpdateSql = "UPDATE category_price_time SET Price = $Price[$i] WHERE RowID = $RowID AND DocNo = '$DocNo'";
-          mysqli_query($conn, $UpdateSql);
-          $count++;
-          $i++;
-      }
-  }
-  $return['xCnt'] = $count;
+            $count++;
+        }
+    }else if($chk == 1){
+        $i = 0;
+        $Price = $DATA['Price'];
+        $Sql = "SELECT category_price_time.RowID,category_price_time.HptCode,category_price_time.CategoryCode
+            FROM category_price_time
+            WHERE category_price_time.DocNo = '$DocNo'";
+        $meQuery = mysqli_query($conn, $Sql);
+        while ($Result = mysqli_fetch_assoc($meQuery)) {
+            $HptCode = $Result['HptCode'];
+            $RowID = $Result['RowID'];
+            $UpdateSql = "UPDATE category_price_time SET Price = $Price[$i] WHERE RowID = $RowID AND DocNo = '$DocNo'";
+            mysqli_query($conn, $UpdateSql);
+            $count++;
+            $i++;
+        }
+    }
+    $return['xCnt'] = $count;
 
-  $return['status'] = "success";
-  $return['form'] = "UpdatePrice";
-  $return['msg'] = $Sql;
-  echo json_encode($return);
-  mysqli_close($conn);
-  die;
+    $return['status'] = "success";
+    $return['form'] = "UpdatePrice";
+    $return['msg'] = $Sql;
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
 }
 
-function CancelDocNo($conn,$DATA)
+function CancelItem($conn,$DATA)
 {
     $DocNo = $DATA['DocNo'];
-    $Sql = "UPDATE category_price_time SET Status = 1 WHERE DocNo = '$DocNo'";
-    mysqli_query($conn, $Sql);
-    $return['status'] = "success";
-    $return['form'] = "CancelDocNo";
-    mysqli_close($conn);
-    echo json_encode($return);
+    if($DocNo!=""){
+        $Sql = "DELETE FROM category_price_time WHERE DocNo = '$DocNo'";
+        // var_dump($Sql); die;
+        if(mysqli_query($conn, $Sql)){
+            $return['status'] = "success";
+            $return['form'] = "CancelItem";
+            $return['msg'] = "Delete Success...";
+            echo json_encode($return);
+            mysqli_close($conn);
+            die;
+        }else{
+            $return['status'] = "failed";
+            $return['msg'] = "cancelfailed";
+            echo json_encode($return);
+            mysqli_close($conn);
+            die;
+        }
+    }else{
+        $return['status'] = "failed";
+        $return['msg'] = "cancelfailed";
+        echo json_encode($return);
+        mysqli_close($conn);
+        die;
+    }
 }
 
 if(isset($_POST['DATA']))
@@ -465,18 +469,13 @@ if(isset($_POST['DATA']))
         getCategorySub($conn, $DATA);
       }else if ($DATA['STATUS'] == 'SavePrice') {
         SavePrice($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'SavePriceTime') {
-          SavePriceTime($conn,$DATA);
       }else if ($DATA['STATUS'] == 'EditItem') {
         EditItem($conn,$DATA);
       }else if ($DATA['STATUS'] == 'CancelItem') {
         CancelItem($conn,$DATA);
       }else if ($DATA['STATUS'] == 'getdetail') {
         getdetail($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'CancelDocNo') {
-          CancelDocNo($conn,$DATA);
       }
-
 
 }else{
 	$return['status'] = "error";
