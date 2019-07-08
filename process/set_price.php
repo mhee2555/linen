@@ -174,21 +174,22 @@ function ShowItem2($conn, $DATA)
         site.HptName,
         item_main_category.MainCategoryName,
         item_category.CategoryName,
-        category_price_time.Price
+        category_price.Price
         FROM category_price_time
         INNER JOIN item_category ON category_price_time.CategoryCode = item_category.CategoryCode
         INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode
         INNER JOIN site ON category_price_time.HptCode = site.HptCode 
+        LEFT JOIN category_price ON category_price.HptCode = site.HptCode 
         WHERE category_price_time.DocNo = '$DocNo' AND item_category.CategoryName LIKE '%$Keyword%'
         ORDER BY item_main_category.MainCategoryCode ASC,item_category.CategoryCode ASC";
-
+        $return['sql'] = $Sql;
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $return[$count]['RowID'] = $Result['RowID'];
         $return[$count]['HptName'] = $Result['HptName'];
         $return[$count]['MainCategoryName'] = $Result['MainCategoryName'];
         $return[$count]['CategoryName'] = $Result['CategoryName'];
-        $return[$count]['Price'] = $Result['Price'];
+        $return[$count]['Price'] = $Result['Price']==null?0:$Result['Price'];
         $count++;
     }
 
@@ -385,34 +386,48 @@ function CheckPrice($conn,$HptCode,$CategoryCode)
 
 function UpdatePrice($conn, $DATA)
 {
-    $DocNo = $DATA['DocNo'];
-    $count = 0;
-    $Sql = "SELECT category_price_time.HptCode,category_price_time.CategoryCode,category_price_time.Price
-            FROM category_price_time
-            WHERE category_price_time.DocNo = '$DocNo'";
-    $meQuery = mysqli_query($conn, $Sql);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-        $HptCode = $Result['HptCode'];
-        $CategoryCode = $Result['CategoryCode'];
-        $Price = $Result['Price'];
+  $DocNo = $DATA['DocNo'];
+  $count = 0;
+  $chk = $DATA['chk'];
+  if($chk != 1){
+      $Sql = "SELECT category_price_time.HptCode,category_price_time.CategoryCode,category_price_time.Price
+          FROM category_price_time
+          WHERE category_price_time.DocNo = '$DocNo'";
+      $meQuery = mysqli_query($conn, $Sql);
+      while ($Result = mysqli_fetch_assoc($meQuery)) {
+          $HptCode = $Result['HptCode'];
+          $CategoryCode = $Result['CategoryCode'];
+          $Price = $Result['Price'];
 
-        if( CheckPrice($conn,$HptCode,$CategoryCode) == 0 ){
-            $InsertSql = "INSERT INTO category_price (HptCode,CategoryCode,Price) VALUES ($HptCode,$CategoryCode,$Price)";
-            mysqli_query($conn, $InsertSql);
-        }else{
-            $UpdateSql = "UPDATE category_price SET Price = $Price WHERE HptCode = $HptCode AND CategoryCode = $CategoryCode";
-            mysqli_query($conn, $UpdateSql);
-        }
-        $count++;
-    }
-    $return['xCnt'] = $count;
+          $InsertSql = "INSERT INTO category_price (HptCode,CategoryCode,Price) VALUES ('$HptCode',$CategoryCode,$Price)";
+          mysqli_query($conn, $InsertSql);
 
-        $return['status'] = "success";
-        $return['form'] = "UpdatePrice";
-        $return['msg'] = $Sql;
-        echo json_encode($return);
-        mysqli_close($conn);
-        die;
+          $count++;
+      }
+  }else if($chk == 1){
+      $i = 0;
+      $Price = $DATA['Price'];
+      $Sql = "SELECT category_price_time.RowID,category_price_time.HptCode,category_price_time.CategoryCode
+          FROM category_price_time
+          WHERE category_price_time.DocNo = '$DocNo'";
+      $meQuery = mysqli_query($conn, $Sql);
+      while ($Result = mysqli_fetch_assoc($meQuery)) {
+          $HptCode = $Result['HptCode'];
+          $RowID = $Result['RowID'];
+          $UpdateSql = "UPDATE category_price_time SET Price = $Price[$i] WHERE RowID = $RowID AND DocNo = '$DocNo'";
+          mysqli_query($conn, $UpdateSql);
+          $count++;
+          $i++;
+      }
+  }
+  $return['xCnt'] = $count;
+
+  $return['status'] = "success";
+  $return['form'] = "UpdatePrice";
+  $return['msg'] = $Sql;
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
 }
 
 function CancelDocNo($conn,$DATA)
