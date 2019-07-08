@@ -518,7 +518,7 @@ $array = json_decode($json,TRUE);
 <div class="col-md-9">
 
     <div class="row" style="margin-left:20px">
-                <div style="width:450px;">
+                <div style="width:277px;">
                     <label><?php echo $array['factory'][$language]; ?></label>
                 </div>
                 <div style="width:250px;">
@@ -530,26 +530,27 @@ $array = json_decode($json,TRUE);
     </div>
 
     <div class="row" style="margin-left:20px;">
-                <div style="width:450px;">
-                    <select style="font-size:24px;width:430px;font-family: 'THSarabunNew'" class="form-control" id="factory" onchange="getDepartment();">
+                <div>
+                    <select style="font-size:24px;width:251px;font-family: 'THSarabunNew'" class="form-control" id="factory" onchange="getDepartment();">
                     </select>
                 </div>
                 <div style="width:250px;">
-                    <input type="text" style="font-size:24px;width:220px;" class="form-control datepicker-here" id="datepicker3" data-language='en' data-date-format='yyyy-mm-dd' >
+                    <input type="text" style="font-size:24px;width:220px;margin-left:20px;" class="form-control datepicker-here" id="datepicker3" data-language='en' data-date-format='yyyy-mm-dd' >
                 </div>
                 <div style="width:250px;">
                     <input type="text" style="font-size:24px;width:220px;" class="form-control datepicker-here" id="datepicker4" data-language='en' data-date-format='yyyy-mm-dd' >
                 </div>
     </div>
 
-    <div class="row" style="margin-left:20px">
+
+    <div class="row" style="margin-left:20px;margin-top:30px;">
                 <div style="width:250px;">
                     <label ><?php echo $array['detail'][$language]; ?></label><input type="hidden" id="xRowID" >
                 </div>
     </div>
     <div class="row" style="margin-left:20px">
                     <div style="width:900px;">
-                    <input type="text" class="form-control" style="font-family: 'THSarabunNew';font-size:24px;width:920px;" id="xDetail" placeholder="<?php echo $array['detail'][$language]; ?>" >
+                    <input type="text" class="form-control" style="font-family: 'THSarabunNew';font-size:24px;width:722px;" id="xDetail" placeholder="<?php echo $array['detail'][$language]; ?>" >
                 </div>
     </div>
 

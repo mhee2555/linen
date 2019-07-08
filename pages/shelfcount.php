@@ -3,6 +3,8 @@ session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
 $PmID = $_SESSION['PmID'];
+$HptCode = $_SESSION['HptCode'];
+
 $DocnoXXX = $_GET['DocNo'];
 if($Userid==""){
   header("location:../index.html");
@@ -241,14 +243,17 @@ function OpenDialogItem(){
 
     function getDepartment(){
       var Hotp = $('#hotpital option:selected').attr("value");
-      if( typeof Hotp == 'undefined' ) Hotp = "BHQ";
+      if( typeof Hotp == 'undefined' ) 
+      {
+        Hotp = '<?php echo $HptCode; ?>';
       var data = {
         'STATUS'  : 'getDepartment',
         'Hotp'	: Hotp
       };
-      senddata(JSON.stringify(data));
-    }
 
+      senddata(JSON.stringify(data));
+      }
+    }
     function ShowDocument(selecta){
       var searchdocument = $('#searchdocument').val();
       if( typeof searchdocument == 'undefined' ) searchdocument = "";
@@ -256,6 +261,7 @@ function OpenDialogItem(){
       if( typeof hosCode == 'undefined' ) hosCode = "1";
       var deptCode = $('#Dep2 option:selected').attr("value");
       if( typeof deptCode == 'undefined' ) deptCode = "1";
+
       var data = {
         'STATUS'  	: 'ShowDocument',
         'xdocno'	: searchdocument,
@@ -435,6 +441,7 @@ function OpenDialogItem(){
     }
 
     function CreateDocument(){
+
       var userid = '<?php echo $Userid; ?>';
       var hotpCode = $('#hotpital option:selected').attr("value");
       var deptCode = $('#department option:selected').attr("value");
@@ -503,6 +510,7 @@ function OpenDialogItem(){
         }
 
         function addnum1(rowid,cnt,unitcode) {
+          var deptCode = $('#department option:selected').attr("value");
           var Dep = $("#Dep_").val();
           var max = $('#max'+cnt).val();
           var docno = $("#docno").val();
@@ -518,7 +526,8 @@ function OpenDialogItem(){
                 'STATUS'      : 'UpdateDetailQty',
                 'Rowid'       : rowid,
                 'DocNo'       : docno,
-                'CcQty'		    : add
+                'CcQty'		    : add,
+                'max'		: max
               };
               senddata(JSON.stringify(data));
             }
@@ -526,7 +535,9 @@ function OpenDialogItem(){
         }
 
         function subtractnum1(rowid,cnt,unitcode) {
+          var deptCode = $('#department option:selected').attr("value");
           var Dep = $("#Dep_").val();
+          var max = $('#max'+cnt).val();
           var docno = $("#docno").val();
           var sub = parseInt($('#qty1_'+cnt).val())-1;
           var isStatus = $("#IsStatus").val();
@@ -538,7 +549,8 @@ function OpenDialogItem(){
                 'STATUS'      : 'UpdateDetailQty',
                 'Rowid'       : rowid,
                 'DocNo'       : docno,
-                'CcQty'		    : sub
+                'CcQty'		    : sub,
+                'max'		: max
               };
               senddata(JSON.stringify(data));
             }
@@ -589,7 +601,7 @@ function OpenDialogItem(){
               $("#bSave").prop('disabled', true);
               $("#bCancel").prop('disabled', true);
 
-              ShowDocument();
+              // ShowDocument();
           }else{
             $("#bImport").prop('disabled', false);
             $("#bDelete").prop('disabled', false);
@@ -720,10 +732,21 @@ function OpenDialogItem(){
 
               if(temp["status"]=='success'){
                 if(temp["form"]=='OnLoadPage'){
+                  var PmID = <?php echo $PmID;?>;
+                  var HptCode = '<?php echo $HptCode;?>';
                   for (var i = 0; i < (Object.keys(temp).length-2); i++) {
-                    var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
-                    $("#side").append(Str);
-                    $("#hotpital").append(Str);
+                    if(PmID != 1 && HptCode == temp[i]['HptCode']){
+                      var Str = "<option value="+temp[i]['HptCode']+" selected>"+temp[i]['HptName']+"</option>";
+                      $("#side").append(Str);
+                      $("#side").attr('disabled', true);
+                      $("#hotpital").append(Str);
+                      $("#hotpital").attr('disabled', true);
+                    }else{
+                      var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
+                      $("#side").append(Str);
+                      $("#hotpital").append(Str);
+                    }
+                    
                   }
                 }else if(temp["form"]=='getDepartment'){
                   $("#department").empty();
@@ -950,11 +973,11 @@ function OpenDialogItem(){
 
                     chkunit += "</select>";
 
-                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn_mhee' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:90px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onkeyup='if(this.value > "+temp[i]['Qty']+"){this.value="+temp[i]['Qty']+"}else if(this.value<0){this.value=0}' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn_mheesave' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
+                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn_mhee' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:90px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onkeyup='if(this.value > "+temp[i]['ParQty']+"){this.value="+temp[i]['ParQty']+"}else if(this.value<0){this.value=0}' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn_mheesave' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
 
                     var Order = "<input class='form-control' id='order"+i+"' type='text' style='text-align:center;' value='"+(temp[i]['TotalQty'])+"' disabled>";
 
-                    var Max = "<input class='form-control' id='max"+i+"' type='text' style='text-align:center;' value='"+(temp[i]['Qty'])+"' disabled>";
+                    var Max = "<input class='form-control' id='max"+i+"' type='text' style='text-align:center;' value='"+(temp[i]['ParQty'])+"' disabled>";
 
                     var Weight = "";
 

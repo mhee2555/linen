@@ -289,12 +289,16 @@ function OpenDialogItem(){
 
     function getDepartment(){
       var Hotp = $('#hotpital option:selected').attr("value");
-      if( typeof Hotp == 'undefined' ) Hotp = "BHQ";
+      if( typeof Hotp == 'undefined' ) 
+      {
+        Hotp = '<?php echo $HptCode; ?>';
       var data = {
         'STATUS'  : 'getDepartment',
         'Hotp'	: Hotp
       };
+
       senddata(JSON.stringify(data));
+      }
     }
 
     function ShowDocument(selecta){
@@ -946,9 +950,8 @@ function OpenDialogItem(){
 
                     chkunit += "</select>";
 
-                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:42px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onkeyup='if(this.value > "+temp[i]['ParQty']+"){this.value="+temp[i]['ParQty']+"}else if(this.value<0){this.value=0}' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
+                    var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:50px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onkeyup='if(this.value > "+temp[i]['ParQty']+"){this.value="+temp[i]['ParQty']+"}else if(this.value<0){this.value=0}' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
 
-                    var Order = "<input class='form-control' id='order"+i+"' type='text' style='text-align:center;' value='"+(temp[i]['TotalQty'])+"' disabled>";
 
                     var Max = "<input class='form-control' id='max"+i+"' type='text' style='text-align:center;' value='"+(temp[i]['ParQty'])+"' disabled>";
 

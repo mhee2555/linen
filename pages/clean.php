@@ -260,14 +260,18 @@ $(document).ready(function(e){
       }
 
       function getDepartment(){
-        var Hotp = $('#hotpital option:selected').attr("value");
-        if( typeof Hotp == 'undefined' ) Hotp = "BHQ";
-        var data = {
-          'STATUS'  : 'getDepartment',
-          'Hotp'	: Hotp
-        };
-        senddata(JSON.stringify(data));
+      var Hotp = $('#hotpital option:selected').attr("value");
+      if( typeof Hotp == 'undefined' ) 
+      {
+        Hotp = '<?php echo $HptCode; ?>';
+      var data = {
+        'STATUS'  : 'getDepartment',
+        'Hotp'	: Hotp
+      };
+
+      senddata(JSON.stringify(data));
       }
+    }
 
       function ShowDocument(selecta){
         var searchdocument = $('#searchdocument').val();
@@ -1147,7 +1151,8 @@ $(document).ready(function(e){
                           <div class="col-md-11"> <!-- tag column 1 -->
                             <div class="container-fluid">
                               <div class="card-body" style="padding:0px; margin-top:10px;">
-                              
+                                  <!-- =================================================================== -->
+                            
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>

@@ -671,13 +671,13 @@ var isChecked2 = false;
                                var rowCount = $('#TableDocument >tbody >tr').length;
                                var chkDoc = "<input type='radio' class='form-check-input' name='checkdocno' id='checkdocno' value='"+temp[i]['DocNo']+"' onclick='getDocDetail()'>";
                                var StrTr = "<tr id='tr"+temp[i]['DocNo']+"'>"+
-                                                "<td style='width: 5%;'>"+chkDoc+"</td>"+
-                                                "<td style='width: 5%;'><label>"+(i+1)+"</label></td>"+
-                                                "<td style='width: 20%;'>"+temp[i]['DocNo']+"</td>"+
-                                                "<td style='width: 20%;' align='center'>"+temp[i]['DocDate']+"</td>"+
-                                                "<td style='width: 10%;' align='center'>"+temp[i]['Qty']+"</td>"+
-                                                "<td style='width: 30%;'>"+temp[i]['Elc']+"</td>"+
-                                                "<td style='width: 10%;'><img src='../img/delete-32.png' onclick='canceldocno(\""+temp[i]['DocNo']+"\")'></td>"+
+                                                "<td style='width: 5%;'nowrap>"+chkDoc+"</td>"+
+                                                "<td style='width: 5%;'nowrap><label>"+(i+1)+"</label></td>"+
+                                                "<td style='width: 20%;'nowrap>"+temp[i]['DocNo']+"</td>"+
+                                                "<td style='width: 20%;' align='center'nowrap>"+temp[i]['DocDate']+"</td>"+
+                                                "<td style='width: 10%;' align='center'nowrap>"+temp[i]['Qty']+"</td>"+
+                                                "<td style='width: 30%;'nowrap>"+temp[i]['Elc']+"</td>"+
+                                                "<td style='width: 10%;'nowrap><img src='../img/delete-32.png' onclick='canceldocno(\""+temp[i]['DocNo']+"\")'></td>"+
                                             "</tr>";
 
                                if(rowCount == 0){
@@ -733,12 +733,12 @@ var isChecked2 = false;
                                var chkDoc = "<input type='checkbox' name='checkitemdetail' id='checkitemdetail' value='"+temp[i]['ID']+":"+temp[i]['UsageCode']+"' onclick='unCheckDocDetail()'>";
                                console.log(temp);
                                $StrTr="<tr id='tr"+temp[i]['UsageCode']+"'>"+
-                                          "<td style='width: 5%;'>"+chkDoc+"</td>"+
-                                          "<td style='width: 5%;'><label> "+(i+1)+"</label></td>"+
-                                          "<td style='width: 15%;'>"+temp[i]['UsageCode']+"</td>"+
-                                          "<td style='width: 50%;'>"+temp[i]['itemname']+"</td>"+
-                                          "<td style='width: 15%;' align='center'>"+temp[i]['UnitName']+"</td>"+
-                                          "<td style='width: 10%;' align='center'>"+temp[i]['Qty']+"</td>"+
+                                          "<td style='width: 5%;'nowrap>"+chkDoc+"</td>"+
+                                          "<td style='width: 5%;'nowrap><label> "+(i+1)+"</label></td>"+
+                                          "<td style='width: 15%;'nowrap>"+temp[i]['UsageCode']+"</td>"+
+                                          "<td style='width: 50%;'nowrap>"+temp[i]['itemname']+"</td>"+
+                                          "<td style='width: 15%;' align='center'nowrap>"+temp[i]['UnitName']+"</td>"+
+                                          "<td style='width: 10%;' align='center'nowrap>"+temp[i]['Qty']+"</td>"+
                                       "</tr>";
 
                                if(rowCount == 0){
@@ -758,15 +758,15 @@ var isChecked2 = false;
                                var chkDoc = "<input type='radio' name='checkitem' id='checkitem' value='"+i+":"+temp[i]['ItemCode']+"' onclick='getdetail(\""+temp[i]['ItemCode']+"\")'>";
                                // var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='width:32px;' onclick='subtractnum(\""+i+"\")'>-</button><input class='form-control' style='width:50px; margin-left:3px; margin-right:3px; text-align:center;' id='qty"+i+"' value='0' disabled><button class='btn btn-success' style='width:32px;' onclick='addnum(\""+i+"\")'>+</button></div>";
                                $StrTR = "<tr id='tr"+temp[i]['ItemCode']+"'>"+
-                                              "<td style='width: 5%;' align='center'>"+chkDoc+"</td>"+
-                                              "<td style='width: 5%;' align='center'><label> "+(i+1)+"</label></td>"+
-                                              "<td style='width: 20%;' align='left'>"+temp[i]['ItemCode']+"</td>"+
-                                              "<td style='width: 20%;' align='left'>"+temp[i]['ItemName']+"</td>"+
-                                              "<td style='width: 10%;' align='left'>"+temp[i]['UnitName']+"</td>"+
-                                              "<td style='width: 10%;' align='left'>&nbsp;&nbsp;"+temp[i]['SizeCode']+"</td>"+
-                                              "<td style='width: 10%;' align='center'>"+temp[i]['CusPrice']+"</td>"+
-                                              "<td style='width: 10%;' align='center'>"+temp[i]['FacPrice']+"</td>"+
-                                              "<td style='width: 10%;' align='center'>"+temp[i]['Weight']+"</td>"+
+                                              "<td style='width: 5%;' align='center'nowrap>"+chkDoc+"</td>"+
+                                              "<td style='width: 5%;' align='center'nowrap><label> "+(i+1)+"</label></td>"+
+                                              "<td style='width: 20%;' align='left'nowrap>"+temp[i]['ItemCode']+"</td>"+
+                                              "<td style='width: 20%;' align='left'nowrap>"+temp[i]['ItemName']+"</td>"+
+                                              "<td style='width: 10%;' align='left'nowrap>"+temp[i]['UnitName']+"</td>"+
+                                              "<td style='width: 10%;' align='left'nowrap>&nbsp;&nbsp;"+temp[i]['SizeCode']+"</td>"+
+                                              "<td style='width: 10%;' align='center'nowrap>"+temp[i]['CusPrice']+"</td>"+
+                                              "<td style='width: 10%;' align='center'nowrap>"+temp[i]['FacPrice']+"</td>"+
+                                              "<td style='width: 10%;' align='center'nowrap>"+temp[i]['Weight']+"</td>"+
                                               "</tr>";
 
                                if(rowCount == 0){
@@ -800,12 +800,12 @@ var isChecked2 = false;
                                    var rowCount = $('#TableUnit >tbody >tr').length;
                                    var chkDoc = "<input type='radio' name='checkitem2' id='checkitem2' value='"+temp[i]['RowID']+"'>";
                                    StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
-                                                  "<td style='width: 5%;' align='center'>"+chkDoc+"</td>"+
-                                                  "<td style='width: 5%;' align='center'><label> "+(i+1)+"</label></td>"+
-                                                  "<td style='width: 40%;' align='left'>"+temp[i]['ItemName']+"</td>"+
-                                                  "<td style='width: 15%;' align='left'>"+temp[i]['MpCode']+"</td>"+
-                                                  "<td style='width: 15%;' align='left'>"+temp[i]['UnitName2']+"</td>"+
-                                                  "<td style='width: 20%;' align='left'>"+temp[i]['Multiply']+"</td>"+
+                                                  "<td style='width: 5%;' align='center'nowrap>"+chkDoc+"</td>"+
+                                                  "<td style='width: 5%;' align='center'nowrap><label> "+(i+1)+"</label></td>"+
+                                                  "<td style='width: 40%;' align='left'nowrap>"+temp[i]['ItemName']+"</td>"+
+                                                  "<td style='width: 15%;' align='left'nowrap>"+temp[i]['MpCode']+"</td>"+
+                                                  "<td style='width: 15%;' align='left'nowrap>"+temp[i]['UnitName2']+"</td>"+
+                                                  "<td style='width: 20%;' align='left'nowrap>"+temp[i]['Multiply']+"</td>"+
                                                   "</tr>";
 
                                    if(rowCount == 0){
@@ -1231,14 +1231,14 @@ var isChecked2 = false;
                           <thead id="theadsum" style="font-size:28px;">
                             <tr role="row">
                               <th style='width: 5%;'>&nbsp;</th>
-                              <th style='width: 5%;'><?php echo $array['no'][$language]; ?></th>
-                              <th style='width: 20%;'><?php echo $array['codecode'][$language]; ?></th>
-                              <th style='width: 20%;'><?php echo $array['item'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['unit'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['size'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['pricecus'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['pricefac'][$language]; ?></th>
-                              <th style='width: 10%;'><?php echo $array['weight'][$language]; ?></th>
+                              <th style='width: 5%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                              <th style='width: 20%;'nowrap><?php echo $array['codecode'][$language]; ?></th>
+                              <th style='width: 20%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['unit'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['size'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['pricecus'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['pricefac'][$language]; ?></th>
+                              <th style='width: 10%;'nowrap><?php echo $array['weight'][$language]; ?></th>
                             </tr>
                           </thead>
                           <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:250px;">
@@ -1269,74 +1269,77 @@ var isChecked2 = false;
               <div class="col-md-10"> <!-- tag column 1 -->
                   <div class="container-fluid">
                     <div class="card-body" style="padding:0px; margin-top:10px;">
-                        <div class="row">
-                                      <div style="margin-left:30px;width:100px;">
-												<label><?php echo $array['category'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
-                                      		<div style="font-size:24px;width:230px;">
-                                                    <select class="form-control" style="font-size:24px;" id="catagory2">
-                                                    </select>
-                                       		</div>
-                                      </div>
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['pricecus'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
- <input type="text" class="form-control checkblank numonly" style="font-size:24px;width:230px;" name="CusPrice" id="CusPrice" placeholder="<?php echo $array['pricecus'][$language]; ?>" >
-                                      </div>
-
-                        </div>
-                        <div class="row" style="margin-top:2px;">
-                                      <div style="margin-left:30px;width:100px;">
-												<label><?php echo $array['codecode'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
- <input type="text" class="form-control checkblank" style="font-size:24px;width:230px;" name="ItemCode" id="ItemCode" placeholder="<?php echo $array['codecode'][$language]; ?>" >
-                                      </div>
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['pricefac'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
- <input type="text" class="form-control  checkblank numonly" style="font-size:24px;width:230px;" name="FacPrice" id="FacPrice" placeholder="<?php echo $array['pricefac'][$language]; ?>" >
-                                      </div>
-                        </div>
-                        <div class="row" style="margin-top:2px;">
-                                      <div style="margin-left:30px;width:100px;">
-												<label><?php echo $array['item'][$language]; ?></label>
-                                      </div>
-                                       <input type="text" class="form-control checkblank" style="font-size:24px;width:630px;" name="ItemName" id="ItemName" placeholder="<?php echo $array['item'][$language]; ?>" >
-                        </div>
-                        <div class="row" style="margin-top:2px;">
-                                      <div style="margin-left:30px;width:100px;">
-												<label><?php echo $array['unit'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
-                                                    <select class="form-control"  style="font-size:24px;" id="UnitName">
-                                                    </select>
-                                      </div>
-                                      <div style="margin-left:50px;width:120px;">
-												<label><?php echo $array['size'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
-                                        <select class="form-control" style="font-size:24px;" id="SizeCode">
-                                          <option value="1">SS</option>
+   <!-- =================================================================== -->
+                                <div class="row mt-4">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['category'][$language]; ?></label>
+                                      <select class="form-control col-sm-8" id="catagory2" ></select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['pricecus'][$language]; ?></label>
+                                        <input type="text" class="form-control col-sm-8 checkblank numonly" id="CusPrice"  placeholder="<?php echo $array['pricecus'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                </div>                    
+   <!-- =================================================================== -->
+                              <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['codecode'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8" id="ItemCode" placeholder="<?php echo $array['codecode'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['pricefac'][$language]; ?></label>
+                                        <input type="text" class="form-control col-sm-8 checkblank numonly" id="FacPrice"  placeholder="<?php echo $array['pricefac'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                </div> 
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['item'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8 checkblank" id="ItemName" placeholder="<?php echo $array['item'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div> 
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['unit'][$language]; ?></label>
+                                      <select class="form-control col-sm-8" id="UnitName"></select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['size'][$language]; ?></label>
+                                        <select class="form-control col-sm-8 checkblank numonly" id="SizeCode" >
+                                        <option value="1">SS</option>
                                           <option value="2">S</option>
                                           <option value="3">M</option>
                                           <option value="4">L</option>
                                           <option value="5">XL</option>
                                           <option value="6">XXL</option>
                                         </select>
-                                      </div>
-                        </div>
-                        <div class="row" style="margin-top:2px;">
-                                      <div style="margin-left:30px;width:100px;">
-												<label><?php echo $array['weight'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:230px;">
- <input type="text" class="form-control checkblank numonly" style="font-size:24px;width:230px;" name="Weight" id="Weight" placeholder="<?php echo $array['weight'][$language]; ?>" >
-                                      </div>
-                        </div>
+                                    </div>
+                                  </div>
+                                </div> 
+   <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['weight'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8 checkblank numonly" id="Weight" placeholder="<?php echo $array['weight'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div>
+   <!-- =================================================================== -->
                     </div>
                   </div>
               </div> <!-- tag column 1 -->

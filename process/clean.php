@@ -650,36 +650,36 @@ function CreateDocument($conn, $DATA)
     $Sql = "UPDATE daily_request SET RefDocNo = '$RefDocNo' WHERE DocNo = '$DocNo'";
     mysqli_query($conn, $Sql);
 
-    $n = 0;
-    $Sql = "SELECT
-    dirty_detail.ItemCode,
-    dirty_detail.UnitCode,
-    dirty_detail.Qty,
-    dirty_detail.Weight,
-    dirty_detail.IsCancel
-    FROM dirty_detail
-    WHERE dirty_detail.DocNo = '$RefDocNo'";
-    $meQuery = mysqli_query($conn, $Sql);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-      $zItemCode[$n] = $Result['ItemCode'];
-      $zUnitCode[$n] = $Result['UnitCode'];
-      $zQty[$n]      = $Result['Qty'];
-      $zWeight[$n]   = $Result['Weight'];
-      $zIsCancel[$n] = $Result['IsCancel'];
-      $n++;
-    }
-    for ($i = 0; $i < $n; $i++) {
-      $ItemCode = $zItemCode[$i];
-      $UnitCode = $zUnitCode[$i];
-      $Qty      = $zQty[$i];
-      $Weight   = $zWeight[$i];
-      $IsCancel = $zIsCancel[$i];
-      $Sql = "INSERT INTO clean_detail
-      (DocNo,ItemCode,UnitCode,Qty,Weight,IsCancel)
-      VALUES
-      ('$DocNo','$ItemCode',$UnitCode,$Qty,$Weight,$IsCancel)";
-      mysqli_query($conn, $Sql);
-    }
+    // $n = 0;
+    // $Sql = "SELECT
+    // dirty_detail.ItemCode,
+    // dirty_detail.UnitCode,
+    // dirty_detail.Qty,
+    // dirty_detail.Weight,
+    // dirty_detail.IsCancel
+    // FROM dirty_detail
+    // WHERE dirty_detail.DocNo = '$RefDocNo'";
+    // $meQuery = mysqli_query($conn, $Sql);
+    // while ($Result = mysqli_fetch_assoc($meQuery)) {
+    //   $zItemCode[$n] = $Result['ItemCode'];
+    //   $zUnitCode[$n] = $Result['UnitCode'];
+    //   $zQty[$n]      = $Result['Qty'];
+    //   $zWeight[$n]   = $Result['Weight'];
+    //   $zIsCancel[$n] = $Result['IsCancel'];
+    //   $n++;
+    // }
+    // for ($i = 0; $i < $n; $i++) {
+    //   $ItemCode = $zItemCode[$i];
+    //   $UnitCode = $zUnitCode[$i];
+    //   $Qty      = $zQty[$i];
+    //   $Weight   = $zWeight[$i];
+    //   $IsCancel = $zIsCancel[$i];
+    //   $Sql = "INSERT INTO clean_detail
+    //   (DocNo,ItemCode,UnitCode,Qty,Weight,IsCancel)
+    //   VALUES
+    //   ('$DocNo','$ItemCode',$UnitCode,$Qty,$Weight,$IsCancel)";
+    //   mysqli_query($conn, $Sql);
+    // }
 
     $n = 0;
     $Sql = "SELECT factory_out_detail_sub.UsageCode,factory_out_detail.ItemCode
