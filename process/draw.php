@@ -528,7 +528,7 @@ function CreateDocument($conn, $DATA)
           $Sql = "INSERT INTO draw_detail
           (DocNo,ItemCode,UnitCode,ParQty,CcQty,TotalQty,IsCancel)
           VALUES
-          ('$DocNo','$ItemCode',$iunit2,$ParQty,$iqty2,($ParQty-$iqty2),0)";
+          ('$DocNo','$ItemCode',$iunit2,$TotalQty,$iqty2,($TotalQty-$iqty2),0)";
           mysqli_query($conn, $Sql);
         } else {
           $Sql = "INSERT INTO draw_detail_sub
@@ -984,7 +984,7 @@ function CreateDocument($conn, $DATA)
     item_unit.UnitName,
     item_unit.UnitCode,
     (
-        SELECT item_stock.ParQty 
+        SELECT item_stock.TotalQty 
         FROM item_stock 
         WHERE item_stock.ItemCode = draw_detail.ItemCode 
         AND item_stock.DepCode = $DepCode
