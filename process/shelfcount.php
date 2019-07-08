@@ -720,17 +720,11 @@ function UpdateDetailQty($conn, $DATA)
   $CcQty  =  $DATA["CcQty"];
   $UnitCode =  $DATA["unitcode"];
   $Sql = "UPDATE shelfcount_detail
-  INNER JOIN item_stock_detail ON item_stock_detail.ItemCode = shelfcount_detail.ItemCode
-  SET  shelfcount_detail.CcQty = $CcQty, shelfcount_detail.TotalQty = ($max - shelfcount_detail.CcQty)
-  WHERE shelfcount_detail.Id = $RowID ";
-
+          INNER JOIN item_stock ON item_stock.ItemCode = shelfcount_detail.ItemCode
+          SET  shelfcount_detail.CcQty = $CcQty, shelfcount_detail.TotalQty = ($max - shelfcount_detail.CcQty)
+          WHERE shelfcount_detail.Id = $RowID ";
   // $return['sql'] =$Sql;
   // echo json_encode($return);
-  // $Sql = "UPDATE shelfcount_detail
-  // INNER JOIN item ON item.ItemCode = shelfcount_detail.ItemCode
-  // SET  shelfcount_detail.CcQty = $CcQty, shelfcount_detail.TotalQty = (shelfcount_detail.ParQty - shelfcount_detail.CcQty)
-  // shelfcount_detail.ParQty = item.ParQty, CcQty = $CcQty,TotalQty = (item.ParQty - CcQty)
-  // WHERE shelfcount_detail.Id = $RowID";
   mysqli_query($conn, $Sql);
   ShowDetail($conn, $DATA);
 }
