@@ -604,6 +604,7 @@ $array = json_decode($json,TRUE);
             if(boolean){
               var chkArray1 = [];
               var chkArray2 = [];
+              
               $('input[name="checkitem"]:checked').each(function() {
                 chkArray1.push($(this).val());
                 // console.log($(this).val());
@@ -615,6 +616,7 @@ $array = json_decode($json,TRUE);
                   // console.log($(this).val());
                 }
               });
+
 
               var dept = $('#department').val();
               var par = $('#parnum').val();
