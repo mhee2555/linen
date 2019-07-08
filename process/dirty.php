@@ -83,13 +83,13 @@ function CreateDocument($conn, $DATA)
   //     mysqli_query($conn,$Sql);
 
   $Sql = "SELECT CONCAT('DT',lpad('$hotpCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'-',
-LPAD( (COALESCE(MAX(CONVERT(SUBSTRING(DocNo,12,5),UNSIGNED INTEGER)),0)+1) ,5,0)) AS DocNo,DATE(NOW()) AS DocDate,
-CURRENT_TIME() AS RecNow
-FROM dirty
-INNER JOIN department on dirty.DepCode = department.DepCode
-WHERE DocNo Like CONCAT('DT',lpad('$hotpCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'%')
-AND department.HptCode = '$hotpCode'
-ORDER BY DocNo DESC LIMIT 1";
+  LPAD( (COALESCE(MAX(CONVERT(SUBSTRING(DocNo,12,5),UNSIGNED INTEGER)),0)+1) ,5,0)) AS DocNo,DATE(NOW()) AS DocDate,
+  CURRENT_TIME() AS RecNow
+  FROM dirty
+  INNER JOIN department on dirty.DepCode = department.DepCode
+  WHERE DocNo Like CONCAT('DT',lpad('$hotpCode', 3, 0),'/',SUBSTRING(YEAR(DATE(NOW())),3,4),LPAD(MONTH(DATE(NOW())),2,0),'%')
+  AND department.HptCode = '$hotpCode'
+  ORDER BY DocNo DESC LIMIT 1";
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -115,26 +115,26 @@ ORDER BY DocNo DESC LIMIT 1";
 		$userid,NOW() )";
     mysqli_query($conn,$Sql);
 
-    $Sql = "INSERT INTO daily_request
-(DocNo,DocDate,DepCode,RefDocNo,Detail,Modify_Code,Modify_Date)
-VALUES
-('$DocNo',DATE(NOW()),$deptCode,'','Dirty',$userid,DATE(NOW()))";
-    mysqli_query($conn, $Sql);
+      $Sql = "INSERT INTO daily_request
+  (DocNo,DocDate,DepCode,RefDocNo,Detail,Modify_Code,Modify_Date)
+  VALUES
+  ('$DocNo',DATE(NOW()),$deptCode,'','Dirty',$userid,DATE(NOW()))";
+      mysqli_query($conn, $Sql);
 
-    $Sql = "SELECT users.FName
-	  FROM users
-	  WHERE users.ID = $userid";
+      $Sql = "SELECT users.FName
+      FROM users
+      WHERE users.ID = $userid";
 
-    $meQuery = mysqli_query($conn, $Sql);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-      $DocNo = $Result['DocNo'];
-      $return[0]['Record']   = $Result['FName'];
+      $meQuery = mysqli_query($conn, $Sql);
+      while ($Result = mysqli_fetch_assoc($meQuery)) {
+        $DocNo = $Result['DocNo'];
+        $return[0]['Record']   = $Result['FName'];
+      }
+
+      $boolean = true;
+    } else {
+      $boolean = false;
     }
-
-    $boolean = true;
-  } else {
-    $boolean = false;
-  }
 
   if ($boolean) {
     $return['status'] = "success";
@@ -163,11 +163,11 @@ function ShowDocument($conn, $DATA)
   // $Sql = "INSERT INTO log ( log ) VALUES ('$max : $DocNo')";
   // mysqli_query($conn,$Sql);
   $Sql = "SELECT site.HptName,department.DepName,dirty.DocNo,dirty.DocDate,dirty.Total,users.FName,TIME(dirty.Modify_Date) AS xTime,dirty.IsStatus
-FROM dirty
-INNER JOIN department ON dirty.DepCode = department.DepCode
-INNER JOIN site ON department.HptCode = site.HptCode
-INNER JOIN users ON dirty.Modify_Code = users.ID ";
-  if ($selecta == 0) {
+  FROM dirty
+  INNER JOIN department ON dirty.DepCode = department.DepCode
+  INNER JOIN site ON department.HptCode = site.HptCode
+  INNER JOIN users ON dirty.Modify_Code = users.ID ";
+    if ($selecta == 0) {
     $Sql .= "WHERE dirty.DepCode = $deptCode AND dirty.DocNo LIKE '%$DocNo%'";
   }
   $Sql .= "ORDER BY dirty.DocNo DESC LIMIT 500";
@@ -207,16 +207,16 @@ function SelectDocument($conn, $DATA)
   $count = 0;
   $DocNo = $DATA["xdocno"];
   $Datepicker = $DATA["Datepicker"];
-  $Sql = "SELECT   site.HptName,department.DepName,dirty.DocNo,dirty.DocDate,dirty.Total,users.FName,TIME(dirty.Modify_Date) AS xTime,dirty.IsStatus
-FROM dirty
-INNER JOIN department ON dirty.DepCode = department.DepCode
-INNER JOIN site ON department.HptCode = site.HptCode
-INNER JOIN users ON dirty.Modify_Code = users.ID
-WHERE dirty.DocNo = '$DocNo'";
-  $meQuery = mysqli_query($conn, $Sql);
-  while ($Result = mysqli_fetch_assoc($meQuery)) {
-    $return[$count]['HptName']   = $Result['HptName'];
-    $return[$count]['DepName']   = $Result['DepName'];
+    $Sql = "SELECT   site.HptName,department.DepName,dirty.DocNo,dirty.DocDate,dirty.Total,users.FName,TIME(dirty.Modify_Date) AS xTime,dirty.IsStatus
+  FROM dirty
+  INNER JOIN department ON dirty.DepCode = department.DepCode
+  INNER JOIN site ON department.HptCode = site.HptCode
+  INNER JOIN users ON dirty.Modify_Code = users.ID
+  WHERE dirty.DocNo = '$DocNo'";
+    $meQuery = mysqli_query($conn, $Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $return[$count]['HptName']   = $Result['HptName'];
+      $return[$count]['DepName']   = $Result['DepName'];
     $return[$count]['DocNo']   = $Result['DocNo'];
     $return[$count]['DocDate']   = $Result['DocDate'];
     $return[$count]['Record']   = $Result['FName'];
@@ -256,9 +256,6 @@ function ShowItem($conn, $DATA)
   $boolean = false;
   $searchitem = str_replace(' ', '%', $DATA["xitem"]);
 
-  // $Sqlx = "INSERT INTO log ( log ) VALUES ('item : $item')";
-  // mysqli_query($conn,$Sqlx);
-
   $Sql = "SELECT
   	item_stock.RowID,
 		site.HptName,
@@ -293,23 +290,49 @@ function ShowItem($conn, $DATA)
     $ItemCode = $Result['ItemCode'];
     $UnitCode = $Result['UnitCode'];
     $count2 = 0;
-    $xSql = "SELECT item_multiple_unit.MpCode,item_multiple_unit.UnitCode,item_unit.UnitName,item_multiple_unit.Multiply
-	  FROM item_multiple_unit
-	  INNER JOIN item_unit ON item_multiple_unit.MpCode = item_unit.UnitCode
-	  WHERE item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
-    $xQuery = mysqli_query($conn, $xSql);
-    while ($xResult = mysqli_fetch_assoc($xQuery)) {
-      $m1 = "MpCode_" . $ItemCode . "_" . $count;
-      $m2 = "UnitCode_" . $ItemCode . "_" . $count;
-      $m3 = "UnitName_" . $ItemCode . "_" . $count;
-      $m4 = "Multiply_" . $ItemCode . "_" . $count;
-      $m5 = "Cnt_" . $ItemCode;
 
-      $return[$m1][$count2] = $xResult['MpCode'];
-      $return[$m2][$count2] = $xResult['UnitCode'];
-      $return[$m3][$count2] = $xResult['UnitName'];
-      $return[$m4][$count2] = $xResult['Multiply'];
-      $count2++;
+    $countM = "SELECT COUNT(*) AS cnt FROM item_multiple_unit  WHERE WHERE item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
+    $MQuery = mysqli_query($conn, $countM);
+    if($MQuery){
+      $xSql = "SELECT item_multiple_unit.MpCode,item_multiple_unit.UnitCode,item_unit.UnitName,item_multiple_unit.Multiply
+      FROM item_multiple_unit
+      INNER JOIN item_unit ON item_multiple_unit.MpCode = item_unit.UnitCode
+      WHERE item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
+      $xQuery = mysqli_query($conn, $xSql);
+      while ($xResult = mysqli_fetch_assoc($xQuery)) {
+        $m1 = "MpCode_" . $ItemCode . "_" . $count;
+        $m2 = "UnitCode_" . $ItemCode . "_" . $count;
+        $m3 = "UnitName_" . $ItemCode . "_" . $count;
+        $m4 = "Multiply_" . $ItemCode . "_" . $count;
+        $m5 = "Cnt_" . $ItemCode;
+
+        $return[$m1][$count2] = $xResult['MpCode'];
+        $return[$m2][$count2] = $xResult['UnitCode'];
+        $return[$m3][$count2] = $xResult['UnitName'];
+        $return[$m4][$count2] = $xResult['Multiply'];
+        $count2++;
+      }
+    }else{
+      $xSql = "SELECT 
+        item.UnitCode,
+        item_unit.UnitName
+      FROM item
+      INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
+      WHERE item.ItemCode = '$ItemCode'";
+      $xQuery = mysqli_query($conn, $xSql);
+      while ($xResult = mysqli_fetch_assoc($xQuery)) {
+        $m1 = "MpCode_" . $ItemCode . "_" . $count;
+        $m2 = "UnitCode_" . $ItemCode . "_" . $count;
+        $m3 = "UnitName_" . $ItemCode . "_" . $count;
+        $m4 = "Multiply_" . $ItemCode . "_" . $count;
+        $m5 = "Cnt_" . $ItemCode;
+
+        $return[$m1][$count2] = 0;
+        $return[$m2][$count2] = $xResult['UnitCode'];
+        $return[$m3][$count2] = $xResult['UnitName'];
+        $return[$m4][$count2] = 0;
+        $count2++;
+      }
     }
     $return[$m5][$count] = $count2;
     $count++;

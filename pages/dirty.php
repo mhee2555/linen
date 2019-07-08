@@ -342,7 +342,7 @@ $array = json_decode($json,TRUE);
           var xunit = unitArray.join(',') ;
 
           var Hotp = $('#hotpital option:selected').attr("value");
-          if( typeof Hotp == 'undefined' ) Hotp = "1";
+          if( typeof Hotp == 'undefined' ) Hotp = "<?php echo $HptCode; ?>";
 
           // alert("xrow : "+xrow);
           //	  alert("xqty : "+xqty);
@@ -362,9 +362,8 @@ $array = json_decode($json,TRUE);
           };
           console.log(data);
           senddata(JSON.stringify(data));
-          // dialogItemCode.dialog( "close" );
           $('#dialogItemCode').modal('toggle')
-          dialogUsageCode.dialog( "close" );
+          // dialogUsageCode.dialog( "close" );
         }
 
         var isChecked1 = false;
