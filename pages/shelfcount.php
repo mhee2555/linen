@@ -289,10 +289,13 @@ function OpenDialogItem(){
     }
 
     function ShowItem(){
+      var deptCode = $('#department option:selected').attr("value");
       var searchitem = $('#searchitem').val();
       var data = {
         'STATUS'  : 'ShowItem',
-        'xitem'	  : searchitem
+        'xitem'	  : searchitem,
+        'deptCode'	  : deptCode,
+
       };
       console.log(JSON.stringify(data));
       senddata(JSON.stringify(data));

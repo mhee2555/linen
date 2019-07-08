@@ -290,6 +290,7 @@ function ShowItem($conn, $DATA)
     $return[$count]['ItemName'] = $Result['ItemName'];
     $return[$count]['UnitCode'] = $Result['UnitCode'];
     $return[$count]['UnitName'] = $Result['UnitName'];
+    $return[$count]['ParQty'] =   $Result['ParQty'];
     $ItemCode = $Result['ItemCode'];
     $UnitCode = $Result['UnitCode'];
     $count2 = 0;
@@ -450,7 +451,7 @@ function getImport($conn, $DATA)
     $iunit1 = 0;
     $iunit2 = $nunit[$i];
 
-    $Sql = "SELECT item_stock.ItemCode,item_stock.UsageCode,item.UnitCode
+    $Sql = "SELECT item_stock.ItemCode,item_stock.UsageCode,item.UnitCode,item_stock.ParQty
 		  FROM item_stock
 		  INNER JOIN item ON item_stock.ItemCode = item.ItemCode
 		  WHERE RowID = $iItemStockId";
@@ -459,6 +460,7 @@ function getImport($conn, $DATA)
       $ItemCode  = $Result['ItemCode'];
       $UsageCode = $Result['UsageCode'];
       $iunit1    = $Result['UnitCode'];
+      $ParQty    = $Result['ParQty'];
     }
 
     $Sql = "SELECT COUNT(*) as Cnt
@@ -563,6 +565,8 @@ function getImport($conn, $DATA)
       $meQuery = mysqli_query($conn, $Sql);
     }
 
+
+
     $Sql = "SELECT ItemCode,Qty FROM stock_in_detail WHERE stock_in_detail.DocNo = '$DocNo'";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -570,9 +574,9 @@ function getImport($conn, $DATA)
         //mysqli_query($conn,"INSERT INTO log ( log ) VALUES ('$Cnt :: ".$Result['ItemCode']." :: ".$Result['Qty']."')");
         if( $Cnt == 0 ){
             $xSql = "INSERT INTO item_stock_detail
-            (ItemCode,DepCode,Qty)
+            (ItemCode,DepCode,ParQty,Qty)
             VALUES
-            ('".$Result['ItemCode']."',$DepCode,".$Result['Qty'].")";
+            ('".$Result['ItemCode']."',$DepCode,$ParQty,".$Result['Qty'].")";
         }else{
             $xSql = "UPDATE item_stock_detail SET Qty = (Qty + ".$Result['Qty'].") WHERE ItemCode = '".$Result['ItemCode']."' AND DepCode = $DepCode";
         }

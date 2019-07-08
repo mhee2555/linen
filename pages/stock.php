@@ -213,8 +213,9 @@ $array = json_decode($json,TRUE);
               StrTr="<tr id='tr"+temp[i]['DocNo']+"'>"+
               "<td style='width: 5%;'nowrap>"+(i+1)+"</td>"+
               "<td style='width: 15%;'nowrap>"+temp[i]['ItemCode']+"</td>"+
-              "<td style='width: 36%;'nowrap>"+temp[i]['ItemName']+"</td>"+
+              "<td style='width: 21%;'nowrap>"+temp[i]['ItemName']+"</td>"+
               "<td style='width: 15%;'nowrap>"+temp[i]['CategoryName']+"</td>"+
+              "<td style='width: 15%;'nowrap><center>"+temp[i]['ParQty']+"</center></td>"+
               "<td style='width: 15%;'nowrap><center>"+temp[i]['Qty']+"</center></td>"+
               "<td style='width: 14%;'nowrap><center>"+temp[i]['DepName']+"</center></td>"+
               "</tr>";
@@ -416,9 +417,10 @@ $array = json_decode($json,TRUE);
                   <tr role="row">
                     <th style='width: 5%;'nowrap><?php echo $array['no'][$language]; ?></th>
                     <th style='width: 15%;'nowrap><?php echo $array['code'][$language]; ?></th>
-                    <th style='width: 35%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                    <th style='width: 20%;'nowrap><?php echo $array['item'][$language]; ?></th>
                     <th style='width: 15%;'nowrap><?php echo $array['category'][$language]; ?></th>
-                    <th style='width: 15%;'nowrap><center><?php echo $array['total'][$language]; ?></center></th>
+                    <th style='width: 15%;'nowrap><center><?php echo $array['totalnum'][$language]; ?></center></th>
+                    <th style='width: 15%;'nowrap><center><?php echo $array['balance'][$language]; ?></center></th>
                     <th style='width: 15%;'nowrap><center><?php echo $array['department'][$language]; ?></center></th>
                   </tr>
                 </thead>

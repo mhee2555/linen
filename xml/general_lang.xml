@@ -90,6 +90,7 @@
 <dateendcontract><en>Date(Expired)</en><th>วันที่สิ้นสุดสัญญา</th></dateendcontract>
 <numbercontract><en>Expire in (Day)</en><th>สิ้นสุดสัญญา(วัน)</th></numbercontract>
 <clear><en>Clear</en><th>ล้าง</th></clear>
+<balance><en>balance</en><th>คงเหลือ</th></balance>
 <adddata><en>Add new data</en><th>เพิ่มข้อมูล</th></adddata>
 <adddata1><en>Do you want to add new data ?</en><th>คุณต้องการเพิ่มข้อมูลใหม่ใช่หรือไม่ ?</th></adddata1>
 <editdata><en>Edit data</en><th>แก้ไขข้อมูล</th></editdata>

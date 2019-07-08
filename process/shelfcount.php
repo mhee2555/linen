@@ -323,6 +323,10 @@ function ShowItem($conn, $DATA)
   $count = 0;
   $boolean = false;
   $searchitem = str_replace(' ', '%', $DATA["xitem"]);
+  $deptCode = $DATA["deptCode"];
+
+
+  
 
   // $Sqlx = "INSERT INTO log ( log ) VALUES ('item : $item')";
   // mysqli_query($conn,$Sqlx);
@@ -348,13 +352,14 @@ function ShowItem($conn, $DATA)
   LEFT  JOIN item_stock_detail i_detail ON i_detail.ItemCode = item.ItemCode
   INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
   INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
-  WHERE item.ItemName LIKE '%$searchitem%'
+  WHERE  item_stock.DepCode = $deptCode AND  item.ItemName LIKE '%$searchitem%'
   GROUP BY item.ItemCode
   ORDER BY item.ItemName ASC LImit 100";
+  $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['RowID'] = $Result['RowID'];
-    $return[$count]['UsageCode'] = $Result['UsageCode'];
+    // $return[$count]['UsageCode'] = $Result['UsageCode'];
     $return[$count]['ItemCode'] = $Result['ItemCode'];
     $return[$count]['ItemName'] = $Result['ItemName'];
     $return[$count]['UnitCode'] = $Result['UnitCode'];
