@@ -760,6 +760,7 @@ function CreateDocument($conn, $DATA)
     mysqli_query($conn, $Sql);
     $DATA['xdocno'] = "";
     $n = 0;
+    
     $Sql = "SELECT draw_detail_sub.UsageCode,draw_detail.ItemCode
     FROM draw_detail
     INNER JOIN draw_detail_sub ON draw_detail.DocNo = draw_detail_sub.DocNo
@@ -798,6 +799,33 @@ function CreateDocument($conn, $DATA)
       while ($row = mysqli_fetch_array($result)) {
           $zDept = $row["DepCode"];
       }
+      // =======================================================================================
+
+        $sqlSC = "SELECT shelfcount.DepCode FROM shelfcount WHERE DocNo = '$DocNo2'";
+        $resultSC = mysqli_query( $conn, $sqlSC);
+            while ($rowXX = mysqli_fetch_array($resultSC)) {
+
+              $DepCodeSC = $rowXX["DepCode"];
+
+            }
+
+            $sqlSCX = "SELECT shelfcount_detail.ItemCode FROM shelfcount_detail WHERE DocNo = '$DocNo2'";
+            $resultSCX = mysqli_query( $conn, $sqlSCX);
+                while ($rowX = mysqli_fetch_array($resultSCX)) {
+    
+                  $ItemCodeSC = $rowX["ItemCode"];
+    
+                } 
+      // =======================================================================================
+
+      $sqlSCS = "SELECT Draw.DepCode FROM Draw WHERE DocNo = '$DocNo'";
+      $resultSCS = mysqli_query( $conn, $sqlSCS);
+          while ($rowXXX = mysqli_fetch_array($resultSCS)) {
+
+            $DepCodeDraw = $rowXXX["DepCode"];
+
+          }
+  // =======================================================================================
 
       $sql_update =  "SELECT
 			draw_detail.ItemCode,
@@ -819,9 +847,11 @@ function CreateDocument($conn, $DATA)
           $ParQty = $xParQty[$i];
           $CcQty = $xCcQty[$i];
           $TotalQty = $xTotalQty[$i];
-          mysqli_query($conn, "UPDATE item_stock SET ParQty=$ParQty,CcQty=$CcQty,TotalQty=$TotalQty WHERE ItemCode = '$ItemCode'");
-          mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty + $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDepCode");
-          mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty - $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDept");
+          mysqli_query($conn, "UPDATE item_stock SET CcQty=$CcQty,TotalQty= (TotalQty-$TotalQty)  WHERE DepCode = $DepCodeDraw AND ItemCode = '$ItemCode'");
+          mysqli_query($conn, "UPDATE item_stock SET CcQty=$CcQty,TotalQty= (TotalQty+$TotalQty)  WHERE DepCode = $DepCodeSC   AND ItemCode ='$ItemCodeSC'");
+
+          // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty + $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDepCode");
+          // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty - $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDept");
       }
 
     $Sql = "DELETE FROM draw_detail_sub  WHERE DocNo = '$DocNo'";
@@ -895,7 +925,7 @@ function CreateDocument($conn, $DATA)
       $TotalQty   = $zTotalQty[$i];
       $IsCancel   = $zIsCancel[$i];
       $Sql = "INSERT INTO draw_detail
-      (DocNo,ItemCode,UnitCode,ParQty,TotalQty,CcQty,IsCancel)
+      (DocNo,ItemCode,UnitCode,ParQty,CcQty,TotalQty,IsCancel)
       VALUES
       ('$DocNo','$ItemCode',$UnitCode,$ParQty,$CcQty,$TotalQty,$IsCancel)";
       mysqli_query($conn, $Sql);
