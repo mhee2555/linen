@@ -82,6 +82,7 @@ $array = json_decode($json, true);
             getHotpital();
             getEmployee();
             getPermission();
+            getFactory();
             getHotpital_user();
             $('#searchitem').keyup(function(e) {
                 if (e.keyCode == 13) {
@@ -150,6 +151,13 @@ $array = json_decode($json, true);
           };
           // console.log(JSON.stringify(data2));
           senddata(JSON.stringify(data2));
+        }
+
+        function getFactory(){
+          var data = {
+              'STATUS': 'getFactory'
+          };
+          senddata(JSON.stringify(data));
         }
 
         function unCheckDocDetail() {
@@ -251,6 +259,7 @@ $array = json_decode($json, true);
             var FName = $('#flname').val();
             var host = $('#host').val();
             var Permission = $('#Permission').val();
+            var facID = $('#factory').val();
 
 
             var data = {
@@ -260,7 +269,8 @@ $array = json_decode($json, true);
                 'Password': Password,
                 'FName': FName,
                 'host': host,
-                'Permission' : Permission
+                'Permission' : Permission,
+                'facID' : facID
             };
 
             senddata(JSON.stringify(data));
@@ -317,6 +327,13 @@ $array = json_decode($json, true);
             }
         }
 
+        function factory_show(facID){
+            if(facID == 4){
+                $('#row_fac').attr('hidden', false);
+            }else{
+                $('#row_fac').attr('hidden', true);
+            }
+        }
 
         function senddata(data) {
             var form_data = new FormData();
@@ -398,6 +415,12 @@ $array = json_decode($json, true);
                                         StrTr = "<option value = '" + temp['Pm'+i]['xPmID'] + "'> " + temp['Pm'+i]['xPermission'] + " </option>";
                                     }
                                     $("#Permission").append(StrTr);
+                                }
+                                if(temp['PmID']==4){
+                                    $('#row_fac').attr('hidden',false);
+                                    $('#factory').val(temp['FacCode']);
+                                }else{
+                                    $('#row_fac').attr('hidden',true);
                                 }
 
                             }
@@ -588,6 +611,13 @@ $array = json_decode($json, true);
                                 var StrTr = "<option value = '" + temp[i]['PmID'] + "'> " + temp[i]['Permission'] + " </option>";
                                 $("#Permission").append(StrTr);
                             }
+                        } else if ((temp["form"] == 'getFactory')) {
+                            $("#factory").empty();
+                            var StrTr = "<option value = '0'><?php echo $array['facname'][$language]; ?></option>";
+                            for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
+                                StrTr += "<option value = '" + temp[i]['FacCode'] + "'> " + temp[i]['FacName'] + " </option>";
+                            }
+                            $("#factory").append(StrTr);
                         }
                     } else if (temp['status'] == "failed") {
                         switch (temp['msg']) {
@@ -856,7 +886,16 @@ $array = json_decode($json, true);
                                   <div class="col-md-7">
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['permission'][$language]; ?></label>
-                                      <select  class="form-control col-sm-8 " id="Permission"></select>
+                                      <select  class="form-control col-sm-8 " id="Permission"  onchange="factory_show(this.value);"></select>
+                                    </div>
+                                  </div>
+                                </div>
+<!-- =================================================================== -->  
+                                <div class="row" hidden id='row_fac'>
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['facname'][$language]; ?></label>
+                                      <select  class="form-control col-sm-8 " id="factory"></select>
                                     </div>
                                   </div>
                                 </div>

@@ -50,14 +50,17 @@ function getdetail($conn, $DATA)
 {
   $ID = $DATA['ID'];
 
-//    $Sqlx = "INSERT INTO log ( log ) VALUES ('ID : $ID')";
-//    mysqli_query($conn,$Sqlx);
+  //    $Sqlx = "INSERT INTO log ( log ) VALUES ('ID : $ID')";
+  //    mysqli_query($conn,$Sqlx);
 
-  $Sql = "SELECT users.ID,users.UserName,users.`Password`,users.FName,site.HptName,site.HptCode,permission.Permission,permission.PmID
+  $Sql = "SELECT users.ID,users.UserName,users.`Password`,users.FName,site.HptName,site.HptCode,permission.Permission,
+      permission.PmID, factory.FacCode
         FROM users
         INNER JOIN permission ON users.PmID = permission.PmID
         INNER JOIN site ON users.HptCode = site.HptCode
+        INNER JOIN factory ON factory.FacCode = users.FacID  
         WHERE users.ID = $ID AND users.IsCancel = 0";
+        $return['sql'] = $Sql;
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -69,6 +72,7 @@ function getdetail($conn, $DATA)
       $return['PmID'] = $Result['PmID'];
       $return['HptName'] = $Result['HptName'];
       $return['HptCode'] = $Result['HptCode'];
+      $return['FacCode'] = $Result['FacCode'];
 
   }
 
@@ -127,68 +131,68 @@ function getEmployee($conn, $DATA)
 
 }
 
-  function getHotpital($conn, $DATA)
-  {
-    $count = 0;
-    $Sql = "SELECT site.HptCode,site.HptName FROM site 	WHERE IsStatus = 0";
-    $meQuery = mysqli_query($conn, $Sql);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-      $return[$count]['HptCode']  = $Result['HptCode'];
-      $return[$count]['HptName']  = $Result['HptName'];
-      $count++;
-    }
-
-    $return['status'] = "success";
-    $return['form'] = "getHotpital";
-    echo json_encode($return);
-    mysqli_close($conn);
-    die;
-
+function getHotpital($conn, $DATA)
+{
+  $count = 0;
+  $Sql = "SELECT site.HptCode,site.HptName FROM site 	WHERE IsStatus = 0";
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $return[$count]['HptCode']  = $Result['HptCode'];
+    $return[$count]['HptName']  = $Result['HptName'];
+    $count++;
   }
 
+  $return['status'] = "success";
+  $return['form'] = "getHotpital";
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
 
-  function getHotpital_user($conn, $DATA)
-  {
-    $count = 0;
-    $Sql = "SELECT site.HptCode,site.HptName 
-    FROM site  
-    -- INNER JOIN site ON users.HptCode = site.HptCode 
-    WHERE IsStatus = 0 ";
-    
-    $meQuery = mysqli_query($conn, $Sql);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-      $return[$count]['HptCode']  = $Result['HptCode'];
-      $return[$count]['HptName']  = $Result['HptName'];
-      $count++;
-    }
+}
 
-    $return['status'] = "success";
-    $return['form'] = "getHotpital_user";
-    echo json_encode($return);
-    mysqli_close($conn);
-    die;
 
+function getHotpital_user($conn, $DATA)
+{
+  $count = 0;
+  $Sql = "SELECT site.HptCode,site.HptName 
+  FROM site  
+  -- INNER JOIN site ON users.HptCode = site.HptCode 
+  WHERE IsStatus = 0 ";
+  
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $return[$count]['HptCode']  = $Result['HptCode'];
+    $return[$count]['HptName']  = $Result['HptName'];
+    $count++;
   }
 
+  $return['status'] = "success";
+  $return['form'] = "getHotpital_user";
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
 
-  function getPermission($conn, $DATA)
-  {
-    $count = 0;
-    $Sql = "SELECT permission.PmID,permission.Permission FROM permission";
-    $meQuery = mysqli_query($conn, $Sql);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-      $return[$count]['PmID']  = $Result['PmID'];
-      $return[$count]['Permission']  = $Result['Permission'];
-      $count++;
-    }
+}
 
-    $return['status'] = "success";
-    $return['form'] = "getPermission";
-    echo json_encode($return);
-    mysqli_close($conn);
-    die;
 
+function getPermission($conn, $DATA)
+{
+  $count = 0;
+  $Sql = "SELECT permission.PmID,permission.Permission FROM permission";
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $return[$count]['PmID']  = $Result['PmID'];
+    $return[$count]['Permission']  = $Result['Permission'];
+    $count++;
   }
+
+  $return['status'] = "success";
+  $return['form'] = "getPermission";
+  echo json_encode($return);
+  mysqli_close($conn);
+  die;
+
+}
 
 function CancelItem($conn, $DATA)
 {
@@ -203,6 +207,29 @@ function CancelItem($conn, $DATA)
 
 }
 
+function getFactory($conn, $DATA)
+{
+  $count = 0;
+  $Sql = "SELECT
+            factory.FacCode,
+            factory.FacName
+          FROM factory
+          WHERE factory.IsCancel = 0";
+  // var_dump($Sql); die;
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $return[$count]['FacCode'] = $Result['FacCode'];
+    $return[$count]['FacName'] = $Result['FacName'];
+    $count++;
+  }
+
+    $return['status'] = "success";
+    $return['form'] = "getFactory";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+
+}
 
 
 function AddItem($conn, $DATA)
@@ -214,12 +241,7 @@ function AddItem($conn, $DATA)
     $host = $DATA['host'];
     $FName = $DATA['FName'];
     $Permission = $DATA['Permission'];
-
-    // $Sql =  "SELECT COUNT(*) AS Cnt FROM users WHERE users.ID = $UsID";
-    // $meQuery = mysqli_query($conn, $Sql);
-    // while ($Result = mysqli_fetch_assoc($meQuery)) {
-    //     $count = $Result['Cnt'];
-    // }
+    $facID = $DATA['facID'];
 
     if($UsID != ""){
         $Sql = "UPDATE users SET 
@@ -228,10 +250,11 @@ function AddItem($conn, $DATA)
         users.`Password`='$Password',
         users.FName='$FName',
         users.PmID=$Permission,
+        users.FacID=$facID,
         users.Modify_Date=NOW() 
         WHERE users.ID = $UsID";
 
-$return['sql']=$Sql;
+    $return['sql']=$Sql;
         if(mysqli_query($conn, $Sql)){
             $return['status'] = "success";
             $return['form'] = "AddItem";
@@ -248,6 +271,7 @@ $return['sql']=$Sql;
         users.FName,
         users.IsCancel,
         users.PmID,
+        users.FacID,
         users.Count,
         users.Modify_Date,
         users.TimeOut
@@ -260,6 +284,7 @@ $return['sql']=$Sql;
             '$FName',
             0,
             $Permission,
+            $facID,
             0,
             NOW(),
             30
@@ -301,6 +326,9 @@ if(isset($_POST['DATA']))
         getdetail($conn,$DATA);
       }else if ($DATA['STATUS'] == 'getHotpital_user') {
         getHotpital_user($conn,$DATA);
+      }
+      else if ($DATA['STATUS'] == 'getFactory') {
+        getFactory($conn,$DATA);
       }
 
 }else{

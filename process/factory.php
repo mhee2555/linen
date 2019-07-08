@@ -11,17 +11,17 @@ function ShowItem($conn, $DATA)
   // }
   $Keyword = $DATA['Keyword'];
   $Sql = "SELECT
-factory.FacCode,
-factory.FacName,
-factory.DiscountPercent,
-factory.Price,
- CASE factory.IsCancel WHEN 0 THEN '0' WHEN 1 THEN '1' END AS IsCancel,
-factory.Address,
-factory.Post,
-factory.Tel,
-factory.TaxID
-FROM
-factory
+          factory.FacCode,
+          factory.FacName,
+          factory.DiscountPercent,
+          factory.Price,
+          CASE factory.IsCancel WHEN 0 THEN '0' WHEN 1 THEN '1' END AS IsCancel,
+          factory.Address,
+          factory.Post,
+          factory.Tel,
+          factory.TaxID
+          FROM
+          factory
 					WHERE factory.IsCancel = 0
           AND (factory.FacCode LIKE '%$Keyword%' OR
           factory.FacName LIKE '%$Keyword%' OR
@@ -32,7 +32,7 @@ factory
           factory.Tel LIKE '%$Keyword%' OR
           factory.TaxID LIKE '%$Keyword%'
           )
-";
+        ";
   // var_dump($Sql); die;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
