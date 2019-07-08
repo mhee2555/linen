@@ -411,15 +411,18 @@ $array = json_decode($json, true);
             // ShowItem();
         }
         function ClearChecked() {
-            $('.checkdocno').each(function() {
-                // $(this).val("");
-                $(".checkdocno").prop("checked", false);
+            $('.checkblank').each(function() {
+                $(".checkblank").prop("checked", false);
             });
-            // $('#hptsel2').val("1");
+            $('#show_btn').attr('disabled', true);
+            $('#clear_btn').attr('disabled', true);
+            $('#cancel_btn').attr('disabled', true);
         }
         function cancelDoc(DocNo){
+            $('#show_btn').attr('disabled', false);
+            $('#clear_btn').attr('disabled', false);
+            $('#cancel_btn').attr('disabled', false);
             var DocNo = DocNo;
-            // alert(DocNo);
             $('#cancel').val(DocNo);
         }
         function ButtoncancelDoc(){
@@ -600,7 +603,7 @@ $array = json_decode($json, true);
                         }else if ((temp["form"] == 'ShowDoc')) {
                             $("#TableDoc tbody").empty();
                             for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
-                                    var rowCount = $('#TableDoc >tbody >tr').length;
+                                var rowCount = $('#TableDoc >tbody >tr').length;
                                 var chkDoc = "<input type='radio' class='checkblank'  name='checkdocno' id='checkdocno' " +
                                     "value='" + temp[i]['DocNo'] + "," + temp[i]['xDate'] + "," + temp[i]['HptCode'] + "," + temp[i]['HptName'] + "' onclick='cancelDoc(\"" + temp[i]["DocNo"] + "\")'>";
                                     StrTR = "<tr id='tr"+temp[i]['DocNo']+"'>" +
@@ -1066,13 +1069,13 @@ $array = json_decode($json, true);
                                         <input type="hidden" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search2" id="search2" placeholder="<?php echo $array['search'][$language]; ?>" >
                                         <button type="button" style="margin-left:20px;" class="btn btn-primary" name="button" onclick="ShowDoc();">
                                             <?php echo $array['search'][$language]; ?></button>
-                                        <button type="button" style="margin-left:10px;" class="btn btn-success" name="button" onclick="OpenDialog(1);">
+                                        <button type="button" style="margin-left:10px;" class="btn btn-success" name="button" onclick="OpenDialog(1);" id='show_btn' disabled='true'>
                                             <?php echo $array['show'][$language]; ?>
                                         </button>
-                                        <button type="button" style="margin-left:10px;" class="btn btn-warning"  onclick="ClearChecked();">
+                                        <button type="button" style="margin-left:10px;" class="btn btn-warning"  onclick="ClearChecked();" id='clear_btn' disabled='true'>
                                             <?php echo $array['cancel'][$language]; ?>
                                         </button>
-                                        <button type="button" style="margin-left:10px;" class="btn btn-danger" onclick="ButtoncancelDoc();">
+                                        <button type="button" style="margin-left:10px;" class="btn btn-danger" onclick="ButtoncancelDoc();" id='cancel_btn' disabled='true'>
                                         <?php echo $array['canceldata'][$language]; ?>
                                         </button>
                                     </div>
