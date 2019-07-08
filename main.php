@@ -359,35 +359,35 @@ switch ($PmID) {
       $('#ShowTime').val( redirectInSecond + ' / Timeout : ' + hms );
     }
 
-      function chk_last_move(){
-          cur_date = new Date(); // อ่านเวลาปัจจุบันไว้ใน cur_date
-          if( cur_date>last_move){ // ตรวจสอบเวลา
-              var micro = parseInt(cur_date.getTime() - last_move.getTime());
-              var newDate = new Date();
-              newDate.setTime((target - micro));
-              var h = newDate.getHours();
-              var m = newDate.getMinutes();
-              var s = newDate.getSeconds();
-              var hms = "";
-              m = checkTime(m);
-              s = checkTime(s);
+    function chk_last_move(){
+      cur_date = new Date(); // อ่านเวลาปัจจุบันไว้ใน cur_date
+      if( cur_date>last_move){ // ตรวจสอบเวลา
+        var micro = parseInt(cur_date.getTime() - last_move.getTime());
+        var newDate = new Date();
+        newDate.setTime((target - micro));
+        var h = newDate.getHours();
+        var m = newDate.getMinutes();
+        var s = newDate.getSeconds();
+        var hms = "";
+        m = checkTime(m);
+        s = checkTime(s);
 
-              if(redirectInSecond>=60)
-                  hms = h + ":" + m + ":" + s;
-              else
-                  hms = m + ":" + s;
+        if(redirectInSecond>=60)
+            hms = h + ":" + m + ":" + s;
+        else
+            hms = m + ":" + s;
 
-              $('#ShowTime').val( 'Timeout : ' + hms );
+        $('#ShowTime').val( 'Timeout : ' + hms );
 
-              if( micro > target ) location.href=redirect_url;
-              else {
-                  var new_time = target - micro;
-                  setTimeout('chk_last_move()', 1000 ); //new_time
-              }
-          }else{
-              setTimeout('chk_last_move()', 1000 );
-          }
+        if( micro > target ) location.href=redirect_url;
+        else {
+            var new_time = target - micro;
+            setTimeout('chk_last_move()', 1000 ); //new_time
+        }
+      }else{
+        setTimeout('chk_last_move()', 1000 );
       }
+    }
 
     function checkTime(i) {
         if (i < 10) {
