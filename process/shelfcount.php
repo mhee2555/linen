@@ -343,9 +343,8 @@ function ShowItem($conn, $DATA)
     item_unit.UnitName,
     item_stock.ParQty,
     item_stock.CcQty,
-    item_stock.TotalQty,
-    i_detail.Qty
-  FROM site
+    item_stock.TotalQty
+      FROM site
   INNER JOIN department ON site.HptCode = department.HptCode
   INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
   INNER JOIN item ON item_stock.ItemCode = item.ItemCode
@@ -365,7 +364,7 @@ function ShowItem($conn, $DATA)
     $return[$count]['UnitCode'] = $Result['UnitCode'];
     $return[$count]['UnitName'] = $Result['UnitName'];
     $return[$count]['ParQty'] = $Result['ParQty'];
-    $return[$count]['Qty'] = $Result['Qty']==null?0:$Result['Qty'];
+    $return[$count]['Qty'] = $Result['TotalQty']==null?0:$Result['TotalQty'];
     $ItemCode = $Result['ItemCode'];
     $UnitCode = $Result['UnitCode'];
     $count2 = 0;

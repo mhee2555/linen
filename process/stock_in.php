@@ -296,6 +296,7 @@ function ShowItem($conn, $DATA)
     $ItemCode = $Result['ItemCode'];
     $UnitCode = $Result['UnitCode'];
     $count2 = 0;
+    
     $xSql = "SELECT item_multiple_unit.MpCode,item_multiple_unit.UnitCode,item_unit.UnitName,item_multiple_unit.Multiply
 	  FROM item_multiple_unit
 	  INNER JOIN item_unit ON item_multiple_unit.MpCode = item_unit.UnitCode
