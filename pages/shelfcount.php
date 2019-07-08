@@ -123,19 +123,19 @@ $array = json_decode($json,TRUE);
 
 
   function ShowMenu(){
-  var DocnoXXX = "<?php echo $DocnoXXX ?>";
-  if( DocnoXXX != "" ){
+    var DocnoXXX = "<?php echo $DocnoXXX ?>";
+    if( DocnoXXX != "" ){
 
-  // alert(DocnoXXX);
+    // alert(DocnoXXX);
 
-  var data = {
-      'STATUS'  : 'ShowMenu',
-      'DocnoXXX'   : DocnoXXX
-    }
-    senddata(JSON.stringify(data));
+    var data = {
+        'STATUS'  : 'ShowMenu',
+        'DocnoXXX'   : DocnoXXX
+      }
+      senddata(JSON.stringify(data));
 
-    };
-}
+      };
+  }
 
 
   
@@ -147,7 +147,7 @@ function OpenDialogItem(){
         $('#dialogItemCode').modal('show');
 
       }
-    }
+}
 
  
   function OpenDialogUsageCode(itemcode){

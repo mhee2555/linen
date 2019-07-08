@@ -135,7 +135,7 @@ $array = json_decode($json,TRUE);
 
       function getDepartment(){
         var Hotp = $('#hotpital option:selected').attr("value");
-                  if( typeof Hotp == 'undefined' ) Hotp = "BHQ";
+        if( typeof Hotp == 'undefined' ) Hotp = "<?php echo $HptCode; ?>";
     	  var userid = "<?php echo $_SESSION['Userid']; ?>";
         var data = {
           'STATUS'  : 'getDepartment',
