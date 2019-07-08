@@ -72,14 +72,14 @@ $array = json_decode($json, true);
     <script type="text/javascript">
         var summary = [];
         var last_move, cur_date, target;
-      var redirectInSecond=<?=$TimeOut?>; // กำหนดเวลา redirect เป็นวินาที
-      var redirect_url = 'http://localhost:8181/linen/index.html'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
-$(document).ready(function(e) {
-          parent.afk();
-          parent.chk_last_move();
-      }).mousemove(function(e) { last_move = parent.afk();
-      }).keyup(function(e) { last_move = parent.afk();
-      });
+        var redirectInSecond=<?=$TimeOut?>; // กำหนดเวลา redirect เป็นวินาที
+        var redirect_url = 'http://localhost:8181/linen/index.html'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
+            $(document).ready(function(e) {
+            parent.afk();
+            parent.chk_last_move();
+        }).mousemove(function(e) { last_move = parent.afk();
+        }).keyup(function(e) { last_move = parent.afk();
+        });
 
         $(document).ready(function($) {
             //On create

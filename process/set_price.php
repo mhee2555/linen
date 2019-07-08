@@ -117,20 +117,14 @@ function ShowItem1($conn, $DATA)
         INNER JOIN item_category ON item_category.CategoryCode = category_price.CategoryCode
         INNER JOIN item_main_category ON item_main_category.MainCategoryCode = item_category.MainCategoryCode ";
     if($Chk==1){
-        $Sql .= "WHERE site.HptCode = $xHptCode";
+        $Sql .= "WHERE site.HptCode = '$xHptCode'";
     }else if($Chk==2){
-        $Sql .= "WHERE site.HptCode = $xHptCode AND item_main_category.MainCategoryCode = $CgMainID";
+        $Sql .= "WHERE site.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID";
     }else if($Chk==3){
-        $Sql .= "WHERE site.HptCode = $xHptCode AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
+        $Sql .= "WHERE site.HptCode = '$xHptCode' AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
     }
-//    if( ($xHptCode!="-") && ($CgMainID=="-") && ($CgSubID=="-") ){
-//        $Sql .= "WHERE site.HptCode = $xHptCode";
-//    }else if( ($xHptCode!="-") && ($CgMainID!="-")  && ($CgSubID=="-") ){
-//        $Sql .= "WHERE site.HptCode = $xHptCode AND item_main_category.MainCategoryCode = $CgMainID";
-//    }else if( ($xHptCode!="-") && ($CgMainID!="-") && ($CgSubID!="-") ){
-//        $Sql .= "WHERE site.HptCode = $xHptCode AND item_main_category.MainCategoryCode = $CgMainID AND category_price.CategoryCode = $CgSubID";
-//    }
-  // var_dump($Sql); die;
+    $return['sql'] = $Sql;
+
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['RowID'] = $Result['RowID'];
