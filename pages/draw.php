@@ -1686,7 +1686,7 @@ function OpenDialogItem(){
                       <div class="col-md-8">
                         <div class='form-group row'>
                           <label class="col-sm-4 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
-                          <input type="text" class="form-control col-sm-9" name="searchitem1" id="searchitem1" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                          <input type="text" class="form-control col-sm-8" name="searchitem1" id="searchitem1" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
                         </div>
                       </div>
                       <div class="col-md-2">
@@ -1726,7 +1726,7 @@ function OpenDialogItem(){
                                 <div class="col-md-8">
                                   <div class='form-group row'>
                                     <label class="col-sm-3 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
-                                    <input type="text" class="form-control col-sm-9" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                                    <input type="text" class="form-control col-sm-8" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
                                   </div>
                                 </div>
                                 <div class="col-md-2">

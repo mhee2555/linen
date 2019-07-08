@@ -143,7 +143,7 @@ function AddItem($conn, $DATA)
 		  )
           VALUES
           (
-            $HptCode,
+            '$HptCode',
             '$DepName',
             0,
             $xCenter
@@ -192,7 +192,7 @@ function EditItem($conn, $DATA)
 
   if($DATA["DepCode"]!=""){
     $Sql = "UPDATE department SET
-            HptCode =  $HptCode,
+            HptCode =  '$HptCode',
             DepName = ' $DepName',
             IsDefault =  $xCenter 
             WHERE DepCode = ".$DATA['DepCode']."
