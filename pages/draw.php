@@ -780,14 +780,14 @@ function OpenDialogItem(){
                     $("#hotpital").attr('disabled', true);
                   }
                 }else if(temp["form"]=='getDepartment'){
-                  $("#department").empty();
-                  $("#Dep2").empty();
-                  for (var i = 0; i < (Object.keys(temp).length-2); i++) {
-                    var Str = "<option value="+temp[i]['DepCode']+">"+temp[i]['DepName']+"</option>";
-                    $("#department").append(Str);
-                    $("#Dep2").append(Str);
-                  }
-                }else if( (temp["form"]=='CreateDocument') ){
+                      $("#department").empty();
+                      $("#Dep2").empty();
+                      for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+                        var Str = "<option value="+temp[i]['DepCode']+">"+temp[i]['DepName']+"</option>";
+                        $("#department").append(Str);
+                        $("#Dep2").append(Str);
+                      }
+                    }else if( (temp["form"]=='CreateDocument') ){
                   $("#docno").val(temp[0]['DocNo']);
                   $("#docdate").val(temp[0]['DocDate']);
                   $("#recorder").val(temp[0]['Record']);
@@ -1296,7 +1296,7 @@ function OpenDialogItem(){
                                   <div class="col-md-6">
                                     <div class='form-group row'>
                                       <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
-                                        <select class="form-control col-sm-9" id="department" >
+                                        <select class="form-control col-sm-9" id="department" disabled="true">
                                         </select>
                                     </div>
                                   </div>
@@ -1471,7 +1471,7 @@ function OpenDialogItem(){
                       </div>
                       <div class="col-md-2">
 
-                          <select class="form-control" style='font-size:24px;' id="Dep2">
+                          <select class="form-control" style='font-size:24px;' id="Dep2" >
                           </select>
 
                       </div>

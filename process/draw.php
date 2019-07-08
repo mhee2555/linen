@@ -40,6 +40,7 @@ function getDepartment($conn, $DATA)
   $Sql = "SELECT department.DepCode,department.DepName
   FROM department
   WHERE department.HptCode = '$Hotp'
+  AND department.IsDefault = 1
   AND department.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -302,6 +303,11 @@ function CreateDocument($conn, $DATA)
       $ItemCode = $Result['ItemCode'];
       $UnitCode = $Result['UnitCode'];
       $count2 = 0;
+
+      $countM = "SELECT COUNT(*) AS cnt FROM item_multiple_unit  WHERE WHERE item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
+    $MQuery = mysqli_query($conn, $countM);
+    if($MQuery){
+
       $xSql = "SELECT item_multiple_unit.MpCode,item_multiple_unit.UnitCode,item_unit.UnitName,item_multiple_unit.Multiply
       FROM item_multiple_unit
       INNER JOIN item_unit ON item_multiple_unit.MpCode = item_unit.UnitCode
@@ -320,6 +326,28 @@ function CreateDocument($conn, $DATA)
         $return[$m4][$count2] = $xResult['Multiply'];
         $count2++;
       }
+    }else{
+      $xSql = "SELECT 
+      item.UnitCode,
+      item_unit.UnitName
+    FROM item
+    INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
+    WHERE item.ItemCode = '$ItemCode'";
+    $xQuery = mysqli_query($conn, $xSql);
+    while ($xResult = mysqli_fetch_assoc($xQuery)) {
+      $m1 = "MpCode_" . $ItemCode . "_" . $count;
+      $m2 = "UnitCode_" . $ItemCode . "_" . $count;
+      $m3 = "UnitName_" . $ItemCode . "_" . $count;
+      $m4 = "Multiply_" . $ItemCode . "_" . $count;
+      $m5 = "Cnt_" . $ItemCode;
+  
+      $return[$m1][$count2] = 1;
+      $return[$m2][$count2] = $xResult['UnitCode'];
+      $return[$m3][$count2] = $xResult['UnitName'];
+      $return[$m4][$count2] = 1;
+      $count2++;
+    }
+  }
       $return[$m5][$count] = $count2;
       $count++;
       $boolean = true;
@@ -926,10 +954,10 @@ function CreateDocument($conn, $DATA)
     item_unit.UnitName,
     item_unit.UnitCode,
     (
-        SELECT item_stock_detail.Qty 
-        FROM item_stock_detail 
-        WHERE item_stock_detail.ItemCode = draw_detail.ItemCode 
-        AND item_stock_detail.DepCode = $DepCode
+        SELECT item_stock.ParQty 
+        FROM item_stock 
+        WHERE item_stock.ItemCode = draw_detail.ItemCode 
+        AND item_stock.DepCode = $DepCode
     ) AS ParQty,
     draw_detail.CcQty,
     draw_detail.TotalQty
@@ -954,6 +982,12 @@ function CreateDocument($conn, $DATA)
       $UnitCode                     = $Result['UnitCode'];
       $ItemCode                     = $Result['ItemCode'];
       $count2 = 0;
+
+      $countM = "SELECT COUNT(*) AS cnt FROM item_multiple_unit  WHERE WHERE item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
+      $MQuery = mysqli_query($conn, $countM);
+
+      if($MQuery){
+
       $xSql = "SELECT item_multiple_unit.MpCode,item_multiple_unit.UnitCode,item_unit.UnitName,item_multiple_unit.Multiply
       FROM item_multiple_unit
       INNER JOIN item_unit ON item_multiple_unit.MpCode = item_unit.UnitCode
@@ -972,6 +1006,28 @@ function CreateDocument($conn, $DATA)
         $return[$m4][$count2] = $xResult['Multiply'];
         $count2++;
       }
+    }else{
+      $xSql = "SELECT 
+      item.UnitCode,
+      item_unit.UnitName
+    FROM item
+    INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
+    WHERE item.ItemCode = '$ItemCode'";
+    $xQuery = mysqli_query($conn, $xSql);
+    while ($xResult = mysqli_fetch_assoc($xQuery)) {
+      $m1 = "MpCode_" . $ItemCode . "_" . $count;
+      $m2 = "UnitCode_" . $ItemCode . "_" . $count;
+      $m3 = "UnitName_" . $ItemCode . "_" . $count;
+      $m4 = "Multiply_" . $ItemCode . "_" . $count;
+      $m5 = "Cnt_" . $ItemCode;
+  
+      $return[$m1][$count2] = 1;
+      $return[$m2][$count2] = $xResult['UnitCode'];
+      $return[$m3][$count2] = $xResult['UnitName'];
+      $return[$m4][$count2] = 1;
+      $count2++;
+    }
+  }
       $return[$m5][$count] = $count2;
       //================================================================
       $Total += $Result['Weight'];

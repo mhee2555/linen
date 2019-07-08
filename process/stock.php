@@ -95,7 +95,7 @@ function ShowDocument($conn,$DATA){
   if ($selecta==0) {
     $Sql.="WHERE site.HptCode = '$hos' AND item_stock.DepCode =  $dept AND item.ItemName LIKE '%$search%' ";
   }
-  $Sql.="GROUP BY item_stock.ItemCode ORDER BY department.DepCode,item_stock.ItemCode";
+  $Sql.="GROUP BY item_stock.ItemCode , item_stock.DepCode ORDER BY department.DepCode,item_stock.ItemCode";
 
   $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn,$Sql);
