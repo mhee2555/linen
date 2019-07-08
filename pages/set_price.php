@@ -50,9 +50,11 @@ $array = json_decode($json, true);
     <link href="../template/css/sb-admin.css" rel="stylesheet">
     <link href="../css/xfont.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
     <script src="../jQuery-ui/jquery-1.12.4.js"></script>
     <script src="../jQuery-ui/jquery-ui.js"></script>
+    <link href="../css/responsive.css" rel="stylesheet">
+
     <script type="text/javascript">
         jqui = jQuery.noConflict(true);
     </script>
@@ -70,14 +72,14 @@ $array = json_decode($json, true);
     <script type="text/javascript">
         var summary = [];
         var last_move, cur_date, target;
-      var redirectInSecond=<?=$TimeOut?>; // กำหนดเวลา redirect เป็นวินาที
-      var redirect_url = 'http://localhost:8181/linen/index.html'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
-$(document).ready(function(e) {
-          parent.afk();
-          parent.chk_last_move();
-      }).mousemove(function(e) { last_move = parent.afk();
-      }).keyup(function(e) { last_move = parent.afk();
-      });
+        var redirectInSecond=<?=$TimeOut?>; // กำหนดเวลา redirect เป็นวินาที
+        var redirect_url = 'http://localhost:8181/linen/index.html'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
+            $(document).ready(function(e) {
+            parent.afk();
+            parent.chk_last_move();
+        }).mousemove(function(e) { last_move = parent.afk();
+        }).keyup(function(e) { last_move = parent.afk();
+        });
 
         $(document).ready(function($) {
             //On create
@@ -164,24 +166,25 @@ $(document).ready(function(e) {
 
         jqui(document).ready(function($){
 
-            dialog = jqui( "#dialog" ).dialog({
-                autoOpen: false,
-                height: 650,
-                width: 1200,
-                modal: true,
-                buttons: {
-                    "<?php echo $array['close'][$language]; ?>": function() {
-                        dialog.dialog( "close" );
-                    }
-                },
-                close: function() {
-                    console.log("close");
-                    $("#docno").val("");
-                }
-            });
+            // dialog = jqui( "#dialog" ).dialog({
+            //     autoOpen: false,
+            //     height: 650,
+            //     width: 1200,
+            //     modal: true,
+            //     buttons: {
+            //         "<?php echo $array['close'][$language]; ?>": function() {
+            //             dialog.dialog( "close" );
+            //         }
+            //     },
+            //     close: function() {
+            //         console.log("close");
+            //         $("#docno").val("");
+            //     }
+            // });
 
             jqui( "#dialogItem" ).button().on( "click", function() {
-                dialog.dialog( "open" );
+                // dialog.dialog( "open" );
+                $('#dialog').modal('show');
             });
 
             dialogUsageCode = jqui( "#dialogUsageCode" ).dialog({
@@ -513,7 +516,8 @@ $(document).ready(function(e) {
             $("#search1").hide();
             $("#TableItemPrice tbody").empty();
 
-            dialog.dialog( "open" );
+            // dialog.dialog( "open" );
+            $('#dialog').modal('show');
         }
 
         function logoff() {
@@ -589,7 +593,8 @@ $(document).ready(function(e) {
                                 confirmButtonText: 'Ok'
                             }).catch(function(timeout) { }); //important --> Error Uncaught (in promise) timer
                             setTimeout(function () {
-                                dialog.dialog( "close" );
+                                // dialog.dialog( "close" );
+                                $('#dialog').modal('toggle');
                                 ShowDoc();
                             }, 1500);
                         }else if ((temp["form"] == 'ShowDoc')) {
@@ -980,61 +985,43 @@ $(document).ready(function(e) {
                                             </div>
                                         </div>
 
-                                        <div class="row" style="margin-top:10px;">
-                                            <div class="col-md-2">
-                                                <div class="row" style="margin-left:30px;">
-                                                    <label>
-                                                        <?php echo $array['side'][$language]; ?></label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6" style="margin-left:15px;">
-                                                <div class="row">
-                                                    <input type="text" class="form-control" style="width:90%;" name="HotName" id="HotName" placeholder="<?php echo $array['side'][$language]; ?>" readonly>
+                                        <!-- =================================================================== -->
+                                        <div class="row mt-4">
+                                            <div class="col-md-7">
+                                                <div class='form-group row'>
+                                                <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                                <input type="text"  class="form-control col-sm-8 " id="HotName"    placeholder="<?php echo $array['side'][$language]; ?>">
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="row" style="margin-top:10px;">
-                                            <div class="col-md-2">
-                                                <div class="row" style="margin-left:30px;">
-                                                    <label>
-                                                        <?php echo $array['categorymain'][$language]; ?></label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6" style="margin-left:15px;">
-                                                <div class="row">
-                                                    <input type="text" class="form-control" style="width:90%;" name="Category_Main" id="MainCategoryName" placeholder="<?php echo $array['categorymain'][$language]; ?>" readonly>
+                                        <!-- =================================================================== -->
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class='form-group row'>
+                                                <label class="col-sm-4 col-form-label text-right"><?php echo $array['categorymain'][$language]; ?></label>
+                                                <input type="text"  class="form-control col-sm-8 " id="Category_Main2"    placeholder="<?php echo $array['categorymain'][$language]; ?>">
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="row" style="margin-top:10px;">
-                                            <div class="col-md-2">
-                                                <div class="row" style="margin-left:30px;">
-                                                    <label>
-                                                        <?php echo $array['categorysub'][$language]; ?></label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6" style="margin-left:15px;">
-                                                <div class="row">
-                                                    <input type="text" class="form-control" style="width:90%;" name="Category_Sub" id="CategoryName" placeholder="<?php echo $array['categorysub'][$language]; ?>" readonly>
+                                        <!-- =================================================================== -->
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class='form-group row'>
+                                                <label class="col-sm-4 col-form-label text-right"><?php echo $array['categorysub'][$language]; ?></label>
+                                                <input type="text"  class="form-control col-sm-8 " id="Category_Sub2"    placeholder="<?php echo $array['categorysub'][$language]; ?>">
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="row" style="margin-top:10px;">
-                                            <div class="col-md-2">
-                                                <div class="row" style="margin-left:30px;">
-                                                    <label>
-                                                        <?php echo $array['price'][$language]; ?></label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6" style="margin-left:15px;">
-                                                <div class="row">
-                                                    <input type="text" class="form-control checkblank " style="width:90%;" name="Price" id="Price" placeholder="<?php echo $array['price'][$language]; ?>">
+                                        <!-- =================================================================== -->
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class='form-group row'>
+                                                <label class="col-sm-4 col-form-label text-right"><?php echo $array['price'][$language]; ?></label>
+                                                <input type="text"  class="form-control col-sm-8 " id="Price"    placeholder="<?php echo $array['price'][$language]; ?>">
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- =================================================================== -->
 
                                     </div>
                                 </div>
@@ -1121,7 +1108,7 @@ $(document).ready(function(e) {
             </a>
 
             <!-- Dialog Modal-->
-            <div id="dialog" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
+            <!-- <div id="dialog" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-11">
@@ -1158,7 +1145,52 @@ $(document).ready(function(e) {
 
                     </div>
                 </div>
+            </div> -->
+
+<!-- -----------------------------Custom1------------------------------------ -->
+<div class="modal" id="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-body">
+                <div class="card-body" style="padding:0px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row mb-3">
+                                <select class="form-control ml-5" style="font-family: 'THSarabunNew';font-size:22px;width:250px;" id="hptsel1"></select>
+
+                                <label id="rem" style="margin-left:20px;"> *** </label>
+                                <input type="text" class="form-control datepicker-here" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" id="datepicker" data-language='en' data-date-format='dd/mm/yyyy' placeholder="<?php echo $array['datepicker'][$language]; ?>">
+                                <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" name="docno" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
+
+                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" id="create1" name="button" onclick="onCreate();"><?php echo $array['createdocno'][$language]; ?></button>
+                                <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search1"  id="search1" onKeyPress='if(event.keyCode==13){ShowItem2()}' placeholder="<?php echo $array['search'][$language]; ?>" >
+                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" onclick="UpdatePrice();"><?php echo $array['saveprice'][$language]; ?></button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-fixed table-condensed table-striped" id="TableItemPrice" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
+                        <thead style="font-size:24px;">
+                            <tr role="row">
+                            <th style='width: 5%;'>&nbsp;</th>
+                                <th style='width: 25%;' nowrap><?php echo $array['side'][$language]; ?></th>
+                                <th style='width: 25%;' nowrap><?php echo $array['categorymain'][$language]; ?></th>
+                                <th style='width: 25%;' nowrap><?php echo $array['categorysub'][$language]; ?></th>
+                                <th style='width: 20%;' nowrap><?php echo $array['price'][$language]; ?></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
             <!-- Bootstrap core JavaScript-->
             <script src="../template/vendor/jquery/jquery.min.js"></script>
