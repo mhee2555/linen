@@ -983,7 +983,8 @@ function ShowDetail($conn, $DATA)
       FROM item_stock_detail 
       WHERE item_stock_detail.ItemCode = shelfcount_detail.ItemCode 
       AND item_stock_detail.DepCode =  $DepCode 
-  ) AS ParQty,
+  ) AS ParQtyx,
+  shelfcount_detail.ParQty,
   shelfcount_detail.CcQty,
   shelfcount_detail.TotalQty
   FROM item

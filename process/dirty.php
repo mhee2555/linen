@@ -327,10 +327,10 @@ function ShowItem($conn, $DATA)
         $m4 = "Multiply_" . $ItemCode . "_" . $count;
         $m5 = "Cnt_" . $ItemCode;
 
-        $return[$m1][$count2] = 0;
+        $return[$m1][$count2] = 1;
         $return[$m2][$count2] = $xResult['UnitCode'];
         $return[$m3][$count2] = $xResult['UnitName'];
-        $return[$m4][$count2] = 0;
+        $return[$m4][$count2] = 1;
         $count2++;
       }
     }
