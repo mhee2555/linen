@@ -255,7 +255,7 @@ function ShowItem($conn, $DATA)
   $count = 0;
   $boolean = false;
   $searchitem = str_replace(' ', '%', $DATA["xitem"]);
- //ddd
+
   $Sql = "SELECT
   	item_stock.RowID,
 		site.HptName,
