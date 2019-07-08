@@ -958,6 +958,7 @@ function CreateDocument($conn, $DATA)
         FROM item_stock 
         WHERE item_stock.ItemCode = draw_detail.ItemCode 
         AND item_stock.DepCode = $DepCode
+        GROUP BY item_stock.ItemCode , item_stock.DepCode
     ) AS ParQty,
     draw_detail.CcQty,
     draw_detail.TotalQty
@@ -968,6 +969,7 @@ function CreateDocument($conn, $DATA)
     INNER JOIN draw ON draw.DocNo = draw_detail.DocNo
     WHERE draw_detail.DocNo = '$DocNo'
     ORDER BY draw_detail.Id DESC";
+    $return['sql']=$Sql;
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       //	$Sqlx = "INSERT INTO log ( log ) VALUES ('$count :: ".$Result['Id']." / ".$Result['Weight']."')";
