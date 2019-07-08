@@ -19,7 +19,7 @@
 <titlefactory><en>Factory</en><th>โรงงานซัก</th></titlefactory>
 <titlefactoryin><en>FactoryIn</en><th>รับผ้าสกปรก</th></titlefactoryin>
 <titlefactoryout><en>FactoryOut</en><th>ส่งผ้าสะอาด</th></titlefactoryout>
-<titledraw><en>Draw</en><th>บันทึกเบิก</th></titledraw>
+<titledraw><en>Disburse</en><th>บันทึกเบิก</th></titledraw>
 <logout><en>Logout success</en><th>ออกจากระบบสำเร็จ</th></logout>
 <side><en>Hospital</en><th>โรงพยาบาล</th></side>
 <department><en>Department</en><th>แผนก</th></department>

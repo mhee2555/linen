@@ -841,8 +841,8 @@ function OpenDialogItem(){
                     "<td style='width: 15%;'nowrap>"+temp[i]['DocNo']+"</td>"+
                     "<td style='width: 15%;'nowrap>"+temp[i]['DepName']+"</td>"+
                     "<td style='width: 15%;'nowrap>"+temp[i]['Record']+"</td>"+
-                    "<td style='width: 10%;'nowrap>"+temp[i]['RecNow']+"</td>"+
-                    "<td style='width: 10%;'nowrap>"+temp[i]['Total']+"</td>"+
+                    "<td style='width: 20%;'nowrap>"+temp[i]['RecNow']+"</td>"+
+                    // "<td style='width: 10%;'nowrap>"+temp[i]['Total']+"</td>"+
                     "<td "+Style+"nowrap>"+Status+"</td>"+
                     "</tr>";
 
@@ -1497,8 +1497,8 @@ function OpenDialogItem(){
                               <th style='width: 15%;'nowrap><?php echo $array['docno'][$language]; ?></th>
                               <th style='width: 15%;'nowrap><?php echo $array['department'][$language]; ?></th>
                               <th style='width: 15%;'nowrap><?php echo $array['employee'][$language]; ?></th>
-                              <th style='width: 10%;'nowrap><?php echo $array['time'][$language]; ?></th>
-                              <th style='width: 10%;'nowrap><?php echo $array['order'][$language]; ?></th>
+                              <th style='width: 20%;'nowrap><?php echo $array['time'][$language]; ?></th>
+                              <!-- <th style='width: 10%;'nowrap><?php echo $array['order'][$language]; ?></th> -->
                               <th style='width: 10%;'nowrap><?php echo $array['status'][$language]; ?></th>
                             </tr>
                           </thead>
