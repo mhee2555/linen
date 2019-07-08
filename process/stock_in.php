@@ -284,13 +284,15 @@ function ShowItem($conn, $DATA)
     $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $ParQtyx = $Result['ParQty'] - $Result['TotalQty'];
+
     $return[$count]['RowID'] = $Result['RowID'];
     $return[$count]['UsageCode'] = $Result['UsageCode'];
     $return[$count]['ItemCode'] = $Result['ItemCode'];
     $return[$count]['ItemName'] = $Result['ItemName'];
     $return[$count]['UnitCode'] = $Result['UnitCode'];
     $return[$count]['UnitName'] = $Result['UnitName'];
-    $return[$count]['ParQty'] =   $Result['ParQty'];
+    $return[$count]['ParQty'] =   $ParQtyx;
     $ItemCode = $Result['ItemCode'];
     $UnitCode = $Result['UnitCode'];
     $count2 = 0;
@@ -451,7 +453,7 @@ function getImport($conn, $DATA)
     $iunit1 = 0;
     $iunit2 = $nunit[$i];
 
-    $Sql = "SELECT item_stock.ItemCode,item_stock.UsageCode,item.UnitCode,item_stock.ParQty
+    $Sql = "SELECT item_stock.ItemCode,item_stock.UsageCode,item.UnitCode,item_stock.ParQty,item_stock.TotalQty
 		  FROM item_stock
 		  INNER JOIN item ON item_stock.ItemCode = item.ItemCode
 		  WHERE RowID = $iItemStockId";
@@ -461,6 +463,7 @@ function getImport($conn, $DATA)
       $UsageCode = $Result['UsageCode'];
       $iunit1    = $Result['UnitCode'];
       $ParQty    = $Result['ParQty'];
+      
     }
 
     $Sql = "SELECT COUNT(*) as Cnt
@@ -582,7 +585,19 @@ function getImport($conn, $DATA)
         }
         mysqli_query($conn, $xSql);
     }
-  	ShowDetail($conn, $DATA);
+
+    $Sqlsss = "SELECT ItemCode,Qty FROM stock_in_detail WHERE stock_in_detail.DocNo = '$DocNo'";
+    $meQuery = mysqli_query($conn, $Sqlsss);
+
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $Cnt = getCnt($conn,$DepCode,$Result['ItemCode']);
+    $Sqlss = "UPDATE item_stock SET TotalQty = (TotalQty + ".$Result['Qty'].")WHERE ItemCode = '".$Result['ItemCode']."' AND DepCode = $DepCode";
+
+    }
+    mysqli_query($conn, $Sqlss);
+
+    ShowDetail($conn, $DATA);
+
 }
 
 function getCnt($conn,$deptcode,$itemcode){
