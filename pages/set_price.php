@@ -245,10 +245,6 @@ $array = json_decode($json, true);
         function getCheckAll(sel) {
             if (sel == 0) {
                 isChecked1 = !isChecked1;
-                // $( "div #aa" )
-                //   .text( "For this isChecked " + isChecked1 + "." )
-                //   .css( "color", "red" );
-
                 $('input[name="checkdocno"]').each(function() {
                     this.checked = isChecked1;
                 });
@@ -385,28 +381,23 @@ $array = json_decode($json, true);
 
         function UpdatePrice() {
             var DocNo = $('#docno').val();
-
-            swal({
-                title: "<?php echo $array['save'][$language]; ?>",
-                text: "<?php echo $array['saveprice'][$language]; ?>",
-                type: "info",
-                showCancelButton: true,
-                confirmButtonClass: "btn-primary",
-                confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
-                cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
-                confirmButtonColor: '#008000',
-                cancelButtonColor: '#e60000',
-                closeOnConfirm: false,
-                closeOnCancel: false,
-                showCancelButton: true
-            }).then(result => {
-                var data = {
-                    'STATUS': 'UpdatePrice',
-                    'DocNo': DocNo
-                };
-                // console.log(JSON.stringify(data));
-                senddata(JSON.stringify(data));
-            })
+            var NumRow = $('#NumRow').val();
+            var Price = [];
+            var chk = chk;
+            // alert(chk);
+            for (var i = 0; i < NumRow; i++) {
+                Price[i] = $("#price_"+i).val();
+            }
+            // alert(Price);
+            // var price = array();
+            var data = {
+                'STATUS': 'UpdatePrice',
+                'DocNo': DocNo,
+                'Price':Price,
+                'chk':chk
+            };
+            console.log(JSON.stringify(data));
+            senddata(JSON.stringify(data));
 
         }
 
@@ -561,9 +552,13 @@ $array = json_decode($json, true);
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
                                 showConfirmButton: false,
-                                timer: 2000,
+                                timer: 1000,
                                 confirmButtonText: 'Ok'
-                            })
+                            }).catch(function(timeout) { }); //important --> Error Uncaught (in promise) timer
+                            setTimeout(function () {
+                                $('#dialog').modal('toggle');
+                                ShowDoc();
+                            }, 1500);
                         }else if ((temp["form"] == 'CancelDocNo')) {
                                 ShowDoc();
                         }else if ((temp["form"] == 'ShowDoc')) {
@@ -594,7 +589,7 @@ $array = json_decode($json, true);
                             for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
                                 var rowCount = $('#TableItem >tbody >tr').length;
                                 var chkDoc = "<input type='radio' name='checkitem' id='checkitem' value='" + temp[i]['RowID'] + "' onclick='getdetail(\"" + temp[i]["RowID"] + "\")'>";
-                                var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
+                                var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='price_"+i+"'  value='"+temp[i]['Price']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
 
                                 StrTR = "<tr id='tr" + temp[i]['RowID'] + "'>" +
                                 "<td style='width: 5%;'>" + chkDoc + "</td>" +
@@ -615,7 +610,7 @@ $array = json_decode($json, true);
                             for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
                                 var rowCount = $('#TableItem >tbody >tr').length;
                                 var RowID = "<input type='hidden' name='RowID_"+i+"' id='RowID_"+i+"' value='" + temp[i]['RowID'] +"'>";
-                                var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' onKeyPress='if(event.keyCode==13){SavePriceTime("+i+")}'></div>";
+                                var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='price_"+i+"' name='priceNew' value='"+temp[i]['Price']+"' onKeyPress='if(event.keyCode==13){SavePriceTime("+i+")}'></div>";
 
                                 StrTR = "<tr id='tr" + RowID + "'>" +
                                     "<td style='width: 5%;'>"+ RowID +"</td>" +
@@ -631,7 +626,8 @@ $array = json_decode($json, true);
                                     $('#TableItemPrice tbody:last-child').append(StrTR);
                                 }
                             }
-
+                            var NumRow = i;
+                            $('#NumRow').val(NumRow);
                             $("#hptsel1").empty();
                             for (var i = 0; i < 1; i++) {
                                 var StrTr = "<option value = '" + temp[i]['HptCode'] + "'> " + temp[i]['HptName'] + " </option>";
@@ -815,63 +811,64 @@ $array = json_decode($json, true);
           font-family: myFirstFont;
           font-size:22px;
         }
-    input,select{
-      font-size:24px!important;
-    }
-    th,td{
-      font-size:24px!important;
-    }
-    .table > thead > tr >th {
-      background: #4f88e3!important;
-    }
+        input,select{
+        font-size:24px!important;
+        }
+        th,td{
+        font-size:24px!important;
+        }
+        .table > thead > tr >th {
+        background: #4f88e3!important;
+        }
 
-    table tr th,
-    table tr td {
-      border-right: 0px solid #bbb;
-      border-bottom: 0px solid #bbb;
-      padding: 5px;
-    }
-    table tr th:first-child,
-    table tr td:first-child {
-      border-left: 0px solid #bbb;
-    }
-    table tr th {
-      background: #eee;
-      border-top: 0px solid #bbb;
-      text-align: left;
-    }
+        table tr th,
+        table tr td {
+        border-right: 0px solid #bbb;
+        border-bottom: 0px solid #bbb;
+        padding: 5px;
+        }
+        table tr th:first-child,
+        table tr td:first-child {
+        border-left: 0px solid #bbb;
+        }
+        table tr th {
+        background: #eee;
+        border-top: 0px solid #bbb;
+        text-align: left;
+        }
 
-    /* top-left border-radius */
-    table tr:first-child th:first-child {
-      border-top-left-radius: 6px;
-    }
+        /* top-left border-radius */
+        table tr:first-child th:first-child {
+        border-top-left-radius: 6px;
+        }
 
-    /* top-right border-radius */
-    table tr:first-child th:last-child {
-      border-top-right-radius: 6px;
-    }
+        /* top-right border-radius */
+        table tr:first-child th:last-child {
+        border-top-right-radius: 6px;
+        }
 
-    /* bottom-left border-radius */
-    table tr:last-child td:first-child {
-      border-bottom-left-radius: 6px;
-    }
+        /* bottom-left border-radius */
+        table tr:last-child td:first-child {
+        border-bottom-left-radius: 6px;
+        }
 
-    /* bottom-right border-radius */
-    table tr:last-child td:last-child {
-      border-bottom-right-radius: 6px;
-    }
-    button{
-      font-size: 24px!important;
-    }
-      a.nav-link{
-        width:auto!important;
-      }
-      .datepicker{z-index:9999 !important}
-      .hidden{visibility: hidden;}
+        /* bottom-right border-radius */
+        table tr:last-child td:last-child {
+        border-bottom-right-radius: 6px;
+        }
+        button{
+        font-size: 24px!important;
+        }
+        a.nav-link{
+            width:auto!important;
+        }
+        .datepicker{z-index:9999 !important}
+        .hidden{visibility: hidden;}
     </style>
 </head>
 
 <body id="page-top">
+    <input type="hidden" id="NumRow">
     <div id="wrapper">
         <!-- content-wrapper -->
         <div id="content-wrapper">
@@ -1116,20 +1113,20 @@ $array = json_decode($json, true);
                 </div>
             </div> -->
   <!-- -----------------------------Custom1------------------------------------ -->
-  <div class="modal" id="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" id="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="card-body" style="padding:0px;">
-          <div class="row">
-                        <div class="col-md-11">
-                            <div class="row">
-                                <select class="form-control" style="font-family: 'THSarabunNew';font-size:22px;width:250px;" id="hptsel1"></select>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body" style="padding:0px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row mb-3">
+                                <select class="form-control ml-5" style="font-family: 'THSarabunNew';font-size:22px;width:250px;" id="hptsel1"></select>
 
                                 <label id="rem" style="margin-left:20px;"> *** </label>
                                 <input type="text" class="form-control datepicker-here" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" id="datepicker" data-language='en' data-date-format='dd/mm/yyyy' placeholder="<?php echo $array['datepicker'][$language]; ?>">
@@ -1141,24 +1138,24 @@ $array = json_decode($json, true);
                             </div>
                         </div>
                     </div>
-            <table class="table table-fixed table-condensed table-striped" id="TableItemPrice" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
-              <thead style="font-size:24px;">
-                <tr role="row">
-                <th style='width: 5%;'>&nbsp;</th>
-                                    <th style='width: 25%;' nowrap><?php echo $array['side'][$language]; ?></th>
-                                    <th style='width: 25%;' nowrap><?php echo $array['categorymain'][$language]; ?></th>
-                                    <th style='width: 25%;' nowrap><?php echo $array['categorysub'][$language]; ?></th>
-                                    <th style='width: 20%;' nowrap><?php echo $array['price'][$language]; ?></th>
-                </tr>
-              </thead>
-              <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
-              </tbody>
-            </table>
-          </div>
+                    <table class="table table-fixed table-condensed table-striped" id="TableItemPrice" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
+                        <thead style="font-size:24px;">
+                            <tr role="row">
+                            <th style='width: 5%;'>&nbsp;</th>
+                                <th style='width: 25%;' nowrap><?php echo $array['side'][$language]; ?></th>
+                                <th style='width: 25%;' nowrap><?php echo $array['categorymain'][$language]; ?></th>
+                                <th style='width: 25%;' nowrap><?php echo $array['categorysub'][$language]; ?></th>
+                                <th style='width: 20%;' nowrap><?php echo $array['price'][$language]; ?></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
             <!-- Bootstrap core JavaScript-->
             <script src="../template/vendor/jquery/jquery.min.js"></script>
             <script src="../template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
