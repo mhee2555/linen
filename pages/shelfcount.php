@@ -779,6 +779,11 @@ function OpenDialogItem(){
                     parent.OnLoadPage();
                   }, 1000);
                 }else if(temp["form"]=='ShowDocument'){
+
+                  setTimeout(function () {
+                  parent.OnLoadPage();
+                }, 500);
+
                   $( "#TableDocument tbody" ).empty();
                   $( "#TableItemDetail tbody" ).empty();
                   // $("#docno").val(temp[0]['DocNo']);

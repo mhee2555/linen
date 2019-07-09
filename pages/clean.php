@@ -747,6 +747,11 @@ $(document).ready(function(e){
                 $("#timerec").val(temp[0]['RecNow']);
                 $("#RefDocNo").val("");
               }else if(temp["form"]=='ShowDocument'){
+
+                setTimeout(function () {
+                  parent.OnLoadPage();
+                }, 500);
+
                 $( "#TableDocument tbody" ).empty();
                 $( "#TableItemDetail tbody" ).empty();
                 for (var i = 0; i < (Object.keys(temp).length-2); i++) {
