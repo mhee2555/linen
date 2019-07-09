@@ -174,6 +174,8 @@ function CreateDocument($conn, $DATA)
     INNER JOIN users ON draw.Modify_Code = users.ID ";
     if ($selecta == 0) {
       $Sql.= "WHERE draw.DepCode = $deptCode AND draw.DocNo LIKE '%$DocNo%' ";
+    }elseif($selecta==1){
+      $Sql.="draw.DepCode = $deptCode";
     }
     $Sql.= "AND site.HptCode = '$hosCode' ";
     $Sql.= "ORDER BY draw.DocNo DESC LIMIT 500 ";

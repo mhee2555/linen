@@ -167,6 +167,8 @@ function CreateDocument($conn, $DATA)
     INNER JOIN users ON clean.Modify_Code = users.ID ";
     if ($selecta == 0) {
       $Sql .= "WHERE clean.DepCode = $deptCode AND clean.DocNo LIKE '%$DocNo%'";
+    }elseif($selecta==1){
+      $Sql.="clean.DepCode = $deptCode";
     }
     $Sql .= "ORDER BY clean.DocNo DESC LIMIT 500";
     $meQuery = mysqli_query($conn, $Sql);

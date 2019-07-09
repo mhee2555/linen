@@ -1308,7 +1308,7 @@ $(document).ready(function(e){
                         <div class="row mt-3">
                           <div class="col-md-4">
                             <div class="row" style="font-size:24px;margin-left:2px;">
-                              <select class="form-control" style='font-size:24px;' id="Dep2">
+                              <select class="form-control" style='font-size:24px;' id="Dep2" disabled='true'>
                               </select>
                             </div>
                           </div>
