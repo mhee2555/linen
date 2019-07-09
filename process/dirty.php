@@ -170,6 +170,8 @@ function ShowDocument($conn, $DATA)
   INNER JOIN users ON dirty.Modify_Code = users.ID ";
     if ($selecta == 0) {
     $Sql .= "WHERE dirty.DepCode = $deptCode AND dirty.DocNo LIKE '%$DocNo%'";
+  }elseif($selecta==1){
+    $Sql.="dirty.DepCode = $deptCode";
   }
   $Sql .= "ORDER BY dirty.DocNo DESC LIMIT 500";
   $meQuery = mysqli_query($conn, $Sql);

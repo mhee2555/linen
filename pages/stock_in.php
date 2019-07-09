@@ -1243,7 +1243,7 @@ $array = json_decode($json,TRUE);
                           <div class="row" style="margin-top:10px;">
                             <div class="col-md-4">
                               <div class="row" style="font-size:24px;margin-left:2px;">
-                                <select class="form-control" style='font-size:24px;' id="Dep2">
+                                <select class="form-control" style='font-size:24px;' id="Dep2" disabled='true'>
                                 </select>
                               </div>
                             </div>
