@@ -369,7 +369,7 @@ function ShowItem($conn, $DATA)
     $UnitCode = $Result['UnitCode'];
     $count2 = 0;
 
-    $countM = "SELECT COUNT(*) AS cnt FROM item_multiple_unit  WHERE WHERE item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
+    $countM = "SELECT COUNT(*) AS cnt FROM item_multiple_unit  WHERE  item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
     $MQuery = mysqli_query($conn, $countM);
 
     // Add New
