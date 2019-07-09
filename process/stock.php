@@ -32,24 +32,42 @@ function OnLoadPage($conn,$DATA){
 }
 
 function getDepartment($conn,$DATA){
+  $PmID = $_SESSION['PmID'];
   $count = 0;
   $boolean = false;
   $Hotp = $DATA["Hotp"];
 
-  $Sql = "SELECT department.DepCode,department.DepName,department.IsDefault
-  FROM department
-  WHERE department.HptCode = '$Hotp' 
-  AND  department.IsDefault = 1
-  AND department.IsStatus = 0
-  ORDER BY department.DepCode DESC";
-  $return['sql'] = $Sql;
-  $meQuery = mysqli_query($conn,$Sql);
-  while ($Result = mysqli_fetch_assoc($meQuery)) {
-    $return[$count]['DepCode'] = $Result['DepCode'];
-    $return[$count]['DepName'] = $Result['DepName'];
-    $return[$count]['IsDefault'] = $Result['IsDefault'];
-    $count++;
-    $boolean = true;
+  if($PmID != 1){
+    $Sql = "SELECT department.DepCode,department.DepName,department.IsDefault
+    FROM department
+    WHERE department.HptCode = '$Hotp' 
+    AND  department.IsDefault = 1
+    AND department.IsStatus = 0
+    ORDER BY department.DepCode DESC";
+    $return['sql'] = $Sql;
+    $meQuery = mysqli_query($conn,$Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $return[$count]['DepCode'] = $Result['DepCode'];
+      $return[$count]['DepName'] = $Result['DepName'];
+      $return[$count]['IsDefault'] = $Result['IsDefault'];
+      $count++;
+      $boolean = true;
+    }
+  }else{
+    $Sql = "SELECT department.DepCode,department.DepName,department.IsDefault
+    FROM department
+    WHERE department.HptCode = '$Hotp' 
+    AND department.IsStatus = 0
+    ORDER BY department.DepCode DESC";
+    $return['sql'] = $Sql;
+    $meQuery = mysqli_query($conn,$Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $return[$count]['DepCode'] = $Result['DepCode'];
+      $return[$count]['DepName'] = $Result['DepName'];
+      $return[$count]['IsDefault'] = $Result['IsDefault'];
+      $count++;
+      $boolean = true;
+    }
   }
   $return['Row'] = $count;
 
