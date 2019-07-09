@@ -666,6 +666,7 @@ function CreateDocument($conn, $DATA)
 
   function UpdateRefDocNo($conn, $DATA)
   {
+    $hptcode = $DATA["hptcode"];
     $DocNo = $DATA["xdocno"];
     $RefDocNo = $DATA["RefDocNo"];
     $checkitem = $DATA["checkitem"];
@@ -863,13 +864,17 @@ function CreateDocument($conn, $DATA)
 
   function get_dirty_doc($conn, $DATA)
   {
+    $hptcode = $DATA["hptcode"];
     $boolean = false;
     $count = 0;
     $Sql = "SELECT dirty.DocNo
     FROM dirty
-    WHERE dirty.IsCancel = 0
+    INNER JOIN department ON dirty.DepCode = department.DepCode
+    INNER JOIN site ON department.HptCode = site.HptCode
+    WHERE dirty.IsCancel = 0 
     AND dirty.IsStatus = 1
     AND dirty.IsRef = 0
+    AND site.HptCode = '$hptcode' 
     ORDER BY dirty.Modify_Date DESC
     LIMIT 100";
     // var_dump($Sql); die;

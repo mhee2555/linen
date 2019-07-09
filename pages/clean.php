@@ -227,10 +227,12 @@ $(document).ready(function(e){
       }
 
       function get_dirty_doc(){
+        var hptcode = '<?php echo $HptCode ?>';
         var docno = $("#docno").val();
         var data = {
           'STATUS' : 'get_dirty_doc',
-          'DocNo'  : docno
+          'DocNo'  : docno,
+          'hptcode'  : hptcode
         };
         console.log(JSON.stringify(data));
         senddata(JSON.stringify(data));
@@ -632,6 +634,7 @@ $(document).ready(function(e){
       }
 
       function UpdateRefDocNo(){
+        var hptcode = '<?php echo $HptCode ?>';
         var docno = $("#docno").val();
         var RefDocNo;
         //get value from radio button
@@ -646,7 +649,9 @@ $(document).ready(function(e){
           'RefDocNo'    : RefDocNo,
           'selecta'     : 0,
           'deptCode'	  : deptCode,
-          'checkitem'   : checkitem
+          'checkitem'   : checkitem,
+          'hptcode'   : hptcode
+
         };
         console.log(checkitem);
         senddata(JSON.stringify(data));

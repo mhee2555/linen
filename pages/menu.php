@@ -125,11 +125,15 @@ $array = json_decode($json,TRUE);
   //======= On create =======
   //console.log(JSON.stringify(data));
   function OnLoadPage(){
+    var hptcode = '<?php echo $HptCode ?>';
     var isStatus = $("#IsStatus").val();
     var data = {
       'STATUS'  : 'OnLoadPage',
-      'isStatus'    : isStatus
+      'isStatus'    : isStatus,
+      'hptcode' : hptcode
+
     };
+
     senddata(JSON.stringify(data));
   }
   function alert_SetPrice(){
@@ -229,7 +233,7 @@ $array = json_decode($json,TRUE);
                       // '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
                       '<td nowrap style="width: 26%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
                       '<td nowrap style="width: 30%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
-                      '<td nowrap style="width: 18%;">หมวดหมู่: '+temp[i]['CategoryName']+'</td>'+
+                      '<td nowrap style="width: 18%;"> '+temp[i]['CategoryName']+'</td>'+
                       '<td nowrap style="width: 20%;">วันที่: '+temp[i]['newDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
                     "</tr>";
                 }

@@ -1199,13 +1199,17 @@ function CreateDocument($conn, $DATA)
   }
   function get_dirty_doc($conn, $DATA)
   {
+    $hptcode = $DATA["hptcode"];
     $boolean = false;
     $count = 0;
     $Sql = "SELECT shelfcount.DocNo
     FROM shelfcount
+    INNER JOIN department ON shelfcount.DepCode = department.DepCode
+    INNER JOIN site ON department.HptCode = site.HptCode
     WHERE shelfcount.IsCancel = 0
     AND shelfcount.IsStatus = 1
     AND shelfcount.IsRef = 0
+    AND site.HptCode = '$hptcode' 
     ORDER BY shelfcount.Modify_Date DESC
     LIMIT 100";
     // var_dump($Sql); die;

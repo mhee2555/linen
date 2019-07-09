@@ -156,10 +156,12 @@ $array = json_decode($json,TRUE);
       }
       
       function get_dirty_doc(){
+        var hptcode = '<?php echo $HptCode ?>';
         var docno = $("#docno").val();
         var data = {
           'STATUS' : 'get_dirty_doc',
-          'DocNo'  : docno
+          'DocNo'  : docno,
+          'hptcode'  : hptcode
         };
         console.log(JSON.stringify(data));
         senddata(JSON.stringify(data));

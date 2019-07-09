@@ -5,6 +5,8 @@ date_default_timezone_set("Asia/Bangkok");
 $xDate = date('Y-m-d');
 
 function OnLoadPage($conn,$DATA){
+  $hptcode = $DATA['hptcode'];
+
   $count = 0;
   $boolean = false;
   $Sql = "SELECT
@@ -18,8 +20,9 @@ function OnLoadPage($conn,$DATA){
   FROM shelfcount
   INNER JOIN department ON shelfcount.DepCode = department.DepCode
   INNER JOIN site ON department.HptCode = site.HptCode
-  WHERE shelfcount.IsStatus = 0
+  WHERE  site.HptCode = '$hptcode' AND shelfcount.IsStatus = 0
   ORDER BY shelfcount.DocNo DESC";
+  $return['sql'] =$Sql;
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['DocNo'] = $Result['DocNo'];
