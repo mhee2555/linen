@@ -20,10 +20,8 @@ function OnLoadPage($conn,$DATA){
 
   $Sql = "SELECT COUNT(*) AS Cnt
   FROM contract_parties_hospital
-  INNER JOIN department ON department.DepCode = contract_parties_hospital.DepCode
-  INNER JOIN site ON site.HptCode = department.HptCode
-  WHERE site.HptCode = '$HptCode' AND contract_parties_hospital.IsStatus = 0
-  AND DATEDIFF( DATE( contract_parties_hospital.EndDate ), DATE(NOW()) ) < 31";
+  WHERE IsStatus = 0
+  AND DATEDIFF(DATE(contract_parties_hospital.EndDate),DATE(NOW())) < 31";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return['HOS_Cnt'] = $Result['Cnt'];
