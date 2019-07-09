@@ -850,9 +850,8 @@ function CreateDocument($conn, $DATA)
           $TotalQty = $xTotalQty[$i];
           mysqli_query($conn, "UPDATE item_stock SET CcQty=$CcQty,TotalQty= (TotalQty-$TotalQty)  WHERE DepCode = $DepCodeDraw AND ItemCode = '$ItemCode'");
 
-          if($ParQty!= 0){
           mysqli_query($conn, "UPDATE item_stock SET CcQty=$CcQty,TotalQty= (TotalQty+$TotalQty)  WHERE DepCode = $DepCodeSC   AND ItemCode ='$ItemCodeSC'");
-          }
+          
           // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty + $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDepCode");
           // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty - $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDept");
       }
