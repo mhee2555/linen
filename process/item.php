@@ -343,22 +343,50 @@ function AddItem($conn, $DATA)
 function AddUnit($conn, $DATA)
 {
   $count = 0;
-  $Sql = "INSERT INTO item_multiple_unit(
-          MpCode,
-          UnitCode,
-          Multiply,
-          ItemCode
-        )
-        VALUES
-        (
-          ".$DATA['MpCode'].",
-          ".$DATA['UnitCode'].",
-          ".$DATA['Multiply'].",
-          '".$DATA['ItemCode']."'
-        )
-  ";
+  $ItemCode = $DATA['ItemCode'];
+  $MpCode = $DATA['MpCode'];
+  $UnitCode = $DATA['UnitCode'];
+  $Multiply = $DATA['Multiply'];
+
+  $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = 1 AND UnitCode = 1 AND ItemCode = '$ItemCode'";
+  $MQuery = mysqli_query($conn,$countM);
+  while ($MResult = mysqli_fetch_assoc($MQuery)) {
+
+    $return['sql'] = $countM;
+
+    if($MResult['cnt']==0){
+      if($MpCode == 1 && $Multiply == 1){
+        $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode ) VALUES
+        ($MpCode, $UnitCode, $Multiply, '$ItemCode') ";
+        mysqli_query($conn,$Sql2);
+        $return['have'] = 1;
+
+      }else{
+        $Sql1 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode ) VALUES
+        (1,1,1,'$ItemCode') ";
+        mysqli_query($conn,$Sql1);
+
+        $return['have'] = 2;
+        $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode ) VALUES
+        ($MpCode, $UnitCode, $Multiply, '$ItemCode') ";
+        mysqli_query($conn,$Sql2);
+      }
+      $count++;
+    }else{
+      $return['have'] = 3;
+      $return['UnitCode'] = $UnitCode;
+      $return['Multiply'] = $Multiply;
+      if($MpCode != 1 && $Multiply != 1){
+        $Sql3 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode ) VALUES 
+        ($MpCode, $UnitCode, $Multiply, '$ItemCode') ";
+        mysqli_query($conn,$Sql3);
+        $count++;
+      }
+    }
+  }
+ 
   // var_dump($Sql); die;
-  if(mysqli_query($conn, $Sql)){
+  if($count>0){
     $return['status'] = "success";
     $return['form'] = "AddUnit";
     $return['msg'] = "addsuccess";
