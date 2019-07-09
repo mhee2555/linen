@@ -1199,27 +1199,30 @@ function CreateDocument($conn, $DATA)
 
   $result = mysqli_query( $conn, $sql_update);
   while ($row = mysqli_fetch_array($result)) {
-      $xItemCode[$n] 	= $row["ItemCode"];
-      $xParQty[$n] 	= $row["ParQty"];
-      $xCcQty[$n] 	= $row["CcQty"];
-      $xTotalQty[$n] 	= $row["TotalQty"];
-      $n++;
-  }
-  for($i=0;$i<$n;$i++){
-      $ItemCode = $xItemCode[$i];
-      $ParQty = $xParQty[$i];
-      $CcQty = $xCcQty[$i];
-      $TotalQty = $xTotalQty[$i];
+      $xItemCode 	= $row["ItemCode"];
+      $xParQty 	= $row["ParQty"];
+      $xCcQty 	= $row["CcQty"];
+      $xTotalQty 	= $row["TotalQty"];
+      // $n++;
+  // }
+  // for($i=0;$i<$n;$i++){
+      // $ItemCode = $xItemCode[$i];
+      // $ParQty = $xParQty[$i];
+      // $CcQty = $xCcQty[$i];
+      // $TotalQty = $xTotalQty[$i];
 
-      mysqli_query($conn, "UPDATE item_stock SET CcQty=$CcQty,TotalQty= (TotalQty+$TotalQty)  WHERE DepCode = $DepCodeDraw AND ItemCode = '$ItemCode'");
+      $update1 = "UPDATE item_stock SET CcQty=$xCcQty,TotalQty= (TotalQty+$xTotalQty)  WHERE DepCode = $DepCodeDraw AND ItemCode = '$xItemCode'";
+      mysqli_query($conn, $update1);
 
-      mysqli_query($conn, "UPDATE item_stock SET CcQty=$CcQty,TotalQty= (TotalQty-$TotalQty)  WHERE DepCode = $DepCodeSC   AND ItemCode ='$ItemCodeSC'");
+      $update2 = "UPDATE item_stock SET CcQty=$xCcQty,TotalQty= (TotalQty-$xTotalQty)  WHERE DepCode = $DepCodeSC   AND ItemCode ='$ItemCodeSC'";
+      mysqli_query($conn, $update2);
       
       // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty + $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDepCode");
       // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty - $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDept");
   }
 
-
+  $return['up1'] = $update1;
+  $return['up2'] = $update2;
   echo json_encode($return);
 
   }
