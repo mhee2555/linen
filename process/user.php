@@ -58,7 +58,7 @@ function getdetail($conn, $DATA)
         FROM users
         INNER JOIN permission ON users.PmID = permission.PmID
         INNER JOIN site ON users.HptCode = site.HptCode
-        INNER JOIN factory ON factory.FacCode = users.FacID  
+        INNER JOIN factory ON factory.FacCode = users.FacCode  
         WHERE users.ID = $ID AND users.IsCancel = 0";
         $return['sql'] = $Sql;
 
@@ -250,7 +250,7 @@ function AddItem($conn, $DATA)
         users.`Password`='$Password',
         users.FName='$FName',
         users.PmID=$Permission,
-        users.FacID=$facID,
+        users.FacCode=$facID,
         users.Modify_Date=NOW() 
         WHERE users.ID = $UsID";
 
@@ -271,7 +271,7 @@ function AddItem($conn, $DATA)
         users.FName,
         users.IsCancel,
         users.PmID,
-        users.FacID,
+        users.FacCode,
         users.Count,
         users.Modify_Date,
         users.TimeOut
