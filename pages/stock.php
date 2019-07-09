@@ -384,14 +384,15 @@ $array = json_decode($json,TRUE);
                           <div class="col-md-4">
                             <div class='form-group row'>
                               <label class="col-sm-5 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
-                              <select class="form-control col-sm-6" id="hotpital" onchange="getDepartment();" disabled="true"></select>
+                              <select class="form-control col-sm-6"  <?php if($PmID != 1) {echo "disabled='true'" ;} ?> id="hotpital" onchange="getDepartment();" ></select>
                             </div>
                           </div>
+  
 
                           <div class="col-md-4">
                             <div class='form-group row'>
                               <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
-                              <select  class="form-control col-sm-7" id="department" disabled="true"></select>
+                              <select  class="form-control col-sm-7"<?php if($PmID != 1) {echo "disabled='true'" ;} ?> id="department"></select>
                             </div>
                           </div>
 
