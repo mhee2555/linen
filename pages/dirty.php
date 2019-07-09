@@ -221,6 +221,7 @@ $array = json_decode($json,TRUE);
     }
 
         function ShowDocument(selecta){
+          var Hotp = $('#hotpital option:selected').attr("value");
           var searchdocument = $('#searchdocument').val();
           if( typeof searchdocument == 'undefined' ) searchdocument = "";
           var deptCode = $('#Dep2 option:selected').attr("value");
@@ -229,7 +230,8 @@ $array = json_decode($json,TRUE);
             'STATUS'  	: 'ShowDocument',
             'xdocno'	: searchdocument,
             'selecta' : selecta,
-            'deptCode'	: deptCode
+            'deptCode'	: deptCode,
+            'Hotp'	: Hotp
           };
           senddata(JSON.stringify(data));
         }

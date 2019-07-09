@@ -150,8 +150,8 @@ function CreateDocument($conn, $DATA)
   {
     $boolean = false;
     $count = 0;
+    $Hotp = $DATA["Hotp"];
     $deptCode = $DATA["deptCode"];
-    $hosCode = $DATA["hosCode"];
     $DocNo = str_replace(' ', '%', $DATA["xdocno"]);
     $selecta = $DATA["selecta"];
     //$Datepicker = $DATA["Datepicker"];
@@ -175,9 +175,8 @@ function CreateDocument($conn, $DATA)
     if ($selecta == 0) {
       $Sql.= "WHERE draw.DepCode = $deptCode AND draw.DocNo LIKE '%$DocNo%' ";
     }elseif($selecta==1){
-      $Sql.="draw.DepCode = $deptCode";
+      $Sql.="WHERE site.HptCode = '$Hotp'";
     }
-    $Sql.= "AND site.HptCode = '$hosCode' ";
     $Sql.= "ORDER BY draw.DocNo DESC LIMIT 500 ";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {

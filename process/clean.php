@@ -154,6 +154,7 @@ function CreateDocument($conn, $DATA)
   {
     $boolean = false;
     $count = 0;
+    $Hotp = $DATA["Hotp"];
     $deptCode = $DATA["deptCode"];
     $DocNo = str_replace(' ', '%', $DATA["xdocno"]);
     $Datepicker = $DATA["Datepicker"];
@@ -168,7 +169,7 @@ function CreateDocument($conn, $DATA)
     if ($selecta == 0) {
       $Sql .= "WHERE clean.DepCode = $deptCode AND clean.DocNo LIKE '%$DocNo%'";
     }elseif($selecta==1){
-      $Sql.="clean.DepCode = $deptCode";
+      $Sql.="WHERE site.HptCode = '$Hotp'";
     }
     $Sql .= "ORDER BY clean.DocNo DESC LIMIT 500";
     $meQuery = mysqli_query($conn, $Sql);

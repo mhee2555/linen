@@ -304,23 +304,20 @@ function OpenDialogItem(){
     }
 
     function ShowDocument(selecta){
-      var searchdocument = $('#searchdocument').val();
-      if( typeof searchdocument == 'undefined' ) searchdocument = "";
-      var hosCode = $('#side option:selected').attr("value");
-      if( typeof hosCode == 'undefined' ) hosCode = "1";
-      var deptCode = $('#Dep2 option:selected').attr("value");
-      if( typeof deptCode == 'undefined' ) deptCode = "1";
-      var data = {
-        'STATUS'  	: 'ShowDocument',
-        'xdocno'	: searchdocument,
-        'selecta' : selecta,
-        'deptCode'	: deptCode,
-        'hosCode' :   hosCode
-
-      };
-      console.log(data);
-      senddata(JSON.stringify(data));
-    }
+          var Hotp = $('#hotpital option:selected').attr("value");
+          var searchdocument = $('#searchdocument').val();
+          if( typeof searchdocument == 'undefined' ) searchdocument = "";
+          var deptCode = $('#Dep2 option:selected').attr("value");
+          if( typeof deptCode == 'undefined' ) deptCode = "1";
+          var data = {
+            'STATUS'  	: 'ShowDocument',
+            'xdocno'	: searchdocument,
+            'selecta' : selecta,
+            'deptCode'	: deptCode,
+            'Hotp'	: Hotp
+          };
+          senddata(JSON.stringify(data));
+        }
 
     function ShowDocument_sub(){
       var searchdocument = $('#searchdocument').val();

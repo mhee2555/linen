@@ -156,6 +156,7 @@ function ShowDocument($conn, $DATA)
 {
   $boolean = false;
   $count = 0;
+  $Hotp = $DATA["Hotp"];
   $deptCode = $DATA["deptCode"];
   $DocNo = str_replace(' ', '%', $DATA["xdocno"]);
   $Datepicker = $DATA["Datepicker"];
@@ -170,7 +171,7 @@ INNER JOIN users ON stock_in.Modify_Code = users.ID ";
   if ($selecta == 0) {
   $Sql .= "WHERE stock_in.DepCode = $deptCode AND stock_in.DocNo LIKE '%$DocNo%'";
   }elseif($selecta==1){
-    $Sql.="stock_in.DepCode = $deptCode";
+    $Sql.="WHERE site.HptCode = '$Hotp'";
   }
   $Sql .= "ORDER BY stock_in.DocNo DESC LIMIT 500";
   $meQuery = mysqli_query($conn, $Sql);
