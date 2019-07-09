@@ -78,22 +78,23 @@ function ShowDocument($conn,$DATA){
   $selecta = $DATA["selecta"];
 
   $Sql = "SELECT
-  item_stock.ItemCode,
-  item.ItemName,
-  department.DepCode,
-  department.DepName,
-  site.HptName,
-  item_stock.ParQty,
-  item_stock.TotalQty,
-  item_category.CategoryName
-  FROM
-  item_stock
+    item_stock.ItemCode,
+    item.ItemName,
+    department.DepCode,
+    department.DepName,
+    site.HptName,
+    item_stock.ParQty,
+    item_stock.TotalQty,
+    item_category.CategoryName
+  FROM item_stock
   INNER JOIN item ON item_stock.ItemCode = item.ItemCode
   INNER JOIN department ON item_stock.DepCode = department.DepCode
   INNER JOIN site ON department.HptCode = site.HptCode
   INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode ";
   if ($selecta==0) {
     $Sql.="WHERE site.HptCode = '$hos' AND item_stock.DepCode =  $dept AND item.ItemName LIKE '%$search%' ";
+  }elseif($selecta==2){
+    $Sql.="WHERE site.HptCode = '$hos'";
   }
   $Sql.="GROUP BY item_stock.ItemCode , item_stock.DepCode ORDER BY department.DepCode,item_stock.ItemCode";
 
