@@ -294,7 +294,7 @@ function CreateDocument($conn, $DATA)
       $UnitCode = $Result['UnitCode'];
       $count2 = 0;
 
-      $countM = "SELECT COUNT(*) AS cnt FROM item_multiple_unit  WHERE WHERE item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
+      $countM = "SELECT COUNT(*) AS cnt FROM item_multiple_unit  WHERE  item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
       $MQuery = mysqli_query($conn, $countM);
       if($MQuery){
       $xSql = "SELECT item_multiple_unit.MpCode,item_multiple_unit.UnitCode,item_unit.UnitName,item_multiple_unit.Multiply
@@ -774,7 +774,7 @@ function CreateDocument($conn, $DATA)
       $ItemCode               = $Result['ItemCode'];
       $count2 = 0;
 
-      $countM = "SELECT COUNT(*) AS cnt FROM item_multiple_unit  WHERE WHERE item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
+      $countM = "SELECT COUNT(*) AS cnt FROM item_multiple_unit  WHERE  item_multiple_unit.UnitCode  = $UnitCode AND item_multiple_unit.ItemCode = '$ItemCode'";
       $MQuery = mysqli_query($conn, $countM);
       if($MQuery){
 
