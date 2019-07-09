@@ -45,6 +45,7 @@ function getDepartment($conn, $DATA)
   $Sql = "SELECT department.DepCode,department.DepName
   FROM department
   WHERE department.HptCode = '$Hotp'
+  AND department.IsDefault = 1
   AND department.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -515,7 +516,7 @@ function getImport($conn, $DATA)
         $Sql = "INSERT INTO dirty_detail
             (DocNo,ItemCode,UnitCode,Qty,Weight,IsCancel)
             VALUES
-            ('$DocNo','$ItemCode',$iunit2,$iqty2,$iweight,0)";
+            ('$DocNo','$ItemCode',$iunit2,$iqty,$iweight,0)";
         mysqli_query($conn, $Sql);
       } else {
         $Sql = "INSERT INTO dirty_detail_sub

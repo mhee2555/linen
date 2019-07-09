@@ -381,10 +381,12 @@ function OpenDialogItem(){
     }
 
     function CancelBill() {
+      var docno2 = $("#RefDocNo").val();
       var docno = $("#docno").val();
       var data = {
         'STATUS'  : 'CancelBill',
-        'DocNo'   : docno
+        'DocNo'   : docno,
+        'docno2'   : docno2
       };
       senddata(JSON.stringify(data));
       $('#profile-tab').tab('show');
@@ -780,6 +782,8 @@ function OpenDialogItem(){
                     $("#hotpital").append(Str);
                   }
                   if(PmID != 1){
+                    $("#side").val(HptCode);
+                    $("#side").attr('disabled', true);
                     $("#hotpital").val(HptCode);
                     $("#hotpital").attr('disabled', true);
                   }
@@ -1300,7 +1304,7 @@ function OpenDialogItem(){
                                   <div class="col-md-6">
                                     <div class='form-group row'>
                                       <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
-                                        <select class="form-control col-sm-9" id="department" disabled="true">
+                                        <select class="form-control col-sm-9" id="department" >
                                         </select>
                                     </div>
                                   </div>
