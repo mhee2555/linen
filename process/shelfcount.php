@@ -324,10 +324,6 @@ function ShowItem($conn, $DATA)
   $boolean = false;
   $searchitem = str_replace(' ', '%', $DATA["xitem"]);
   $deptCode = $DATA["deptCode"];
-
-
-  
-
   // $Sqlx = "INSERT INTO log ( log ) VALUES ('item : $item')";
   // mysqli_query($conn,$Sqlx);
 
