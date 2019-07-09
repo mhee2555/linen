@@ -1146,7 +1146,7 @@ $array = json_decode($json,TRUE);
                       <div class="col-md-6">
                         <div class='form-group row'>
                           <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
-                            <select class="form-control col-sm-9" id="department" disabled="true"> </select>
+                            <select class="form-control col-sm-9" id="department" > </select>
                         </div>
                       </div>
                     </div>
@@ -1288,7 +1288,7 @@ $array = json_decode($json,TRUE);
             <div class="row" style="margin-top:10px;">
               <div class="col-md-4">
                 <div class="row" style="font-size:24px;margin-left:2px;">
-                  <select class="form-control" style='font-size:24px;' id="Dep2" disabled='true'>
+                  <select class="form-control" style='font-size:24px;' id="Dep2" >
                   </select>
                 </div>
               </div>

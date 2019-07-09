@@ -1084,7 +1084,7 @@ $array = json_decode($json,TRUE);
                       <div class="col-md-6">
                         <div class='form-group row'>
                           <label class="col-sm-3 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
-                          <select  class="form-control form-control col-sm-9" id="hotpital" onchange="getDepartment();" disabled="true"> </select>
+                          <select  class="form-control form-control col-sm-9" id="hotpital" onchange="getDepartment();" disabled='true'> </select>
                         </div>
                       </div>
                       <div class="col-md-6">

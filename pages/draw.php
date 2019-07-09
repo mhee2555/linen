@@ -1297,7 +1297,7 @@ function OpenDialogItem(){
                                   <div class="col-md-6">
                                     <div class='form-group row'>
                                       <label class="col-sm-3 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
-                                      <select  class="form-control col-sm-9" id="hotpital" onchange="getDepartment();" >
+                                      <select  class="form-control col-sm-9" id="hotpital" onchange="getDepartment();">
                                       </select>
                                     </div>
                                   </div>
