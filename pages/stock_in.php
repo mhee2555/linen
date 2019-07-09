@@ -249,10 +249,12 @@ $array = json_decode($json,TRUE);
 
 
         function ShowItem(){
+          var deptCode = $('#department option:selected').attr("value");
           var searchitem = $('#searchitem').val();
           var data = {
             'STATUS'  : 'ShowItem',
-            'xitem'	: searchitem
+            'xitem'	: searchitem,
+            'deptCode'	  : deptCode
           };
           senddata(JSON.stringify(data));
         }

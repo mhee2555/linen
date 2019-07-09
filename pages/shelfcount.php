@@ -294,7 +294,7 @@ function OpenDialogItem(){
       var data = {
         'STATUS'  : 'ShowItem',
         'xitem'	  : searchitem,
-        'deptCode'	  : deptCode,
+        'deptCode'	  : deptCode
 
       };
       console.log(JSON.stringify(data));

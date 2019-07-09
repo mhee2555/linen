@@ -606,7 +606,7 @@ function getImport($conn, $DATA)
       if ($Sel == 1) {
         $Sql = "INSERT INTO shelfcount_detail
         (DocNo,ItemCode,UnitCode,ParQty,CcQty,TotalQty,IsCancel) VALUES
-        ('$DocNo','$ItemCode',$iunit2,$ParQty,$iqty2,($Qty-$iqty2),0)";
+        ('$DocNo','$ItemCode',$iunit2,$ParQty,$iqty2,($ParQty-$iqty2),0)";
 
         mysqli_query($conn, $Sql);
       } else {
@@ -623,7 +623,7 @@ function getImport($conn, $DATA)
     } else {
       if ($Sel == 1) {
         $Sql = "UPDATE shelfcount_detail
-        SET TotalQty = (Qty+$iqty2),CcQty = $iqty2,ParQty = $ParQty
+        SET TotalQty = ($Qty+$iqty2),CcQty = $iqty2,ParQty = $ParQty
         WHERE DocNo = '$DocNo' AND ItemCode = '$ItemCode'";
         mysqli_query($conn, $Sql);
       } else {
@@ -1000,7 +1000,7 @@ function ShowDetail($conn, $DATA)
     $return[$count]['UnitName']   = $Result['UnitName'];
     $return[$count]['ParQty']     = $Result['ParQty'];
     $return[$count]['CcQty']       = $Result['CcQty'];
-    $return[$count]['TotalQty']   = $Result['TotalQty'];
+    $return[$count]['TotalQty']   = $Result['TotalQty']==null?0:$Result['TotalQty'];
     $return[$count]['Qty']   = $Result['Qty']==null?0:$Result['Qty'];
     $UnitCode                     = $Result['UnitCode'];
     $ItemCode                     = $Result['ItemCode'];

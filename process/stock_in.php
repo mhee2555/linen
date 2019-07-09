@@ -255,6 +255,7 @@ function ShowItem($conn, $DATA)
   $count = 0;
   $boolean = false;
   $searchitem = str_replace(' ', '%', $DATA["xitem"]);
+  $deptCode = $DATA["deptCode"];
 
   // $Sqlx = "INSERT INTO log ( log ) VALUES ('item : $item')";
   // mysqli_query($conn,$Sqlx);
@@ -278,8 +279,8 @@ function ShowItem($conn, $DATA)
 		INNER JOIN item ON item_stock.ItemCode = item.ItemCode
 		INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
 		INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
-		WHERE item.ItemName LIKE '%$searchitem%'
-        GROUP BY item.ItemCode
+    WHERE item_stock.DepCode = $deptCode AND  item.ItemName LIKE '%$searchitem%'
+    GROUP BY item.ItemCode
     ORDER BY item.ItemCode ASC LImit 100";
     $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
