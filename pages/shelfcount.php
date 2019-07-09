@@ -1035,7 +1035,7 @@ function OpenDialogItem(){
                   var st2 = "style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;font-family:THSarabunNew'"
                   $( "#TableItem tbody" ).empty();
 
-                  for (var i = 0; i < temp["Row"]; i++) {
+                  for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                     var rowCount = $('#TableItem >tbody >tr').length;
 
                     var chkunit ="<select "+st1+" class='form-control' id='iUnit_"+i+"'>";
