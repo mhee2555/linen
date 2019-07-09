@@ -8,10 +8,10 @@ function ShowItem($conn, $DATA)
   $Keyword = $DATA['Keyword'];
   $Catagory = $DATA['Catagory'];
   $Sql = "SELECT
-          item.ItemCode,
-          item.ItemName,
-          item_category.CategoryName,
-          item_unit.UnitName,
+            item.ItemCode,
+            item.ItemName,
+            item_category.CategoryName,
+            item_unit.UnitName,
           CASE item.SizeCode
           WHEN '1' THEN 'SS'
           WHEN '2' THEN 'S'
@@ -19,21 +19,22 @@ function ShowItem($conn, $DATA)
           WHEN '4' THEN 'L'
           WHEN '5' THEN 'XL'
           WHEN '6' THEN 'XXL' END AS SizeCode,
-          item.CusPrice,
-          item.FacPrice,
-          item.Weight,
-          item.Picture
-          FROM
-          item
+            item.CusPrice,
+            item.FacPrice,
+            item.Weight,
+            item.Picture
+          FROM item
           INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
-          INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
-          WHERE item.CategoryCode = $Catagory OR (item.ItemCode LIKE '%$Keyword%' OR
-          item.ItemName LIKE '%$Keyword%' OR
-          item.Weight LIKE '%$Keyword%' OR
-          item_unit.UnitName LIKE '%$Keyword%')
-          ORDER BY item.ItemCode ASC ";
-          $return['sql'] = $Sql;
-  // var_dump($Sql); die;
+          INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode";
+
+    if($Keyword==''){
+      $Sql .= " WHERE item.CategoryCode = $Catagory ORDER BY item.ItemCode ASC";
+    }else{
+      $Sql .= " WHERE item.ItemCode LIKE '%$Keyword%' OR item.ItemName LIKE '%$Keyword%' 
+                OR item.Weight LIKE '%$Keyword%' OR item_unit.UnitName LIKE '%$Keyword%' ";
+    }
+    $return['sql'] = $Sql;
+
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['ItemCode'] = $Result['ItemCode'];
@@ -55,7 +56,8 @@ function ShowItem($conn, $DATA)
     mysqli_close($conn);
     die;
   }else{
-    $return['status'] = "notfound";
+    $return['form'] = "ShowItem";
+    $return['status'] = "failed";
     $return['msg'] = "notfound";
     echo json_encode($return);
     mysqli_close($conn);
