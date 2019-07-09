@@ -254,9 +254,9 @@ function ShowDocument($conn, $DATA)
     $return[$count]['DocDate'] = "";
     $return[$count]['Qty'] = "";
     $return[$count]['Elc'] = "";
-    $return['status'] = "failed";
+    // $return['status'] = "failed";
     $return['form'] = "ShowDocument";
-    $return['msg'] = "notfound";
+    // $return['msg'] = "notfound";
     echo json_encode($return);
     mysqli_close($conn);
     die;

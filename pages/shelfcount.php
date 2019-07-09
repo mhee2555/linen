@@ -78,6 +78,7 @@ $array = json_decode($json,TRUE);
     OnLoadPage();
     getDepartment();
     ShowMenu();
+
   }).mousemove(function(e) { parent.last_move = new Date();;
   }).keyup(function(e) { parent.last_move = new Date();;
   });
@@ -604,7 +605,7 @@ function OpenDialogItem(){
               $("#bSave").prop('disabled', true);
               $("#bCancel").prop('disabled', true);
 
-              // ShowDocument();
+              ShowDocument();
           }else{
             $("#bImport").prop('disabled', false);
             $("#bDelete").prop('disabled', false);
