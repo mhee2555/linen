@@ -307,6 +307,7 @@ $array = json_decode($json, true);
         }
 
         function ShowDoc() {
+            $('#show_btn').attr('disabled', true);
             var HptCode = $('#hptsel2').val();
             var Keyword = $('#search2').val();
             var data = {
@@ -415,15 +416,16 @@ $array = json_decode($json, true);
                 $(".checkblank").prop("checked", false);
             });
             $('#show_btn').attr('disabled', true);
-            $('#clear_btn').attr('disabled', true);
-            $('#cancel_btn').attr('disabled', true);
         }
-        function cancelDoc(DocNo){
-            $('#show_btn').attr('disabled', false);
-            $('#clear_btn').attr('disabled', false);
-            $('#cancel_btn').attr('disabled', false);
+        function cancelDoc(DocNo,row){
+            $('.btn_cancel').each(function() {
+                $(".btn_cancel").attr("disabled", true);
+            });
             var DocNo = DocNo;
+            var row = row;
             $('#cancel').val(DocNo);
+            $('#show_btn').attr('disabled', false);
+            $('#cancel_btn'+row+'').attr('disabled', false);
         }
         function ButtoncancelDoc(){
             var DocNo = $('#cancel').val();
@@ -604,14 +606,14 @@ $array = json_decode($json, true);
                             $("#TableDoc tbody").empty();
                             for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
                                 var rowCount = $('#TableDoc >tbody >tr').length;
-                                var chkDoc = "<input type='radio' class='checkblank'  name='checkdocno' id='checkdocno' " +
-                                    "value='" + temp[i]['DocNo'] + "," + temp[i]['xDate'] + "," + temp[i]['HptCode'] + "," + temp[i]['HptName'] + "' onclick='cancelDoc(\"" + temp[i]["DocNo"] + "\")'>";
+                                var chkDoc = "<input type='radio' class='checkblank' data-value='"+i+"' name='checkdocno' id='checkdocno' " +
+                                    "value='" + temp[i]['DocNo'] + "," + temp[i]['xDate'] + "," + temp[i]['HptCode'] + "," + temp[i]['HptName'] + "' onclick='cancelDoc(\"" + temp[i]["DocNo"] + "\","+i+")'>";
                                     StrTR = "<tr id='tr"+temp[i]['DocNo']+"'>" +
                                         "<td style='width: 5%;'>" + chkDoc + "</td>" +
                                         "<td style='width: 25%;'>" + temp[i]['HptName'] + "</td>" +
                                         "<td style='width: 26%;'>" + temp[i]['DocNo'] + "</td>" +
                                         "<td style='width: 25%;'>" + temp[i]['xDate'] + "</td>" +
-                                        "<td style='width: 19%;'>  </td>" +
+                                        "<td style='width: 19%;'><button class='btn btn_cancel' style='background: none;' onclick='ButtoncancelDoc();' id='cancel_btn"+i+"' disabled='true'><i class='fas fa-trash'></i></button></td>" +
                                         "</tr>";
                                     if (rowCount == 0) {
                                         $("#TableDoc tbody").append(StrTR);
@@ -833,59 +835,59 @@ $array = json_decode($json, true);
 		   font-family: 'THSarabunNew';
 		   font-size:22px;
 		}
-    input,select{
-      font-size:24px!important;
-    }
-    th,td{
-      font-size:24px!important;
-    }
-    .table > thead > tr >th {
-      background: #4f88e3!important;
-    }
+        input,select{
+        font-size:24px!important;
+        }
+        th,td{
+        font-size:24px!important;
+        }
+        .table > thead > tr >th {
+        background: #4f88e3!important;
+        }
 
-    table tr th,
-    table tr td {
-      border-right: 0px solid #bbb;
-      border-bottom: 0px solid #bbb;
-      padding: 5px;
-    }
-    table tr th:first-child,
-    table tr td:first-child {
-      border-left: 0px solid #bbb;
-    }
-    table tr th {
-      background: #eee;
-      border-top: 0px solid #bbb;
-      text-align: left;
-    }
+        table tr th,
+        table tr td {
+        border-right: 0px solid #bbb;
+        border-bottom: 0px solid #bbb;
+        padding: 5px;
+        }
+        table tr th:first-child,
+        table tr td:first-child {
+        border-left: 0px solid #bbb;
+        }
+        table tr th {
+        background: #eee;
+        border-top: 0px solid #bbb;
+        text-align: left;
+        }
 
-    /* top-left border-radius */
-    table tr:first-child th:first-child {
-      border-top-left-radius: 6px;
-    }
+        /* top-left border-radius */
+        table tr:first-child th:first-child {
+        border-top-left-radius: 6px;
+        }
 
-    /* top-right border-radius */
-    table tr:first-child th:last-child {
-      border-top-right-radius: 6px;
-    }
+        /* top-right border-radius */
+        table tr:first-child th:last-child {
+        border-top-right-radius: 6px;
+        }
 
-    /* bottom-left border-radius */
-    table tr:last-child td:first-child {
-      border-bottom-left-radius: 6px;
-    }
+        /* bottom-left border-radius */
+        table tr:last-child td:first-child {
+        border-bottom-left-radius: 6px;
+        }
 
-    /* bottom-right border-radius */
-    table tr:last-child td:last-child {
-      border-bottom-right-radius: 6px;
-    }
-    button{
-      font-size: 24px!important;
-    }
-      a.nav-link{
-        width:auto!important;
-      }
-      .datepicker{z-index:9999 !important}
-      .hidden{visibility: hidden;}
+        /* bottom-right border-radius */
+        table tr:last-child td:last-child {
+        border-bottom-right-radius: 6px;
+        }
+        button{
+        font-size: 24px!important;
+        }
+        a.nav-link{
+            width:auto!important;
+        }
+        .datepicker{z-index:9999 !important}
+        .hidden{visibility: hidden;}
     </style>
 </head>
 
@@ -1071,12 +1073,6 @@ $array = json_decode($json, true);
                                             <?php echo $array['search'][$language]; ?></button>
                                         <button type="button" style="margin-left:10px;" class="btn btn-success" name="button" onclick="OpenDialog(1);" id='show_btn' disabled='true'>
                                             <?php echo $array['show'][$language]; ?>
-                                        </button>
-                                        <button type="button" style="margin-left:10px;" class="btn btn-warning"  onclick="ClearChecked();" id='clear_btn' disabled='true'>
-                                            <?php echo $array['cancel'][$language]; ?>
-                                        </button>
-                                        <button type="button" style="margin-left:10px;" class="btn btn-danger" onclick="ButtoncancelDoc();" id='cancel_btn' disabled='true'>
-                                        <?php echo $array['canceldata'][$language]; ?>
                                         </button>
                                     </div>
                                 </div>
