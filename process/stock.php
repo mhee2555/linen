@@ -51,6 +51,7 @@ function getDepartment($conn,$DATA){
     $count++;
     $boolean = true;
   }
+  $return['Row'] = $count;
 
   if($boolean){
     $return['status'] = "success";
@@ -112,7 +113,7 @@ function ShowDocument($conn,$DATA){
     $boolean = true;
     $count++;
   }
-
+  $return['Row'] = $count;
   if($boolean){
     $return['status'] = "success";
     $return['form'] = "ShowDocument";

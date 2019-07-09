@@ -645,7 +645,7 @@ $array = json_decode($json,TRUE);
                     if(temp["form"]=='OnLoadPage'){
                       var PmID = <?php echo $PmID;?>;
                       var HptCode = '<?php echo $HptCode;?>';
-                      for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+                      for (var i = 0; i < temp["Row"]; i++) {
                         var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
                         $("#hotpital").append(Str);
                       }
@@ -656,7 +656,7 @@ $array = json_decode($json,TRUE);
                     }else if(temp["form"]=='getDepartment'){
                       $("#department").empty();
                       $("#Dep2").empty();
-                      for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+                      for (var i = 0; i < temp["Row"]; i++) {
                         var Str = "<option value="+temp[i]['DepCode']+">"+temp[i]['DepName']+"</option>";
                         $("#department").append(Str);
                         $("#Dep2").append(Str);

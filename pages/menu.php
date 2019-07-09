@@ -209,7 +209,7 @@ $array = json_decode($json,TRUE);
             $( "#CardView" ).empty();
             $( "#dd" ).empty();
             // $( "#TableDocument tbody" ).empty();
-            for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+            for (var i = 0; i < temp["Row"]; i++) {
               $StrTr=setCard(temp[i]['DepName'],temp[i]['DocNo'],temp[i]['DocDate']);
               $("#CardView").append( $StrTr );
             }

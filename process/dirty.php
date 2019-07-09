@@ -16,6 +16,7 @@ function OnLoadPage($conn, $DATA)
     $count++;
     $boolean = true;
   }
+  $return['Row'] = $count;
   $boolean = true;
   if ($boolean) {
     $return['status'] = "success";
@@ -52,7 +53,7 @@ function getDepartment($conn, $DATA)
     $count++;
     $boolean = true;
   }
-
+  $return['Row'] = $count;
   if ($boolean) {
     $return['status'] = "success";
     $return['form'] = "getDepartment";

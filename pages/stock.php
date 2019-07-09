@@ -199,7 +199,7 @@ $array = json_decode($json,TRUE);
           }else if(temp["form"]=='getDepartment'){
             $("#department").empty();
             $("#Dep2").empty();
-            for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+            for (var i = 0; i <  temp["Row"]; i++) {
               var Str = "<option value="+temp[i]['DepCode']+">"+temp[i]['DepName']+"</option>";
               $("#department").append(Str);
               $("#Dep2").append(Str);
@@ -207,7 +207,7 @@ $array = json_decode($json,TRUE);
           }else if(temp["form"]=='ShowDocument'){
             $( "#TableDocument tbody" ).empty();
 
-            for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+            for (var i = 0; i < temp["Row"]; i++) {
               var rowCount = $('#TableDocument >tbody >tr').length;
 
               StrTr="<tr id='tr"+temp[i]['DocNo']+"'>"+

@@ -35,6 +35,7 @@ function OnLoadPage($conn,$DATA){
     $count++;
     $boolean = true;
   }
+  $return['Row'] = $count;
   $boolean = true;
   if($boolean){
     $return['status'] = "success";
