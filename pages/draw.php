@@ -171,7 +171,7 @@ function UpdateRefDocNo(){
   var docno = $("#docno").val();
             var RefDocNo;
             //get value from radio button
-            $("#checkitem:checked").each(function() {
+            $("#checkitemSC:checked").each(function() {
               RefDocNo = $(this).val();
             });
 
@@ -181,10 +181,10 @@ function UpdateRefDocNo(){
               'xdocno'      : docno,
               'RefDocNo'    : RefDocNo,
               'selecta'     : 0,
-              'deptCode'	  : deptCode,
-              'checkitem'   : checkitem
+              'deptCode'	  : deptCode
+              // 'checkitem'   : checkitem
             };
-            console.log(checkitem);
+            // console.log(checkitem);
             senddata(JSON.stringify(data));
             $('#dialogRefDocNo').modal('toggle')
           }
@@ -1116,7 +1116,7 @@ function OpenDialogItem(){
                     $( "#TableRefDocNo tbody" ).empty();
                     for (var i = 0; i < temp["Row"]; i++) {
                       var rowCount = $('#TableRefDocNo >tbody >tr').length;
-                      var chkDoc = "<input type='radio' name='checkitem' id='checkitem' value='"+temp[i]['RefDocNo']+"'><input type='hidden' id='RowId"+i+"' value='"+temp[i]['RefDocNo']+"'>";
+                      var chkDoc = "<input type='radio' name='checkitem' id='checkitemSC' value='"+temp[i]['RefDocNo']+"'><input type='hidden' id='RowId"+i+"' value='"+temp[i]['RefDocNo']+"'>";
                       $StrTR = "<tr id='tr"+temp[i]['RefDocNo']+"'>"+
                       "<td style='width: 15%;'>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
                       "<td style='width: 85%;'>"+temp[i]['RefDocNo']+"</td>"+

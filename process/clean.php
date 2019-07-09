@@ -672,7 +672,7 @@ function CreateDocument($conn, $DATA)
     $hptcode = $DATA["hptcode"];
     $DocNo = $DATA["xdocno"];
     $RefDocNo = $DATA["RefDocNo"];
-    $checkitem = $DATA["checkitem"];
+    // $checkitem = $DATA["checkitem"];
     // $Sqlx = "INSERT INTO log ( log ) VALUES ('$DocNo / $RefDocNo')";
     // mysqli_query($conn,$Sqlx);
     $Sql = "UPDATE clean SET RefDocNo = '$RefDocNo' WHERE DocNo = '$DocNo'";
