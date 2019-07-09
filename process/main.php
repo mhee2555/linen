@@ -5,6 +5,7 @@ date_default_timezone_set("Asia/Bangkok");
 $xDate = date('Y-m-d');
 
 function OnLoadPage($conn,$DATA){
+  $HptCode = $_SESSION['HptCode'];
   $count = 0;
   $boolean = false;
   $Sql = "SELECT COUNT(*) AS Cnt
@@ -19,8 +20,10 @@ function OnLoadPage($conn,$DATA){
 
   $Sql = "SELECT COUNT(*) AS Cnt
   FROM contract_parties_hospital
-  WHERE IsStatus = 0
-  AND DATEDIFF(DATE(contract_parties_hospital.EndDate),DATE(NOW())) < 31";
+  INNER JOIN department ON department.DepCode = contract_parties_hospital.DepCode
+  INNER JOIN site ON site.HptCode = department.HptCode
+  WHERE site.HptCode = '$HptCode' AND contract_parties_hospital.IsStatus = 0
+  AND DATEDIFF( DATE( contract_parties_hospital.EndDate ), DATE(NOW()) ) < 31";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return['HOS_Cnt'] = $Result['Cnt'];
@@ -29,7 +32,9 @@ function OnLoadPage($conn,$DATA){
 
   $Sql = "SELECT COUNT(*) AS Cnt
   FROM shelfcount
-  WHERE IsRequest = 0";
+  INNER JOIN department ON department.DepCode = shelfcount.DepCode
+  INNER JOIN site ON site.HptCode = department.HptCode
+  WHERE site.HptCode = '$HptCode' AND IsRequest = 0";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return['shelfcount_Cnt'] = $Result['Cnt'];
@@ -37,7 +42,9 @@ function OnLoadPage($conn,$DATA){
   }
   $Sql = "SELECT COUNT(*) AS Cnt
   FROM factory_out
-  WHERE IsRequest = 0";
+  INNER JOIN department ON department.DepCode = factory_out.DepCode
+  INNER JOIN site ON site.HptCode = department.HptCode
+  WHERE site.HptCode = '$HptCode' AND IsRequest = 0";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return['fac_out_Cnt'] = $Result['Cnt'];
@@ -46,7 +53,9 @@ function OnLoadPage($conn,$DATA){
 
   $Sql = "SELECT COUNT(*) AS Cnt
   FROM clean
-  WHERE IsStatus = 0";
+  INNER JOIN department ON department.DepCode = clean.DepCode
+  INNER JOIN site ON site.HptCode = department.HptCode
+  WHERE site.HptCode = '$HptCode' AND clean.IsStatus = 0";
   $meQuery = mysqli_query($conn,$Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return['clean_Cnt'] = $Result['Cnt'];
