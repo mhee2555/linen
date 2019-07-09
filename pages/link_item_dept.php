@@ -51,7 +51,7 @@ $array = json_decode($json,TRUE);
     <!-- Custom styles for this template-->
     <link href="../template/css/sb-admin.css" rel="stylesheet">
     <link href="../css/xfont.css" rel="stylesheet">
-    <link href="../css/responsive.css" rel="stylesheet">
+    <!-- <link href="../css/responsive.css" rel="stylesheet"> -->
 
     <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
     <script src="../jQuery-ui/jquery-1.12.4.js"></script>
@@ -1279,6 +1279,32 @@ $array = json_decode($json,TRUE);
       }
       .datepicker{z-index:9999 !important}
       .hidden{visibility: hidden;}
+
+      @media (min-width: 1200px){
+        #btn_margin {
+            max-width: 14.333333%;
+            margin-top: 27%;
+        }
+
+        #magin_cus{
+            margin-top: 23%;
+        }
+    }
+
+    @media (min-width: 700px) and (max-width: 1199.99px){ 
+        #btn_margin {
+            margin-top: 1%;
+        }
+        #size_custom{
+            font-size: 20px!important;
+        }
+        #rotate_custom{
+            transform: rotate(90deg);
+        }
+        #magin_cus{
+            margin-top: -4%;
+        }
+    }
     </style>
   </head>
 
