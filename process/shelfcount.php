@@ -817,6 +817,64 @@ function DeleteItem($conn, $DATA)
 function SaveBill($conn, $DATA)
 {
   $DocNo = $DATA["xdocno"];
+  $DepCode = $DATA["deptCode"];
+
+
+  $ItemCodeArray = $DATA['ItemCode'];
+  $ItemCode = explode(",", $ItemCodeArray);
+  $limit = sizeof($ItemCode, 0);
+  for ($i = 0; $i < $limit; $i++) {
+    $Sql = "SELECT 
+      shelfcount.DocNo, 
+      shelfcount.DepCode, 
+      shelfcount_detail.ItemCode,
+      shelfcount_detail.TotalQty,
+
+      (SELECT item_stock.TotalQty
+      FROM item_stock 
+      WHERE item_stock.ItemCode = '$ItemCode[$i]' 
+      AND item_stock.DepCode = $DepCode GROUP BY item_stock.ItemCode, item_stock.DepCode) AS TotalQty2,
+
+      (SELECT item_stock.ParQty
+      FROM item_stock 
+      WHERE item_stock.ItemCode = '$ItemCode[$i]' 
+      AND item_stock.DepCode = $DepCode GROUP BY item_stock.ItemCode, item_stock.DepCode) AS ParQty,
+
+      (SELECT item.ItemName
+			FROM item
+			WHERE item.ItemCode = '$ItemCode[$i]'  
+			GROUP BY item.ItemCode) AS ItemName
+
+    FROM shelfcount 
+    INNER JOIN shelfcount_detail ON shelfcount_detail.DocNo = shelfcount.DocNo
+    WHERE shelfcount.DocNo = '$DocNo' 
+    AND shelfcount_detail.ItemCode = '$ItemCode[$i]' 
+    AND shelfcount.DepCode = $DepCode";
+    $return['sql'] = $Sql;
+    $meQuery = mysqli_query($conn, $Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $MoreThan = $Result['TotalQty'] +  $Result['TotalQty2'];
+      if($MoreThan>$Result['ParQty']){
+        $OverPar = $MoreThan - $Result['ParQty'];
+
+        $update = "UPDATE shelfcount_detail SET shelfcount_detail.OverPar = $OverPar WHERE shelfcount_detail.DocNo = '$DocNo' 
+        AND shelfcount_detail.ItemCode = '$ItemCode[$i]'";
+        mysqli_query($conn, $update);
+      }else{
+        $update = "UPDATE shelfcount_detail SET shelfcount_detail.OverPar = 0 WHERE shelfcount_detail.DocNo = '$DocNo' 
+        AND shelfcount_detail.ItemCode = '$ItemCode[$i]'";
+        mysqli_query($conn, $update);
+      }
+    }
+  }
+
+
+
+
+
+
+
+
   $Sql = "SELECT SUM(shelfcount_detail.TotalQty) AS Summ
   FROM shelfcount_detail WHERE shelfcount_detail.DocNo = '$DocNo'";
   $meQ = mysqli_query($conn, $Sql);
@@ -1244,6 +1302,7 @@ function chk_par($conn, $DATA)
       }
     }
   }
+
     $return['Row'] = $count;
   if($count>0){
     $return['status'] = "success";

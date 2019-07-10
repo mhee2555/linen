@@ -595,11 +595,22 @@ function OpenDialogItem(){
               if(chk == '' || chk == undefined){
                 chk_par();
               }else{
+                var ItemCodeArray = [];
+                var Item = [];
+                $(".item_array").each(function() {
+                  ItemCodeArray.push($(this).val());
+                });
+                for(var j=0;j<ItemCodeArray.length; j++){
+                  Item.push( $("#item_array"+ItemCodeArray[j]).val() );
+                }
+                var ItemCode = Item.join(',') ;
+
                   var data = {
                     'STATUS'      : 'SaveBill',
                     'xdocno'      : docno,
                     'isStatus'    : isStatus,
-                    'deptCode'    : dept
+                    'deptCode'    : dept,
+                    'ItemCode'    : ItemCode
                   };
                     senddata(JSON.stringify(data));
                     $('#profile-tab').tab('show');
@@ -611,8 +622,6 @@ function OpenDialogItem(){
                     if(input_chk == 1){
                       $('#alert_par').modal('toggle');
                     }
-                
-
               }
             }else{
               $("#bImport").prop('disabled', false);
