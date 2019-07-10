@@ -615,6 +615,7 @@ function OpenDialogItem(){
         }
 
         function SaveBill(){
+          var hotpCode = $('#hotpital option:selected').attr("value");
           var docno = $("#docno").val();
           var docno2 = $("#RefDocNo").val();
           var isStatus = $("#IsStatus").val();
@@ -631,7 +632,8 @@ function OpenDialogItem(){
               'xdocno'      : docno,
               'xdocno2'      : docno2,
               'isStatus'    : isStatus,
-              'deptCode'    : dept
+              'deptCode'    : dept,
+              'hotpCode'    : hotpCode
             };
             senddata(JSON.stringify(data));
 

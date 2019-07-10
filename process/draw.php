@@ -742,7 +742,7 @@ function CreateDocument($conn, $DATA)
   {
     $DocNo = $DATA["xdocno"];
     $DocNo2 = $DATA["xdocno2"];
-
+    $hotpCode = $DATA["hotpCode"];
     $Sql = "UPDATE shelfcount SET IsRef = 1 WHERE shelfcount.DocNo = '$DocNo2'";
     mysqli_query($conn, $Sql);
 
@@ -809,7 +809,6 @@ function CreateDocument($conn, $DATA)
         $sqlSC = "SELECT shelfcount.DepCode FROM shelfcount WHERE DocNo = '$DocNo2'";
         $resultSC = mysqli_query( $conn, $sqlSC);
             while ($rowXX = mysqli_fetch_array($resultSC)) {
-
               $DepCodeSC = $rowXX["DepCode"];
 
             }
@@ -817,19 +816,22 @@ function CreateDocument($conn, $DATA)
             $sqlSCX = "SELECT shelfcount_detail.ItemCode FROM shelfcount_detail WHERE DocNo = '$DocNo2'";
             $resultSCX = mysqli_query( $conn, $sqlSCX);
                 while ($rowX = mysqli_fetch_array($resultSCX)) {
-    
                   $ItemCodeSC = $rowX["ItemCode"];
-    
                 } 
       // =======================================================================================
 
-      $sqlSCS = "SELECT Draw.DepCode FROM Draw WHERE DocNo = '$DocNo'";
+      $sqlSCS = "SELECT department.DepCode,department.DepName
+      FROM department
+      WHERE department.HptCode = '$hotpCode' 
+      AND department.IsDefault = 1 
+      AND department.IsStatus = 0";
       $resultSCS = mysqli_query( $conn, $sqlSCS);
           while ($rowXXX = mysqli_fetch_array($resultSCS)) {
 
             $DepCodeDraw = $rowXXX["DepCode"];
 
           }
+
   // =======================================================================================
 
       $sql_update =  "SELECT
