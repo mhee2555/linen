@@ -1193,7 +1193,7 @@ function OpenDialogItem(){
                     $("#detail_par").html(result);
                     $('#alert_par').modal('show');
                     $('#input_chk').val(1);
-                  }else if(temp["Row"]==0){
+                  }else if(temp["Row"]==9){
                     SaveBill(1);
                     // $('#alert_par').modal('toggle');
                   }

@@ -1284,12 +1284,12 @@ function chk_par($conn, $DATA)
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $MoreThan = $Result['TotalQty'] +  $Result['TotalQty2'];
       if($MoreThan>$Result['ParQty']){
-        $return[$i]['ItemCode'] = $Result['ItemCode'];
-        $return[$i]['TotalQty'] = $Result['TotalQty'];
-        $return[$i]['TotalQty2'] = $Result['TotalQty2'];
-        $return[$i]['OverPar'] = $MoreThan - $Result['ParQty'];
-        $return[$i]['ParQty'] = $Result['ParQty'];
-        $return[$i]['ItemName'] = $Result['ItemName'];
+        $return[$count]['ItemCode'] = $Result['ItemCode'];
+        $return[$count]['TotalQty'] = $Result['TotalQty'];
+        $return[$count]['TotalQty2'] = $Result['TotalQty2'];
+        $return[$count]['OverPar'] = $MoreThan - $Result['ParQty'];
+        $return[$count]['ParQty'] = $Result['ParQty'];
+        $return[$count]['ItemName'] = $Result['ItemName'];
         $count++;
         $chk = 3;
       }
@@ -1304,7 +1304,7 @@ function chk_par($conn, $DATA)
     mysqli_close($conn);
     die;
   }else{
-    $return['Row'] = 0;
+    $return['Row'] = 9;
     $return['status'] = "success";
     $return['form'] = "chk_par";
     echo json_encode($return);
