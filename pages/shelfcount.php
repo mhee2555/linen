@@ -583,24 +583,8 @@ function OpenDialogItem(){
           var docno = $("#docno").val();
           var isStatus = $("#IsStatus").val();
           var dept = $('#Dep2').val();
-          var chk_par = $('#input_chk').val();
           // alert( isStatus );
-          if(chk!=1){
-            chk_par();
-          }else{
-            swal({
-              title: "ddd",
-              text: "555",
-              type: "success",
-              showCancelButton: false,
-              timer: 1000,
-              // confirmButtonText: 'Ok',
-              showConfirmButton: false
-            });
-            setTimeout(function () {
-              $('#alert_par').modal('toggle');
-            }, 1000);
-
+          
             if(isStatus==1){
               isStatus=0;
             }else{
@@ -608,22 +592,34 @@ function OpenDialogItem(){
             }
 
             if(isStatus==1){
-              var data = {
-                'STATUS'      : 'SaveBill',
-                'xdocno'      : docno,
-                'isStatus'    : isStatus,
-                'deptCode'    : dept
-              };
-              senddata(JSON.stringify(data));
-
-              $('#profile-tab').tab('show');
-
-                $("#bImport").prop('disabled', true);
-                $("#bDelete").prop('disabled', true);
-                $("#bSave").prop('disabled', true);
-                $("#bCancel").prop('disabled', true);
-
-                ShowDocument();
+              if(chk == '' || chk == undefined){
+                chk_par();
+              }else{
+                swal({
+                  title: "ddd",
+                  text: "555",
+                  type: "success",
+                  showCancelButton: false,
+                  timer: 1000,
+                  showConfirmButton: false
+                });
+                setTimeout(function () {
+                  $('#alert_par').modal('toggle');
+                }, 1000);
+                var data = {
+                  'STATUS'      : 'SaveBill',
+                  'xdocno'      : docno,
+                  'isStatus'    : isStatus,
+                  'deptCode'    : dept
+                };
+                  senddata(JSON.stringify(data));
+                  $('#profile-tab').tab('show');
+                  $("#bImport").prop('disabled', true);
+                  $("#bDelete").prop('disabled', true);
+                  $("#bSave").prop('disabled', true);
+                  $("#bCancel").prop('disabled', true);
+                  ShowDocument();
+              }
             }else{
               $("#bImport").prop('disabled', false);
               $("#bDelete").prop('disabled', false);
@@ -646,7 +642,7 @@ function OpenDialogItem(){
                     $('#unit'+i).prop('disabled', false);
                 }
             }
-          }
+          
           
 
         
@@ -827,9 +823,9 @@ function OpenDialogItem(){
                   }, 1000);
                 }else if(temp["form"]=='ShowDocument'){
 
-                  setTimeout(function () {
-                  parent.OnLoadPage();
-                }, 500);
+                    setTimeout(function () {
+                    parent.OnLoadPage();
+                  }, 500);
 
                   $( "#TableDocument tbody" ).empty();
                   $( "#TableItemDetail tbody" ).empty();
@@ -1183,7 +1179,7 @@ function OpenDialogItem(){
                   }
                 }else if( (temp["form"]=='chk_par') ){
                   result = '';
-                  if(temp["Row"]!=0){
+                  if(temp["Row"]>0){
                     for(var i = 0; i < temp['Row']; i++){
                       // var chkDoc = "<input type='checkbox' name='checkitemS' id='checkitemS' value='"+i+"'><input type='hidden' id='RowIDS"+i+"'>";
                       result += "<tr>"+
@@ -1198,8 +1194,9 @@ function OpenDialogItem(){
                     }
                     $("#detail_par").html(result);
                     $('#alert_par').modal('show');
-                  }else{
+                  }else if(temp["Row"]==0){
                     SaveBill(1);
+                    $('#alert_par').modal('toggle');
                   }
                 }
               }else if (temp['status']=="failed") {
@@ -1509,7 +1506,7 @@ function OpenDialogItem(){
                                 <div class="col-md-1">
                                   <div class="row" style="margin-left:2px;">
                                     <div class="row" style="margin-left:20px;">
-                                      <button onclick="SaveBill(1)" style="width:105px" type="button" class="btn btn_mheesave" onclick="AddItem()" id="bSave"><?php echo $array['save'][$language]; ?></button>
+                                      <button onclick="SaveBill()" style="width:105px" type="button" class="btn btn_mheesave" onclick="AddItem()" id="bSave"><?php echo $array['save'][$language]; ?></button>
                                     </div>
                                   </div>
                                 </div>
@@ -1782,7 +1779,7 @@ function OpenDialogItem(){
               <th style='width: 22%;'nowrap class='text-left'><?php echo $array['code'][$language]; ?></th>
               <th style='width: 33%;'nowrap class='text-left'><?php echo $array['item'][$language]; ?></th>
               <th style='width: 10%;'nowrap class='text-right'><?php echo $array['order'][$language]; ?></th>
-              <th style='width: 10%;'nowrap class='text-right'><?php echo $array['totalnum'][$language]; ?></th>
+              <th style='width: 10%;'nowrap class='text-right'><?php echo $array['par'][$language]; ?></th>
               <th style='width: 10%;'nowrap class='text-right'><?php echo $array['balance'][$language]; ?></th>
               <th style='width: 10%;'nowrap class='text-right'><?php echo $array['over'][$language]; ?></th>
               </tr>
