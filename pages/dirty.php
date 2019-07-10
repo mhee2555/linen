@@ -538,6 +538,7 @@ $array = json_decode($json,TRUE);
               var docno = $("#docno").val();
               var isStatus = $("#IsStatus").val();
               var dept = $("#Dep2").val();
+              var DepCode = $("#department").val();
               // alert( isStatus );
               if(isStatus==1)
               isStatus=0;
@@ -560,7 +561,7 @@ $array = json_decode($json,TRUE);
                   $("#bSave").prop('disabled', true);
                   $("#bCancel").prop('disabled', true);
 
-                  ShowDocument();
+                  // ShowDocument();
               }else{
                 $("#bImport").prop('disabled', false);
                 $("#bDelete").prop('disabled', false);
@@ -692,7 +693,7 @@ $array = json_decode($json,TRUE);
                     }else if(temp["form"]=='ShowDocument'){
                       $( "#TableDocument tbody" ).empty();
                       $( "#TableItemDetail tbody" ).empty();
-                      // $("#docno").val(temp[0]['DocNo']);
+                      $("#Dep2").val(temp[0]['DepCode']);
                       // $("#docdate").val(temp[0]['DocDate']);
                       // $("#recorder").val(temp[0]['Record']);
                       // $("#timerec").val(temp[0]['RecNow']);
@@ -1297,7 +1298,7 @@ $array = json_decode($json,TRUE);
               <div class="col-md-6">
                 <div class="row" style="margin-left:2px;">
                   <input type="text" class="form-control" style="font-size:24px;width:50%;" name="searchdocument" id="searchdocument" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(0);"><?php echo $array['search'][$language]; ?></button>
+                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(3);"><?php echo $array['search'][$language]; ?></button>
                   <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
                 </div>
               </div>

@@ -164,20 +164,36 @@ function ShowDocument($conn, $DATA)
   $selecta = $DATA["selecta"];
   // $Sql = "INSERT INTO log ( log ) VALUES ('$max : $DocNo')";
   // mysqli_query($conn,$Sql);
-  $Sql = "SELECT site.HptName,department.DepName,dirty.DocNo,dirty.DocDate,dirty.Total,users.FName,TIME(dirty.Modify_Date) AS xTime,dirty.IsStatus
+  $Sql = "SELECT site.HptName,
+  dirty.DepCode,
+  department.DepName,
+  dirty.DocNo,
+  dirty.DocDate,
+  dirty.Total,
+  users.FName,TIME(dirty.Modify_Date) AS xTime,dirty.IsStatus
   FROM dirty
   INNER JOIN department ON dirty.DepCode = department.DepCode
   INNER JOIN site ON department.HptCode = site.HptCode
   INNER JOIN users ON dirty.Modify_Code = users.ID ";
-    if ($selecta == 0) {
-    $Sql .= "WHERE dirty.DepCode = $deptCode AND dirty.DocNo LIKE '%$DocNo%'";
-  }elseif($selecta==1){
-    $Sql.="WHERE site.HptCode = '$Hotp'";
+
+  if($selecta == null){
+    $Sql .= " WHERE dirty.DocNo = '$DocNo'";
+    $return['selecta'] = $selecta;
+  }else if ($selecta == 3) {
+    $Sql .= " WHERE dirty.DepCode = $deptCode AND dirty.DocNo LIKE '%$DocNo%'";
+    $return['selecta'] = 0;
+  }else if($selecta == 1){
+    $Sql .= " WHERE site.HptCode = '$Hotp'";
+    $return['selecta'] = 1;
   }
-  $Sql .= "ORDER BY dirty.DocNo DESC LIMIT 500";
+  $Sql .= " ORDER BY dirty.DocNo DESC LIMIT 500";
+
+  $return['sql'] = $Sql;
+
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptName']   = $Result['HptName'];
+    $return[$count]['DepCode']   = $Result['DepCode'];
     $return[$count]['DepName']   = $Result['DepName'];
     $return[$count]['DocNo']   = $Result['DocNo'];
     $return[$count]['DocDate']   = $Result['DocDate'];
@@ -688,6 +704,7 @@ function SaveBill($conn, $DATA)
 {
   $DocNo = $DATA["xdocno"];
   $isStatus = $DATA["isStatus"];
+
   $Sql = "UPDATE dirty SET IsStatus = $isStatus WHERE dirty.DocNo = '$DocNo'";
   mysqli_query($conn, $Sql);
 
