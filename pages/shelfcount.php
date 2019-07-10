@@ -595,15 +595,6 @@ function OpenDialogItem(){
               if(chk == '' || chk == undefined){
                 chk_par();
               }else{
-                swal({
-                  title: "ddd",
-                  text: "555",
-                  type: "success",
-                  showCancelButton: false,
-                  timer: 1500,
-                  showConfirmButton: false
-                });
-                setTimeout(function () {
                   var data = {
                     'STATUS'      : 'SaveBill',
                     'xdocno'      : docno,
@@ -620,7 +611,7 @@ function OpenDialogItem(){
                     if(input_chk == 1){
                       $('#alert_par').modal('toggle');
                     }
-                }, 1500);
+                
 
               }
             }else{
