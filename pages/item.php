@@ -407,6 +407,100 @@ var isChecked2 = false;
       }
     }
 
+    function NewItem(){
+      var count = 0;
+      $(".checkblank").each(function() {
+        if($( this ).val()==""||$(this).val()==undefined){
+          count++;
+        }
+      });
+      console.log(count);
+
+      var Catagory = $('#catagory2').val();
+      var ItemCode = $('#ItemCode').val();
+      var ItemName = $('#ItemName').val();
+      var CusPrice = $('#CusPrice').val();
+      var FacPrice = $('#FacPrice').val();
+      var UnitName = $('#UnitName').val();
+      var SizeCode = $('#SizeCode').val();
+      var Weight = $('#Weight').val();
+
+      if(count==0){
+        $('.checkblank').each(function() {
+          if($(this).val()==""||$(this).val()==undefined){
+            $(this).css('border-color', 'red');
+          }else{
+            $(this).css('border-color', '');
+          }
+        });
+        if(ItemCode!=""){
+          swal({
+            title: "<?php echo $array['addoredit'][$language]; ?>",
+            text: "<?php echo $array['addoredit1'][$language]; ?>",
+            type: "question",
+            showCancelButton: true,
+            confirmButtonClass: "btn-success",
+            confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
+            cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
+            confirmButtonColor: '#6fc864',
+            cancelButtonColor: '#3085d6',
+            closeOnConfirm: false,
+            closeOnCancel: false,
+            showCancelButton: true}).then(result => {
+              var data = {
+                'STATUS' : 'NewItem',
+                'Catagory' : Catagory,
+                'ItemCode' : ItemCode,
+                'ItemName' : ItemName,
+                'CusPrice' : CusPrice,
+                'FacPrice' : FacPrice,
+                'UnitName' : UnitName,
+                'SizeCode' : SizeCode,
+                'Weight' : Weight
+              };
+
+              console.log(JSON.stringify(data));
+              senddata(JSON.stringify(data));
+            })
+
+        }
+      }else{
+        swal({
+          title: '',
+          text: "<?php echo $array['required'][$language]; ?>",
+          type: 'info',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          showConfirmButton: false,
+          timer: 2000,
+          confirmButtonText: 'Ok'
+        })
+        $('.checkblank').each(function() {
+          if($(this).val()==""||$(this).val()==undefined){
+            $(this).css('border-color', 'red');
+          }else{
+            $(this).css('border-color', '');
+          }
+        });
+      }
+    }
+
+    function CreateItemCode(){
+
+      //toy
+      var Catagory = $('#catagory2').val();
+      var modeCode = $('#formatitem:checked').val();
+      console.log(modeCode);
+      var data = {
+        'STATUS' : 'CreateItemCode',
+        'Catagory' : Catagory,
+        'modeCode' : modeCode
+      };
+        console.log(JSON.stringify(data));
+        senddata(JSON.stringify(data));
+    }
+
     function AddUnit(){
       var mul = $('#mulinput').val();
       var u1 = $('#Unitshows').val();
@@ -484,6 +578,8 @@ var isChecked2 = false;
         console.log(JSON.stringify(data));
         senddata(JSON.stringify(data));
       }
+      $('#NewItem').prop("disabled", true);
+      //toy
     }
 
     function DeleteUnit(){
@@ -817,6 +913,7 @@ var isChecked2 = false;
                               }
                             }
                           }else if( (temp["form"]=='AddItem') ){
+                            $('#NewItem').prop("disabled", false);
                             switch (temp['msg']) {
                               case "notchosen":
                                 temp['msg'] = "<?php echo $array['choosemsg'][$language]; ?>";
@@ -1041,6 +1138,8 @@ var isChecked2 = false;
                               $('#SizeCode').val("1");
                               ShowItem();
                             })
+                          }else if(temp['form']=='CreateItemCode'){
+                            $('#ItemCode').val(temp['ItemCode']);
                           }
                         }else if (temp['status']=="failed") {
                           switch (temp['msg']) {
@@ -1271,10 +1370,31 @@ var isChecked2 = false;
                     <div class="card-body" style="padding:0px; margin-top:10px;">
    <!-- =================================================================== -->
                                 <div class="row mt-4">
+                                  <div class="col-md-2">
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class='form-group row' >
+                                      <div class='radio-c' style="align-content:center" >
+                                        <input type='radio' name='formatitem' id='formatitem' value='1' onclick="CreateItemCode()">
+                                      </div>
+                                      <label class="col-sm-10 col-form-label text-left"><?php echo $array['oldFormatItemCode'][$language]; ?></label>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class='form-group row'>
+                                      <div class='radio-c' style="align-content:center" >
+                                        <input type='radio' name='formatitem' id='formatitem' value='2' onclick="CreateItemCode()">
+                                      </div>
+                                      <label class="col-sm-10 col-form-label text-left"><?php echo $array['newFormatItemCode'][$language]; ?></label>
+                                    </div>
+                                  </div>
+                                </div> 
+   <!-- =================================================================== -->
+                                <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['category'][$language]; ?></label>
-                                      <select class="form-control col-sm-8" id="catagory2" ></select>
+                                      <select class="form-control col-sm-8" id="catagory2" onchange="CreateItemCode()"></select>
                                     </div>
                                   </div>
                                   <div class="col-md-6">
@@ -1283,13 +1403,13 @@ var isChecked2 = false;
                                         <input type="text" class="form-control col-sm-8 checkblank numonly" id="CusPrice"  placeholder="<?php echo $array['pricecus'][$language]; ?>" >
                                     </div>
                                   </div>
-                                </div>                    
+                                </div>                      
    <!-- =================================================================== -->
                               <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['codecode'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-8" id="ItemCode" placeholder="<?php echo $array['codecode'][$language]; ?>">
+                                      <input type="text" class="form-control col-sm-8" id="ItemCode" placeholder="<?php echo $array['codecode'][$language]; ?>" disabled>
                                     </div>
                                   </div>
                                   <div class="col-md-6">
@@ -1305,6 +1425,12 @@ var isChecked2 = false;
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['item'][$language]; ?></label>
                                       <input type="text" class="form-control col-sm-8 checkblank" id="ItemName" placeholder="<?php echo $array['item'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['weight'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8 checkblank numonly" id="Weight" placeholder="<?php echo $array['weight'][$language]; ?>">
                                     </div>
                                   </div>
                                 </div> 
@@ -1330,15 +1456,6 @@ var isChecked2 = false;
                                     </div>
                                   </div>
                                 </div> 
-   <!-- =================================================================== -->
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['weight'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-8 checkblank numonly" id="Weight" placeholder="<?php echo $array['weight'][$language]; ?>">
-                                    </div>
-                                  </div>
-                                </div>
    <!-- =================================================================== -->
                     </div>
                   </div>
@@ -1406,6 +1523,15 @@ var isChecked2 = false;
 
                   <div class="container-fluid" style="margin-top:50px;">
                     <div class="card-body" style="padding:0px; margin-top:10px;">
+                      <div class="row" style="margin-top:2px;">
+                                      <div class="col-md-1">
+                                        <div class="row" style="margin-left:2px;">
+											<div class="row" style="margin-left:30px;">
+                                          		<button style="width:105px"; type="button" id="NewItem" class="btn btn-primary" onclick="NewItem()"><?php echo $array['itemnew'][$language]; ?></button>
+                                        	</div>
+                                        </div>
+                                      </div>
+                        </div>
                         <div class="row" style="margin-top:2px;">
                                       <div class="col-md-1">
                                         <div class="row" style="margin-left:2px;">

@@ -274,6 +274,93 @@ function AddItem($conn, $DATA)
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $boolcount = $Result['Countn'];
   }
+  if($boolcount!=0){
+    $Sql = "UPDATE item SET
+            CategoryCode = '".$DATA['Catagory']."',
+            ItemName = '".$DATA['ItemName']."',
+            UnitCode = '".$DATA['UnitName']."',
+            SizeCode = '".$DATA['SizeCode']."',
+            CusPrice = '".$DATA['CusPrice']."',
+            FacPrice = '".$DATA['FacPrice']."',
+            Weight = '".$DATA['Weight']."'
+            WHERE ItemCode = '".$DATA['ItemCode']."'
+            ";
+    if(mysqli_query($conn, $Sql)){
+      $return['status'] = "success";
+      $return['form'] = "AddItem";
+      $return['msg'] = "editsuccess";
+      echo json_encode($return);
+      mysqli_close($conn);
+      die;
+    }else{
+      $return['status'] = "failed";
+      $return['msg'] = "editfailed";
+      echo json_encode($return);
+      mysqli_close($conn);
+      die;
+    }
+  }else{
+    $return['status'] = "failed";
+    $return['msg'] = "editfailed";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }
+}
+
+function CreateItemCode($conn, $DATA){
+  $ItemCode="";
+  if($DATA['modeCode']=='2'){
+    $Sql = "  SELECT 		MainCategoryCode	
+              FROM 			item_category
+              WHERE			CategoryCode=".$DATA['Catagory'];
+    $meQuery = mysqli_query($conn,$Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $MainCatagory = $Result['MainCategoryCode'];
+    }
+
+    $Sql = "  SELECT 		CONCAT( LPAD('$MainCatagory', 2, 0),
+                                LPAD('".$DATA['Catagory']."', 2, 0),
+                                LPAD( (COALESCE(MAX(CONVERT(SUBSTRING(ItemCode,5,5),UNSIGNED INTEGER)),0)+1) ,5,0))
+                        AS  ItemCode
+              FROM 			item
+              WHERE 		ItemCode Like CONCAT( LPAD('$MainCatagory', 2, 0),
+                                              LPAD('".$DATA['Catagory']."', 2, 0),
+                                            '%')
+              ORDER BY  ItemCode DESC LIMIT 1";
+
+    $meQuery = mysqli_query($conn,$Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $ItemCode = $Result['ItemCode'];
+    }
+  }
+  if($ItemCode!=""){
+    $return['status'] = "success";
+    $return['form'] = "CreateItemCode";
+    $return['ItemCode'] = $ItemCode;
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }else{
+    $return['status'] = "failed";
+    $return['msg'] = "editfailed";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }
+}
+
+function NewItem($conn, $DATA)
+{
+  // var_dump($DATA); die;
+  $Sql = "SELECT COUNT(*) AS Countn
+          FROM
+          item
+          WHERE item.ItemCode = '".$DATA["ItemCode"]."'";
+  $meQuery = mysqli_query($conn,$Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $boolcount = $Result['Countn'];
+  }
   if($boolcount==0){
     $count = 0;
     $Sql = "INSERT INTO item(
@@ -313,30 +400,11 @@ function AddItem($conn, $DATA)
       die;
     }
   }else{
-    $Sql = "UPDATE item SET
-            CategoryCode = '".$DATA['Catagory']."',
-            ItemName = '".$DATA['ItemName']."',
-            UnitCode = '".$DATA['UnitName']."',
-            SizeCode = '".$DATA['SizeCode']."',
-            CusPrice = '".$DATA['CusPrice']."',
-            FacPrice = '".$DATA['FacPrice']."',
-            Weight = '".$DATA['Weight']."'
-            WHERE ItemCode = '".$DATA['ItemCode']."'
-            ";
-    if(mysqli_query($conn, $Sql)){
-      $return['status'] = "success";
-      $return['form'] = "AddItem";
-      $return['msg'] = "editsuccess";
-      echo json_encode($return);
-      mysqli_close($conn);
-      die;
-    }else{
-      $return['status'] = "failed";
-      $return['msg'] = "editfailed";
-      echo json_encode($return);
-      mysqli_close($conn);
-      die;
-    }
+    $return['status'] = "failed";
+    $return['msg'] = "addfailed";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
   }
 }
 
@@ -525,6 +593,10 @@ if(isset($_POST['DATA']))
         getdetail($conn,$DATA);
       }else if ($DATA['STATUS'] == 'GetmainCat') {
         GetmainCat($conn,$DATA);
+      }else if ($DATA['STATUS'] == 'CreateItemCode') {
+        CreateItemCode($conn,$DATA);
+      }else if ($DATA['STATUS'] == 'NewItem') {
+        NewItem($conn,$DATA);
       }
 
 }else{
