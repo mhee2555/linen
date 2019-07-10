@@ -968,6 +968,7 @@ function CreateDocument($conn, $DATA)
     $Total = 0;
     $boolean = false;
     $DocNo = $DATA["DocNo"];
+    $deptCode2 = $DATA["deptCode"];
     //==========================================================
       $Sql = "SELECT department.HptCode FROM draw INNER JOIN department ON draw.DepCode = department.DepCode WHERE draw.DocNo = '$DocNo'";
       $meQuery = mysqli_query($conn, $Sql);
@@ -994,7 +995,7 @@ function CreateDocument($conn, $DATA)
         SELECT item_stock.TotalQty 
         FROM item_stock 
         WHERE item_stock.ItemCode = draw_detail.ItemCode 
-        AND item_stock.DepCode = $DepCode
+        AND item_stock.DepCode = $deptCode2
         GROUP BY item_stock.ItemCode , item_stock.DepCode
     ) AS ParQty,
     draw_detail.CcQty,

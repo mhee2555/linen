@@ -1090,8 +1090,8 @@ $array = json_decode($json,TRUE);
                                  StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
                                                 "<td style='width: 5%;' nowrap></td>"+
                                                 "<td style='width: 25%;' nowrap>"+temp[i]['ItemCode']+"</td>"+
-                                                "<td style='width: 36%;' nowrap>"+temp[i]['ItemName']+"</td>"+
-                                                "<td style='width: 10%;' nowrap><center>"+temp[i]['ParQty']+"</center></td>"+
+                                                "<td style='width: 46%;' nowrap>"+temp[i]['ItemName']+"</td>"+
+                                                // "<td style='width: 10%;' nowrap><center>"+temp[i]['ParQty']+"</center></td>"+
                                                 "<td style='width: 24%;' nowrap>"+txtno+"</td>"+
                                                 "</tr>";
 
@@ -1406,8 +1406,8 @@ $array = json_decode($json,TRUE);
                         <tr role="row">
                           <th style='width: 5%;' nowrap>&nbsp;</th>
                           <th style='width: 24%;' nowrap><?php echo $array['nono'][$language]; ?></th>
-                          <th style='width: 36%;' nowrap><?php echo $array['item'][$language]; ?></th>
-                          <th style='width: 11%;' nowrap>Par</th>
+                          <th style='width: 47%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                          <!-- <th style='width: 11%;' nowrap>Par</th> -->
                           <th style='width: 24%;' nowrap><?php echo $array['expireday'][$language]; ?></th>
                         </tr>
                       </thead>

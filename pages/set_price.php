@@ -831,10 +831,18 @@ $array = json_decode($json, true);
         }
     </script>
     <style media="screen">
-        body{
-		   font-family: 'THSarabunNew';
-		   font-size:22px;
-		}
+          @font-face {
+        font-family: myFirstFont;
+        src: url("../fonts/DB Helvethaica X.ttf");
+      }
+      body{
+        font-family: myFirstFont;
+        font-size:22px;
+      }
+      .nfont{
+        font-family: myFirstFont;
+        font-size:22px;
+      }
         input,select{
         font-size:24px!important;
         }
