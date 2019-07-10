@@ -584,7 +584,7 @@ function OpenDialogItem(){
           var isStatus = $("#IsStatus").val();
           var dept = $('#Dep2').val();
           // alert( isStatus );
-          
+          var input_chk = $('#input_chk').val();
             if(isStatus==1){
               isStatus=0;
             }else{
@@ -600,25 +600,28 @@ function OpenDialogItem(){
                   text: "555",
                   type: "success",
                   showCancelButton: false,
-                  timer: 1000,
+                  timer: 1500,
                   showConfirmButton: false
                 });
                 setTimeout(function () {
-                  $('#alert_par').modal('toggle');
-                }, 1000);
-                var data = {
-                  'STATUS'      : 'SaveBill',
-                  'xdocno'      : docno,
-                  'isStatus'    : isStatus,
-                  'deptCode'    : dept
-                };
-                  senddata(JSON.stringify(data));
-                  $('#profile-tab').tab('show');
-                  $("#bImport").prop('disabled', true);
-                  $("#bDelete").prop('disabled', true);
-                  $("#bSave").prop('disabled', true);
-                  $("#bCancel").prop('disabled', true);
-                  ShowDocument();
+                  var data = {
+                    'STATUS'      : 'SaveBill',
+                    'xdocno'      : docno,
+                    'isStatus'    : isStatus,
+                    'deptCode'    : dept
+                  };
+                    senddata(JSON.stringify(data));
+                    $('#profile-tab').tab('show');
+                    $("#bImport").prop('disabled', true);
+                    $("#bDelete").prop('disabled', true);
+                    $("#bSave").prop('disabled', true);
+                    $("#bCancel").prop('disabled', true);
+                    ShowDocument();
+                    if(input_chk == 1){
+                      $('#alert_par').modal('toggle');
+                    }
+                }, 1500);
+
               }
             }else{
               $("#bImport").prop('disabled', false);
@@ -642,10 +645,6 @@ function OpenDialogItem(){
                     $('#unit'+i).prop('disabled', false);
                 }
             }
-          
-          
-
-        
         }
 
         function chk_par(){
@@ -1181,7 +1180,6 @@ function OpenDialogItem(){
                   result = '';
                   if(temp["Row"]>0){
                     for(var i = 0; i < temp['Row']; i++){
-                      // var chkDoc = "<input type='checkbox' name='checkitemS' id='checkitemS' value='"+i+"'><input type='hidden' id='RowIDS"+i+"'>";
                       result += "<tr>"+
                         '<td nowrap style="width: 5%;">'+(i+1)+'</td>'+
                         '<td nowrap style="width: 22%;" class="text-left">'+temp[i]['ItemCode']+'</td>'+
@@ -1194,9 +1192,10 @@ function OpenDialogItem(){
                     }
                     $("#detail_par").html(result);
                     $('#alert_par').modal('show');
+                    $('#input_chk').val(1);
                   }else if(temp["Row"]==0){
                     SaveBill(1);
-                    $('#alert_par').modal('toggle');
+                    // $('#alert_par').modal('toggle');
                   }
                 }
               }else if (temp['status']=="failed") {
@@ -1368,6 +1367,7 @@ function OpenDialogItem(){
       </head>
 
       <body id="page-top">
+      <input type="hidden" id='input_chk' value='0'>
         <input class='form-control' type="hidden" style="margin-left:-48px;margin-top:10px;font-size:16px;width:100px;height:30px;text-align:right;padding-top: 15px;" id='IsStatus'>
 
         <div id="wrapper">
@@ -1683,6 +1683,7 @@ function OpenDialogItem(){
                     </tbody>
                   </table>
                 </div> -->
+
 <!-- -----------------------------Custom1------------------------------------ -->
 <div class="modal" id="dialogItemCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
