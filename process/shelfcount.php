@@ -1184,7 +1184,7 @@ function CancelBill($conn, $DATA)
   $DocNo = $DATA["DocNo"];
   // $Sql = "INSERT INTO log ( log ) VALUES ('DocNo : $DocNo')";
   // mysqli_query($conn,$Sql);
-  $Sql = "UPDATE shelfcount SET IsStatus = 2 ,IsRequest = 1 WHERE DocNo = '$DocNo'";
+  $Sql = "UPDATE shelfcount SET IsStatus = 2 ,IsRequest = 1, Total = 0 WHERE DocNo = '$DocNo'";
   $meQuery = mysqli_query($conn, $Sql);
 }
 
