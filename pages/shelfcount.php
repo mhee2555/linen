@@ -636,6 +636,7 @@ function OpenDialogItem(){
           var Item = [];
           var HptCode = $('#hotpital option:selected').attr("value");
           var DepCode = $('#department option:selected').attr("value");
+          var DocNo = $('#docno').val();
           $(".item_array").each(function() {
             ItemCodeArray.push($(this).val());
           });
@@ -648,6 +649,7 @@ function OpenDialogItem(){
             'STATUS'      : 'chk_par',
             'HptCode'      : HptCode,
             'DepCode'    : DepCode,
+            'DocNo'    : DocNo,
             'ItemCode'    : ItemCode
           };
             senddata(JSON.stringify(data));
@@ -1156,6 +1158,14 @@ function OpenDialogItem(){
                       $("#TableItemListDetailSub tbody").append( Str );
                     }else{
                       $('#TableItemListDetailSub tbody:last-child').append( Str );
+                    }
+                  }
+                }else if( (temp["form"]=='chk_par') ){
+                  for(var i = 0; i < temp['Row']; i++){
+                    if(temp[i]['MoreThan'] > temp[i]['ParQty']){
+                      alert(temp[i]['ItemCode']);
+                      alert(temp[i]['MoreThan']);
+                      alert(temp[i]['ParQty']);
                     }
                   }
                 }
