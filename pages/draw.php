@@ -369,10 +369,12 @@ function OpenDialogItem(){
     }
 
     function ShowDetail() {
+      var deptCode = $('#department option:selected').attr("value");
       var docno = $("#docno").val();
       var data = {
         'STATUS'  : 'ShowDetail',
-        'DocNo'   : docno
+        'DocNo'   : docno,
+        'deptCode'   : deptCode
       };
       senddata(JSON.stringify(data));
     }
