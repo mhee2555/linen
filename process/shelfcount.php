@@ -1194,13 +1194,58 @@ function chk_par($conn, $DATA)
 {
   $count = 0;
   $HptCode = $DATA['HptCode'];
-  $DapCode = $DATA['DapCode'];
+  $DepCode = $DATA['DepCode'];
+  $DocNo = $DATA['DocNo'];
   $ItemCodeArray = $DATA['ItemCode'];
 
   $ItemCode = explode(",", $ItemCodeArray);
-  $limit = sizeof($ItemStockId, 0);
+  $limit = sizeof($ItemCode, 0);
   for ($i = 0; $i < $limit; $i++) {
-    $Sql = "SELECT ";
+    $Sql = "SELECT 
+      shelfcount.DocNo, 
+      shelfcount.DepCode, 
+      shelfcount_detail.ItemCode,
+      shelfcount_detail.TotalQty,
+
+      (SELECT item_stock.TotalQty
+      FROM item_stock 
+      WHERE item_stock.ItemCode = '$ItemCode[$i]' 
+      AND item_stock.DepCode = $DepCode GROUP BY item_stock.ItemCode, item_stock.DepCode) AS TotalQty2,
+
+      (SELECT item_stock.ParQty
+      FROM item_stock 
+      WHERE item_stock.ItemCode = '$ItemCode[$i]' 
+      AND item_stock.DepCode = $DepCode GROUP BY item_stock.ItemCode, item_stock.DepCode) AS ParQty
+
+    FROM shelfcount 
+    INNER JOIN shelfcount_detail ON shelfcount_detail.DocNo = shelfcount.DocNo
+    WHERE shelfcount.DocNo = '$DocNo' 
+    AND shelfcount_detail.ItemCode = '$ItemCode[$i]' 
+    AND shelfcount.DepCode = $DepCode";
+    $return['sql'] = $Sql;
+    $meQuery = mysqli_query($conn, $Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $return[$i]['ItemCode'] = $Result['ItemCode'];
+      $return[$i]['TotalQty'] = $Result['TotalQty'];
+      $return[$i]['MoreThan'] = $Result['TotalQty'] +  $Result['TotalQty2'];
+      $return[$i]['ParQty'] = $Result['ParQty'];
+    }
+    $count++;
+  }
+  $return['Row'] = $count;
+  $return['limit'] = $limit;
+  if ($count>0) {
+    $return['status'] = "success";
+    $return['form'] = "chk_par";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }else {
+    $return['status'] = "failed";
+    $return['form'] = "chk_par";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
   }
 }
   //==========================================================
