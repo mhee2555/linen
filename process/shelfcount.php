@@ -1193,6 +1193,7 @@ function ShowDocument_sub($conn, $DATA)
 function chk_par($conn, $DATA)
 {
   $count = 0;
+
   $HptCode = $DATA['HptCode'];
   $DepCode = $DATA['DepCode'];
   $DocNo = $DATA['DocNo'];
@@ -1215,7 +1216,12 @@ function chk_par($conn, $DATA)
       (SELECT item_stock.ParQty
       FROM item_stock 
       WHERE item_stock.ItemCode = '$ItemCode[$i]' 
-      AND item_stock.DepCode = $DepCode GROUP BY item_stock.ItemCode, item_stock.DepCode) AS ParQty
+      AND item_stock.DepCode = $DepCode GROUP BY item_stock.ItemCode, item_stock.DepCode) AS ParQty,
+
+      (SELECT item.ItemName
+			FROM item
+			WHERE item.ItemCode = '$ItemCode[$i]'  
+			GROUP BY item.ItemCode) AS ItemName
 
     FROM shelfcount 
     INNER JOIN shelfcount_detail ON shelfcount_detail.DocNo = shelfcount.DocNo
@@ -1225,28 +1231,34 @@ function chk_par($conn, $DATA)
     $return['sql'] = $Sql;
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
-      $return[$i]['ItemCode'] = $Result['ItemCode'];
-      $return[$i]['TotalQty'] = $Result['TotalQty'];
-      $return[$i]['MoreThan'] = $Result['TotalQty'] +  $Result['TotalQty2'];
-      $return[$i]['ParQty'] = $Result['ParQty'];
+      $MoreThan = $Result['TotalQty'] +  $Result['TotalQty2'];
+      if($MoreThan>$Result['ParQty']){
+        $return[$i]['ItemCode'] = $Result['ItemCode'];
+        $return[$i]['TotalQty'] = $Result['TotalQty'];
+        $return[$i]['TotalQty2'] = $Result['TotalQty2'];
+        $return[$i]['OverPar'] = $MoreThan - $Result['ParQty'];
+        $return[$i]['ParQty'] = $Result['ParQty'];
+        $return[$i]['ItemName'] = $Result['ItemName'];
+        $count++;
+        $chk = 3;
+      }
     }
-    $count++;
   }
-  $return['Row'] = $count;
-  $return['limit'] = $limit;
-  if ($count>0) {
+    $return['Row'] = $count;
+  if($count>0){
     $return['status'] = "success";
     $return['form'] = "chk_par";
     echo json_encode($return);
     mysqli_close($conn);
     die;
-  }else {
-    $return['status'] = "failed";
+  }else{
+    $return['status'] = "success";
     $return['form'] = "chk_par";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }
+  
 }
   //==========================================================
   //

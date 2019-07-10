@@ -579,56 +579,77 @@ function OpenDialogItem(){
           }
         }
 
-        function SaveBill(){
+        function SaveBill(chk){
           var docno = $("#docno").val();
           var isStatus = $("#IsStatus").val();
           var dept = $('#Dep2').val();
+          var chk_par = $('#input_chk').val();
           // alert( isStatus );
-          chk_par();
-          // if(isStatus==1)
-          // isStatus=0;
-          // else
-          // isStatus=1;
+          if(chk!=1){
+            chk_par();
+          }else{
+            swal({
+              title: "ddd",
+              text: "555",
+              type: "success",
+              showCancelButton: false,
+              timer: 1000,
+              // confirmButtonText: 'Ok',
+              showConfirmButton: false
+            });
+            setTimeout(function () {
+              $('#alert_par').modal('toggle');
+            }, 1000);
 
-          // if(isStatus==1){
-          //   var data = {
-          //     'STATUS'      : 'SaveBill',
-          //     'xdocno'      : docno,
-          //     'isStatus'    : isStatus,
-          //     'deptCode'    : dept
-          //   };
-          //   senddata(JSON.stringify(data));
+            if(isStatus==1){
+              isStatus=0;
+            }else{
+              isStatus=1;
+            }
 
-          //   $('#profile-tab').tab('show');
+            if(isStatus==1){
+              var data = {
+                'STATUS'      : 'SaveBill',
+                'xdocno'      : docno,
+                'isStatus'    : isStatus,
+                'deptCode'    : dept
+              };
+              senddata(JSON.stringify(data));
 
-          //     $("#bImport").prop('disabled', true);
-          //     $("#bDelete").prop('disabled', true);
-          //     $("#bSave").prop('disabled', true);
-          //     $("#bCancel").prop('disabled', true);
+              $('#profile-tab').tab('show');
 
-          //     ShowDocument();
-          // }else{
-          //   $("#bImport").prop('disabled', false);
-          //   $("#bDelete").prop('disabled', false);
-          //   $("#bSave").prop('disabled', false);
-          //   $("#bCancel").prop('disabled', false);
-          //   $("#bSave").text('<?php echo $array['save'][$language]; ?>');
-          //   $("#IsStatus").val("0");
-          //     $("#docno").prop('disabled', false);
-          //     $("#docdate").prop('disabled', false);
-          //     $("#recorder").prop('disabled', false);
-          //     $("#timerec").prop('disabled', false);
-          //     $("#total").prop('disabled', false);
-          //     var rowCount = $('#TableItemDetail >tbody >tr').length;
-          //     for (var i = 0; i < rowCount; i++) {
+                $("#bImport").prop('disabled', true);
+                $("#bDelete").prop('disabled', true);
+                $("#bSave").prop('disabled', true);
+                $("#bCancel").prop('disabled', true);
 
-          //         $('#qty1_'+i).prop('disabled', false);
-          //         $('#weight_'+i).prop('disabled', false);
-          //         $('#price_'+i).prop('disabled', false);
+                ShowDocument();
+            }else{
+              $("#bImport").prop('disabled', false);
+              $("#bDelete").prop('disabled', false);
+              $("#bSave").prop('disabled', false);
+              $("#bCancel").prop('disabled', false);
+              $("#bSave").text('<?php echo $array['save'][$language]; ?>');
+              $("#IsStatus").val("0");
+                $("#docno").prop('disabled', false);
+                $("#docdate").prop('disabled', false);
+                $("#recorder").prop('disabled', false);
+                $("#timerec").prop('disabled', false);
+                $("#total").prop('disabled', false);
+                var rowCount = $('#TableItemDetail >tbody >tr').length;
+                for (var i = 0; i < rowCount; i++) {
 
-          //         $('#unit'+i).prop('disabled', false);
-          //     }
-          // }
+                    $('#qty1_'+i).prop('disabled', false);
+                    $('#weight_'+i).prop('disabled', false);
+                    $('#price_'+i).prop('disabled', false);
+
+                    $('#unit'+i).prop('disabled', false);
+                }
+            }
+          }
+          
+
+        
         }
 
         function chk_par(){
@@ -1161,12 +1182,24 @@ function OpenDialogItem(){
                     }
                   }
                 }else if( (temp["form"]=='chk_par') ){
-                  for(var i = 0; i < temp['Row']; i++){
-                    if(temp[i]['MoreThan'] > temp[i]['ParQty']){
-                      alert(temp[i]['ItemCode']);
-                      alert(temp[i]['MoreThan']);
-                      alert(temp[i]['ParQty']);
+                  result = '';
+                  if(temp["Row"]!=0){
+                    for(var i = 0; i < temp['Row']; i++){
+                      // var chkDoc = "<input type='checkbox' name='checkitemS' id='checkitemS' value='"+i+"'><input type='hidden' id='RowIDS"+i+"'>";
+                      result += "<tr>"+
+                        '<td nowrap style="width: 5%;">'+(i+1)+'</td>'+
+                        '<td nowrap style="width: 22%;" class="text-left">'+temp[i]['ItemCode']+'</td>'+
+                        '<td nowrap style="width: 33%;" class="text-left">'+temp[i]['ItemName']+'</td>'+
+                        '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['TotalQty']+'</td>'+
+                        '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['ParQty']+'</td>'+
+                        '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['TotalQty2']+'</td>'+
+                        '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['OverPar']+'</td>'+
+                      "</tr>";
                     }
+                    $("#detail_par").html(result);
+                    $('#alert_par').modal('show');
+                  }else{
+                    SaveBill(1);
                   }
                 }
               }else if (temp['status']=="failed") {
@@ -1476,7 +1509,7 @@ function OpenDialogItem(){
                                 <div class="col-md-1">
                                   <div class="row" style="margin-left:2px;">
                                     <div class="row" style="margin-left:20px;">
-                                      <button onclick="SaveBill()" style="width:105px" type="button" class="btn btn_mheesave" onclick="AddItem()" id="bSave"><?php echo $array['save'][$language]; ?></button>
+                                      <button onclick="SaveBill(1)" style="width:105px" type="button" class="btn btn_mheesave" onclick="AddItem()" id="bSave"><?php echo $array['save'][$language]; ?></button>
                                     </div>
                                   </div>
                                 </div>
@@ -1653,80 +1686,119 @@ function OpenDialogItem(){
                     </tbody>
                   </table>
                 </div> -->
- <!-- -----------------------------Custom1------------------------------------ -->
- <div class="modal" id="dialogItemCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="card-body" style="padding:0px;">
-            <div class="row">
-              <div class="col-md-8">
-                <div class='form-group row'>
-                  <label class="col-sm-3 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
-                  <input type="text" class="form-control col-sm-9" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                </div>
-              </div>
-              <div class="col-md-2">
-                <button type="button" class="btn btn-primary btn-block" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
-              </div>
-              <div class="col-md-2">
-                  <button type="button" class="btn btn-warning  btn-block" name="button" onclick="getImport(1);"><?php echo $array['import'][$language]; ?></button>
+<!-- -----------------------------Custom1------------------------------------ -->
+<div class="modal" id="dialogItemCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body" style="padding:0px;">
+          <div class="row">
+            <div class="col-md-8">
+              <div class='form-group row'>
+                <label class="col-sm-3 col-form-label text-right pr-5"><?php echo $array['searchplace'][$language]; ?></label>
+                <input type="text" class="form-control col-sm-9" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
               </div>
             </div>
-            <table class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
-              <thead style="font-size:24px;">
-                <tr role="row">
-                  <th style='width: 10%;' nowrap><?php echo $array['no'][$language]; ?></th>
-                  <th style='width: 20%;' nowrap><?php echo $array['code'][$language]; ?></th>
-                  <th style='width: 25%;' nowrap><?php echo $array['item'][$language]; ?></th>
-                  <th style='width: 15%;' nowrap><center><?php echo $array['unit'][$language]; ?></center></th>
-                  <th style='width: 15%;' nowrap><?php echo $array['numofpiece'][$language]; ?></th>
-                  <th style='width: 15%;' nowrap><?php echo $array['weight'][$language]; ?></th>
-                </tr>
-              </thead>
-              <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
-              </tbody>
-            </table>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-primary btn-block" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-warning  btn-block" name="button" onclick="getImport(1);"><?php echo $array['import'][$language]; ?></button>
+            </div>
           </div>
+          <table class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
+            <thead style="font-size:24px;">
+              <tr role="row">
+                <th style='width: 10%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                <th style='width: 20%;' nowrap><?php echo $array['code'][$language]; ?></th>
+                <th style='width: 25%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                <th style='width: 15%;' nowrap><center><?php echo $array['unit'][$language]; ?></center></th>
+                <th style='width: 15%;' nowrap><?php echo $array['numofpiece'][$language]; ?></th>
+                <th style='width: 15%;' nowrap><?php echo $array['weight'][$language]; ?></th>
+              </tr>
+            </thead>
+            <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
-  <!-- custom modal2 -->
-  <div class="modal" id="dialogListDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="card-body" style="padding:0px;">
-                    <div class="row">
-                    </div>
-                    <table class="table table-fixed table-condensed table-striped" id="TableRefDocNo" cellspacing="0" role="grid">
-                      <thead style="font-size:24px;">
-                        <tr role="row">
-                        <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
-                        <th style='width: 25%;'nowrap><?php echo $array['rfid'][$language]; ?></th>
-                        <th style='width: 50%;'nowrap><?php echo $array['item'][$language]; ?></th>
-                        <th style='width: 15%;'nowrap><?php echo $array['unit'][$language]; ?></th>
-                        </tr>
-                      </thead>
-                      <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
+</div>
+<!-- custom modal2 -->
+<div class="modal" id="dialogListDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body" style="padding:0px;">
+          <div class="row">
           </div>
+          <table class="table table-fixed table-condensed table-striped" id="TableRefDocNo" cellspacing="0" role="grid">
+            <thead style="font-size:24px;">
+              <tr role="row">
+              <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
+              <th style='width: 25%;'nowrap><?php echo $array['rfid'][$language]; ?></th>
+              <th style='width: 50%;'nowrap><?php echo $array['item'][$language]; ?></th>
+              <th style='width: 15%;'nowrap><?php echo $array['unit'][$language]; ?></th>
+              </tr>
+            </thead>
+            <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- custom modal3 -->
+<div class="modal fade" id="alert_par" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title"><?php echo $array['alertPar'][$language]; ?></h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body" style="padding:0px;">
+          <div class="row">
+          </div>
+          <table class="table table-fixed table-condensed table-striped" id="TablePar" cellspacing="0" role="grid">
+            <thead style="font-size:24px;">
+              <tr role="row">
+              <th style='width: 5%;'nowrap ><?php echo $array['no'][$language]; ?></th>
+              <th style='width: 22%;'nowrap class='text-left'><?php echo $array['code'][$language]; ?></th>
+              <th style='width: 33%;'nowrap class='text-left'><?php echo $array['item'][$language]; ?></th>
+              <th style='width: 10%;'nowrap class='text-right'><?php echo $array['order'][$language]; ?></th>
+              <th style='width: 10%;'nowrap class='text-right'><?php echo $array['totalnum'][$language]; ?></th>
+              <th style='width: 10%;'nowrap class='text-right'><?php echo $array['balance'][$language]; ?></th>
+              <th style='width: 10%;'nowrap class='text-right'><?php echo $array['over'][$language]; ?></th>
+              </tr>
+            </thead>
+            <tbody id="detail_par" class="nicescrolled" style="font-size:23px;height:auto;">
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="SaveBill(1)" class="btn btn-success"><?php echo $array['confirm'][$language]; ?></button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo $array['cancel'][$language]; ?></button>
+      </div>
+    </div>
+  </div>
+</div>
     
               
               <!-- Bootstrap core JavaScript-->
