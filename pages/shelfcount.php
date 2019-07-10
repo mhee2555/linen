@@ -584,50 +584,73 @@ function OpenDialogItem(){
           var isStatus = $("#IsStatus").val();
           var dept = $('#Dep2').val();
           // alert( isStatus );
-          if(isStatus==1)
-          isStatus=0;
-          else
-          isStatus=1;
+          chk_par();
+          // if(isStatus==1)
+          // isStatus=0;
+          // else
+          // isStatus=1;
 
-          if(isStatus==1){
-            var data = {
-              'STATUS'      : 'SaveBill',
-              'xdocno'      : docno,
-              'isStatus'    : isStatus,
-              'deptCode'    : dept
-            };
-            senddata(JSON.stringify(data));
+          // if(isStatus==1){
+          //   var data = {
+          //     'STATUS'      : 'SaveBill',
+          //     'xdocno'      : docno,
+          //     'isStatus'    : isStatus,
+          //     'deptCode'    : dept
+          //   };
+          //   senddata(JSON.stringify(data));
 
-            $('#profile-tab').tab('show');
+          //   $('#profile-tab').tab('show');
 
-              $("#bImport").prop('disabled', true);
-              $("#bDelete").prop('disabled', true);
-              $("#bSave").prop('disabled', true);
-              $("#bCancel").prop('disabled', true);
+          //     $("#bImport").prop('disabled', true);
+          //     $("#bDelete").prop('disabled', true);
+          //     $("#bSave").prop('disabled', true);
+          //     $("#bCancel").prop('disabled', true);
 
-              ShowDocument();
-          }else{
-            $("#bImport").prop('disabled', false);
-            $("#bDelete").prop('disabled', false);
-            $("#bSave").prop('disabled', false);
-            $("#bCancel").prop('disabled', false);
-            $("#bSave").text('<?php echo $array['save'][$language]; ?>');
-            $("#IsStatus").val("0");
-              $("#docno").prop('disabled', false);
-              $("#docdate").prop('disabled', false);
-              $("#recorder").prop('disabled', false);
-              $("#timerec").prop('disabled', false);
-              $("#total").prop('disabled', false);
-              var rowCount = $('#TableItemDetail >tbody >tr').length;
-              for (var i = 0; i < rowCount; i++) {
+          //     ShowDocument();
+          // }else{
+          //   $("#bImport").prop('disabled', false);
+          //   $("#bDelete").prop('disabled', false);
+          //   $("#bSave").prop('disabled', false);
+          //   $("#bCancel").prop('disabled', false);
+          //   $("#bSave").text('<?php echo $array['save'][$language]; ?>');
+          //   $("#IsStatus").val("0");
+          //     $("#docno").prop('disabled', false);
+          //     $("#docdate").prop('disabled', false);
+          //     $("#recorder").prop('disabled', false);
+          //     $("#timerec").prop('disabled', false);
+          //     $("#total").prop('disabled', false);
+          //     var rowCount = $('#TableItemDetail >tbody >tr').length;
+          //     for (var i = 0; i < rowCount; i++) {
 
-                  $('#qty1_'+i).prop('disabled', false);
-                  $('#weight_'+i).prop('disabled', false);
-                  $('#price_'+i).prop('disabled', false);
+          //         $('#qty1_'+i).prop('disabled', false);
+          //         $('#weight_'+i).prop('disabled', false);
+          //         $('#price_'+i).prop('disabled', false);
 
-                  $('#unit'+i).prop('disabled', false);
-              }
+          //         $('#unit'+i).prop('disabled', false);
+          //     }
+          // }
+        }
+
+        function chk_par(){
+          var ItemCodeArray = [];
+          var Item = [];
+          var HptCode = $('#hotpital option:selected').attr("value");
+          var DepCode = $('#department option:selected').attr("value");
+          $(".item_array").each(function() {
+            ItemCodeArray.push($(this).val());
+          });
+
+          for(var j=0;j<ItemCodeArray.length; j++){
+            Item.push( $("#item_array"+ItemCodeArray[j]).val() );
           }
+          var ItemCode = Item.join(',') ;
+          var data = {
+            'STATUS'      : 'chk_par',
+            'HptCode'      : HptCode,
+            'DepCode'    : DepCode,
+            'ItemCode'    : ItemCode
+          };
+            senddata(JSON.stringify(data));
         }
 
         function PrintData(){
@@ -994,7 +1017,7 @@ function OpenDialogItem(){
 
                     $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
                     "<td style='width: 7%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-                    "<td style='width: 20%;'nowrap>"+temp[i]['ItemCode']+"</td>"+
+                    "<td style='width: 20%;'nowrap><input type='hidden' id='item_array"+temp[i]['ItemCode']+"' value='"+temp[i]['ItemCode']+"' class='item_array'></input>"+temp[i]['ItemCode']+"</td>"+
                     "<td style='width: 20%;'nowrap>"+temp[i]['ItemName']+"</td>"+
                     "<td style='width: 10%;'nowrap>"+temp[i]['UnitName']+"</td>"+
                     "<td style='width: 10%;'nowrap>"+Max+"</td>"+
@@ -1205,103 +1228,102 @@ function OpenDialogItem(){
           });
         }
         </script>
-        <style media="screen">
+          <style media="screen">
 
-          @font-face {
+            @font-face {
+              font-family: myFirstFont;
+              src: url("../fonts/DB Helvethaica X.ttf");
+              }
+          body{
             font-family: myFirstFont;
-            src: url("../fonts/DB Helvethaica X.ttf");
-            }
-        body{
-          font-family: myFirstFont;
-          font-size:22px;
-        }
+            font-size:22px;
+          }
 
-        .nfont{
-          font-family: myFirstFont;
-          font-size:22px;
-        }
+          .nfont{
+            font-family: myFirstFont;
+            font-size:22px;
+          }
 
-        button,input[id^='qty'],input[id^='order'],input[id^='max'] {
-          font-size: 24px!important;
-        }
+          button,input[id^='qty'],input[id^='order'],input[id^='max'] {
+            font-size: 24px!important;
+          }
 
-        .table > thead > tr >th {
-          /* background: #4f88e3!important; */
-          background-color: rgb(0, 51, 141);
+          .table > thead > tr >th {
+            /* background: #4f88e3!important; */
+            background-color: rgb(0, 51, 141);
 
-        }
+          }
 
-        table tr th,
-        table tr td {
-          border-right: 0px solid #bbb;
-          border-bottom: 0px solid #bbb;
-          padding: 5px;
-        }
-        table tr th:first-child,
-        table tr td:first-child {
-          border-left: 0px solid #bbb;
-        }
-        table tr th {
-          background: #eee;
-          border-top: 0px solid #bbb;
-          text-align: left;
-        }
+          table tr th,
+          table tr td {
+            border-right: 0px solid #bbb;
+            border-bottom: 0px solid #bbb;
+            padding: 5px;
+          }
+          table tr th:first-child,
+          table tr td:first-child {
+            border-left: 0px solid #bbb;
+          }
+          table tr th {
+            background: #eee;
+            border-top: 0px solid #bbb;
+            text-align: left;
+          }
 
-        /* top-left border-radius */
-        table tr:first-child th:first-child {
-          border-top-left-radius: 6px;
-        }
+          /* top-left border-radius */
+          table tr:first-child th:first-child {
+            border-top-left-radius: 6px;
+          }
 
-        /* top-right border-radius */
-        table tr:first-child th:last-child {
-          border-top-right-radius: 6px;
-        }
+          /* top-right border-radius */
+          table tr:first-child th:last-child {
+            border-top-right-radius: 6px;
+          }
 
-        /* bottom-left border-radius */
-        table tr:last-child td:first-child {
-          border-bottom-left-radius: 6px;
-        }
+          /* bottom-left border-radius */
+          table tr:last-child td:first-child {
+            border-bottom-left-radius: 6px;
+          }
 
-        /* bottom-right border-radius */
-        table tr:last-child td:last-child {
-          border-bottom-right-radius: 6px;
-        }
-        .btn_mhee{
-          background-color: #e83530;
-          color:white;
-        }
+          /* bottom-right border-radius */
+          table tr:last-child td:last-child {
+            border-bottom-right-radius: 6px;
+          }
+          .btn_mhee{
+            background-color: #e83530;
+            color:white;
+          }
 
-        .btn_mheesave{
-          background-color:#ee9726;
-          color:white;
-        }
-        .btn_mheedel{
-          background-color:#b12f31;
-          color:white;
-        }
-        .btn_mheeIM{
-          background-color:#3e3a8f;
-          color:white;
-        }
-        .btn_mheedetail{
-          background-color:#535d55;
-          color:white;
-        }
-        .btn_mheereport{
-          background-color:#d8d9db;
-          color:white;
-        }
-        .btn_mheeCREATE{
-          background-color:#1458a3; 
-;
-          color:white;
-        }
-        #4169E1
-        a.nav-link{
-          width:auto!important;
-        }
-        .datepicker{z-index:9999 !important}
-        .hidden{visibility: hidden;}
+          .btn_mheesave{
+            background-color:#ee9726;
+            color:white;
+          }
+          .btn_mheedel{
+            background-color:#b12f31;
+            color:white;
+          }
+          .btn_mheeIM{
+            background-color:#3e3a8f;
+            color:white;
+          }
+          .btn_mheedetail{
+            background-color:#535d55;
+            color:white;
+          }
+          .btn_mheereport{
+            background-color:#d8d9db;
+            color:white;
+          }
+          .btn_mheeCREATE{
+            background-color:#1458a3; 
+  
+            color:white;
+          }
+          a.nav-link{
+            width:auto!important;
+          }
+          .datepicker{z-index:9999 !important}
+          .hidden{visibility: hidden;}
         </style>
       </head>
 

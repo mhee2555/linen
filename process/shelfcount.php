@@ -984,8 +984,7 @@ function ShowDetail($conn, $DATA)
   INNER JOIN shelfcount_detail ON shelfcount_detail.ItemCode = item.ItemCode
   INNER JOIN shelfcount ON shelfcount.DocNo = shelfcount_detail.DocNo
   WHERE shelfcount_detail.DocNo = '$DocNo'
-  ORDER BY shelfcount_detail.Id DESC
-";
+  ORDER BY shelfcount_detail.Id DESC ";
   $return['sql55'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -1190,6 +1189,20 @@ function ShowDocument_sub($conn, $DATA)
     die;
   }
 }
+
+function chk_par($conn, $DATA)
+{
+  $count = 0;
+  $HptCode = $DATA['HptCode'];
+  $DapCode = $DATA['DapCode'];
+  $ItemCodeArray = $DATA['ItemCode'];
+
+  $ItemCode = explode(",", $ItemCodeArray);
+  $limit = sizeof($ItemStockId, 0);
+  for ($i = 0; $i < $limit; $i++) {
+    $Sql = "SELECT ";
+  }
+}
   //==========================================================
   //
   //==========================================================
@@ -1239,6 +1252,8 @@ function ShowDocument_sub($conn, $DATA)
       ShowDetailSub($conn, $DATA);
     }elseif ($DATA['STATUS'] == 'ShowMenu') {
       ShowMenu($conn, $DATA);
+    }elseif ($DATA['STATUS'] == 'chk_par') {
+      chk_par($conn, $DATA);
     }
   } else {
     $return['status'] = "error";
