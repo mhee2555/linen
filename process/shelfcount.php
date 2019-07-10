@@ -675,13 +675,14 @@ function getImport($conn, $DATA)
       $xTotalQty[$n] 	= $row["TotalQty"];
       $n++;
     }
-    for($i=0;$i<$n;$i++){
-      $ItemCode = $xItemCode[$i];
-      $ParQty = $xParQty[$i];
-      $CcQty = $xCcQty[$i];
-      $TotalQty = $xTotalQty[$i];
-      mysqli_query($conn, "UPDATE item_stock SET ParQty=$ParQty,CcQty=$CcQty,TotalQty=$TotalQty WHERE ItemCode = '$ItemCode'");
-    }
+
+    // for($i=0;$i<$n;$i++){
+    //   $ItemCode = $xItemCode[$i];
+    //   $ParQty = $xParQty[$i];
+    //   $CcQty = $xCcQty[$i];
+    //   $TotalQty = $xTotalQty[$i];
+    //   mysqli_query($conn, "UPDATE item_stock SET ParQty=$ParQty,CcQty=$CcQty,TotalQty=$TotalQty WHERE ItemCode = '$ItemCode'");
+    // }
 
     $n = 0;
     $Sql = "SELECT UsageCode FROM shelfcount_detail_sub WHERE DocNo = '$DocNo'";
