@@ -1230,7 +1230,7 @@ $array = json_decode($json,TRUE);
       font-size:24px!important;
     }
     th,td{
-      font-size:24px!important;
+      font-size:22px!important;
     }
     .table > thead > tr >th {
       background: #4f88e3!important;
@@ -1290,7 +1290,13 @@ $array = json_decode($json,TRUE);
             margin-top: 23%;
         }
     }
-
+    #size_custom{
+            font-size: 20px!important;
+            width: 84px;
+        }
+        #magin_cus{
+            margin-top: 200px;
+        }
     @media (min-width: 700px) and (max-width: 1199.99px){ 
         #btn_margin {
             margin-top: 1%;
