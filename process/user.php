@@ -58,7 +58,7 @@ function getdetail($conn, $DATA)
         FROM users
         INNER JOIN permission ON users.PmID = permission.PmID
         INNER JOIN site ON users.HptCode = site.HptCode
-        INNER JOIN factory ON factory.FacCode = users.FacCode  
+        LEFT JOIN factory ON factory.FacCode = users.FacCode  
         WHERE users.ID = $ID AND users.IsCancel = 0";
         $return['sql'] = $Sql;
 

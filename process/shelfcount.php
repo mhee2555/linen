@@ -867,14 +867,6 @@ function SaveBill($conn, $DATA)
       }
     }
   }
-
-
-
-
-
-
-
-
   $Sql = "SELECT SUM(shelfcount_detail.TotalQty) AS Summ
   FROM shelfcount_detail WHERE shelfcount_detail.DocNo = '$DocNo'";
   $meQ = mysqli_query($conn, $Sql);
