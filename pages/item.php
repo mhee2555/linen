@@ -559,9 +559,13 @@ var isChecked2 = false;
     }
 
     function Blankinput() {
+      $('#NewItem').prop("disabled", false);
+      $(".radio-c :input").attr("disabled", false);
+      $('#formatitem:checked').prop('checked', false);
       $('.checkblank').each(function() {
         $(this).val("");
       });
+      $('#ItemCode').val("");
       $('#catagory2').val("1");
       $('#UnitName').val("1");
       $('#SizeCode').val("1");
@@ -579,7 +583,8 @@ var isChecked2 = false;
         senddata(JSON.stringify(data));
       }
       $('#NewItem').prop("disabled", true);
-      //toy
+      $(".radio-c :input").attr("disabled", true);
+      $('#formatitem:checked').prop('checked', false);
     }
 
     function DeleteUnit(){
@@ -802,6 +807,7 @@ var isChecked2 = false;
                               getSearchDocNo();
                           }else if( (temp["form"]=='getCatagory') ){
                               $("#catagory1").empty();
+                              $("#catagory2").empty();
                             for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                               var StrTr = "<option value = '"+temp[i]['CategoryCode']+"'> " + temp[i]['CategoryName'] + " </option>";
                               $("#catagory1").append(StrTr);
@@ -914,6 +920,8 @@ var isChecked2 = false;
                             }
                           }else if( (temp["form"]=='AddItem') ){
                             $('#NewItem').prop("disabled", false);
+                            $(".radio-c :input").attr("disabled", false);
+                            $('#ItemCode').val("");
                             switch (temp['msg']) {
                               case "notchosen":
                                 temp['msg'] = "<?php echo $array['choosemsg'][$language]; ?>";
@@ -965,7 +973,6 @@ var isChecked2 = false;
                               $('.checkblank').each(function() {
                                 $(this).val("");
                               });
-
                               $('#catagory2').val("1");
                               $('#UnitName').val("1");
                               $('#SizeCode').val("1");

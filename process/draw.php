@@ -833,7 +833,7 @@ function CreateDocument($conn, $DATA)
           }
 
   // =======================================================================================
-
+          $loop = 0;
       $sql_update =  "SELECT
 			draw_detail.ItemCode,
 			draw_detail.ParQty,
@@ -858,11 +858,63 @@ function CreateDocument($conn, $DATA)
           mysqli_query($conn, "UPDATE item_stock SET CcQty=$CcQty,TotalQty= (TotalQty-$TotalQty)  WHERE DepCode = $DepCodeDraw AND ItemCode = '$ItemCode'");
 
           mysqli_query($conn, "UPDATE item_stock SET CcQty=$CcQty,TotalQty= (TotalQty+$TotalQty)  WHERE DepCode = $DepCodeSC   AND ItemCode ='$ItemCodeSC'");
-          
+          $loop ++ ;
           // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty + $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDepCode");
           // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty - $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDept");
       }
 
+      //==========================================================================================================//
+        $Sqlselect="SELECT item_stock.ItemCode,item_stock.DepCode,item_stock.ParQty,item_stock.CcQty,item_stock.TotalQty,item_stock.IsStatus
+                    FROM item_stock WHERE  DepCode = $DepCodeSC   AND ItemCode ='$ItemCodeSC'
+                    LIMIT 1";
+                    $return['sql']="$Sqlselect";
+        $meQuery = mysqli_query($conn,$Sqlselect);
+        while ($Result = mysqli_fetch_assoc($meQuery)) {
+          $ItemCode = $Result['ItemCode'];
+          $DepCode	= $Result['DepCode'];
+          $ParQtyx 	= $Result['ParQty'];
+          $CcQtyx 	  = $Result['CcQty'];
+          $TotalQtyx = $Result['TotalQty'];
+          $IsStatus = $Result['IsStatus'];
+        }
+      //==========================================================================================================//
+      for($i=0;$i<$TotalQty;$i++){
+
+          $Sql_INSERT = "INSERT INTO item_stock (ItemCode , DepCode , ParQty , CcQty , TotalQty , IsStatus ,UsageCode) 
+                         VALUES ('$ItemCode' , $DepCodeSC , $ParQtyx , $CcQtyx , $TotalQtyx , $IsStatus , 0)"; 
+                         
+
+          mysqli_query($conn,$Sql_INSERT);
+      }
+      echo json_encode($return);
+
+      //==========================================================================================================//
+
+      //==========================================================================================================//
+      $Sqlselect="SELECT item_stock.ItemCode,item_stock.DepCode,item_stock.ParQty,item_stock.CcQty,item_stock.TotalQty,item_stock.IsStatus
+      FROM item_stock WHERE  DepCode = $DepCodeDraw   AND ItemCode ='$ItemCode'
+      LIMIT 1";
+      $return['sql']="$Sqlselect";
+$meQuery = mysqli_query($conn,$Sqlselect);
+while ($Result = mysqli_fetch_assoc($meQuery)) {
+$ItemCode = $Result['ItemCode'];
+$DepCode	= $Result['DepCode'];
+$ParQtyx 	= $Result['ParQty'];
+$CcQtyx 	  = $Result['CcQty'];
+$TotalQtyx = $Result['TotalQty'];
+$IsStatus = $Result['IsStatus'];
+}
+//==========================================================================================================//
+for($i=0;$i<$TotalQty;$i++){
+
+$Sql_delete = "DELETE FROM item_stock WHERE DepCode = $DepCodeDraw   AND ItemCode ='$ItemCode' LIMIT 1"; 
+           
+
+mysqli_query($conn,$Sql_delete);
+}
+echo json_encode($return);
+
+//==========================================================================================================//
     $Sql = "DELETE FROM draw_detail_sub  WHERE DocNo = '$DocNo'";
     mysqli_query($conn, $Sql);
 
