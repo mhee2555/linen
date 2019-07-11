@@ -875,6 +875,22 @@ function CancelBill($conn, $DATA){
   // mysqli_query($conn,$Sql);
   $Sql = "UPDATE stock_in SET IsStatus = 2  WHERE DocNo = '$DocNo'";
   $meQuery = mysqli_query($conn, $Sql);
+  // =============================================================================
+  $SqlX = "SELECT ItemCode, Qty, DepCode
+  FROM stock_in_detail 
+  INNER JOIN stock_in ON stock_in.DocNo = stock_in_detail.DocNo
+  WHERE stock_in_detail.DocNo = '$DocNo'";
+  $meQueryX = mysqli_query($conn, $SqlX);
+
+  while ($ResultX = mysqli_fetch_assoc($meQueryX)) {
+    $ItemCodeX = $ResultX['ItemCode'];
+    $QtyX = $ResultX['Qty'];
+    $DepCodeX = $ResultX['DepCode'];
+    $updateSql = "UPDATE item_stock SET TotalQty = (TotalQty - $QtyX) WHERE ItemCode = '$ItemCodeX' AND DepCode = $DepCodeX";
+    mysqli_query($conn, $updateSql);
+  }
+
+
 }
 //==========================================================
 //
