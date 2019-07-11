@@ -74,29 +74,6 @@ function getDepartment($conn, $DATA)
     mysqli_close($conn);
     die;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // $count = 0;
   // $userid = $DATA['Userid'];
   // $Sql = "SELECT
@@ -352,12 +329,12 @@ function additemstock($conn, $DATA)
   // var_dump($Number[0]); die;
   for ($i=0; $i < sizeof($Itemcode,0) ; $i++) {
 
-    $SqlCount = "SELECT COUNT(ItemCode) AS countPar, TotalQty FROM item_stock WHERE ItemCode = '$Itemcode[$i]' AND DepCode = $Deptid";
+    $SqlCount = "SELECT COUNT(ItemCode) AS countPar, TotalQty, ParQty FROM item_stock WHERE ItemCode = '$Itemcode[$i]' AND DepCode = $Deptid";
     $meQuery = mysqli_query($conn,$SqlCount);
 
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $countPar = $Result['countPar'];
-      $setPar = $Result['countPar'] + $ParQty;
+      $setPar = $Result['ParQty'] + $ParQty;
       $TotalQty = $Result['TotalQty'];
       $setTotalQty = $TotalQty + $Number[$i];
     }
