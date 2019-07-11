@@ -300,7 +300,7 @@ $array = json_decode($json,TRUE);
           };
           senddata(JSON.stringify(data));
           $('#profile-tab').tab('show');
-          ShowDocument();
+          ShowDocument(3);
         }
 
         function getImport(Sel) {
