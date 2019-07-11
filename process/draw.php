@@ -871,47 +871,35 @@ function CreateDocument($conn, $DATA)
         $meQuery = mysqli_query($conn,$Sqlselect);
         while ($Result = mysqli_fetch_assoc($meQuery)) {
           $ItemCode = $Result['ItemCode'];
-          $DepCode	= $Result['DepCode'];
+          $DepCodexx	= $Result['DepCode'];
           $ParQtyx 	= $Result['ParQty'];
           $CcQtyx 	  = $Result['CcQty'];
           $TotalQtyx = $Result['TotalQty'];
           $IsStatus = $Result['IsStatus'];
         }
       //==========================================================================================================//
-      for($i=0;$i<$TotalQty;$i++){
-
-          $Sql_INSERT = "INSERT INTO item_stock (ItemCode , DepCode , ParQty , CcQty , TotalQty , IsStatus ,UsageCode) 
-                         VALUES ('$ItemCode' , $DepCodeSC , $ParQtyx , $CcQtyx , $TotalQtyx , $IsStatus , 0)"; 
-                         
-
-          mysqli_query($conn,$Sql_INSERT);
-      }
-      echo json_encode($return);
-
-
-      //==========================================================================================================//
       $Sqlselect="SELECT item_stock.ItemCode,item_stock.DepCode,item_stock.ParQty,item_stock.CcQty,item_stock.TotalQty,item_stock.IsStatus
       FROM item_stock WHERE  DepCode = $DepCodeDraw   AND ItemCode ='$ItemCode'
       LIMIT 1";
       $return['sql']="$Sqlselect";
-$meQuery = mysqli_query($conn,$Sqlselect);
-while ($Result = mysqli_fetch_assoc($meQuery)) {
-$ItemCode = $Result['ItemCode'];
-$DepCode	= $Result['DepCode'];
-$ParQtyx 	= $Result['ParQty'];
-$CcQtyx 	  = $Result['CcQty'];
-$TotalQtyx = $Result['TotalQty'];
-$IsStatus = $Result['IsStatus'];
+      $meQuery = mysqli_query($conn,$Sqlselect);
+      while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $ItemCodeZ = $Result['ItemCode'];
+      $DepCodeZ	= $Result['DepCode'];
+      $ParQtyx 	= $Result['ParQty'];
+      $CcQtyx 	  = $Result['CcQty'];
+      $TotalQtyxz = $Result['TotalQty'];
+      $IsStatus = $Result['IsStatus'];
 }
 //==========================================================================================================//
-for($i=0;$i<$TotalQty;$i++){
 
-$Sql_delete = "DELETE FROM item_stock WHERE DepCode = $DepCodeDraw   AND ItemCode ='$ItemCode' LIMIT 1"; 
-           
+        $Sql_INSERT = "UPDATE item_stock SET TotalQty =$TotalQtyx , DepCode=$DepCodexx WHERE ItemCode='$ItemCodeZ' AND DepCode= $DepCodeZ LIMIT $TotalQty"; 
+                       
 
-mysqli_query($conn,$Sql_delete);
-}
-echo json_encode($return);
+        mysqli_query($conn,$Sql_INSERT);
+    
+
+
 
 //==========================================================================================================//
     $Sql = "DELETE FROM draw_detail_sub  WHERE DocNo = '$DocNo'";
