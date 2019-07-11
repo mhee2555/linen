@@ -532,7 +532,7 @@ function CreateDocument($conn, $DATA)
           $Sql = "INSERT INTO draw_detail
           (DocNo,ItemCode,UnitCode,ParQty,CcQty,TotalQty,IsCancel)
           VALUES
-          ('$DocNo','$ItemCode',$iunit2,$TotalQty,$iqty2,($TotalQty-$iqty2),0)";
+          ('$DocNo','$ItemCode',$iunit2,$TotalQty,$iqty2,$iqty,0)";
           mysqli_query($conn, $Sql);
         } else {
           $Sql = "INSERT INTO draw_detail_sub
