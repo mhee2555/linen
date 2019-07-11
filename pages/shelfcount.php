@@ -1185,9 +1185,9 @@ function OpenDialogItem(){
                         '<td nowrap style="width: 20%;" class="text-left">'+temp[i]['ItemCode']+'</td>'+
                         '<td nowrap style="width: 25%;" class="text-left">'+temp[i]['ItemName']+'</td>'+
                         '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['ParQty']+'</td>'+
-                        '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['TotalQty']+'</td>'+
-                        '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['CcQty']+'</td>'+
                         '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['TotalQty2']+'</td>'+
+                        '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['CcQty']+'</td>'+
+                        '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['TotalQty']+'</td>'+
                         '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['OverPar']+'</td>'+
                       "</tr>";
                     }
