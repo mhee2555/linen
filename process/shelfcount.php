@@ -1304,7 +1304,7 @@ function chk_par($conn, $DATA)
     mysqli_close($conn);
     die;
   }else{
-    $return['Row'] = 9;
+    $return['Row'] = 'No';
     $return['status'] = "success";
     $return['form'] = "chk_par";
     echo json_encode($return);
