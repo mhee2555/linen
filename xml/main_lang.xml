@@ -20,7 +20,7 @@
       </sub>
       <sub>
         <en>
-          Dirty clothes Document
+          Dirty linen receipt records
         </en>
         <th>
           บันทึกรับผ้าสกปรก
@@ -28,7 +28,7 @@
       </sub>
       <sub>
         <en>
-          Clean clothes Document
+          Clean linen receipt records
         </en>
         <th>
           บันทึกรับผ้าสะอาด
@@ -60,7 +60,7 @@
       </sub>
       <sub>
         <en>
-          Item Expire
+          Nearly expiration lists
         </en>
         <th>
           รายการใกล้หมดอายุ
@@ -68,7 +68,7 @@
       </sub>
       <sub>
         <en>
-          Stock In
+          Stock receipt records
         </en>
         <th>
           บันทึกรับเข้าสต๊อก
@@ -76,7 +76,7 @@
       </sub>
       <sub>
         <en>
-          Disburse
+          Disbursement records
         </en>
         <th>
           บันทึกเบิกจ่าย
@@ -94,7 +94,7 @@
     <account>
       <title>
         <en>
-        Accounting
+        Accounting - Financial
         </en>
         <th>
           บัญชี-การเงิน
@@ -228,7 +228,7 @@
     </sub>
     <sub>
       <en>
-        Category Main
+        Main category
       </en>
       <th>
         ประเภทรายการหลัก
@@ -236,7 +236,7 @@
     </sub>
     <sub>
       <en>
-        Category Sub
+        Subcategory
       </en>
       <th>
         ประเภทรายการรอง
@@ -252,7 +252,7 @@
     </sub>
     <sub>
       <en>
-        Item Department
+        Items in the department
       </en>
       <th>
         รายการในแผนก
