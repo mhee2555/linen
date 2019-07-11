@@ -1258,6 +1258,7 @@ function chk_par($conn, $DATA)
       shelfcount.DepCode, 
       shelfcount_detail.ItemCode,
       shelfcount_detail.TotalQty,
+      shelfcount_detail.CcQty,
 
       (SELECT item_stock.TotalQty
       FROM item_stock 
@@ -1286,6 +1287,7 @@ function chk_par($conn, $DATA)
       if($MoreThan>$Result['ParQty']){
         $return[$count]['ItemCode'] = $Result['ItemCode'];
         $return[$count]['TotalQty'] = $Result['TotalQty'];
+        $return[$count]['CcQty'] = $Result['CcQty'];
         $return[$count]['TotalQty2'] = $Result['TotalQty2'];
         $return[$count]['OverPar'] = $MoreThan - $Result['ParQty'];
         $return[$count]['ParQty'] = $Result['ParQty'];

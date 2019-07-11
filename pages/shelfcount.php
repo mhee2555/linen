@@ -1182,10 +1182,11 @@ function OpenDialogItem(){
                     for(var i = 0; i < temp['Row']; i++){
                       result += "<tr>"+
                         '<td nowrap style="width: 5%;">'+(i+1)+'</td>'+
-                        '<td nowrap style="width: 22%;" class="text-left">'+temp[i]['ItemCode']+'</td>'+
-                        '<td nowrap style="width: 33%;" class="text-left">'+temp[i]['ItemName']+'</td>'+
-                        '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['TotalQty']+'</td>'+
+                        '<td nowrap style="width: 20%;" class="text-left">'+temp[i]['ItemCode']+'</td>'+
+                        '<td nowrap style="width: 25%;" class="text-left">'+temp[i]['ItemName']+'</td>'+
                         '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['ParQty']+'</td>'+
+                        '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['TotalQty']+'</td>'+
+                        '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['CcQty']+'</td>'+
                         '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['TotalQty2']+'</td>'+
                         '<td nowrap style="width: 10%;" class="text-right">'+temp[i]['OverPar']+'</td>'+
                       "</tr>";
@@ -1777,11 +1778,12 @@ function OpenDialogItem(){
             <thead style="font-size:24px;">
               <tr role="row">
               <th style='width: 5%;'nowrap ><?php echo $array['no'][$language]; ?></th>
-              <th style='width: 22%;'nowrap class='text-left'><?php echo $array['code'][$language]; ?></th>
-              <th style='width: 33%;'nowrap class='text-left'><?php echo $array['item'][$language]; ?></th>
-              <th style='width: 10%;'nowrap class='text-right'><?php echo $array['order'][$language]; ?></th>
+              <th style='width: 20%;'nowrap class='text-left'><?php echo $array['code'][$language]; ?></th>
+              <th style='width: 25%;'nowrap class='text-left'><?php echo $array['item'][$language]; ?></th>
               <th style='width: 10%;'nowrap class='text-right'><?php echo $array['par'][$language]; ?></th>
               <th style='width: 10%;'nowrap class='text-right'><?php echo $array['balance'][$language]; ?></th>
+              <th style='width: 10%;'nowrap class='text-right'><?php echo $array['count'][$language]; ?></th>
+              <th style='width: 10%;'nowrap class='text-right'><?php echo $array['order'][$language]; ?></th>
               <th style='width: 10%;'nowrap class='text-right'><?php echo $array['over'][$language]; ?></th>
               </tr>
             </thead>
