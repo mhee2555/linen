@@ -86,11 +86,9 @@ function ShowDocument($conn,$DATA){
     contract_parties_hospital.EndDate, 
     IFNULL(Detail,'') AS Detail, 
     (EndDate-DATE(NOW())) AS LeftDay, 
-    site.HptName, department.DepCode, 
-    department.DepName 
+    site.HptName
   FROM  contract_parties_hospital 
-  INNER JOIN department ON  contract_parties_hospital.DepCode = department.DepCode
-  INNER JOIN site ON department.HptCode = site.HptCode
+  INNER JOIN site ON contract_parties_hospital.HptCode = site.HptCode
   WHERE contract_parties_hospital.IsStatus = 0 ";
   if(($sl1 > 9) && ($sl2 > 9)) $Sql .= "AND EndDate BETWEEN '$sDate' AND '$eDate' ";
   $Sql .= "ORDER BY (EndDate-DATE(NOW())) ASC";
@@ -99,8 +97,6 @@ function ShowDocument($conn,$DATA){
   while ($Result = mysqli_fetch_assoc($meQuery)) {
 	$return[$count]['RowID'] 		= $Result['RowID'];
 	$return[$count]['HptName'] 		= $Result['HptName'];
-	$return[$count]['DepCode'] 		= $Result['DepCode'];
-	$return[$count]['DepName'] 		= $Result['DepName'];
 	$return[$count]['StartDate'] 	= $Result['StartDate'];
   $return[$count]['EndDate'] 		= $Result['EndDate'];
   $return[$count]['Detail'] 		= $Result['Detail'];
@@ -144,12 +140,9 @@ function getRow($conn,$DATA){
   IFNULL(Detail,'') AS Detail,
   (EndDate-DATE(NOW())) AS LeftDay,
   site.HptCode,
-  site.HptName,
-  department.DepCode,
-  department.DepName
+  site.HptName
   FROM contract_parties_hospital
-  INNER JOIN department ON contract_parties_hospital.DepCode = department.DepCode
-  INNER JOIN site ON department.HptCode = site.HptCode
+  INNER JOIN site ON contract_parties_hospital.HptCode = site.HptCode
   WHERE contract_parties_hospital.IsStatus = 0
   AND RowID = $RowID";
   $meQuery = mysqli_query($conn,$Sql);
@@ -157,8 +150,6 @@ function getRow($conn,$DATA){
 	$return[$count]['RowID'] 		= $Result['RowID'];
 	$return[$count]['HptCode'] 		= $Result['HptCode'];
 	$return[$count]['HptName'] 		= $Result['HptName'];
-	$return[$count]['DepCode'] 		= $Result['DepCode'];
-	$return[$count]['DepName'] 		= $Result['DepName'];
 	$return[$count]['StartDate'] 	= $Result['StartDate'];
     $return[$count]['EndDate'] 		= $Result['EndDate'];
     $return[$count]['Detail'] 		= $Result['Detail'];
@@ -216,9 +207,9 @@ function SaveRow($conn,$DATA){
 
   if($isStatus==0){
   	  $Sql = "INSERT INTO contract_parties_hospital
-      ( StartDate,EndDate,DepCode,Detail,IsStatus )
+      ( StartDate,EndDate,HptCode,Detail,IsStatus )
       VALUES
-      ( '$sDate','$eDate',$depid,'$Detail',0 )";
+      ( '$sDate','$eDate','$hotid','$Detail',0 )";
       mysqli_query($conn,$Sql);
   }else{
 	  $Sql = "UPDATE contract_parties_hospital

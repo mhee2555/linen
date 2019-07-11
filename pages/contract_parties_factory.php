@@ -145,7 +145,9 @@ $array = json_decode($json,TRUE);
 
 	function CancelRow(){
 		var id = $("#xRowID").val();
-
+    setTimeout(function () {
+                    parent.OnLoadPage();
+                  }, 1000);
 		swal({
           title: "<?php echo $array['confirm'][$language]; ?>",
           text: "<?php echo $array['factory'][$language]; ?> : " +$('#factory option:selected').text(),
@@ -265,7 +267,9 @@ $array = json_decode($json,TRUE);
 											}
 										  }else if(temp["form"]=='ShowDocument'){
 				                              $( "#TableDocument tbody" ).empty();
-
+                                      setTimeout(function () {
+                    parent.OnLoadPage();
+                  }, 1000);
 											  var Style  = "";
 				                              for (var i = 0; i < (Object.keys(temp).length-2); i++) {
 												   var rowCount = $('#TableDocument >tbody >tr').length;

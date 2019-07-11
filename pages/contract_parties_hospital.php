@@ -145,7 +145,9 @@ $array = json_decode($json,TRUE);
 
 	function CancelRow(){
 		var id = $("#xRowID").val();
-
+    setTimeout(function () {
+                    parent.OnLoadPage();
+                  }, 1000);
 		swal({
           title: "<?php echo $array['confirm'][$language]; ?>",
           text: "<?php echo $array['factory'][$language]; ?> : " +$('#side option:selected').text(),
@@ -170,11 +172,12 @@ $array = json_decode($json,TRUE);
 	function SaveRow(){
 		var isStatus = $("#IsStatus").val();
 		var id = $("#xRowID").val();
+
 		var hotid = $('#side option:selected').attr("value");
+   
 	    if( typeof hotid == 'undefined' ) hotid = "BHQ";
 		var depid = $('#department option:selected').attr("value");
 	    if( typeof depid == 'undefined' ) depid = "1";
-
 		var datepicker1 = $('#datepicker3').val();
     var datepicker2 = $('#datepicker4').val();
 		var xDetail = $("#xDetail").val();
@@ -266,7 +269,9 @@ $array = json_decode($json,TRUE);
 											}
 										  }else if(temp["form"]=='ShowDocument'){
 				                              $( "#TableDocument tbody" ).empty();
-
+                                      setTimeout(function () {
+                                       parent.OnLoadPage();
+                                      }, 1000);
 											  var Style  = "";
 				                              for (var i = 0; i < (Object.keys(temp).length-2); i++) {
 												   var rowCount = $('#TableDocument >tbody >tr').length;
