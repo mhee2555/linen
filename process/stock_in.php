@@ -890,7 +890,6 @@ function CancelBill($conn, $DATA){
     mysqli_query($conn, $updateSql);
   }
 
-
 }
 //==========================================================
 //
