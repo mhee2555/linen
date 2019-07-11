@@ -268,10 +268,18 @@ function CreateDocument($conn, $DATA)
     $boolean = false;
     $searchitem = str_replace(' ', '%', $DATA["xitem"]);
   $deptCode = $DATA["deptCode"];
-
+  $Hotp = $DATA["Hotp"];
     // $Sqlx = "INSERT INTO log ( log ) VALUES ('item : $item')";
     // mysqli_query($conn,$Sqlx);
-
+    $Sql = "SELECT department.DepCode,department.DepName
+    FROM department
+    WHERE department.HptCode = '$Hotp'
+    AND department.IsDefault = 1
+    AND department.IsStatus = 0";
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $DepCodex = $Result['DepCode'];
+  }
     $Sql = "SELECT
     item_stock.RowID,
     site.HptName,
@@ -291,7 +299,7 @@ function CreateDocument($conn, $DATA)
     INNER JOIN item ON item_stock.ItemCode = item.ItemCode
     INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
     INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
-    WHERE item_stock.DepCode = $deptCode AND  item.ItemName LIKE '%$searchitem%'
+    WHERE item_stock.DepCode = $DepCodex AND  item.ItemName LIKE '%$searchitem%'
     GROUP BY item.ItemCode
     ORDER BY item.ItemName ASC LImit 100";
     $meQuery = mysqli_query($conn, $Sql);
@@ -857,8 +865,7 @@ function CreateDocument($conn, $DATA)
 
           mysqli_query($conn, "UPDATE item_stock SET CcQty=$CcQty,TotalQty= (TotalQty-$TotalQty)  WHERE DepCode = $DepCodeDraw AND ItemCode = '$ItemCode'");
 
-          mysqli_query($conn, "UPDATE item_stock SET CcQty=$CcQty,TotalQty= (TotalQty+$TotalQty)  WHERE DepCode = $DepCodeSC   AND ItemCode ='$ItemCodeSC'");
-          $loop ++ ;
+          mysqli_query($conn, "UPDATE item_stock SET CcQty=$CcQty,TotalQty= (TotalQty+$TotalQty)  WHERE DepCode = $DepCodeSC   AND ItemCode ='$ItemCode'");
           // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty + $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDepCode");
           // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty - $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDept");
       }
@@ -1036,7 +1043,7 @@ function CreateDocument($conn, $DATA)
         SELECT item_stock.TotalQty 
         FROM item_stock 
         WHERE item_stock.ItemCode = draw_detail.ItemCode 
-        AND item_stock.DepCode = $deptCode2
+        AND item_stock.DepCode = $DepCode
         GROUP BY item_stock.ItemCode , item_stock.DepCode
     ) AS ParQty,
     draw_detail.CcQty,
@@ -1191,12 +1198,21 @@ function CreateDocument($conn, $DATA)
   {
     $docno2 = $DATA["docno2"];
     $DocNo = $DATA["DocNo"];
+    $Hotp = $DATA["Hotp"];
     // $Sql = "INSERT INTO log ( log ) VALUES ('DocNo : $DocNo')";
     // mysqli_query($conn,$Sql);
     $Sql = "UPDATE draw SET IsStatus = 2  WHERE DocNo = '$DocNo'";
     $meQuery = mysqli_query($conn, $Sql);
 
-
+    $Sqlx = "SELECT department.DepCode,department.DepName
+    FROM department
+    WHERE department.HptCode = '$Hotp'
+    AND department.IsStatus = 0";
+    $return['sql'] = $Sql;
+    $meQuery = mysqli_query($conn, $Sqlx);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $DepCodex = $Result['DepCode'];
+    }
     // =======================================================================================
 
     $sqlSC = "SELECT shelfcount.DepCode FROM shelfcount WHERE DocNo = '$docno2'";
@@ -1218,6 +1234,7 @@ function CreateDocument($conn, $DATA)
               $ItemCodeSC = $rowX["ItemCode"];
 
             } 
+
   // =======================================================================================
 
   $sqlSCS = "SELECT Draw.DepCode FROM Draw WHERE DocNo = '$DocNo'";
@@ -1246,27 +1263,18 @@ function CreateDocument($conn, $DATA)
       $xParQty 	= $row["ParQty"];
       $xCcQty 	= $row["CcQty"];
       $xTotalQty 	= $row["TotalQty"];
-      // $n++;
-  // }
-  // for($i=0;$i<$n;$i++){
-      // $ItemCode = $xItemCode[$i];
-      // $ParQty = $xParQty[$i];
-      // $CcQty = $xCcQty[$i];
-      // $TotalQty = $xTotalQty[$i];
 
-      $update1 = "UPDATE item_stock SET CcQty=$xCcQty,TotalQty= (TotalQty+$xTotalQty)  WHERE DepCode = $DepCodeDraw AND ItemCode = '$xItemCode'";
+      $update1 = "UPDATE item_stock SET CcQty=$xCcQty,TotalQty= (TotalQty+$xTotalQty)  WHERE DepCode = $DepCodex AND ItemCode = '$xItemCode'";
       mysqli_query($conn, $update1);
 
-      $update2 = "UPDATE item_stock SET CcQty=$xCcQty,TotalQty= (TotalQty-$xTotalQty)  WHERE DepCode = $DepCodeSC   AND ItemCode ='$ItemCodeSC'";
+      $update2 = "UPDATE item_stock SET CcQty=$xCcQty,TotalQty= (TotalQty-$xTotalQty)  WHERE DepCode = $DepCodeSC   AND ItemCode ='$xItemCode'";
       mysqli_query($conn, $update2);
       
-      // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty + $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDepCode");
-      // mysqli_query($conn, "UPDATE item_stock_detail SET Qty=(Qty - $CcQty) WHERE ItemCode = '$ItemCode' AND DepCode=$zDept");
   }
 
-  $return['up1'] = $update1;
-  $return['up2'] = $update2;
-  echo json_encode($return);
+    $return['up1'] = $update1;
+    $return['up2'] = $update2;
+    echo json_encode($return);
 
   }
 

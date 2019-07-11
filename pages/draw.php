@@ -334,12 +334,14 @@ function OpenDialogItem(){
     }
 
     function ShowItem(){
+      var Hotp = $('#hotpital option:selected').attr("value");
       var deptCode = $('#department option:selected').attr("value");
       var searchitem = $('#searchitem').val();
       var data = {
         'STATUS'  : 'ShowItem',
         'xitem'	  : searchitem,
-        'deptCode'	  : deptCode
+        'deptCode'	  : deptCode,
+        'Hotp'	  : Hotp
       };
       senddata(JSON.stringify(data));
     }
@@ -380,12 +382,14 @@ function OpenDialogItem(){
     }
 
     function CancelBill() {
+      var Hotp = $('#hotpital option:selected').attr("value");
       var docno2 = $("#RefDocNo").val();
       var docno = $("#docno").val();
       var data = {
         'STATUS'  : 'CancelBill',
         'DocNo'   : docno,
-        'docno2'   : docno2
+        'docno2'   : docno2,
+        'Hotp'   : Hotp
       };
       senddata(JSON.stringify(data));
       $('#profile-tab').tab('show');
