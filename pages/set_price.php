@@ -462,9 +462,9 @@ $array = json_decode($json, true);
                     type: "success",
                     showCancelButton: false,
                     timer: 1000,
-                    confirmButtonText: 'Ok',
+                    // confirmButtonText: 'Ok',
                     showConfirmButton: false
-                  });
+                });
                 setTimeout(function () {
                     var data = {
                         'STATUS': 'CancelDocNo',
@@ -581,8 +581,12 @@ $array = json_decode($json, true);
                                 cancelButtonColor: '#d33',
                                 showConfirmButton: false,
                                 timer: 2000,
-                                confirmButtonText: 'Ok'
-                            })
+                                // confirmButtonText: 'Ok'
+                            });
+                            setTimeout(function () {
+                                $('#dialog').modal('toggle');
+                            }, 2000);
+                            
                         }else if ((temp["form"] == 'CancelDocNo')) {
                                 ShowDoc();
                         }else if ((temp["form"] == 'ShowDoc')) {

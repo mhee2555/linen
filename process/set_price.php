@@ -180,7 +180,7 @@ function ShowItem2($conn, $DATA)
         INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode
         INNER JOIN site ON category_price_time.HptCode = site.HptCode 
         WHERE category_price_time.DocNo = '$DocNo' AND item_category.CategoryName LIKE '%$Keyword%'
-        ORDER BY item_main_category.MainCategoryCode ASC,item_category.CategoryCode ASC";
+        ORDER BY item_main_category.MainCategoryCode DESC, item_category.CategoryCode ASC";
 
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -345,15 +345,14 @@ function SavePriceTime($conn, $DATA)
     $Sel = $DATA['Sel'];
     $DocNo = $DATA['DocNo'];
 
-    $Sql = "SELECT COUNT(*) AS Cnt
-        FROM category_price_time
-        WHERE category_price_time.DocNo = '$DocNo'";
+    $Sql = "SELECT COUNT(*) AS Cnt FROM category_price_time WHERE category_price_time.DocNo = '$DocNo'";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $Cnt = $Result['Cnt'];
     }
 
     $Sql = "UPDATE category_price_time SET Price = $Price WHERE RowID = $RowID";
+    $return['sql'] = $Sql;
     if(mysqli_query($conn, $Sql)){
         $return['status'] = "success";
         $return['Cnt'] = $Cnt;
@@ -375,7 +374,7 @@ function SavePriceTime($conn, $DATA)
 function CheckPrice($conn,$HptCode,$CategoryCode)
 {
     $Cnt = 0;
-    $Sql = "SELECT COUNT(*) AS Cnt FROM category_price WHERE HptCode = $HptCode AND CategoryCode = $CategoryCode";
+    $Sql = "SELECT COUNT(*) AS Cnt FROM category_price WHERE HptCode = '$HptCode' AND CategoryCode = $CategoryCode";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $Cnt = $Result['Cnt'];
