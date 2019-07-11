@@ -618,15 +618,15 @@ function getImport($conn, $DATA)
         mysqli_query($conn, $xSql);
     }
 
-    $Sqlsss = "SELECT ItemCode,Qty FROM stock_in_detail WHERE stock_in_detail.DocNo = '$DocNo'";
-    $meQuery = mysqli_query($conn, $Sqlsss);
+    $SqlX = "SELECT ItemCode,Qty FROM stock_in_detail WHERE stock_in_detail.DocNo = '$DocNo'";
+    $meQueryX = mysqli_query($conn, $SqlX);
 
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-    $Cnt = getCnt($conn,$DepCode,$Result['ItemCode']);
-    $Sqlss = "UPDATE item_stock SET TotalQty = (TotalQty + ".$Result['Qty'].")WHERE ItemCode = '".$Result['ItemCode']."' AND DepCode = $DepCode";
-
+    while ($ResultX = mysqli_fetch_assoc($meQueryX)) {
+      $ItemCodeX = $ResultX['ItemCode'];
+      $QtyX = $ResultX['Qty'];
+      $updateSql = "UPDATE item_stock SET TotalQty = (TotalQty + $QtyX) WHERE ItemCode = '$ItemCodeX' AND DepCode = $DepCode";
+      mysqli_query($conn, $updateSql);
     }
-    mysqli_query($conn, $Sqlss);
 
     ShowDetail($conn, $DATA);
 
@@ -635,9 +635,9 @@ function getImport($conn, $DATA)
 function getCnt($conn,$deptcode,$itemcode){
     $Cnt = 0;
     $Sql = "SELECT COUNT(*) AS Cnt
-FROM item_stock_detail
-WHERE item_stock_detail.ItemCode = '$itemcode'
-AND item_stock_detail.DepCode = $deptcode";
+    FROM item_stock_detail
+    WHERE item_stock_detail.ItemCode = '$itemcode'
+    AND item_stock_detail.DepCode = $deptcode";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $Cnt = $Result['Cnt'];
@@ -875,6 +875,22 @@ function CancelBill($conn, $DATA){
   // mysqli_query($conn,$Sql);
   $Sql = "UPDATE stock_in SET IsStatus = 2  WHERE DocNo = '$DocNo'";
   $meQuery = mysqli_query($conn, $Sql);
+  // =============================================================================
+  $SqlX = "SELECT ItemCode, Qty, DepCode
+  FROM stock_in_detail 
+  INNER JOIN stock_in ON stock_in.DocNo = stock_in_detail.DocNo
+  WHERE stock_in_detail.DocNo = '$DocNo'";
+  $meQueryX = mysqli_query($conn, $SqlX);
+
+  while ($ResultX = mysqli_fetch_assoc($meQueryX)) {
+    $ItemCodeX = $ResultX['ItemCode'];
+    $QtyX = $ResultX['Qty'];
+    $DepCodeX = $ResultX['DepCode'];
+    $updateSql = "UPDATE item_stock SET TotalQty = (TotalQty - $QtyX) WHERE ItemCode = '$ItemCodeX' AND DepCode = $DepCodeX";
+    mysqli_query($conn, $updateSql);
+  }
+
+
 }
 //==========================================================
 //
