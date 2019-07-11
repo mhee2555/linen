@@ -2,6 +2,7 @@
 session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
+$PmID = $_SESSION['PmID'];
 if ($Userid == "") {
    header("location:../index.html");
 }
@@ -50,11 +51,9 @@ $array = json_decode($json, true);
     <link href="../template/css/sb-admin.css" rel="stylesheet">
     <link href="../css/xfont.css" rel="stylesheet">
 
-    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="../jQuery-ui/jquery-1.12.4.js"></script>
     <script src="../jQuery-ui/jquery-ui.js"></script>
-    <link href="../css/responsive.css" rel="stylesheet">
-
     <script type="text/javascript">
         jqui = jQuery.noConflict(true);
     </script>
@@ -71,17 +70,8 @@ $array = json_decode($json, true);
 
     <script type="text/javascript">
         var summary = [];
-        var last_move, cur_date, target;
-        var redirectInSecond=<?=$TimeOut?>; // กำหนดเวลา redirect เป็นวินาที
-        var redirect_url = 'http://localhost:8181/linen/index.html'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
-            $(document).ready(function(e) {
-            parent.afk();
-            parent.chk_last_move();
-        }).mousemove(function(e) { last_move = parent.afk();
-        }).keyup(function(e) { last_move = parent.afk();
-        });
 
-        $(document).ready(function($) {
+        $(document).ready(function(e) {
             //On create
             $('.TagImage').bind('click', {
                 imgId: $(this).attr('id')
@@ -98,7 +88,7 @@ $array = json_decode($json, true);
                 'HptCode': HptCode
             };
 
-          // $('#datepicker').val(twoDigit(d.getDate())+"/"+(twoDigit(d.getMonth()+1))+"/"+d.getFullYear());
+          $('#datepicker').val(twoDigit(d.getDate())+"/"+(twoDigit(d.getMonth()+1))+"/"+d.getFullYear());
 
             console.log(JSON.stringify(data));
             senddata(JSON.stringify(data));
@@ -121,7 +111,10 @@ $array = json_decode($json, true);
                 this.value = this.value.replace(/[^a-zA-Zก-ฮๅภถุึคตจขชๆไำพะัีรนยบลฃฟหกดเ้่าสวงผปแอิืทมใฝ๑๒๓๔ู฿๕๖๗๘๙๐ฎฑธํ๊ณฯญฐฅฤฆฏโฌ็๋ษศซฉฮฺ์ฒฬฦ. ]/g, ''); //<-- replace all other than given set of values
             });
 
+        }).mousemove(function(e) { parent.last_move = new Date();;
+        }).keyup(function(e) { parent.last_move = new Date();;
         });
+
 
       function getHotpital() {
               var data2 = {
@@ -166,25 +159,24 @@ $array = json_decode($json, true);
 
         jqui(document).ready(function($){
 
-            // dialog = jqui( "#dialog" ).dialog({
-            //     autoOpen: false,
-            //     height: 650,
-            //     width: 1200,
-            //     modal: true,
-            //     buttons: {
-            //         "<?php echo $array['close'][$language]; ?>": function() {
-            //             dialog.dialog( "close" );
-            //         }
-            //     },
-            //     close: function() {
-            //         console.log("close");
-            //         $("#docno").val("");
-            //     }
-            // });
+            dialog = jqui( "#dialog" ).dialog({
+                autoOpen: false,
+                height: 650,
+                width: 1200,
+                modal: true,
+                buttons: {
+                    "<?php echo $array['close'][$language]; ?>": function() {
+                        dialog.dialog( "close" );
+                    }
+                },
+                close: function() {
+                    console.log("close");
+                    $("#docno").val("");
+                }
+            });
 
             jqui( "#dialogItem" ).button().on( "click", function() {
-                // dialog.dialog( "open" );
-                $('#dialog').modal('show');
+                dialog.dialog( "open" );
             });
 
             dialogUsageCode = jqui( "#dialogUsageCode" ).dialog({
@@ -307,9 +299,9 @@ $array = json_decode($json, true);
         }
 
         function ShowDoc() {
-            $('#show_btn').attr('disabled', true);
             var HptCode = $('#hptsel2').val();
             var Keyword = $('#search2').val();
+
             var data = {
                 'STATUS': 'ShowDoc',
                 'HptCode': HptCode,
@@ -324,25 +316,18 @@ $array = json_decode($json, true);
             var HptCode = $('#hptsel').val();
             var CgMainID = $('#Category_Main').val();
             var CgSubID = $('#Category_Sub').val();
-            var chk;
-            // alert(CgSubID);
             if (Sel == 1) {
                 CgMainID = "-";
                 CgSubID = "-";
-                chk = 1;
             } else if (Sel == 2){
                 CgSubID = "-";
-                chk = 2;
-            }else if(Sel == 3){
-                chk = 3;
             }
 
             var data = {
                 'STATUS': 'ShowItem1',
                 'HptCode': HptCode,
                 'CgMainID': CgMainID,
-                'CgSubID': CgSubID,
-                'chk' : chk
+                'CgSubID': CgSubID
             };
 
             console.log(JSON.stringify(data));
@@ -361,96 +346,73 @@ $array = json_decode($json, true);
                 'Keyword': Keyword
             };
 
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             senddata(JSON.stringify(data));
         }
 
         function SavePrice(Sel) {
             var RowID = $('#RowID').val();
             var Price = $('#Price').val();
-            var DocNo = $('#docno').val();
-            // alert('RowID = ' + RowID);
-            // alert('Price = ' + Price);
 
-            var data = {
+                var data = {
                     'STATUS': 'SavePrice',
                     'RowID': RowID,
-                    'Price': Price,
-                    'Sel' : Sel,
-                    'DocNo' : DocNo
+                    'Price': Price
                 };
-                console.log(JSON.stringify(data));
+                // console.log(JSON.stringify(data));
                 senddata(JSON.stringify(data));
         }
 
-        function UpdatePrice(chk) {
+        function SavePriceTime(Sel) {
+            var RowID = $('#RowID_'+Sel).val();
+            var Price = $('#price_'+Sel).val();
             var DocNo = $('#docno').val();
-            var NumRow = $('#NumRow').val();
-            var Price = [];
-            var chk = chk;
-            // alert(chk);
-            for (var i = 0; i < NumRow; i++) {
-                Price[i] = $("#price_"+i).val();
-            }
-            // alert(Price);
-            // var price = array();
+
             var data = {
-                'STATUS': 'UpdatePrice',
-                'DocNo': DocNo,
-                'Price':Price,
-                'chk':chk
+                'STATUS': 'SavePriceTime',
+                'RowID': RowID,
+                'Price': Price,
+                'Sel' : Sel,
+                'DocNo' : DocNo
             };
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             senddata(JSON.stringify(data));
         }
 
-        function Blankinput() {
-            $('.checkdocno').each(function() {
-                $(this).val("");
-            });
-            $('#hptsel2').val("1");
-            // ShowItem();
-        }
-        function ClearChecked() {
-            $('.checkblank').each(function() {
-                $(".checkblank").prop("checked", false);
-            });
-            $('#show_btn').attr('disabled', true);
-        }
-        function cancelDoc(DocNo,row){
-            $('.btn_cancel').each(function() {
-                $(".btn_cancel").attr("disabled", true);
-            });
-            var DocNo = DocNo;
-            var row = row;
-            $('#cancel').val(DocNo);
-            $('#show_btn').attr('disabled', false);
-            $('#cancel_btn'+row+'').attr('disabled', false);
-        }
-        function ButtoncancelDoc(){
-            var DocNo = $('#cancel').val();
+        function UpdatePrice() {
+            var DocNo = $('#docno').val();
+
             swal({
-                title: "<?php echo $array['canceldata'][$language]; ?>",
-                text: "<?php echo $array['canceldata1'][$language]; ?>",
-                type: "warning",
+                title: "<?php echo $array['save'][$language]; ?>",
+                text: "<?php echo $array['saveprice'][$language]; ?>",
+                type: "info",
                 showCancelButton: true,
-                confirmButtonClass: "btn-danger",
+                confirmButtonClass: "btn-primary",
                 confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
                 cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#008000',
+                cancelButtonColor: '#e60000',
                 closeOnConfirm: false,
                 closeOnCancel: false,
                 showCancelButton: true
             }).then(result => {
                 var data = {
-                    'STATUS' : 'CancelItem',
-                    'DocNo' : DocNo
-                }
-                console.log(JSON.stringify(data));
+                    'STATUS': 'UpdatePrice',
+                    'DocNo': DocNo
+                };
+                // console.log(JSON.stringify(data));
                 senddata(JSON.stringify(data));
             })
 
+        }
+
+        function Blankinput() {
+            $('.checkblank').each(function() {
+                $(this).val("");
+            });
+            $('#DepCode').val("");
+            $('#hptsel2').val("1");
+            ShowItem();
         }
 
         function getdetail(RowID) {
@@ -521,29 +483,29 @@ $array = json_decode($json, true);
             $("#search1").hide();
             $("#TableItemPrice tbody").empty();
 
-            // dialog.dialog( "open" );
-            $('#dialog').modal('show');
+            dialog.dialog( "open" );
         }
 
-        function logoff() {
+        function CancelDocNo(docno) {
             swal({
-                title: '',
-                text: '<?php echo $array['
-                logout '][$language]; ?>',
-                type: 'success',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                showConfirmButton: false,
-                timer: 1000,
-                confirmButtonText: 'Ok'
-            }).then(function() {
-                window.location.href = "../logoff.php";
-            }, function(dismiss) {
-                window.location.href = "../logoff.php";
-                if (dismiss === 'cancel') {
-
-                }
+                title: "<?php echo $array['cancel'][$language]; ?>",
+                text: "<?php echo $array['canceldata4'][$language]; ?> "+ docno,
+                type: "info",
+                showCancelButton: true,
+                confirmButtonClass: "btn-primary",
+                confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
+                cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
+                confirmButtonColor: '#008000',
+                cancelButtonColor: '#e60000',
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                showCancelButton: true
+            }).then(result => {
+                var data = {
+                    'STATUS'      : 'CancelDocNo',
+                    'DocNo'       : docno
+                };
+                senddata(JSON.stringify(data));
             })
         }
 
@@ -576,9 +538,8 @@ $array = json_decode($json, true);
                         console.log('Error#542-decode error');
                     }
                     swal.close();
-                    // console.log(result); <!-- =================== chk error ================ -->
-                    // alert(temp['form']);
                     if (temp["status"] == 'success') {
+
                         if ((temp["form"] == 'CreateDoc')) {
                             $("#docno").val( temp["DocNo"] );
                             $("#create1").hide(500);
@@ -594,34 +555,33 @@ $array = json_decode($json, true);
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
                                 showConfirmButton: false,
-                                timer: 1000,
+                                timer: 2000,
                                 confirmButtonText: 'Ok'
-                            }).catch(function(timeout) { }); //important --> Error Uncaught (in promise) timer
-                            setTimeout(function () {
-                                // dialog.dialog( "close" );
-                                $('#dialog').modal('toggle');
+                            })
+                        }else if ((temp["form"] == 'CancelDocNo')) {
                                 ShowDoc();
-                            }, 1500);
                         }else if ((temp["form"] == 'ShowDoc')) {
                             $("#TableDoc tbody").empty();
                             for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
                                 var rowCount = $('#TableDoc >tbody >tr').length;
-                                var chkDoc = "<input type='radio' class='checkblank' data-value='"+i+"' name='checkdocno' id='checkdocno' " +
-                                    "value='" + temp[i]['DocNo'] + "," + temp[i]['xDate'] + "," + temp[i]['HptCode'] + "," + temp[i]['HptName'] + "' onclick='cancelDoc(\"" + temp[i]["DocNo"] + "\","+i+")'>";
-                                    StrTR = "<tr id='tr"+temp[i]['DocNo']+"'>" +
-                                        "<td style='width: 5%;'>" + chkDoc + "</td>" +
-                                        "<td style='width: 25%;'>" + temp[i]['HptName'] + "</td>" +
-                                        "<td style='width: 26%;'>" + temp[i]['DocNo'] + "</td>" +
-                                        "<td style='width: 25%;'>" + temp[i]['xDate'] + "</td>" +
-                                        "<td style='width: 19%;'><button class='btn btn_cancel' style='background: none;' onclick='ButtoncancelDoc();' id='cancel_btn"+i+"' disabled='true'><i class='fas fa-trash'></i></button></td>" +
-                                        "</tr>";
-                                    if (rowCount == 0) {
-                                        $("#TableDoc tbody").append(StrTR);
-                                    } else {
-                                        $('#TableDoc tbody:last-child').append(StrTR);
-                                    }
+                                var chkDoc = "<input type='radio' name='checkdocno' id='checkdocno' " +
+                                    "value='" + temp[i]['DocNo']+","+temp[i]['xDate']+","+temp[i]['HptCode']+","+temp[i]['HptName'] + "'>";
+                                var img = "<img style='width:32;height:32px;' src='../img/bin-red-2.png' onclick='CancelDocNo(\""+temp[i]['DocNo']+"\")' />";
+                                StrTR = "<tr id='tr" + temp[i]['DocNo'] + "'>" +
+                                "<td style='width: 5%;'>" + chkDoc + "</td>" +
+                                "<td style='width: 25%;'>" + temp[i]['HptName'] + "</td>" +
+                                "<td style='width: 26%;'>" + temp[i]['DocNo'] + "</td>" +
+                                "<td style='width: 35%;'>" + temp[i]['xDate'] + "</td>" +
+                                "<td style='width: 9%;'>" + img + "</td>" +
+                                "</tr>";
 
+                                if (rowCount == 0) {
+                                    $("#TableDoc tbody").append(StrTR);
+                                } else {
+                                    $('#TableDoc tbody:last-child').append(StrTR);
+                                }
                             }
+
                         }else if ((temp["form"] == 'ShowItem1')) {
                             $("#TableItem tbody").empty();
                             // console.log(temp);
@@ -634,7 +594,7 @@ $array = json_decode($json, true);
                                 "<td style='width: 5%;'>" + chkDoc + "</td>" +
                                 "<td style='width: 25%;'>" + temp[i]['HptName'] + "</td>" +
                                 "<td style='width: 26%;'>" + temp[i]['MainCategoryName'] + "</td>" +
-                                "<td style='width: 25%;'>" + temp[i]['CategoryName'] + "</td>" +
+								"<td style='width: 25%;'>" + temp[i]['CategoryName'] + "</td>" +
                                 "<td style='width: 19%;'>" + temp[i]['Price'] + " </td>" +
                                 "</tr>";
 
@@ -649,7 +609,7 @@ $array = json_decode($json, true);
                             for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
                                 var rowCount = $('#TableItem >tbody >tr').length;
                                 var RowID = "<input type='hidden' name='RowID_"+i+"' id='RowID_"+i+"' value='" + temp[i]['RowID'] +"'>";
-                                var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' onKeyPress='if(event.keyCode==13){SavePrice("+i+")}'></div>";
+                                var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' onKeyPress='if(event.keyCode==13){SavePriceTime("+i+")}'></div>";
 
                                 StrTR = "<tr id='tr" + RowID + "'>" +
                                     "<td style='width: 5%;'>"+ RowID +"</td>" +
@@ -665,11 +625,11 @@ $array = json_decode($json, true);
                                     $('#TableItemPrice tbody:last-child').append(StrTR);
                                 }
                             }
-                            var NumRow = i;
-                            $('#NumRow').val(NumRow);
+
                             $("#hptsel1").empty();
                             for (var i = 0; i < 1; i++) {
                                 var StrTr = "<option value = '" + temp[i]['HptCode'] + "'> " + temp[i]['HptName'] + " </option>";
+
                                 $("#hptsel1").append(StrTr);
                             }
 
@@ -677,12 +637,34 @@ $array = json_decode($json, true);
                             if ((Object.keys(temp).length - 2) > 0) {
                                 $('#RowID').val(temp['RowID']);
                                 $('#HotName').val(temp['HptName']);
-                                $('#MainCategoryName').val(temp['MainCategoryName']);
-                                $('#CategoryName').val(temp['CategoryName']);
+                                $('#Category_Main2').val(temp['MainCategoryName']);
+                                $('#Category_Sub2').val(temp['CategoryName']);
                                 $('#Price').val(temp['Price']);
-
                             }
                         } else if ((temp["form"] == 'SavePrice')) {
+                            $('#RowID').val("");
+                            $('#HotName').val("");
+                            $('#CategoryMain').val("");
+                            $('#CategorySub').val(temp['CategoryName']);
+                            $('#Price').val(temp['Price']);
+
+                            var sv = "<?php echo $array['save'][$language]; ?>";
+                            var svs = "<?php echo $array['savesuccess'][$language]; ?>";
+
+                            swal({
+                                title: sv,
+                                text: svs,
+                                type: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                showConfirmButton: false,
+                                timer: 1000,
+                                confirmButtonText: 'Ok'
+                            })
+
+                            ShowItem1();
+                        } else if ((temp["form"] == 'SavePriceTime')) {
                             $('#RowID').val("");
                             $('#HotName').val("");
                             $('#CategoryMain').val("");
@@ -704,15 +686,12 @@ $array = json_decode($json, true);
                                 text: svs,
                                 type: 'success',
                                 showCancelButton: false,
-                                // confirmButtonColor: '#3085d6',
-                                // cancelButtonColor: '#d33',
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
                                 showConfirmButton: false,
-                                confirmButtonText: 'Ok',
-                                timer: 1000
-                            }).catch(function(timeout) { }); //important --> Error Uncaught (in promise) timer
-                            setTimeout(function () {
-                                ShowItem1();
-                            }, 1000);
+                                timer: 1000,
+                                confirmButtonText: 'Ok'
+                            })
                         } else if ((temp["form"] == 'getHotpital')) {
                             $("#hptsel").empty();
                             $("#hptsel1").empty();
@@ -739,24 +718,9 @@ $array = json_decode($json, true);
                                   $("#Category_Sub").append(StrTr);
                                   $("#Category_Sub1").append(StrTr);
                               }
-                        }else if ((temp["form"] == 'CancelItem')) {
-                            var sv = "<?php echo $array['save'][$language]; ?>";
-                            var svs = "<?php echo $array['savesuccess'][$language]; ?>";
-                            swal({
-                                title: sv,
-                                text: svs,
-                                type: 'success',
-                                showCancelButton: false,
-                                showConfirmButton: false,
-                                confirmButtonText: 'Ok',
-                                timer: 1000
-                            }).catch(function (timeout) {
-                            }); //important --> Error Uncaught (in promise) timer
-                            setTimeout(function () {
-                                ShowDoc();
-                            }, 1000);
                         }
-                    }else if (temp['status'] == "failed") {
+
+                    } else if (temp['status'] == "failed") {
                         switch (temp['msg']) {
                             case "notchosen":
                                 temp['msg'] = "<?php echo $array['choosemsg'][$language]; ?>";
@@ -803,6 +767,7 @@ $array = json_decode($json, true);
                             timer: 2000,
                             confirmButtonText: 'Ok'
                         })
+
                     } else if (temp['status'] == "notfound") {
                         // swal({
                         //   title: '',
@@ -831,78 +796,76 @@ $array = json_decode($json, true);
         }
     </script>
     <style media="screen">
-          @font-face {
-        font-family: myFirstFont;
-        src: url("../fonts/DB Helvethaica X.ttf");
+           @font-face {
+            font-family: myFirstFont;
+            src: url("../fonts/DB Helvethaica X.ttf");
+            }
+          body{
+            font-family: myFirstFont;
+                  font-size:22px;
+          }
+
+        .nfont{
+          font-family: myFirstFont;
+          font-size:22px;
+        }
+    input,select{
+      font-size:24px!important;
+    }
+    th,td{
+      font-size:24px!important;
+    }
+    .table > thead > tr >th {
+      background: #4f88e3!important;
+    }
+
+    table tr th,
+    table tr td {
+      border-right: 0px solid #bbb;
+      border-bottom: 0px solid #bbb;
+      padding: 5px;
+    }
+    table tr th:first-child,
+    table tr td:first-child {
+      border-left: 0px solid #bbb;
+    }
+    table tr th {
+      background: #eee;
+      border-top: 0px solid #bbb;
+      text-align: left;
+    }
+
+    /* top-left border-radius */
+    table tr:first-child th:first-child {
+      border-top-left-radius: 6px;
+    }
+
+    /* top-right border-radius */
+    table tr:first-child th:last-child {
+      border-top-right-radius: 6px;
+    }
+
+    /* bottom-left border-radius */
+    table tr:last-child td:first-child {
+      border-bottom-left-radius: 6px;
+    }
+
+    /* bottom-right border-radius */
+    table tr:last-child td:last-child {
+      border-bottom-right-radius: 6px;
+    }
+    button{
+      font-size: 24px!important;
+    }
+      a.nav-link{
+        width:auto!important;
       }
-      body{
-        font-family: myFirstFont;
-        font-size:22px;
-      }
-      .nfont{
-        font-family: myFirstFont;
-        font-size:22px;
-      }
-        input,select{
-        font-size:24px!important;
-        }
-        th,td{
-        font-size:24px!important;
-        }
-        .table > thead > tr >th {
-        background: #4f88e3!important;
-        }
-
-        table tr th,
-        table tr td {
-        border-right: 0px solid #bbb;
-        border-bottom: 0px solid #bbb;
-        padding: 5px;
-        }
-        table tr th:first-child,
-        table tr td:first-child {
-        border-left: 0px solid #bbb;
-        }
-        table tr th {
-        background: #eee;
-        border-top: 0px solid #bbb;
-        text-align: left;
-        }
-
-        /* top-left border-radius */
-        table tr:first-child th:first-child {
-        border-top-left-radius: 6px;
-        }
-
-        /* top-right border-radius */
-        table tr:first-child th:last-child {
-        border-top-right-radius: 6px;
-        }
-
-        /* bottom-left border-radius */
-        table tr:last-child td:first-child {
-        border-bottom-left-radius: 6px;
-        }
-
-        /* bottom-right border-radius */
-        table tr:last-child td:last-child {
-        border-bottom-right-radius: 6px;
-        }
-        button{
-        font-size: 24px!important;
-        }
-        a.nav-link{
-            width:auto!important;
-        }
-        .datepicker{z-index:9999 !important}
-        .hidden{visibility: hidden;}
+      .datepicker{z-index:9999 !important}
+      .hidden{visibility: hidden;}
     </style>
 </head>
 
 <body id="page-top">
-    <input type="hidden" id="NumRow">
-    <input type="hidden" id="cancel">
-
     <div id="wrapper">
         <!-- content-wrapper -->
         <div id="content-wrapper">
@@ -998,48 +961,67 @@ $array = json_decode($json, true);
                                             </div>
                                         </div>
 
-                                        <!-- =================================================================== -->
-                                        <div class="row mt-4">
-                                            <div class="col-md-7">
-                                                <div class='form-group row'>
-                                                <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
-                                                <input type="text"  class="form-control col-sm-8 " id="HotName"    placeholder="<?php echo $array['side'][$language]; ?>">
+                                        <div class="row" style="margin-top:10px;">
+                                            <div class="col-md-2">
+                                                <div class="row" style="margin-left:30px;">
+                                                    <label>
+                                                        <?php echo $array['side'][$language]; ?></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-left:15px;">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" style="width:90%;" name="HotName" id="HotName" placeholder="<?php echo $array['side'][$language]; ?>" readonly>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- =================================================================== -->
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <div class='form-group row'>
-                                                <label class="col-sm-4 col-form-label text-right"><?php echo $array['categorymain'][$language]; ?></label>
-                                                <input type="text"  class="form-control col-sm-8 " id="Category_Main2"    placeholder="<?php echo $array['categorymain'][$language]; ?>">
+
+                                        <div class="row" style="margin-top:10px;">
+                                            <div class="col-md-2">
+                                                <div class="row" style="margin-left:30px;">
+                                                    <label>
+                                                        <?php echo $array['categorymain'][$language]; ?></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-left:15px;">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" style="width:90%;" name="Category_Main" id="Category_Main2" placeholder="<?php echo $array['categorymain'][$language]; ?>" readonly>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- =================================================================== -->
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <div class='form-group row'>
-                                                <label class="col-sm-4 col-form-label text-right"><?php echo $array['categorysub'][$language]; ?></label>
-                                                <input type="text"  class="form-control col-sm-8 " id="Category_Sub2"    placeholder="<?php echo $array['categorysub'][$language]; ?>">
+
+                                        <div class="row" style="margin-top:10px;">
+                                            <div class="col-md-2">
+                                                <div class="row" style="margin-left:30px;">
+                                                    <label>
+                                                        <?php echo $array['categorysub'][$language]; ?></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-left:15px;">
+                                                <div class="row">
+                                                    <input type="text" class="form-control" style="width:90%;" name="Category_Sub" id="Category_Sub2" placeholder="<?php echo $array['categorysub'][$language]; ?>" readonly>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- =================================================================== -->
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <div class='form-group row'>
-                                                <label class="col-sm-4 col-form-label text-right"><?php echo $array['price'][$language]; ?></label>
-                                                <input type="text"  class="form-control col-sm-8 " id="Price"    placeholder="<?php echo $array['price'][$language]; ?>">
+
+                                        <div class="row" style="margin-top:10px;">
+                                            <div class="col-md-2">
+                                                <div class="row" style="margin-left:30px;">
+                                                    <label>
+                                                        <?php echo $array['price'][$language]; ?></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-left:15px;">
+                                                <div class="row">
+                                                    <input type="text" class="form-control checkblank " style="width:90%;" name="Price" id="Price" placeholder="<?php echo $array['price'][$language]; ?>">
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- =================================================================== -->
 
                                     </div>
                                 </div>
                             </div> <!-- tag column 2 -->
-                            <div class="col-md-4">
+                            <!-- <?php if($PmID == 1) echo 'hidden'; ?> -->
+                            <div class="col-md-4" >
                                 <!-- tag column 1 -->
                                 <div class="container-fluid">
                                     <div class="card-body" style="padding:0px; margin-top:50px;">
@@ -1053,7 +1035,6 @@ $array = json_decode($json, true);
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row" style="margin-top:5px;">
                                             <div class="col-md-4">
                                                 <div class="row" style="margin-left:5px;">
@@ -1079,9 +1060,7 @@ $array = json_decode($json, true);
                                         <input type="hidden" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search2" id="search2" placeholder="<?php echo $array['search'][$language]; ?>" >
                                         <button type="button" style="margin-left:20px;" class="btn btn-primary" name="button" onclick="ShowDoc();">
                                             <?php echo $array['search'][$language]; ?></button>
-                                        <button type="button" style="margin-left:10px;" class="btn btn-success" name="button" onclick="OpenDialog(1);" id='show_btn' disabled='true'>
-                                            <?php echo $array['show'][$language]; ?>
-                                        </button>
+                                        <button type="button" style="margin-left:90px;" class="btn btn-warning" name="button" onclick="OpenDialog(1);"><?php echo $array['show'][$language]; ?></button>
                                     </div>
                                 </div>
                             </div>
@@ -1115,18 +1094,20 @@ $array = json_decode($json, true);
             </a>
 
             <!-- Dialog Modal-->
-            <!-- <div id="dialog" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
+            <div id="dialog" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-11">
                             <div class="row">
-                                <input type="text" class="form-control" style="font-family: 'THSarabunNew';font-size:22px;width:200px;" name="docno" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
+                                <select class="form-control" style="font-family: 'THSarabunNew';font-size:22px;width:250px;" id="hptsel1"></select>
+
                                 <label id="rem" style="margin-left:20px;"> *** </label>
                                 <input type="text" class="form-control datepicker-here" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" id="datepicker" data-language='en' data-date-format='dd/mm/yyyy' placeholder="<?php echo $array['datepicker'][$language]; ?>">
-                                <select class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:250px;" id="hptsel1"></select>
+                                <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" name="docno" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
+
                                 <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" id="create1" name="button" onclick="onCreate();"><?php echo $array['createdocno'][$language]; ?></button>
                                 <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search1"  id="search1" onKeyPress='if(event.keyCode==13){ShowItem2()}' placeholder="<?php echo $array['search'][$language]; ?>" >
-                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" onclick="UpdatePrice(1);"><?php echo $array['saveprice'][$language]; ?></button>
+                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" onclick="UpdatePrice();"><?php echo $array['saveprice'][$language]; ?></button>
                             </div>
                         </div>
                     </div>
@@ -1152,52 +1133,7 @@ $array = json_decode($json, true);
 
                     </div>
                 </div>
-            </div> -->
-
-<!-- -----------------------------Custom1------------------------------------ -->
-<div class="modal" id="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
             </div>
-            <div class="modal-body">
-                <div class="card-body" style="padding:0px;">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row mb-3">
-                                <select class="form-control ml-5" style="font-family: 'THSarabunNew';font-size:22px;width:250px;" id="hptsel1"></select>
-
-                                <label id="rem" style="margin-left:20px;"> *** </label>
-                                <input type="text" class="form-control datepicker-here" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" id="datepicker" data-language='en' data-date-format='dd/mm/yyyy' placeholder="<?php echo $array['datepicker'][$language]; ?>">
-                                <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" name="docno" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
-
-                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" id="create1" name="button" onclick="onCreate();"><?php echo $array['createdocno'][$language]; ?></button>
-                                <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search1"  id="search1" onKeyPress='if(event.keyCode==13){ShowItem2()}' placeholder="<?php echo $array['search'][$language]; ?>" >
-                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" onclick="UpdatePrice();"><?php echo $array['saveprice'][$language]; ?></button>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table table-fixed table-condensed table-striped" id="TableItemPrice" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
-                        <thead style="font-size:24px;">
-                            <tr role="row">
-                            <th style='width: 5%;'>&nbsp;</th>
-                                <th style='width: 25%;' nowrap><?php echo $array['side'][$language]; ?></th>
-                                <th style='width: 25%;' nowrap><?php echo $array['categorymain'][$language]; ?></th>
-                                <th style='width: 25%;' nowrap><?php echo $array['categorysub'][$language]; ?></th>
-                                <th style='width: 20%;' nowrap><?php echo $array['price'][$language]; ?></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
             <!-- Bootstrap core JavaScript-->
             <script src="../template/vendor/jquery/jquery.min.js"></script>
