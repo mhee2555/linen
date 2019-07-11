@@ -537,6 +537,7 @@ $array = json_decode($json,TRUE);
             }
 
             function SaveBill(){
+              var hotpCode = $('#hotpital option:selected').attr("value");
               var docno = $("#docno").val();
               var isStatus = $("#IsStatus").val();
               var dept = $('#Dep2').val();
@@ -551,7 +552,8 @@ $array = json_decode($json,TRUE);
                   'STATUS'      : 'SaveBill',
                   'xdocno'      : docno,
                   'isStatus'    : isStatus,
-                  'deptCode'    : dept
+                  'deptCode'    : dept,
+                  'hotpCode'    : hotpCode
                 };
                 senddata(JSON.stringify(data));
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lang>
-<search><en>Search</en><th>ค้นหา</th></search>
-<search_hp><en>Search Hotpital</en><th>ค้นหา โรงพยาบาล</th></search_hp>
-<search_ct_main><en>Search</en><th>ค้นหา หมวดหมู่หลัก</th></search_ct_main>
-<search_ct_sub><en>Search</en><th>ค้นหา หมวดหมู่รอง</th></search_ct_sub>
-<searchalldep><en>Search All Department</en><th>ค้นหาทุกแผนก</th></searchalldep>
+<search><en>Search for</en><th>ค้นหา</th></search>
+<search_hp><en>Search a hospital</en><th>ค้นหา โรงพยาบาล</th></search_hp>
+<search_ct_main><en>Search for main categories</en><th>ค้นหา หมวดหมู่หลัก</th></search_ct_main>
+<search_ct_sub><en>Search for secondary categories</en><th>ค้นหา หมวดหมู่รอง</th></search_ct_sub>
+<searchalldep><en>Search all departments</en><th>ค้นหาทุกแผนก</th></searchalldep>
 <searchdep><en>Search To Department</en><th>ค้นหาตามแผนก</th></searchdep>
 <searchall><en>Search All</en><th>ค้นหาทั้งหมด</th></searchall>
 <titledirty><en>Dirty clothes</en><th>รับผ้าสกปรก</th></titledirty>
@@ -26,13 +26,13 @@
 <side><en>Hospital</en><th>โรงพยาบาล</th></side>
 <department><en>Department</en><th>แผนก</th></department>
 <docdate><en>Date</en><th>วันที่เอกสาร</th></docdate>
-<docno><en>Document No.</en><th>เลขที่เอกสาร</th></docno>
+<docno><en>Document number</en><th>เลขที่เอกสาร</th></docno>
 <refdocno><en>Reference</en><th>เอกสารอ้างอิง</th></refdocno>
 <employee><en>employee</en><th>ผู้บันทึก</th></employee>
 <empcode><en>Employee Code</en><th>รหัสพนักงาน</th></empcode>
 <empfname><en>First Name</en><th>ชื่อพนักงาน</th></empfname>
 <emplname><en>Last Name</en><th>นามสกุล</th></emplname>
-<time><en>Time</en><th>เวลาที่บันทึก</th></time>
+<time><en>Record time</en><th>เวลาที่บันทึก</th></time>
 <totalweight><en>Total Weight</en><th>น้ำหนักรวม</th></totalweight>
 <no><en>No.</en><th>ลำดับ</th></no>
 <code><en>Item Code</en><th>รหัส</th></code>
@@ -47,7 +47,7 @@
 <save><en>Save</en><th>บันทึก</th></save>
 <cancel><en>Cancel</en><th>ยกเลิก</th></cancel>
 <searchplace><en>Search Document</en><th>ค้นหารายการ</th></searchplace>
-<show><en>Show Detail</en><th>แสดงรายการ</th></show>
+<show><en>Show items</en><th>แสดงรายการ</th></show>
 <status><en>Status</en><th>สถานะ</th></status>
 <close><en>Close</en><th>ปิด</th></close>
 <confirm><en>Confirm</en><th>ยืนยัน</th></confirm>
@@ -64,13 +64,13 @@
 <savesuccess><en>Saved</en><th>บันทึกสำเร็จ</th></savesuccess>
 <draft><en>Draft</en><th>ยังไม่ได้บันทึก</th></draft>
 <cancelbill><en>Cancel</en><th>ยกเลิกบิล</th></cancelbill>
-<dirtydoc><en>Dirty Doc.</en><th>เอกสารรับผ้าสกปรก</th></dirtydoc>
+<dirtydoc><en>Dirty linen receipt document</en><th>เอกสารรับผ้าสกปรก</th></dirtydoc>
 <dirtydoc1><en>Please select Dirty clothes Document</en><th>กรุณาเลือกเอกสารรับผ้าสกปรก</th></dirtydoc1>
-<cleandoc><en>Clean Doc.</en><th>เอกสารรับผ้าสะอาด</th></cleandoc>
+<cleandoc><en>Clean linen receipt document</en><th>เอกสารรับผ้าสะอาด</th></cleandoc>
 <totalnum><en>Max Shelf</en><th>จำนวนทั้งหมด</th></totalnum>
 <parsc><en>Par</en><th>จำนวนทั้งหมด</th></parsc>
 <leftsc><en>Left</en><th>จำนวน</th></leftsc>
-<qty><en>Qty</en><th>จำนวน</th></qty>
+<qty><en>Number</en><th>จำนวน</th></qty>
 <total><en>Number</en><th>จำนวน</th></total>
 <order><en>Order</en><th>ออเดอร์</th></order>
 <detail><en>Detail</en><th>รายละเอียด</th></detail>
@@ -85,9 +85,9 @@
 <category><en>Category</en><th>หมวดหมู่</th></category>
 <deptnum><en>Department(Number)</en><th>แผนก(จำนวน)</th></deptnum>
 <factnum><en>Factory(Number)</en><th>โรงงานซัก(จำนวน)</th></factnum>
-<money><en>Amount (Bath)</en><th>เป็นเงิน</th></money>
+<money><en>Cost</en><th>เป็นเงิน</th></money>
 <printbill><en>Print Bill</en><th>พิมพ์บิล</th></printbill>
-<factory><en>Factory</en><th>โรงงานซัก</th></factory>
+<factory><en>Washing factory</en><th>โรงงานซัก</th></factory>
 <datestartcontract><en>Date(Contract)</en><th>วันที่ทำสัญญา</th></datestartcontract>
 <dateendcontract><en>Date(Expired)</en><th>วันที่สิ้นสุดสัญญา</th></dateendcontract>
 <numbercontract><en>Expire in (Day)</en><th>สิ้นสุดสัญญา(วัน)</th></numbercontract>
@@ -138,7 +138,7 @@
 <cancelsuccessmsg><en>Delete detail success</en><th>ยกเลิกข้อมูลสำเร็จ</th></cancelsuccessmsg>
 <cancelfailmsg><en>Delete detail failed</en><th>ยกเลิกข้อมูลล้มเหลว</th></cancelfailmsg>
 <itemnew><en>New Item List</en><th>รายการใหม่</th></itemnew>
-<parnum><en>Number (Par)</en><th>จำนวน Par</th></parnum>
+<parnum><en>Par number</en><th>จำนวน Par</th></parnum>
 <addnewitem><en>Add item</en><th>เพิ่มรายการ</th></addnewitem>
 <expireday><en>Expired Date</en><th>วันที่หมดอายุ</th></expireday>
 <pleasefill><en>Please complete field number</en><th>กรุณาใส่หมายเลขให้ถูกต้อง</th></pleasefill>
@@ -150,14 +150,14 @@
 <defaultname><en>Defaul.</en><th>N Health</th></defaultname>
 <dirty><en>Dirty</en><th>รับผ้าสกปรก</th></dirty>
 <clean><en>Clean</en><th>รับผ้าสะอาด</th></clean>
-<percent1><en>Percent</en><th>คิดเป็นเปอร์เปอร์เซ็นต์</th></percent1>
-<inventory><en>Inventory</en><th>คลังเก็บของ</th></inventory>
+<percent1><en>Percent</en><th>เปอร์เซ็นต์</th></percent1>
+<inventory><en>Warehouse</en><th>คลังเก็บของ</th></inventory>
 <recivedirtycloth><en>Recivedirtycloth</en><th>รับเข้าผ้าสกปรก</th></recivedirtycloth>
 <billclaim><en>Bill Claim</en><th>ใบเคลม</th></billclaim>
 <billcustomer><en>Bill Customer</en><th>บันทึกบิลลูกค้า</th></billcustomer>
 <factoryin><en>Factory In</en><th>ส่งผ้าเข้าโรงซัก</th></factoryin>
 <factoryout><en>Factory Out</en><th>ส่งผ้าเข้าเอ็นเฮลท์</th></factoryout>
-<permission><en>Permission</en><th>การเข้าถึง</th></permission>
+<permission><en>Access</en><th>การเข้าถึง</th></permission>
 <username><en>Username</en><th>ผู้ใช้งาน</th></username>
 <password><en>Password</en><th>รหัสผ่าน</th></password>
 <flname><en>Name</en><th>ชื่อ-สกุล</th></flname>
@@ -165,7 +165,7 @@
 <datepicker><en>Select Date</en><th>เลือกวันที่</th></datepicker>
 <saveprice><en>Save Time</en><th>บันทึกราคา</th></saveprice>
 <back><en>Back</en><th>กลับ</th></back>
-<changetimeout><en>Change Timeout</en><th>แก้ไขเวลาพักหน้าจอ</th></changetimeout>
+<changetimeout><en>Edit screen time</en><th>แก้ไขเวลาพักหน้าจอ</th></changetimeout>
 <changelang><en>Change Language</en><th>เปลี่ยนภาษา</th></changelang>
 <thai><en>Thai</en><th>ไทย</th></thai>
 <eng><en>English</en><th>อังกฤษ</th></eng>

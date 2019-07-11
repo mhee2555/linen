@@ -44,7 +44,7 @@
       </sub>
       <sub>
         <en>
-          Percentage
+          Calculate in percentage
         </en>
         <th>
           คิดเป็นเปอร์เซ็นต์
@@ -126,7 +126,7 @@
     </sub>
     <sub>
       <en>
-        Factory Contract
+        Washing machine counterpart
       </en>
       <th>
         คู่สัญญาโรงซัก
@@ -134,7 +134,7 @@
     </sub>
     <sub>
       <en>
-        Hospital Contract
+        Hospital counterparts
       </en>
       <th>
         คู่สัญญาโรงพยาบาล
@@ -260,7 +260,7 @@
     </sub>
     <sub>
       <en>
-        Change Timeout
+        Schedule
       </en>
       <th>
         กำหนดเวลา
@@ -284,7 +284,7 @@
     </sub>
     <sub>
       <en>
-        Set Price
+        Pricing
       </en>
       <th>
         กำหนดราคา

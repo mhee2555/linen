@@ -888,7 +888,6 @@ function CreateDocument($conn, $DATA)
       }
       echo json_encode($return);
 
-      //==========================================================================================================//
 
       //==========================================================================================================//
       $Sqlselect="SELECT item_stock.ItemCode,item_stock.DepCode,item_stock.ParQty,item_stock.CcQty,item_stock.TotalQty,item_stock.IsStatus
