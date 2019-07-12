@@ -546,10 +546,10 @@ switch ($PmID) {
   </script>
 
   <style>
-      @font-face {
-            font-family: myFirstFont;
-            src: url("../fonts/DB Helvethaica X.ttf");
-            }
+    @font-face {
+          font-family: myFirstFont;
+          src: url("../fonts/DB Helvethaica X.ttf");
+          }
      
     @font-face {
       font-family: 'DB Helvethaica X';
@@ -620,8 +620,9 @@ switch ($PmID) {
     }
 
     .bluebg {
-      background: rgb(0, 51, 141) !important;
+      background: #0058a5 !important;
       color: white !important;
+      border-radius: 0px 50px 50px 0px;
     }
 
     .bluebg:hover {
@@ -636,15 +637,15 @@ switch ($PmID) {
     }
 
     #navmenu {
-      border: 2px solid #ececec;
-      border-radius: 8px;
+      border: none;
+      border-radius: 0px;
     }
 
     .sub-menu li a {
       color: #797979;
       text-shadow: 1px 1px 0px rgba(255, 255, 255, .2);
-      background: #f2f2f2 !important;
-      border-bottom: 1px solid #c9c9c9;
+      background: none !important;
+      border-bottom: none;
       -webkit-box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, .1), 0px 1px 0px 0px rgba(0, 0, 0, .1);
       -moz-box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, .1), 0px 1px 0px 0px rgba(0, 0, 0, .1);
       box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, .1), 0px 1px 0px 0px rgba(0, 0, 0, .1);
@@ -670,10 +671,11 @@ switch ($PmID) {
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0" >
       <div style="padding-top:15px;" hidden><a href="#" onclick="switchlang('th');">TH</a> / <a href="#" onclick="switchlang('en');">EN</a></div>
-      <li class="nav-item dropdown no-arrow" style="padding-top:12px;">
+      <li class="nav-item dropdown no-arrow" style="padding-top:22px;">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user-circle fa-fw"></i>
+          <img src="img/icon/ic_profile2.png" class="fa-fw" >
+          <!-- <i class="fas fa-user-circle fa-fw"></i> -->
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <a class="dropdown-item" href="#" data-toggle="modal"
@@ -694,7 +696,7 @@ switch ($PmID) {
     <ul class="accordion" id="navmenu">
       <?php if($gen_head== 1){ ?>
       <li id="general">
-
+        
         <a class="bluebg" style="font-family: 'DB Helvethaica X'; font-size:20px;"
           href="#general"><?php echo $array['menu']['general']['title'][$language]; ?><span id='main_Cnt'>0</span></a>
 
