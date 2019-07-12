@@ -304,12 +304,15 @@ function CreateDocument($conn, $DATA)
     ORDER BY item.ItemName ASC LImit 100";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $ParQtyx = $Result['ParQty'] - $Result['TotalQty'];
+
       $return[$count]['RowID'] = $Result['RowID'];
       $return[$count]['UsageCode'] = $Result['UsageCode'];
       $return[$count]['ItemCode'] = $Result['ItemCode'];
       $return[$count]['ItemName'] = $Result['ItemName'];
       $return[$count]['UnitCode'] = $Result['UnitCode'];
       $return[$count]['UnitName'] = $Result['UnitName'];
+      $return[$count]['ParQty'] =   $ParQtyx;
       $ItemCode = $Result['ItemCode'];
       $UnitCode = $Result['UnitCode'];
       $count2 = 0;
