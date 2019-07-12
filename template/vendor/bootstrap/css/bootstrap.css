@@ -4638,9 +4638,9 @@ input[type="button"].btn-block {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: -1rem;
   list-style: none;
-  background-color: #e9ecef;
+  background-color: none;
   border-radius: 0.25rem;
 }
 
@@ -4665,6 +4665,7 @@ input[type="button"].btn-block {
 
 .breadcrumb-item.active {
   color: #6c757d;
+  font-weight: bold !important;
 }
 
 .pagination {
