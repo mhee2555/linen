@@ -1608,7 +1608,7 @@ $array2 = json_decode($json2,TRUE);
                     <div class="" style="margin-top:5px;">
                       <div class="card-body" style="padding:0px; margin-top:10px;">
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-2" style='padding-top: 6px;padding-left: 29px;'>
+                          <div class="col-md-2" style='padding-top: 6px;padding-left: 24px;'>
                             <img src="../img/icon/ic_create.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-10">
@@ -1619,7 +1619,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
 
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-2" style='padding-top: 6px;padding-left: 29px;'>
+                          <div class="col-md-2" style='padding-top: 6px;padding-left: 24px;'>
                             <img src="../img/icon/ic_import.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-10">
@@ -1630,7 +1630,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
 
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-2" style='padding-top: 6px;padding-left: 26px;'>
+                          <div class="col-md-2" style='padding-top: 6px;padding-left: 24px;'>
                             <img src="../img/icon/ic_delete.png" style='width:40px;' class='mr-3'>
                           </div>
                           <div class="col-md-10">
@@ -1641,7 +1641,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
 
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-2" style='padding-top: 6px;padding-left: 28px;'>
+                          <div class="col-md-2" style='padding-top: 6px;padding-left: 24px;'>
                             <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
                           </div>
                           <div class="col-md-10">
@@ -1652,7 +1652,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
 
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-2" style='padding-top: 6px;padding-left: 29px;'>
+                          <div class="col-md-2" style='padding-top: 6px;padding-left: 24px;'>
                             <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-10">
@@ -1663,7 +1663,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
               
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-2" style='padding-top: 6px;padding-left: 27px;'>
+                          <div class="col-md-2" style='padding-top: 6px;padding-left: 24px;'>
                             <img src="../img/icon/ic_detail.png" style='width:40px;' class='mr-3'>
                           </div>
                           <div class="col-md-10">
@@ -1674,7 +1674,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
           
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-2" style='padding-top: 6px;padding-left: 26px;'>
+                          <div class="col-md-2" style='padding-top: 6px;padding-left: 24px;'>
                             <img src="../img/icon/ic_print.png" style='width:40px;' class='mr-3'>
                           </div>
                           <div class="col-md-10">
@@ -1685,7 +1685,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
 
                         <div class="row" style="margin-top:0px;" hidden>
-                          <div class="col-md-2" style='padding-top: 6px;padding-left: 29px;'>
+                          <div class="col-md-2" style='padding-top: 6px;padding-left: 24px;'>
                             <img src="../img/icon/ic_detail.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-10">
