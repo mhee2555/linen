@@ -37,7 +37,7 @@ function getDepartment($conn,$DATA){
   $boolean = false;
   $Hotp = $DATA["Hotp"];
 
-  if($PmID != 1){
+  if($PmID != 1 && $PmID != 2){
     $Sql = "SELECT department.DepCode,department.DepName,department.IsDefault
     FROM department
     WHERE department.HptCode = '$Hotp' 
