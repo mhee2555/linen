@@ -8,18 +8,6 @@ function OnLoadPage($conn, $DATA)
 {
   $count = 0;
   $boolean = false;
-  //============================================================================================
-  $Sqlx = "SELECT factory.FacCode,factory.FacName FROM factory WHERE factory.IsCancel = 0";
-  $meQuery = mysqli_query($conn, $Sqlx);
-  while ($Result = mysqli_fetch_assoc($meQuery)) {
-    $return[$count]['FacCode'] = $Result['FacCode'];
-    $return[$count]['FacName'] = $Result['FacName'];
-    $count++;
-    $boolean = true;
-  }
-  $return['rowx'] = $count;
-
-  //============================================================================================
   $Sql = "SELECT site.HptCode,site.HptName FROM site WHERE site.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -90,7 +78,6 @@ function CreateDocument($conn, $DATA)
   $count = 0;
   $hotpCode = $DATA["hotpCode"];
   $deptCode = $DATA["deptCode"];
-  $factory = $DATA["factory"];
   $userid   = $DATA["userid"];
 
   //	 $Sql = "INSERT INTO log ( log ) VALUES ('userid : $userid')";
@@ -118,32 +105,15 @@ function CreateDocument($conn, $DATA)
 
   if ($count == 1) {
     $Sql = "INSERT INTO dirty
-      ( DocNo,
-        DocDate,
-        DepCode,
-        RefDocNo,
-        TaxNo,
-        TaxDate,
-        DiscountPercent,
-        DiscountBath,
-        Total,
-        IsCancel,
-        Detail,
-        dirty.Modify_Code,
-        dirty.Modify_Date,FacCode )
+      ( DocNo,DocDate,DepCode,RefDocNo,
+		TaxNo,TaxDate,DiscountPercent,DiscountBath,
+		Total,IsCancel,Detail,
+		dirty.Modify_Code,dirty.Modify_Date )
       VALUES
-      ( '$DocNo',
-      DATE(NOW()),
-      $deptCode,'',
-      0,NOW(),
-      0,
-      0,
-      0,
-      0,
-      '',
-      $userid,
-      NOW(),
-      $factory )";
+      ( '$DocNo',DATE(NOW()),$deptCode,'',
+		0,NOW(),0,0,
+		0,0,'',
+		$userid,NOW() )";
     mysqli_query($conn,$Sql);
 
       $Sql = "INSERT INTO daily_request
@@ -188,8 +158,9 @@ function ShowDocument($conn, $DATA)
   $boolean = false;
   $count = 0;
   $Hotp = $DATA["Hotp"];
+  $DocNo = $DATA["docno"];
   $deptCode = $DATA["deptCode"];
-  $DocNo = str_replace(' ', '%', $DATA["xdocno"]);
+  $xDocNo = str_replace(' ', '%', $DATA["xdocno"]);
   $Datepicker = $DATA["Datepicker"];
   $selecta = $DATA["selecta"];
   // $Sql = "INSERT INTO log ( log ) VALUES ('$max : $DocNo')";
@@ -206,12 +177,26 @@ function ShowDocument($conn, $DATA)
   INNER JOIN site ON department.HptCode = site.HptCode
   INNER JOIN users ON dirty.Modify_Code = users.ID ";
 
-  //new
-  if ($selecta == 0) {
-    $Sql .= "WHERE dirty.DepCode = $deptCode AND dirty.DocNo LIKE '%$DocNo%'";
-  }elseif($selecta==1){
-    $Sql.="WHERE site.HptCode = '$Hotp'";
+  if($DocNo!=null){
+    $Sql .= " WHERE dirty.DocNo = '$DocNo'";
+  }else{
+    if ($selecta == 1) {
+      $Sql .= " WHERE site.HptCode = '$Hotp' AND dirty.DepCode = $deptCode";
+      if($xDocNo!=null){
+        $Sql .= " OR dirty.DocNo LIKE '%$xDocNo%'";
+      }
+    }else if($selecta == 2){
+      $Sql .= " WHERE site.HptCode = '$Hotp'";
+    }
   }
+  // if($selecta == null){
+  //   $Sql .= " WHERE dirty.DocNo = '$DocNo'";
+  // }else if ($selecta == 1) {
+  //   $Sql .= " WHERE dirty.HptCode = $Hotp AND dirty.DepCode = $deptCode OR dirty.DocNo LIKE '%$xDocNo%'";
+  // }else if($selecta == 2){
+  //   $Sql .= " WHERE site.HptCode = '$Hotp'";
+  // }
+  $Sql .= " ORDER BY dirty.DocNo DESC LIMIT 500";
 
   $return['sql'] = $Sql;
 
@@ -727,7 +712,7 @@ function DeleteItem($conn, $DATA)
 
 function SaveBill($conn, $DATA)
 {
-  $DocNo = $DATA["xdocno"];
+  $DocNo = $DATA["docno"];
   $isStatus = $DATA["isStatus"];
 
   $Sql = "UPDATE dirty SET IsStatus = $isStatus WHERE dirty.DocNo = '$DocNo'";

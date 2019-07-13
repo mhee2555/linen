@@ -409,7 +409,6 @@ $array = json_decode($json,TRUE);
           var userid = '<?php echo $Userid; ?>';
           var hotpCode = $('#hotpital option:selected').attr("value");
           var deptCode = $('#department option:selected').attr("value");
-          var factory = $('#factory option:selected').attr("value");
           $('#TableDetail tbody').empty();
           swal({
             title: "<?php echo $array['confirm'][$language]; ?>",
@@ -428,12 +427,11 @@ $array = json_decode($json,TRUE);
                 'STATUS'    : 'CreateDocument',
                 'hotpCode'  : hotpCode,
                 'deptCode'  : deptCode,
-                'userid'	: userid,
-                'factory'  : factory
+                'userid'	: userid
               };
               senddata(JSON.stringify(data));
             })
-          }
+        }
 
           function canceldocno(docno) {
             swal({
@@ -456,7 +454,7 @@ $array = json_decode($json,TRUE);
                 senddata(JSON.stringify(data));
                 getSearchDocNo();
               })
-            }
+          }
 
             function addnum(cnt) {
               var add = parseInt($('#iqty'+cnt).val())+1;
@@ -550,9 +548,9 @@ $array = json_decode($json,TRUE);
               if(isStatus==1){
                 var data = {
                   'STATUS'      : 'SaveBill',
-                  'xdocno'      : docno,
+                  'docno'      : docno,
                   'isStatus'    : isStatus,
-                  'deptCode'    : DepCode
+                  'deptCode'    : dept
                 };
                 senddata(JSON.stringify(data));
 
@@ -563,7 +561,7 @@ $array = json_decode($json,TRUE);
                   $("#bSave").prop('disabled', true);
                   $("#bCancel").prop('disabled', true);
 
-                  ShowDocument();
+                  // ShowDocument();
               }else{
                 $("#bImport").prop('disabled', false);
                 $("#bDelete").prop('disabled', false);
@@ -654,12 +652,6 @@ $array = json_decode($json,TRUE);
                         var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
                         $("#hotpital").append(Str);
                       }
-
-                      for (var i = 0; i < temp["rowx"]; i++) {
-                        var Str = "<option value="+temp[i]['FacCode']+">"+temp[i]['FacName']+"</option>";
-                        $("#factory").append(Str);
-                      }
-
                       if(PmID != 1){
                         $("#hotpital").val(HptCode);
                       }
@@ -1200,12 +1192,6 @@ $array = json_decode($json,TRUE);
                           <input class='form-control col-sm-9'  id='wTotal' placeholder="0.00">
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class='form-group row'>
-                        <label class="col-sm-3 col-form-label text-right"><?php echo $array['factory'][$language]; ?></label>
-                            <select class="form-control col-sm-9" id="factory" > </select>
-                        </div>
-                      </div>
                       <div class="col-md-6" hidden>
                         <div class='form-group row'>
                           <label class="col-sm-3 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
@@ -1312,8 +1298,8 @@ $array = json_decode($json,TRUE);
               <div class="col-md-6">
                 <div class="row" style="margin-left:2px;">
                   <input type="text" class="form-control" style="font-size:24px;width:50%;" name="searchdocument" id="searchdocument" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(0);"><?php echo $array['search'][$language]; ?></button>
-                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
+                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['search'][$language]; ?></button>
+                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(2);"><?php echo $array['searchalldep'][$language]; ?></button>
                 </div>
               </div>
               <div class="col-md-2 text-right">
