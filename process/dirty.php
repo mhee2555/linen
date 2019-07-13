@@ -209,7 +209,7 @@ function ShowDocument($conn, $DATA)
   if($selecta == null){
     $Sql .= " WHERE dirty.DocNo = '$DocNo'";
   }else if ($selecta == 1) {
-    $Sql .= " WHERE dirty.DepCode = $deptCode";
+    $Sql .= " WHERE dirty.DepCode = $deptCode AND site.HptCode = '$Hotp'";
   }else if($selecta == 2){
     $Sql .= " WHERE site.HptCode = '$Hotp'";
   }else if($selecta == 3){
