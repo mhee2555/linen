@@ -409,6 +409,7 @@ $array = json_decode($json,TRUE);
           var userid = '<?php echo $Userid; ?>';
           var hotpCode = $('#hotpital option:selected').attr("value");
           var deptCode = $('#department option:selected').attr("value");
+          var factory = $('#factory option:selected').attr("value");
           $('#TableDetail tbody').empty();
           swal({
             title: "<?php echo $array['confirm'][$language]; ?>",
@@ -427,7 +428,8 @@ $array = json_decode($json,TRUE);
                 'STATUS'    : 'CreateDocument',
                 'hotpCode'  : hotpCode,
                 'deptCode'  : deptCode,
-                'userid'	: userid
+                'userid'	: userid,
+                'factory'  : factory
               };
               senddata(JSON.stringify(data));
             })
@@ -652,6 +654,12 @@ $array = json_decode($json,TRUE);
                         var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
                         $("#hotpital").append(Str);
                       }
+
+                      for (var i = 0; i < temp["rowx"]; i++) {
+                        var Str = "<option value="+temp[i]['FacCode']+">"+temp[i]['FacName']+"</option>";
+                        $("#factory").append(Str);
+                      }
+
                       if(PmID != 1){
                         $("#hotpital").val(HptCode);
                       }
@@ -1190,6 +1198,12 @@ $array = json_decode($json,TRUE);
                         <div class='form-group row'>
                           <label class="col-sm-3 col-form-label text-right"><?php echo $array['totalweight'][$language]; ?></label>
                           <input class='form-control col-sm-9'  id='wTotal' placeholder="0.00">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class='form-group row'>
+                        <label class="col-sm-3 col-form-label text-right"><?php echo $array['factory'][$language]; ?></label>
+                            <select class="form-control col-sm-9" id="factory" > </select>
                         </div>
                       </div>
                       <div class="col-md-6" hidden>

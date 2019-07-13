@@ -26,7 +26,7 @@
 <side><en>Hospital</en><th>โรงพยาบาล</th></side>
 <department><en>Department</en><th>แผนก</th></department>
 <docdate><en>Document date</en><th>วันที่เอกสาร</th></docdate>
-<docno><en>Document number</en><th>เลขที่เอกสาร</th></docno>
+<docno><en>Doc No</en><th>เลขที่เอกสาร</th></docno>
 <refdocno><en>Reference</en><th>เอกสารอ้างอิง</th></refdocno>
 <employee><en>Recorder</en><th>ผู้บันทึก</th></employee>
 <empcode><en>Employee Code</en><th>รหัสพนักงาน</th></empcode>

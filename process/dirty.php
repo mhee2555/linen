@@ -8,6 +8,18 @@ function OnLoadPage($conn, $DATA)
 {
   $count = 0;
   $boolean = false;
+  //============================================================================================
+  $Sqlx = "SELECT factory.FacCode,factory.FacName FROM factory WHERE factory.IsCancel = 0";
+  $meQuery = mysqli_query($conn, $Sqlx);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $return[$count]['FacCode'] = $Result['FacCode'];
+    $return[$count]['FacName'] = $Result['FacName'];
+    $count++;
+    $boolean = true;
+  }
+  $return['rowx'] = $count;
+
+  //============================================================================================
   $Sql = "SELECT site.HptCode,site.HptName FROM site WHERE site.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -78,6 +90,7 @@ function CreateDocument($conn, $DATA)
   $count = 0;
   $hotpCode = $DATA["hotpCode"];
   $deptCode = $DATA["deptCode"];
+  $factory = $DATA["factory"];
   $userid   = $DATA["userid"];
 
   //	 $Sql = "INSERT INTO log ( log ) VALUES ('userid : $userid')";
@@ -105,15 +118,32 @@ function CreateDocument($conn, $DATA)
 
   if ($count == 1) {
     $Sql = "INSERT INTO dirty
-      ( DocNo,DocDate,DepCode,RefDocNo,
-		TaxNo,TaxDate,DiscountPercent,DiscountBath,
-		Total,IsCancel,Detail,
-		dirty.Modify_Code,dirty.Modify_Date )
+      ( DocNo,
+        DocDate,
+        DepCode,
+        RefDocNo,
+        TaxNo,
+        TaxDate,
+        DiscountPercent,
+        DiscountBath,
+        Total,
+        IsCancel,
+        Detail,
+        dirty.Modify_Code,
+        dirty.Modify_Date,FacCode )
       VALUES
-      ( '$DocNo',DATE(NOW()),$deptCode,'',
-		0,NOW(),0,0,
-		0,0,'',
-		$userid,NOW() )";
+      ( '$DocNo',
+      DATE(NOW()),
+      $deptCode,'',
+      0,NOW(),
+      0,
+      0,
+      0,
+      0,
+      '',
+      $userid,
+      NOW(),
+      $factory )";
     mysqli_query($conn,$Sql);
 
       $Sql = "INSERT INTO daily_request
