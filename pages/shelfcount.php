@@ -309,6 +309,11 @@ $array2 = json_decode($json2,TRUE);
     }
 
     function SelectDocument(){
+
+      $('#tab2').attr('hidden',false);
+      $('#switch_col').removeClass('col-md-12');
+      $('#switch_col').addClass('col-md-10');
+
       var selectdocument = "";
       $("#checkdocno:checked").each(function() {
         selectdocument = $(this).val();
@@ -867,7 +872,7 @@ $array2 = json_decode($json2,TRUE);
                   Style  = "style='width: 10%;color: #ff0000;'";
                 }
 
-                $StrTr="<tr id='tr"+temp[i]['DocNo']+"'>"+
+                $StrTr="<tr id='tr"+temp[i]['DocNo']+"' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>"+
                 "<td style='width: 10%;'nowrap>"+chkDoc+"</td>"+
                 "<td style='width: 15%;'nowrap>"+temp[i]['DocDate']+"</td>"+
                 "<td style='width: 15%;'nowrap>"+temp[i]['DocNo']+"</td>"+
@@ -1114,7 +1119,7 @@ $array2 = json_decode($json2,TRUE);
 
                 var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='iweight"+i+"' value='0' ></div>";
 
-                $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
+                $StrTR = "<tr id='tr"+temp[i]['RowID']+"' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>"+
                 "<td style='width: 10%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
                 "<td style='width: 20%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''nowrap>"+temp[i]['ItemCode']+"</td>"+
                 "<td style='width: 25%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''nowrap>"+temp[i]['ItemName']+"</td>"+
@@ -1313,7 +1318,6 @@ $array2 = json_decode($json2,TRUE);
     .table > thead > tr >th {
       /* background: #4f88e3!important; */
       background-color: #1659a2;
-
     }
     .table th, .table td {
         border-top: none !important;
@@ -1402,19 +1406,19 @@ $array2 = json_decode($json2,TRUE);
       border-left: 2px solid #bdc3c7;
     }
 
-      .sidenav a {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-      }
+    .sidenav a {
+      padding: 6px 8px 6px 16px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+    }
 
-      .sidenav a:hover {
-        color: #2c3e50;
-        font-weight:bold;
-        font-size:26px;
-      }
+    .sidenav a:hover {
+      color: #2c3e50;
+      font-weight:bold;
+      font-size:26px;
+    }
 
   </style>
 </head>
@@ -1507,8 +1511,6 @@ $array2 = json_decode($json2,TRUE);
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div> <!-- tag column 1 -->
@@ -1602,6 +1604,7 @@ $array2 = json_decode($json2,TRUE);
                 </div> <!-- end row tab -->
               </div>
             </div>
+
             <div class="col-md-2" id='tab2'>
                 <!-- button----------------------------------------- -->
                 <div class="sidenav">
