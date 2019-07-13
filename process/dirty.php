@@ -207,16 +207,11 @@ function ShowDocument($conn, $DATA)
   INNER JOIN users ON dirty.Modify_Code = users.ID ";
 
   //new
-  if($selecta == null){
-    $Sql .= " WHERE dirty.DocNo = '$DocNo'";
-  }else if ($selecta == 1) {
-    $Sql .= " WHERE dirty.DepCode = $deptCode AND site.HptCode = '$Hotp'";
-  }else if($selecta == 2){
-    $Sql .= " WHERE site.HptCode = '$Hotp'";
-  }else if($selecta == 3){ 
-    $Sql .= " WHERE dirty.DepCode = $deptCode AND dirty.DocNo LIKE '%$DocNo%'";
+  if ($selecta == 0) {
+    $Sql .= "WHERE dirty.DepCode = $deptCode AND dirty.DocNo LIKE '%$DocNo%'";
+  }elseif($selecta==1){
+    $Sql.="WHERE site.HptCode = '$Hotp'";
   }
-  $Sql .= " ORDER BY dirty.DocNo DESC LIMIT 500";
 
   $return['sql'] = $Sql;
 

@@ -552,7 +552,7 @@ $array = json_decode($json,TRUE);
                   'STATUS'      : 'SaveBill',
                   'xdocno'      : docno,
                   'isStatus'    : isStatus,
-                  'deptCode'    : dept
+                  'deptCode'    : DepCode
                 };
                 senddata(JSON.stringify(data));
 
@@ -563,7 +563,7 @@ $array = json_decode($json,TRUE);
                   $("#bSave").prop('disabled', true);
                   $("#bCancel").prop('disabled', true);
 
-                  // ShowDocument();
+                  ShowDocument();
               }else{
                 $("#bImport").prop('disabled', false);
                 $("#bDelete").prop('disabled', false);
@@ -1312,8 +1312,8 @@ $array = json_decode($json,TRUE);
               <div class="col-md-6">
                 <div class="row" style="margin-left:2px;">
                   <input type="text" class="form-control" style="font-size:24px;width:50%;" name="searchdocument" id="searchdocument" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['search'][$language]; ?></button>
-                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(2);"><?php echo $array['searchalldep'][$language]; ?></button>
+                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(0);"><?php echo $array['search'][$language]; ?></button>
+                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
                 </div>
               </div>
               <div class="col-md-2 text-right">
