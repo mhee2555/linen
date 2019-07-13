@@ -208,13 +208,12 @@ function ShowDocument($conn, $DATA)
 
   if($selecta == null){
     $Sql .= " WHERE dirty.DocNo = '$DocNo'";
-    $return['selecta'] = $selecta;
-  }else if ($selecta == 3) {
-    $Sql .= " WHERE dirty.DepCode = $deptCode AND dirty.DocNo LIKE '%$DocNo%'";
-    $return['selecta'] = 0;
-  }else if($selecta == 1){
+  }else if ($selecta == 1) {
+    $Sql .= " WHERE dirty.DepCode = $deptCode";
+  }else if($selecta == 2){
     $Sql .= " WHERE site.HptCode = '$Hotp'";
-    $return['selecta'] = 1;
+  }else if($selecta == 3){
+    $Sql .= " WHERE dirty.DepCode = $deptCode AND dirty.DocNo LIKE '%$DocNo%'";
   }
   $Sql .= " ORDER BY dirty.DocNo DESC LIMIT 500";
 
