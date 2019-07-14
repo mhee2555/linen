@@ -1293,62 +1293,48 @@ $(document).ready(function(e){
                   </div>
 
                   <!-- search document -->
-                  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                      <div class="row" style="margin-top:10px;">
-                          <div class="col-md-2">
-
-                              <select class="form-control" style='font-size:24px;' id="side" onchange="getDepartment();">
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row mt-3">
+                          <div class="col-md-4">
+                            <div class="row" style="font-size:24px;margin-left:2px;">
+                              <select class="form-control" style='font-size:24px;' id="Dep2" disabled='true'>
                               </select>
-
-                          </div>
-                          <div class="col-md-2">
-
-                              <select class="form-control" style='font-size:24px;' id="Dep2">
-                              </select>
-
+                            </div>
                           </div>
                           <div class="col-md-6">
-                              <div class="row" style="margin-left:2px;">
-                                  <input type="text" class="form-control" style="font-size:24px;width:30%;"
-                                      name="searchdocument" id="searchdocument"
-                                      placeholder="<?php echo $array['searchplace'][$language]; ?>">
-                                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button"
-                                      onclick="ShowDocument(0);"><?php echo $array['search'][$language]; ?></button>
-                                  <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button"
-                                      onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
-                              </div>
+                            <div class="row" style="margin-left:2px;">
+                              <input type="text" class="form-control" style="font-size:24px;width:50%;" name="searchdocument" id="searchdocument" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                              <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(0);"><?php echo $array['search'][$language]; ?></button>
+                              <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
+                            </div>
                           </div>
                           <div class="col-md-2 text-right">
-                              <button type="button" class="btn btn-warning" name="button"
-                                  onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
+                            <button type="button" class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
                           </div>
-                      </div>
+                        </div>
 
-                      <div class="row">
-                          <div class="col-md-12">
-                              <!-- tag column 1 -->
-                              <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped"
-                                  id="TableDocument" width="100%" cellspacing="0" role="grid">
-                                  <thead id="theadsum" style="font-size:24px;">
-                                      <tr role="row">
-                                          <th style='width: 10%;' nowrap>&nbsp;</th>
-                                          <th style='width: 15%;' nowrap><?php echo $array['docdate'][$language]; ?></th>
-                                          <th style='width: 15%;' nowrap><?php echo $array['docno'][$language]; ?></th>
-                                          <th style='width: 15%;' nowrap><?php echo $array['department'][$language]; ?>
-                                          </th>
-                                          <th style='width: 15%;' nowrap><?php echo $array['employee'][$language]; ?></th>
-                                          <th style='width: 10%;' nowrap><?php echo $array['time'][$language]; ?></th>
-                                          <th style='width: 10%;' nowrap><?php echo $array['order'][$language]; ?></th>
-                                          <th style='width: 10%;' nowrap><?php echo $array['status'][$language]; ?></th>
-                                      </tr>
-                                  </thead>
-                                  <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:400px;">
-                                  </tbody>
-                              </table>
+                        <div class="row">
+                          <div class="col-md-12"> <!-- tag column 1 -->
+                            <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableDocument" width="100%" cellspacing="0" role="grid">
+                              <thead id="theadsum" style="font-size:24px;">
+                                <tr role="row">
+                                  <th style='width: 10%;' nowrap>&nbsp;</th>
+                                  <th style='width: 15%;'  nowrap><?php echo $array['docdate'][$language]; ?></th>
+                                  <th style='width: 15%;'  nowrap><?php echo $array['docno'][$language]; ?></th>
+                                  <th style='width: 15%;'  nowrap><?php echo $array['refdocno'][$language]; ?></th>
+                                  <th style='width: 15%;'  nowrap><?php echo $array['employee'][$language]; ?></th>
+                                  <th style='width: 10%;'  nowrap><?php echo $array['time'][$language]; ?></th>
+                                  <th style='width: 10%;'  nowrap><?php echo $array['weight'][$language]; ?></th>
+                                  <th style='width: 10%;'  nowrap><?php echo $array['status'][$language]; ?></th>
+                                </tr>
+                              </thead>
+                              <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:400px;">
+                              </tbody>
+                            </table>
                           </div> <!-- tag column 1 -->
-                      </div>
-
-                  </div> <!-- end row tab -->
+                        </div>
+                      </div> 
+                  <!-- end row tab -->
                 </div>
               </div>
 
