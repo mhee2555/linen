@@ -1098,16 +1098,15 @@ $(document).ready(function(e){
 
     </script>
     <style media="screen">
+     /* ======================================== */
+      a.nav-link{
+        width:auto!important;
+      }
+      .datepicker{z-index:9999 !important}
+      .hidden{visibility: hidden;}
+
       button,input[id^='qty'],input[id^='order'],input[id^='max'] {
         font-size: 24px!important;
-      }
-
-      .table th, .table td {
-          border-top: none !important;
-      }
-
-      .table > thead > tr >th {
-        background: #4f88e3!important;
       }
 
       table tr th,
@@ -1125,8 +1124,6 @@ $(document).ready(function(e){
         border-top: 0px solid #bbb;
         text-align: left;
       }
-
-      /* top-left border-radius */
       table tr:first-child th:first-child {
         border-top-left-radius: 15px;
       }
@@ -1146,12 +1143,13 @@ $(document).ready(function(e){
       table tr:last-child td:last-child {
         border-bottom-right-radius: 6px;
       }
-
-      a.nav-link{
-        width:auto!important;
+      .table th, .table td {
+          border-top: none !important;
       }
-      .datepicker{z-index:9999 !important}
-      .hidden{visibility: hidden;}
+
+      .table > thead > tr >th {
+        background: #4f88e3!important;
+      }
 
       .sidenav {
         height: 100%;
@@ -1173,6 +1171,7 @@ $(document).ready(function(e){
         font-weight:bold;
         font-size:26px;
       }
+      /* ======================================== */
     </style>
 
   </head>
