@@ -1058,7 +1058,7 @@ $array2 = json_decode($json2,TRUE);
                 }
               });
             }
-
+            //===============================================
             function switch_tap1(){
               $('#tab2').attr('hidden',false);
               $('#switch_col').removeClass('col-md-12');
@@ -1069,6 +1069,8 @@ $array2 = json_decode($json2,TRUE);
               $('#switch_col').removeClass('col-md-10');
               $('#switch_col').addClass('col-md-12');
             }
+            //===============================================
+
         </script>
     <style media="screen">
       @font-face {
@@ -1193,63 +1195,68 @@ $array2 = json_decode($json2,TRUE);
                               <div class="container-fluid">
                                   <div class="card-body mt-3">
 
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <div class='form-group row'>
-                                                  <label
-                                                      class="col-sm-3 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
-                                                  <select class="form-control col-sm-9" id="hotpital"
-                                                      onchange="getDepartment();"></select>
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                              <div class='form-group row'>
-                                                  <label
-                                                      class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
-                                                  <select class="form-control col-sm-9" id="department"></select>
-                                              </div>
-                                          </div>
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class='form-group row'>
+                                        <label class="col-sm-3 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                        <select  class="form-control form-control col-sm-9" id="hotpital" onchange="getDepartment();" disabled="true"> </select>
                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class='form-group row'>
+                                        <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                          <select class="form-control col-sm-9" id="department" > </select>
+                                      </div>
+                                    </div>
+                                  </div>
 
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <div class='form-group row'>
-                                                  <label
-                                                      class="col-sm-3 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
-                                                  <input type="text" class="form-control col-sm-9" name="searchitem"
-                                                      id="docdate"
-                                                      placeholder="<?php echo $array['docdate'][$language]; ?>">
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                              <div class='form-group row'>
-                                                  <label
-                                                      class="col-sm-3 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
-                                                  <input type="text" class="form-control col-sm-9" name="searchitem"
-                                                      id="docno" placeholder="<?php echo $array['docno'][$language]; ?>">
-                                              </div>
-                                          </div>
-                                      </div>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class='form-group row'>
+                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
+                                          <input type="text" class="form-control col-sm-9" name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
 
-                                      <div class="row">
-                                          <div class="col-md-6">
-                                              <div class='form-group row'>
-                                                  <label
-                                                      class="col-sm-3 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
-                                                  <input type="text" class="form-control col-sm-9" name="searchitem"
-                                                      id="recorder"
-                                                      placeholder="<?php echo $array['employee'][$language]; ?>">
-                                              </div>
-                                          </div>
-                                          <div class="col-md-6">
-                                              <div class='form-group row'>
-                                                  <label
-                                                      class="col-sm-3 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
-                                                  <input type="text" class="form-control col-sm-9" name="searchitem"
-                                                      id="timerec" placeholder="<?php echo $array['time'][$language]; ?>">
-                                              </div>
-                                          </div>
+                                        </div>
                                       </div>
+                                      <div class="col-md-6">
+                                        <div class='form-group row'>
+                                            <label class="col-sm-3 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
+                                            <input type="text" class="form-control col-sm-9"  name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class='form-group row'>
+                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
+                                          <input type="text" class="form-control col-sm-9"  name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class='form-group row'>
+                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
+                                            <input type="text" class="form-control col-sm-9" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class='form-group row'>
+                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['totalweight'][$language]; ?></label>
+                                          <input class='form-control col-sm-9'  id='wTotal' placeholder="0.00">
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6" hidden>
+                                        <div class='form-group row'>
+                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
+                                            <input type="text" class="form-control col-sm-9" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                            <input class='form-control col-sm-9"' id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" OnBlur='UpdateRefDocNo()'>
+                                        </div>
+                                      </div>
+                                    </div>
+
                                   </div>
                               </div>
                           </div> <!-- tag column 1 -->
@@ -1404,7 +1411,7 @@ $array2 = json_decode($json2,TRUE);
                           </div>
                         </div>
               
-                        <div class="row" style="margin-top:0px;">
+                        <div class="row" style="margin-top:0px;" hidden>
                           <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
                             <img src="../img/icon/ic_detail.png" style='width:40px;' class='mr-3'>
                           </div>
@@ -1415,7 +1422,7 @@ $array2 = json_decode($json2,TRUE);
                           </div>
                         </div>
           
-                        <div class="row" style="margin-top:0px;">
+                        <div class="row" style="margin-top:0px;" hidden>
                           <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
                             <img src="../img/icon/ic_print.png" style='width:40px;' class='mr-3'>
                           </div>
@@ -1441,7 +1448,7 @@ $array2 = json_decode($json2,TRUE);
                     </div>
                 </div>
                 <!-- end button----------------------------------------- -->
-            </div>
+              </div>
             </div>
           </div>
         </div>
