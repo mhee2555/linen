@@ -976,13 +976,14 @@ $array2 = json_decode($json2,TRUE);
               }
               ShowDetail();
             }else if(temp["form"]=='ShowMenu'){
-              $('#home-tab').tab('show')
-              $( "#TableItemDetail tbody" ).empty();
-              $("#docno").val(temp[0]['DocNo']);
-              $("#docdate").val(temp[0]['DocDate']);
-              $("#recorder").val(temp[0]['Record']);
-              $("#timerec").val(temp[0]['RecNow']);
-              $("#IsStatus").val(temp[0]['IsStatus']);
+                  $('#home-tab').tab('show')
+                  $( "#TableItemDetail tbody" ).empty();
+                  $("#docno").val(temp[0]['DocNo']);
+                  $("#department").val(temp['DepCode']);
+                  $("#docdate").val(temp[0]['DocDate']);
+                  $("#recorder").val(temp[0]['Record']);
+                  $("#timerec").val(temp[0]['RecNow']);
+                  $("#IsStatus").val(temp[0]['IsStatus']);
 
               if(temp[0]['IsStatus']==0){
                 $("#bSave").text('<?php echo $array['save'][$language]; ?>');

@@ -154,7 +154,7 @@ function ShowMenu($conn, $DATA)
   $boolean = false;
   $count = 0;
   $DocnoXXX = $DATA["DocnoXXX"];
-  $Sql = "SELECT   site.HptName,department.DepName,shelfcount.DocNo,shelfcount.DocDate,shelfcount.Total,users.FName,TIME(shelfcount.Modify_Date) AS xTime,shelfcount.IsStatus
+  $Sql = "SELECT   site.HptName,department.DepName,shelfcount.DocNo,shelfcount.DepCode,shelfcount.DocDate,shelfcount.Total,users.FName,TIME(shelfcount.Modify_Date) AS xTime,shelfcount.IsStatus
   FROM shelfcount
   INNER JOIN department ON shelfcount.DepCode = department.DepCode
   INNER JOIN site ON department.HptCode = site.HptCode
@@ -164,6 +164,7 @@ function ShowMenu($conn, $DATA)
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptName']   = $Result['HptName'];
     $return[$count]['DepName']   = $Result['DepName'];
+    $return['DepCode']   = $Result['DepCode'];
     $return[$count]['DocNo']   = $Result['DocNo'];
     $return[$count]['DocDate']   = $Result['DocDate'];
     $return[$count]['Record']   = $Result['FName'] ;
@@ -176,7 +177,7 @@ function ShowMenu($conn, $DATA)
 
   if ($boolean) {
     $return['status'] = "success";
-    $return['form'] = "SelectDocument";
+    $return['form'] = "ShowMenu";
     echo json_encode($return);
     mysqli_close($conn);
     die;
