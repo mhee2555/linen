@@ -139,6 +139,36 @@ function getCatagory($conn, $DATA)
 
 }
 
+function GetHospital($conn, $DATA)
+{
+  $count = 0;
+  $Sql = "SELECT    *
+			    FROM      site
+          WHERE     IsStatus = 0";
+          
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $return[$count]['HospitalName'] = $Result['HptName'];
+    $return[$count]['HospitalCode'] = $Result['HptCode'];
+    $count++;
+  }
+
+  if($count>0){
+    $return['status'] = "success";
+    $return['form'] = "GetHospital";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }else{
+    $return['status'] = "notfound";
+    $return['msg'] = "notfound";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }
+
+}
+
 function getdetail($conn, $DATA)
 {
   $count = 0;
@@ -310,15 +340,18 @@ function AddItem($conn, $DATA)
 
 function CreateItemCode($conn, $DATA){
   $ItemCode="";
-  if($DATA['modeCode']=='2'){
-    $Sql = "  SELECT 		MainCategoryCode	
-              FROM 			item_category
-              WHERE			CategoryCode=".$DATA['Catagory'];
-    $meQuery = mysqli_query($conn,$Sql);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-      $MainCatagory = $Result['MainCategoryCode'];
-    }
 
+  $Sql = "    SELECT 		item_main_category.MainCategoryCode,SUBSTRING(MainCategoryName,1,3) AS MainCategoryName
+              FROM 		item_category,item_main_category
+              WHERE		item_category.CategoryCode=".$DATA['Catagory']."
+              AND     item_main_category.MainCategoryCode = item_category.MainCategoryCode";
+  $meQuery = mysqli_query($conn,$Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $MainCatagory = $Result['MainCategoryCode'];
+    $MainCategoryName = $Result['MainCategoryName'];
+  }
+
+  if($DATA['modeCode']=='2'){
     $Sql = "  SELECT 		CONCAT( LPAD('$MainCatagory', 2, 0),
                                 LPAD('".$DATA['Catagory']."', 2, 0),
                                 LPAD( (COALESCE(MAX(CONVERT(SUBSTRING(ItemCode,5,5),UNSIGNED INTEGER)),0)+1) ,5,0))
@@ -333,7 +366,22 @@ function CreateItemCode($conn, $DATA){
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $ItemCode = $Result['ItemCode'];
     }
+  }else{
+    $preCode = $DATA['hospitalCode']."LP".$MainCategoryName.$DATA['typeCode'].$DATA['packCode'];
+    $Sql = "  SELECT 		CONCAT(LPAD( (COALESCE(MAX(CONVERT(SUBSTRING(ItemCode,12,4),UNSIGNED INTEGER)),0)+1) ,4,0))
+              AS        ItemCode
+              FROM 			item
+              WHERE 		ItemCode Like CONCAT('$preCode',
+                                            '%')
+              ORDER BY  ItemCode DESC LIMIT 1";
+
+    $meQuery = mysqli_query($conn,$Sql);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+      $postCode = $Result['ItemCode'];
+    }
+    $ItemCode = $preCode.$postCode;
   }
+
   if($ItemCode!=""){
     $return['status'] = "success";
     $return['form'] = "CreateItemCode";
@@ -591,12 +639,14 @@ if(isset($_POST['DATA']))
         DeleteUnit($conn,$DATA);
       }else if ($DATA['STATUS'] == 'getdetail') {
         getdetail($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'GetmainCat') {
-        GetmainCat($conn,$DATA);
+      }else if ($DATA['STATUS'] == 'GetHospital') {
+        GetHospital($conn,$DATA);
       }else if ($DATA['STATUS'] == 'CreateItemCode') {
         CreateItemCode($conn,$DATA);
       }else if ($DATA['STATUS'] == 'NewItem') {
         NewItem($conn,$DATA);
+      }else if ($DATA['STATUS'] == 'GetmainCat') {
+        GetmainCat($conn,$DATA);
       }
 
 }else{

@@ -1163,7 +1163,7 @@ function CreateDocument($conn, $DATA)
     item.ItemName,
     item_unit.UnitName
     FROM draw_detail
-    INNER JOIN draw_detail_sub ON draw_detail.Id = draw_detail_sub.Scd_id
+    INNER JOIN draw_detail_sub ON draw_detail.Id = draw_detail_sub.Id
     INNER JOIN item ON draw_detail.ItemCode = item.ItemCode
     INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
     WHERE draw_detail.DocNo = '$DocNo'";

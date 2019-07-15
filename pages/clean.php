@@ -1148,7 +1148,7 @@ $(document).ready(function(e){
       }
 
       .table > thead > tr >th {
-        background: #4f88e3!important;
+        background-color: #1659a2;
       }
 
       .sidenav {
@@ -1171,6 +1171,22 @@ $(document).ready(function(e){
         font-weight:bold;
         font-size:26px;
       }
+
+      .icon{
+        padding-top: 6px;
+        padding-left: 44px;
+      }
+      @media (min-width: 992px) and (max-width: 1199.98px) { 
+
+      .icon{
+        padding-top: 6px;
+        padding-left: 23px;
+      }
+      .sidenav a {
+        font-size: 21px;
+
+      }
+}
       /* ======================================== */
     </style>
 
@@ -1208,15 +1224,15 @@ $(document).ready(function(e){
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
-                                      <select  class="form-control col-sm-9" id="hotpital" onchange="getDepartment();" disabled="true">
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                      <select  class="form-control col-sm-8" id="hotpital" onchange="getDepartment();" disabled="true">
                                       </select>
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
-                                        <select class="form-control col-sm-9" id="department" disabled="true">
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                        <select class="form-control col-sm-8" id="department" disabled="true">
                                         </select>
                                     </div>
                                   </div>
@@ -1225,29 +1241,14 @@ $(document).ready(function(e){
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-9"  name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8"  name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-9" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- =================================================================== -->
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
-                                      <input class="form-control col-sm-9" id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" onclick="open_dirty_doc()">
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-9" style="font-size:24px;width:220px;" name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
                                     </div>
                                   </div>
                                 </div>
@@ -1255,14 +1256,29 @@ $(document).ready(function(e){
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-9" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
+                                      <input class="form-control col-sm-8" id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" onclick="open_dirty_doc()">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['totalweight'][$language]; ?></label>
-                                      <input class="form-control col-sm-9" style="font-size:20px;width:220px;height:40px;padding-top:6px;" id='wTotal' placeholder="0.00">
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8" style="font-size:24px;width:220px;" name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['totalweight'][$language]; ?></label>
+                                      <input class="form-control col-sm-8" style="font-size:20px;width:220px;height:40px;padding-top:6px;" id='wTotal' placeholder="0.00">
                                     </div>
                                   </div>
                                 </div>
@@ -1337,13 +1353,13 @@ $(document).ready(function(e){
                 </div>
               </div>
 
-              <div class="col-md-2" id='tab2'>
+              <div class="col-md-2" id='tab2' <?php if($PmID == 1) echo 'hidden'; ?>>
                 <!-- button----------------------------------------- -->
                 <div class="sidenav">
                     <div class="" style="margin-top:5px;">
                       <div class="card-body" style="padding:0px; margin-top:10px;">
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon" >
                             <img src="../img/icon/ic_create.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
@@ -1354,7 +1370,7 @@ $(document).ready(function(e){
                         </div>
 
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon" >
                             <img src="../img/icon/ic_import.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
@@ -1365,7 +1381,7 @@ $(document).ready(function(e){
                         </div>
 
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon" >
                             <img src="../img/icon/ic_delete.png" style='width:40px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
@@ -1376,7 +1392,7 @@ $(document).ready(function(e){
                         </div>
 
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon" >
                             <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
@@ -1387,7 +1403,7 @@ $(document).ready(function(e){
                         </div>
 
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon" >
                             <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">

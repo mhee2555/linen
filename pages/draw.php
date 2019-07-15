@@ -15,10 +15,12 @@ if(empty($_SESSION['lang'])){
 }
 
 header ('Content-type: text/html; charset=utf-8');
+$xml2 = simplexml_load_file('../xml/main_lang.xml');
 $xml = simplexml_load_file('../xml/general_lang.xml');
 $json = json_encode($xml);
 $array = json_decode($json,TRUE);
-
+$json2 = json_encode($xml2);
+$array2 = json_decode($json2,TRUE);
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +37,7 @@ $array = json_decode($json,TRUE);
 
   <link rel="icon" type="image/png" href="../img/pose_favicon.png">
   <!-- Bootstrap core CSS-->
-  <link href="../template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../template/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
   <link href="../bootstrap/css/tbody.css" rel="stylesheet">
   <link href="../bootstrap/css/myinput.css" rel="stylesheet">
 
@@ -211,7 +213,9 @@ function OpenDialogItem(){
 
   function ShowDetailSub() {
     var docno = $("#docno").val();
-    if( docno != "" )  $('#dialogListDetail').modal('show');
+    if( docno != "" )  {
+    $('#dialogListDetail').modal('show');
+    }
     var data = {
       'STATUS'  : 'ShowDetailSub',
       'DocNo'   : docno
@@ -972,7 +976,7 @@ function OpenDialogItem(){
 
                     var Price = "";
 
-                    $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
+                    $StrTR = "<tr id='tr"+temp[i]['RowID']+"' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>"+
                     "<td style='width: 7%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
                     "<td style='width: 20%;'nowrap>"+temp[i]['ItemCode']+"</td>"+
                     "<td style='width: 28%;'nowrap>"+temp[i]['ItemName']+"</td>"+
@@ -1043,7 +1047,7 @@ function OpenDialogItem(){
 
                     var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='iweight"+i+"' value='0' ></div>";
 
-                    $StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
+                    $StrTR = "<tr id='tr"+temp[i]['RowID']+"' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>"+
                     "<td style='width: 10%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
                     "<td style='width: 20%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''nowrap>"+temp[i]['ItemCode']+"</td>"+
                     "<td style='width: 25%;cursor: pointer;' onclick='OpenDialogUsageCode(\""+temp[i]['ItemCode']+"\")''nowrap>"+temp[i]['ItemName']+"</td>"+
@@ -1202,114 +1206,154 @@ function OpenDialogItem(){
             }
           });
         }
+         //===============================================
+         function switch_tap1(){
+              $('#tab2').attr('hidden',false);
+              $('#switch_col').removeClass('col-md-12');
+              $('#switch_col').addClass('col-md-10');
+            }
+            function switch_tap2(){
+              $('#tab2').attr('hidden',true);
+              $('#switch_col').removeClass('col-md-10');
+              $('#switch_col').addClass('col-md-12');
+            }
+            //===============================================
+
         </script>
         <style media="screen">
+/* ======================================== */
+a.nav-link{
+        width:auto!important;
+      }
+      .datepicker{z-index:9999 !important}
+      .hidden{visibility: hidden;}
 
-      @font-face {
-            font-family: myFirstFont;
-            src: url("../fonts/DB Helvethaica X.ttf");
-            }
-        body{
-          font-family: myFirstFont;
-          font-size:22px;
-        }
+      button,input[id^='qty'],input[id^='order'],input[id^='max'] {
+        font-size: 24px!important;
+      }
 
-        .nfont{
-          font-family: myFirstFont;
-          font-size:22px;
-        }
+      table tr th,
+      table tr td {
+        border-right: 0px solid #bbb;
+        border-bottom: 0px solid #bbb;
+        padding: 5px;
+      }
+      table tr th:first-child,
+      table tr td:first-child {
+        border-left: 0px solid #bbb;
+      }
+      table tr th {
+        background: #eee;
+        border-top: 0px solid #bbb;
+        text-align: left;
+      }
+      table tr:first-child th:first-child {
+        border-top-left-radius: 15px;
+      }
+      table tr:first-child th:first-child {
+        border-bottom-left-radius: 15px;
+      }
 
-        button,input[id^='qty'],input[id^='order'],input[id^='max'] {
-          font-size: 24px!important;
-        }
+      /* top-right border-radius */
+      table tr:first-child th:last-child {
+        border-top-right-radius: 15px;
+      }
+      table tr:first-child th:last-child {
+        border-bottom-right-radius: 15px;
+      }
 
-        .table > thead > tr >th {
-          background: #4f88e3!important;
-        }
+      /* bottom-right border-radius */
+      table tr:last-child td:last-child {
+        border-bottom-right-radius: 6px;
+      }
+      .table th, .table td {
+          border-top: none !important;
+      }
 
-        table tr th,
-        table tr td {
-          border-right: 0px solid #bbb;
-          border-bottom: 0px solid #bbb;
-          padding: 5px;
-        }
-        table tr th:first-child,
-        table tr td:first-child {
-          border-left: 0px solid #bbb;
-        }
-        table tr th {
-          background: #eee;
-          border-top: 0px solid #bbb;
-          text-align: left;
-        }
+      .table > thead > tr >th {
+        background-color: #1659a2;
+      }
 
-        /* top-left border-radius */
-        table tr:first-child th:first-child {
-          border-top-left-radius: 6px;
-        }
+      .sidenav {
+        height: 100%;
+        overflow-x: hidden;
+        /* padding-top: 20px; */
+        border-left: 2px solid #bdc3c7;
+      }
 
-        /* top-right border-radius */
-        table tr:first-child th:last-child {
-          border-top-right-radius: 6px;
-        }
+      .sidenav a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+      }
 
-        /* bottom-left border-radius */
-        table tr:last-child td:first-child {
-          border-bottom-left-radius: 6px;
-        }
+      .sidenav a:hover {
+        color: #2c3e50;
+        font-weight:bold;
+        font-size:26px;
+      }
 
-        /* bottom-right border-radius */
-        table tr:last-child td:last-child {
-          border-bottom-right-radius: 6px;
-        }
+      .icon{
+        padding-top: 6px;
+        padding-left: 44px;
+      }
+      @media (min-width: 992px) and (max-width: 1199.98px) { 
 
-        a.nav-link{
-          width:auto!important;
-        }
-        .datepicker{z-index:9999 !important}
-        .hidden{visibility: hidden;}
+      .icon{
+        padding-top: 6px;
+        padding-left: 23px;
+      }
+      .sidenav a {
+        font-size: 21px;
+
+      }
+}
+      /* ======================================== */
         </style>
       </head>
 
       <body id="page-top">
+      <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">หน้าแรก</a></li>
+    <li class="breadcrumb-item active"><?php echo $array2['menu']['general']['sub'][8][$language]; ?></li>
+  </ol>
         <input class='form-control' type="hidden" style="margin-left:-48px;margin-top:10px;font-size:16px;width:100px;height:30px;text-align:right;padding-top: 15px;" id='IsStatus'>
 
         <div id="wrapper">
-          <!-- content-wrapper -->
           <div id="content-wrapper">
-
-            <div class="row" style="margin-top:-15px;"> <!-- start row tab -->
-              <div class="col-md-12"> <!-- tag column 1 -->
-                <div class="container-fluid">
+            <div class="row"> <!-- start row tab -->
+              <div class="col-md-10" style='padding-left: 26px;' id='switch_col'> <!-- tag column 1 -->
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['titledraw'][$language]; ?></a>
+                      <a class="nav-link active" id="home-tab" onclick="switch_tap1()" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['titledraw'][$language]; ?></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><?php echo $array['search'][$language]; ?></a>
+                      <a class="nav-link" id="profile-tab" onclick="switch_tap2()" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><?php echo $array['search'][$language]; ?></a>
                     </li>
                   </ul>
 
                   <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane  show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                       <!-- /.content-wrapper -->
-                      <div class="row mt-3">
-                        <div class="col-md-11"> <!-- tag column 1 -->
+                      <div class="row">
+                        <div class="col-md-12"> <!-- tag column 1 -->
                           <div class="container-fluid">
-                            <div class="card-body" style="padding:0px; margin-top:10px;">
+                            <div class="card-body mt-3" >
                             
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
-                                      <select  class="form-control col-sm-9" id="hotpital" onchange="getDepartment();">
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                      <select  class="form-control col-sm-8" id="hotpital" onchange="getDepartment();">
                                       </select>
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
-                                        <select class="form-control col-sm-9" id="department" >
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                        <select class="form-control col-sm-8" id="department" >
                                         </select>
                                     </div>
                                   </div>
@@ -1318,14 +1362,14 @@ function OpenDialogItem(){
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-9"  name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8"  name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-9" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8" name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
                                     </div>
                                   </div>
                                 </div>
@@ -1335,14 +1379,14 @@ function OpenDialogItem(){
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
-                                      <input class="form-control col-sm-9" id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" onclick="open_dirty_doc()">
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
+                                      <input class="form-control col-sm-8" id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" onclick="open_dirty_doc()">
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-9" style="font-size:24px;width:220px;" name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8" style="font-size:24px;width:220px;" name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
                                     </div>
                                   </div>
                                 </div>
@@ -1351,8 +1395,8 @@ function OpenDialogItem(){
                                 <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
-                                      <label class="col-sm-3 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-9" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
+                                      <input type="text" class="form-control col-sm-8" class="form-control" style="font-size:24px;width:220px;" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
                                     </div>
                                   </div>
                                 </div>
@@ -1363,9 +1407,7 @@ function OpenDialogItem(){
                       </div>
 
                       <div class="row">
-                        <div class="col-md-10"> <!-- tag column 1 -->
-
-
+                        <div class="col-md-12"> <!-- tag column 1 -->
                           <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItemDetail" width="98%" cellspacing="0" role="grid" style="">
                             <thead id="theadsum" style="font-size:24px;">
                               <tr role="row">
@@ -1381,100 +1423,12 @@ function OpenDialogItem(){
                             <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:300px;">
                             </tbody>
                           </table>
-
-
-                        </div> <!-- tag column 1 -->
-
-                  <div class="col-md-1" <?php if($PmID == 1) echo 'hidden'; ?>>  <!-- tag column 2 -->
-                    <!-- tag column 2 -->
-
-                          <div class="container-fluid" style="margin-top:5px;">
-                            <div class="card-body" style="padding:0px; margin-top:10px;">
-                              <div class="row" style="margin-top:0px;">
-                                <div class="col-md-1">
-                                  <div class="row" style="margin-left:2px;">
-                                    <div class="row" style="margin-left:20px;">
-                                      <button style="width:105px"; type="button" class="btn btn-info" onclick="CreateDocument()" id="bCreate"><?php echo $array['createdocno'][$language]; ?></button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="row" style="margin-top:4px;">
-                                <div class="col-md-1">
-                                  <div class="row" style="margin-left:2px;">
-                                    <div class="row" style="margin-left:20px;">
-                                      <button onclick="OpenDialogItem()" type="button" style="width:105px" class="btn btn-warning" id="bImport"><?php echo $array['import'][$language]; ?></button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="row" style="margin-top:4px;">
-                                <div class="col-md-1">
-                                  <div class="row" style="margin-left:2px;">
-                                    <div class="row" style="margin-left:20px;">
-                                      <button onclick="DeleteItem()" type="button" style="width:105px" class="btn" style="background : #F98707;" id="bDelete"><?php echo $array['delitem'][$language]; ?></button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="row" style="margin-top:4px;">
-                                <div class="col-md-1">
-                                  <div class="row" style="margin-left:2px;">
-                                    <div class="row" style="margin-left:20px;">
-                                      <button onclick="SaveBill()" style="width:105px" type="button" class="btn btn-success" id="bSave"><?php echo $array['save'][$language]; ?></button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="row" style="margin-top:4px;">
-                                <div class="col-md-1">
-                                  <div class="row" style="margin-left:2px;">
-                                    <div class="row" style="margin-left:20px;">
-                                      <button style="width:105px"; type="button" class="btn btn-danger" onclick="CancelDocument()" id="bCancel"><?php echo $array['cancel'][$language]; ?></button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row" style="margin-top:4px;">
-                                <div class="col-md-1">
-                                  <div class="row" style="margin-left:2px;">
-                                    <div class="row" style="margin-left:20px;">
-                                      <button style="width:105px;background-color:#FFFFFF;color:#000000"; type="button" class="btn btn-danger" onclick="ShowDetailSub()" id="bShowDetailSub"><?php echo $array['detail'][$language]; ?></button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row" style="margin-top:4px;">
-                                <div class="col-md-1">
-                                  <div class="row" style="margin-left:2px;">
-                                    <div class="row" style="margin-left:20px;">
-                                      <button style="width:105px;background-color:#FFFFFF;color:#000000"; type="button" class="btn btn-success" onclick="PrintData()" id="bPrint"><?php echo $array['print'][$language]; ?></button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row" style="margin-top:4px;">
-                                <div class="col-md-1">
-                                  <div class="row" style="margin-left:2px;">
-                                    <div class="row" style="margin-left:20px;">
-                                      <button style="width:105px;background-color:#FFFFFF;color:#000000"; type="button" class="btn btn-success" onclick="SendData()" id="bSend"><?php echo $array['sendlinen'][$language]; ?></button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                  </div>
-
-                    </div>
+                      </div>
+                    </div>  
+                  </div> <!-- tag column 1 -->
+             
                     <!-- search document -->
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane " id="profile" role="tabpanel" aria-labelledby="profile-tab">
                       <div class="row" style="margin-top:10px;">
                         <div class="col-md-2">
 
@@ -1520,67 +1474,111 @@ function OpenDialogItem(){
                         </table>
                       </div> <!-- tag column 1 -->
                     </div>
-
                   </div> <!-- end row tab -->
-
-
                 </div>
-
-
-
-                <!-- /#wrapper -->
-                <!-- Scroll to Top Button-->
-                <a class="scroll-to-top rounded" href="#page-top">
-                  <i class="fas fa-angle-up"></i>
-                </a>
-
-                <!-- /#wrapper -->
-                <!-- Scroll to Top Button-->
-                <a class="scroll-to-top rounded" href="#page-top">
-                  <i class="fas fa-angle-up"></i>
-                </a>
-
-                <!-- Dialog Modal
-                <div id="dialogItemCode" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999998 !important;font-family: 'THSarabunNew';font-size:24px;">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-md-10">
-                        <div class="row">
-                          <label><?php echo $array['searchplace'][$language]; ?></label>
-                          <div class="row" style="font-size:16px;margin-left:20px;width:350px;">
-                            <input type="text" class="form-control" style="font-size:24px;width:100%;font-family: 'THSarabunNew'" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+              </div>
+              <div class="col-md-2" id='tab2' <?php if($PmID == 1) echo 'hidden'; ?>>
+                <!-- button----------------------------------------- -->
+                <div class="sidenav">
+                    <div class="" style="margin-top:5px;">
+                      <div class="card-body" style="padding:0px; margin-top:10px;">
+                        <div class="row" style="margin-top:0px;">
+                          <div class="col-md-3 icon" >
+                            <img src="../img/icon/ic_create.png" style='width:34px;' class='mr-3'>
                           </div>
-                          <button type="button" style="font-size:18px;margin-left:30px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
+                          <div class="col-md-9">
+                            <a  href='javascript:void(0)' onclick="CreateDocument()" id="bCreate">
+                              <?php echo $array['createdocno'][$language]; ?>
+                            </a>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-md-1">
-                        <button type="button" style="font-size:18px;margin-left:70px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" name="button" onclick="getImport(1);"><?php echo $array['import'][$language]; ?></button>
+
+                        <div class="row" style="margin-top:0px;">
+                          <div class="col-md-3 icon" >
+                            <img src="../img/icon/ic_import.png" style='width:34px;' class='mr-3'>
+                          </div>
+                          <div class="col-md-9">
+                            <a href='javascript:void(0)' onclick="OpenDialogItem()" id="bImport">
+                              <?php echo $array['import'][$language]; ?>
+                            </a>
+                          </div>
+                        </div>
+
+                        <div class="row" style="margin-top:0px;">
+                          <div class="col-md-3 icon" >
+                            <img src="../img/icon/ic_delete.png" style='width:40px;' class='mr-3'>
+                          </div>
+                          <div class="col-md-9">
+                            <a href='javascript:void(0)' onclick="DeleteItem()" id="bDelete">
+                              <?php echo $array['delitem'][$language]; ?>
+                            </a>
+                          </div>
+                        </div>
+
+                        <div class="row" style="margin-top:0px;">
+                          <div class="col-md-3 icon" >
+                            <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
+                          </div>
+                          <div class="col-md-9">
+                            <a href='javascript:void(0)' onclick="SaveBill()" id="bSave">
+                              <?php echo $array['save'][$language]; ?>
+                            </a>
+                          </div>
+                        </div>
+
+                        <div class="row" style="margin-top:0px;">
+                          <div class="col-md-3 icon" >
+                            <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
+                          </div>
+                          <div class="col-md-9">
+                            <a href='javascript:void(0)' onclick="CancelDocument()" id="bCancel">
+                              <?php echo $array['cancel'][$language]; ?>
+                            </a>
+                          </div>
+                        </div>
+              
+                        <div class="row" style="margin-top:0px;">
+                          <div class="col-md-3 icon">
+                            <img src="../img/icon/ic_detail.png" style='width:40px;' class='mr-3'>
+                          </div>
+                          <div class="col-md-9">
+                            <a href='javascript:void(0)' onclick="ShowDetailSub()" id="bShowDetailSub">
+                              <?php echo $array['detail'][$language]; ?>
+                            </a>
+                          </div>
+                        </div>
+          
+                        <div class="row" style="margin-top:0px;">
+                          <div class="col-md-3 icon" >
+                            <img src="../img/icon/ic_print.png" style='width:40px;' class='mr-3'>
+                          </div>
+                          <div class="col-md-9">
+                            <a href='javascript:void(0)' onclick="PrintData()" id="bPrint">
+                              <?php echo $array['print'][$language]; ?>
+                            </a>
+                          </div>
+                        </div>
+
+                        <div class="row" style="margin-top:0px;" hidden>
+                          <div class="col-md-3 icon" >
+                            <img src="../img/icon/ic_detail.png" style='width:34px;' class='mr-3'>
+                          </div>
+                          <div class="col-md-9">
+                            <a href='javascript:void(0)' onclick="SendData()" id="bSend">
+                              <?php echo $array['sendlinen'][$language]; ?>
+                            </a>
+                          </div>
+                        </div>
+                   
                       </div>
                     </div>
+                </div>
+                <!-- end button----------------------------------------- -->
+            </div>
+          </div>
+        </div>
 
-                    <div class="dropdown-divider" style="margin-top:20px;; margin-bottom:20px;"></div>
-
-                    <div class="row">
-                      <div class="card-body" style="padding:0px;">
-                        <table class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
-                          <thead style="font-size:24px;">
-                            <tr role="row">
-                              <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
-                              <th style='width: 20%;'nowrap><?php echo $array['code'][$language]; ?></th>
-                              <th style='width: 25%;'nowrap><?php echo $array['item'][$language]; ?></th>
-                              <th style='width: 15%;'nowrap><center><?php echo $array['unit'][$language]; ?></center></th>
-                              <th style='width: 15%;'nowrap><?php echo $array['numofpiece'][$language]; ?></th>
-                              <th style='width: 15%;'nowrap><?php echo $array['weight'][$language]; ?></th>
-                            </tr>
-                          </thead>
-                          <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
+      </div>
                 <!-- Dialog Modal-->
                 <div id="dialogUsageCode" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
                   <div class="container">

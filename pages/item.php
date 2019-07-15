@@ -68,6 +68,7 @@ $array = json_decode($json,TRUE);
       var summary = [];
 
     $(document).ready(function(e){
+      GetHospital();
       GetmainCat();
       getCatagory();
       //On create
@@ -304,6 +305,8 @@ var isChecked2 = false;
     function getCatagory(){
       var maincatagory = $('#maincatagory option:selected').attr("value");
       if( typeof maincatagory == 'undefined' ) maincatagory = "1";
+      $('#maincatagory2').val(maincatagory);
+      console.log($('#maincatagory2 option:selected').attr("value"));
       var catagory1 = $("#catagory1").val();
       var data = {
         'STATUS'  : 'getCatagory',
@@ -312,7 +315,29 @@ var isChecked2 = false;
       };
       console.log(JSON.stringify(data));
       senddata(JSON.stringify(data));
-      }
+    }
+
+    function GetHospital(){
+      var data = {
+        'STATUS'    : 'GetHospital',
+      };
+      console.log(JSON.stringify(data));
+      senddata(JSON.stringify(data));
+    }
+
+    function getCatagory2(){
+      var maincatagory = $('#maincatagory2 option:selected').attr("value");
+      if( typeof maincatagory == 'undefined' ) maincatagory = "1";
+      $('#maincatagory').val(maincatagory);
+      var catagory1 = $("#catagory1").val();
+      var data = {
+        'STATUS'  : 'getCatagory',
+        'maincatagory' : maincatagory
+        
+      };
+      console.log(JSON.stringify(data));
+      senddata(JSON.stringify(data));
+    }
 
 
     function ShowItem(){
@@ -492,13 +517,29 @@ var isChecked2 = false;
       var Catagory = $('#catagory2').val();
       var modeCode = $('#formatitem:checked').val();
       console.log(modeCode);
+      if(!(typeof modeCode == 'undefined')){
+        if(modeCode==1){
+        $('#oldCodetype').show();
+        var hospitalCode = $('#hospital').val();
+        var typeCode = $('#typeLinen').val();
+        var packCode = $('#numPack').val();
+      }else{
+        $('#oldCodetype').hide();
+        var hospitalCode = "";
+        var typeCode = "";
+        var packCode = "";
+      }
       var data = {
         'STATUS' : 'CreateItemCode',
         'Catagory' : Catagory,
-        'modeCode' : modeCode
+        'modeCode' : modeCode,
+        'hospitalCode' : hospitalCode,
+        'typeCode' : typeCode,
+        'packCode' : packCode,
       };
         console.log(JSON.stringify(data));
         senddata(JSON.stringify(data));
+      }
     }
 
     function AddUnit(){
@@ -813,10 +854,17 @@ var isChecked2 = false;
                               $("#catagory1").append(StrTr);
                               $("#catagory2").append(StrTr);
                             }
+                            CreateItemCode();
+                          }else if( (temp["form"]=='GetHospital') ){
+                            for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+                              var StrTr = "<option value = '"+temp[i]['HospitalCode']+"'> " + temp[i]['HospitalName'] + " </option>";
+                              $("#hospital").append(StrTr);//toy
+                            }
                           }else if( (temp["form"]=='GetmainCat') ){
                             for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                               var StrTr = "<option value = '"+temp[i]['MainCategoryCode']+"'> " + temp[i]['MainCategoryName'] + " </option>";
                               $("#maincatagory").append(StrTr);
+                              $("#maincatagory2").append(StrTr);
                               // $("#catagory2").append(StrTr);
                             }
                           }else if( (temp["form"]=='getUnit') ){
@@ -1372,59 +1420,111 @@ var isChecked2 = false;
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 <!-- /.content-wrapper -->
 <div class="row">
-              <div class="col-md-10"> <!-- tag column 1 -->
+              <div class="col-md-11"> <!-- tag column 1 -->
                   <div class="container-fluid">
                     <div class="card-body" style="padding:0px; margin-top:10px;">
    <!-- =================================================================== -->
                                 <div class="row mt-4">
-                                  <div class="col-md-2">
-                                  </div>
-                                  <div class="col-md-3">
-                                    <div class='form-group row' >
-                                      <div class='radio-c' style="align-content:center" >
-                                        <input type='radio' name='formatitem' id='formatitem' value='1' onclick="CreateItemCode()">
-                                      </div>
-                                      <label class="col-sm-10 col-form-label text-left"><?php echo $array['oldFormatItemCode'][$language]; ?></label>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                    <div class='form-group row'>
-                                      <div class='radio-c' style="align-content:center" >
-                                        <input type='radio' name='formatitem' id='formatitem' value='2' onclick="CreateItemCode()">
-                                      </div>
-                                      <label class="col-sm-10 col-form-label text-left"><?php echo $array['newFormatItemCode'][$language]; ?></label>
-                                    </div>
-                                  </div>
-                                </div> 
-   <!-- =================================================================== -->
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['category'][$language]; ?></label>
-                                      <select class="form-control col-sm-8" id="catagory2" onchange="CreateItemCode()"></select>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['pricecus'][$language]; ?></label>
-                                        <input type="text" class="form-control col-sm-8 checkblank numonly" id="CusPrice"  placeholder="<?php echo $array['pricecus'][$language]; ?>" >
-                                    </div>
-                                  </div>
-                                </div>                      
-   <!-- =================================================================== -->
-                              <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['codecode'][$language]; ?></label>
                                       <input type="text" class="form-control col-sm-8" id="ItemCode" placeholder="<?php echo $array['codecode'][$language]; ?>" disabled>
                                     </div>
                                   </div>
+                                  <div class="col-md-1">
+                                  </div>
+                                  <div class="col-md-5">
+                                    <div class="row ">
+                                      <div class="col-md-6">
+                                        <div class='form-group row' >
+                                          <div class='radio-c' style="align-content:center" >
+                                            <input type='radio' name='formatitem' id='formatitem' value='1' onclick="CreateItemCode()">
+                                          </div>
+                                          <label class="col-sm-10 col-form-label text-left"><?php echo $array['oldFormatItemCode'][$language]; ?></label>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class='form-group row'>
+                                          <div class='radio-c' style="align-content:center" >
+                                            <input type='radio' name='formatitem' id='formatitem' value='2' onclick="CreateItemCode()">
+                                          </div>
+                                          <label class="col-sm-10 col-form-label text-left"><?php echo $array['newFormatItemCode'][$language]; ?></label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>       
+  <!-- =================================================================== -->
+                                <div class="row" id="oldCodetype">
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['hosname'][$language]; ?></label>
+                                      <select class="form-control col-sm-8" id="hospital" onchange="CreateItemCode()"></select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class='form-group row'>
+                                        <label class="col-sm-4 col-form-label text-right"><?php echo $array['type'][$language]; ?></label>
+                                        <select class="form-control col-sm-8 checkblank" id="typeLinen" onchange="CreateItemCode()" >
+                                          <option value="P">Patient Shirt</option>
+                                          <option value="S">Staff Uniform</option>
+                                          <option value="F">Flat Sheet</option>
+                                          <option value="T">Towel</option>
+                                          <option value="G">Green Linen</option>
+                                          <option value="O">Other</option>
+                                        </select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <div class='form-group row'>
+                                        <label class="col-sm-4 col-form-label text-right"><?php echo $array['pack'][$language]; ?></label>
+                                        <select class="form-control col-sm-8 checkblank numonly" id="numPack" onchange="CreateItemCode()" >
+                                          <option value="01">1 Psc</option>
+                                          <option value="05">5 Pc</option>
+                                          <option value="10">10 Pc</option>
+                                          <option value="15">15 Pc</option>
+                                          <option value="20">20 Pc</option>
+                                          <option value="00">None</option>
+                                        </select>
+                                      </div>
+                                  </div>
+                                </div>                    
+   <!-- =================================================================== -->
+                                <div class="row">
+
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['categorymain'][$language]; ?></label>
+                                      <select class="form-control col-sm-8" id="maincatagory2" onchange="getCatagory2()"></select>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['categorysub'][$language]; ?></label>
+                                      <select class="form-control col-sm-8" id="catagory2" onchange="CreateItemCode()"></select>
+                                    </div>
+                                  </div>
+
+                                </div>
+  
+   <!-- =================================================================== -->
+                                <div class="row">
+                              
+                                  <div class="col-md-6">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['pricecus'][$language]; ?></label>
+                                        <input type="text" class="form-control col-sm-8 checkblank numonly" id="CusPrice"  placeholder="<?php echo $array['pricecus'][$language]; ?>" >
+                                    </div>
+                                  </div>
+                            
                                   <div class="col-md-6">
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['pricefac'][$language]; ?></label>
                                         <input type="text" class="form-control col-sm-8 checkblank numonly" id="FacPrice"  placeholder="<?php echo $array['pricefac'][$language]; ?>" >
                                     </div>
                                   </div>
+
                                 </div> 
    <!-- =================================================================== -->
                                 <div class="row">

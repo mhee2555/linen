@@ -653,7 +653,7 @@ switch ($PmID) {
 
     .active_li {
       color: #24246A !important;
-      font-size: 24px !important;
+      font-size: 22px !important;
       font-weight: bold !important;
     }
   </style>

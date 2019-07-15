@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lang>
+<pack><en>Pack</en><th>แพ็ค</th></pack>
+<type><en>type</en><th>ประเภท</th></type>
 <search><en>Search for</en><th>ค้นหา</th></search>
 <search_hp><en>Search a hospital</en><th>ค้นหา โรงพยาบาล</th></search_hp>
 <search_ct_main><en>Search for main categories</en><th>ค้นหา หมวดหมู่หลัก</th></search_ct_main>

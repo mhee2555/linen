@@ -1114,7 +1114,7 @@ $array2 = json_decode($json2,TRUE);
       }
 
       .table > thead > tr >th {
-        background: #4f88e3!important;
+        background-color: #1659a2;
       }
 
       table tr th,
@@ -1179,6 +1179,22 @@ $array2 = json_decode($json2,TRUE);
         font-weight:bold;
         font-size:26px;
       }
+      .icon{
+        padding-top: 6px;
+        padding-left: 44px;
+      }
+      @media (min-width: 992px) and (max-width: 1199.98px) { 
+
+        .icon{
+          padding-top: 6px;
+          padding-left: 23px;
+        }
+        .sidenav a {
+          font-size: 21px;
+
+        }
+       }
+
     </style>
 </head>
 
@@ -1215,14 +1231,14 @@ $array2 = json_decode($json2,TRUE);
                                   <div class="row">
                                     <div class="col-md-6">
                                       <div class='form-group row'>
-                                        <label class="col-sm-3 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
-                                        <select  class="form-control form-control col-sm-9" id="hotpital" onchange="getDepartment();" disabled="true"> </select>
+                                        <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
+                                        <select  class="form-control form-control col-sm-8" id="hotpital" onchange="getDepartment();" disabled="true"> </select>
                                       </div>
                                     </div>
                                     <div class="col-md-6">
                                       <div class='form-group row'>
-                                        <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
-                                          <select class="form-control col-sm-9" id="department" > </select>
+                                        <label class="col-sm-4 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
+                                          <select class="form-control col-sm-8" id="department" > </select>
                                       </div>
                                     </div>
                                   </div>
@@ -1230,15 +1246,15 @@ $array2 = json_decode($json2,TRUE);
                                     <div class="row">
                                       <div class="col-md-6">
                                         <div class='form-group row'>
-                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
-                                          <input type="text" class="form-control col-sm-9" name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
+                                          <label class="col-sm-4 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
+                                          <input type="text" class="form-control col-sm-8" name="searchitem" id="docdate" placeholder="<?php echo $array['docdate'][$language]; ?>" >
 
                                         </div>
                                       </div>
                                       <div class="col-md-6">
                                         <div class='form-group row'>
-                                            <label class="col-sm-3 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
-                                            <input type="text" class="form-control col-sm-9"  name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
+                                            <label class="col-sm-4 col-form-label text-right"><?php echo $array['docno'][$language]; ?></label>
+                                            <input type="text" class="form-control col-sm-8"  name="searchitem" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
                                         </div>
                                       </div>
                                     </div>
@@ -1246,14 +1262,14 @@ $array2 = json_decode($json2,TRUE);
                                     <div class="row">
                                       <div class="col-md-6">
                                         <div class='form-group row'>
-                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
-                                          <input type="text" class="form-control col-sm-9"  name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
+                                          <label class="col-sm-4 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
+                                          <input type="text" class="form-control col-sm-8"  name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
                                         </div>
                                       </div>
                                       <div class="col-md-6">
                                         <div class='form-group row'>
-                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
-                                            <input type="text" class="form-control col-sm-9" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                          <label class="col-sm-4 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
+                                            <input type="text" class="form-control col-sm-8" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
                                         </div>
                                       </div>
                                     </div>
@@ -1261,21 +1277,21 @@ $array2 = json_decode($json2,TRUE);
                                     <div class="row">
                                       <div class="col-md-6">
                                         <div class='form-group row'>
-                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['totalweight'][$language]; ?></label>
-                                          <input class='form-control col-sm-9'  id='wTotal' placeholder="0.00">
+                                          <label class="col-sm-4 col-form-label text-right"><?php echo $array['totalweight'][$language]; ?></label>
+                                          <input class='form-control col-sm-8'  id='wTotal' placeholder="0.00">
                                         </div>
                                       </div>
                                       <div class="col-md-6">
                                         <div class='form-group row'>
-                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['factory'][$language]; ?></label>
-                                          <select  class="form-control form-control col-sm-9" id="factory"  > </select>
+                                          <label class="col-sm-4 col-form-label text-right"><?php echo $array['factory'][$language]; ?></label>
+                                          <select  class="form-control form-control col-sm-8" id="factory"  > </select>
                                         </div>
                                       </div>
                                       <div class="col-md-6" hidden>
                                         <div class='form-group row'>
-                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
+                                          <label class="col-sm-4 col-form-label text-right"><?php echo $array['refdocno'][$language]; ?></label>
                                             <input type="text" class="form-control col-sm-9" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
-                                            <input class='form-control col-sm-9"' id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" OnBlur='UpdateRefDocNo()'>
+                                            <input class='form-control col-sm-8"' id='RefDocNo' placeholder="<?php echo $array['refdocno'][$language]; ?>" OnBlur='UpdateRefDocNo()'>
                                         </div>
                                       </div>
                                     </div>
@@ -1292,20 +1308,12 @@ $array2 = json_decode($json2,TRUE);
                                   id="TableItemDetail" width="98%" cellspacing="0" role="grid" style="">
                                   <thead id="theadsum" style="font-size:24px;">
                                       <tr role="row" id='tr_1'>
-                                          <th style='width: 7%;' nowrap><?php echo $array['no'][$language]; ?></th>
-                                          <th style='width: 20%;' nowrap><?php echo $array['code'][$language]; ?></th>
-                                          <th style='width: 28%;' nowrap><?php echo $array['item'][$language]; ?></th>
-                                          <th style='width: 10%;' nowrap><?php echo $array['unit'][$language]; ?></th>
-                                          <th style='width: 10%;' nowrap>
-                                              <center><?php echo $array['parsc'][$language]; ?></center>
-                                          </th>
-                                          <th style='width: 15%;' nowrap>
-                                              <center><?php echo $array['leftsc'][$language]; ?></center>
-                                          </th>
-                                          <th style='width: 10%;' nowrap>
-                                              <center><?php echo $array['order'][$language]; ?><center>
-                                          </th>
-                                      </tr>
+                                          <th style='width: 10%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                              <th style='width: 20%;' nowrap><?php echo $array['code'][$language]; ?></th>
+                              <th style='width: 25%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                              <th style='width: 15%;' nowrap><center><?php echo $array['unit'][$language]; ?></center></th>
+                              <th style='width: 15%;' nowrap><?php echo $array['qty'][$language]; ?></th>
+                              <th style='width: 15%;' nowrap><center><?php echo $array['weight'][$language]; ?></center></th>
                                   </thead>
                                   <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:300px;">
                                   </tbody>
@@ -1361,13 +1369,13 @@ $array2 = json_decode($json2,TRUE);
                 </div>
               </div>
 
-              <div class="col-md-2" id='tab2'>
+              <div class="col-md-2" id='tab2' <?php if($PmID == 1) echo 'hidden'; ?>>
                 <!-- button----------------------------------------- -->
                 <div class="sidenav">
                     <div class="" style="margin-top:5px;">
                       <div class="card-body" style="padding:0px; margin-top:10px;">
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon" >
                             <img src="../img/icon/ic_create.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
@@ -1378,7 +1386,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
 
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon" >
                             <img src="../img/icon/ic_import.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
@@ -1389,7 +1397,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
 
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon" >
                             <img src="../img/icon/ic_delete.png" style='width:40px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
@@ -1399,8 +1407,8 @@ $array2 = json_decode($json2,TRUE);
                           </div>
                         </div>
 
-                        <div class="row" style="margin-top:0px;">
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                        <div class="row " style="margin-top:0px;">
+                          <div class="col-md-3 icon">
                             <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
@@ -1411,7 +1419,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
 
                         <div class="row" style="margin-top:0px;">
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon">
                             <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
@@ -1422,7 +1430,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
               
                         <div class="row" style="margin-top:0px;" hidden>
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon" >
                             <img src="../img/icon/ic_detail.png" style='width:40px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
@@ -1433,7 +1441,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
           
                         <div class="row" style="margin-top:0px;" hidden>
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon">
                             <img src="../img/icon/ic_print.png" style='width:40px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
@@ -1444,7 +1452,7 @@ $array2 = json_decode($json2,TRUE);
                         </div>
 
                         <div class="row" style="margin-top:0px;" hidden>
-                          <div class="col-md-3" style='padding-top: 6px;padding-left: 44px;'>
+                          <div class="col-md-3 icon" >
                             <img src="../img/icon/ic_detail.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
