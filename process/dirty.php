@@ -7,15 +7,32 @@ $xDate = date('Y-m-d');
 function OnLoadPage($conn, $DATA)
 {
   $count = 0;
+  $countx = 0;
+
   $boolean = false;
+  $Sql = "SELECT factory.FacCode,factory.FacName FROM factory WHERE factory.IsCancel = 0";
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+
+  $return[$countx]['FacCode'] = $Result['FacCode'];
+  $return[$countx]['FacName'] = $Result['FacName'];
+
+  $countx  ++;
+
+}
+$return['Rowx'] = $countx;
+
+
   $Sql = "SELECT site.HptCode,site.HptName FROM site WHERE site.IsStatus = 0";
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HptCode'] = $Result['HptCode'];
     $return[$count]['HptName'] = $Result['HptName'];
+
     $count++;
     $boolean = true;
   }
+
   $return['Row'] = $count;
   $boolean = true;
   if ($boolean) {
@@ -79,6 +96,8 @@ function CreateDocument($conn, $DATA)
   $hotpCode = $DATA["hotpCode"];
   $deptCode = $DATA["deptCode"];
   $userid   = $DATA["userid"];
+  $FacCode   = $DATA["FacCode"];
+
 
   //	 $Sql = "INSERT INTO log ( log ) VALUES ('userid : $userid')";
   //     mysqli_query($conn,$Sql);
@@ -108,12 +127,12 @@ function CreateDocument($conn, $DATA)
       ( DocNo,DocDate,DepCode,RefDocNo,
 		TaxNo,TaxDate,DiscountPercent,DiscountBath,
 		Total,IsCancel,Detail,
-		dirty.Modify_Code,dirty.Modify_Date )
+		dirty.Modify_Code,dirty.Modify_Date,dirty.FacCode )
       VALUES
       ( '$DocNo',DATE(NOW()),$deptCode,'',
 		0,NOW(),0,0,
 		0,0,'',
-		$userid,NOW() )";
+		$userid,NOW(),$FacCode )";
     mysqli_query($conn,$Sql);
 
       $Sql = "INSERT INTO daily_request
@@ -237,7 +256,7 @@ function SelectDocument($conn, $DATA)
   $count = 0;
   $DocNo = $DATA["xdocno"];
   $Datepicker = $DATA["Datepicker"];
-    $Sql = "SELECT   site.HptName,department.DepName,dirty.DocNo,dirty.DocDate,dirty.Total,users.FName,TIME(dirty.Modify_Date) AS xTime,dirty.IsStatus
+    $Sql = "SELECT   site.HptName,department.DepName,dirty.DocNo,dirty.DocDate,dirty.Total,users.FName,dirty.FacCode,TIME(dirty.Modify_Date) AS xTime,dirty.IsStatus
   FROM dirty
   INNER JOIN department ON dirty.DepCode = department.DepCode
   INNER JOIN site ON department.HptCode = site.HptCode
@@ -253,6 +272,8 @@ function SelectDocument($conn, $DATA)
     $return[$count]['RecNow']   = $Result['xTime'];
     $return[$count]['Total']   = $Result['Total'];
     $return[$count]['IsStatus'] = $Result['IsStatus'];
+    $return[$count]['FacCode'] = $Result['FacCode'];
+
     $boolean = true;
     $count++;
   }

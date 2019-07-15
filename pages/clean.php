@@ -1292,7 +1292,7 @@ $(document).ready(function(e){
                   </div>
 
                   <!-- search document -->
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane " id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="row mt-3">
                           <div class="col-md-4">
                             <div class="row" style="font-size:24px;margin-left:2px;">

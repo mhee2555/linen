@@ -419,6 +419,8 @@ $array2 = json_decode($json2,TRUE);
           var userid = '<?php echo $Userid; ?>';
           var hotpCode = $('#hotpital option:selected').attr("value");
           var deptCode = $('#department option:selected').attr("value");
+          var FacCode = $('#factory option:selected').attr("value");
+
           $('#TableDetail tbody').empty();
           swal({
             title: "<?php echo $array['confirm'][$language]; ?>",
@@ -437,7 +439,8 @@ $array2 = json_decode($json2,TRUE);
                 'STATUS'    : 'CreateDocument',
                 'hotpCode'  : hotpCode,
                 'deptCode'  : deptCode,
-                'userid'	: userid
+                'userid'	: userid,
+                'FacCode'	: FacCode
               };
               senddata(JSON.stringify(data));
             })
@@ -553,6 +556,8 @@ $array2 = json_decode($json2,TRUE);
               var isStatus = $("#IsStatus").val();
               var dept = $("#Dep2").val();
               var DepCode = $("#department").val();
+              var FacCode = $("#factory").val();
+
               // alert( isStatus );
               if(isStatus==1)
               isStatus=0;
@@ -564,7 +569,9 @@ $array2 = json_decode($json2,TRUE);
                   'STATUS'      : 'SaveBill',
                   'docno'      : docno,
                   'isStatus'    : isStatus,
-                  'deptCode'    : dept
+                  'deptCode'    : dept,
+                  'FacCode'    : FacCode
+
                 };
                 senddata(JSON.stringify(data));
 
@@ -666,10 +673,19 @@ $array2 = json_decode($json2,TRUE);
                         var Str = "<option value="+temp[i]['HptCode']+">"+temp[i]['HptName']+"</option>";
                         $("#hotpital").append(Str);
                       }
+                      for (var i = 0; i < temp["Rowx"]; i++) {
+                        var Str = "<option value="+temp[i]['FacCode']+">"+temp[i]['FacName']+"</option>";
+                        $("#factory").append(Str);
+                      }
+
+
                       if(PmID != 1){
                         $("#hotpital").val(HptCode);
                       }
                       
+
+
+
                     }else if(temp["form"]=='getDepartment'){
                       $("#department").empty();
                       $("#Dep2").empty();
@@ -756,6 +772,7 @@ $array2 = json_decode($json2,TRUE);
                       $("#timerec").val(temp[0]['RecNow']);
                       $("#wTotal").val(temp[0]['Total']);
                       $("#IsStatus").val(temp[0]['IsStatus']);
+                      $("#factory").val(temp[0]['FacCode']);
 
                       if(temp[0]['IsStatus']==0){
                         $("#bSave").text('<?php echo $array['save'][$language]; ?>');
@@ -1246,6 +1263,12 @@ $array2 = json_decode($json2,TRUE);
                                         <div class='form-group row'>
                                           <label class="col-sm-3 col-form-label text-right"><?php echo $array['totalweight'][$language]; ?></label>
                                           <input class='form-control col-sm-9'  id='wTotal' placeholder="0.00">
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class='form-group row'>
+                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['factory'][$language]; ?></label>
+                                          <select  class="form-control form-control col-sm-9" id="factory"  > </select>
                                         </div>
                                       </div>
                                       <div class="col-md-6" hidden>
