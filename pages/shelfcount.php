@@ -591,9 +591,7 @@ $array2 = json_decode($json2,TRUE);
     }
 
     function SaveBill(chk){
-      $('#tab2').attr('hidden',true);
-      $('#switch_col').removeClass('col-md-10');
-      $('#switch_col').addClass('col-md-12');
+
 
       var docno = $("#docno").val();
       var isStatus = $("#IsStatus").val();
@@ -607,6 +605,9 @@ $array2 = json_decode($json2,TRUE);
         }
 
         if(isStatus==1){
+      $('#tab2').attr('hidden',true);
+      $('#switch_col').removeClass('col-md-10');
+      $('#switch_col').addClass('col-md-12');
           if(chk == '' || chk == undefined){
             chk_par();
           }else{
@@ -1852,7 +1853,7 @@ $array2 = json_decode($json2,TRUE);
             </div>
             <div class="modal-footer">
               <button type="button" onclick="SaveBill(1)" class="btn btn-success"><?php echo $array['confirm'][$language]; ?></button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo $array['cancel'][$language]; ?></button>
+              <button type="button" class="btn btn-danger"  onclick="switch_tap1()" data-dismiss="modal"><?php echo $array['cancel'][$language]; ?></button>
             </div>
           </div>
         </div>

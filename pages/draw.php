@@ -280,6 +280,9 @@ function OpenDialogItem(){
           closeOnCancel: false,
           showCancelButton: true}).then(result => {
           CancelBill();
+          $('#tab2').attr('hidden',true);
+          $('#switch_col').removeClass('col-md-10');
+          $('#switch_col').addClass('col-md-12');
       })
   }
 
@@ -351,6 +354,11 @@ function OpenDialogItem(){
     }
 
     function SelectDocument(){
+
+      $('#tab2').attr('hidden',false);
+      $('#switch_col').removeClass('col-md-12');
+      $('#switch_col').addClass('col-md-10');
+
       var selectdocument = "";
       $("#checkdocno:checked").each(function() {
         selectdocument = $(this).val();
@@ -635,6 +643,9 @@ function OpenDialogItem(){
           isStatus=1;
 
           if(isStatus==1){
+          $('#tab2').attr('hidden',true);
+          $('#switch_col').removeClass('col-md-10');
+          $('#switch_col').addClass('col-md-12');
             var data = {
               'STATUS'      : 'SaveBill',
               'xdocno'      : docno,

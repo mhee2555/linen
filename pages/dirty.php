@@ -548,9 +548,7 @@ $array2 = json_decode($json2,TRUE);
             }
 
             function SaveBill(){
-              $('#tab2').attr('hidden',true);
-              $('#switch_col').removeClass('col-md-10');
-              $('#switch_col').addClass('col-md-12');
+        
               
               var docno = $("#docno").val();
               var isStatus = $("#IsStatus").val();
@@ -565,6 +563,9 @@ $array2 = json_decode($json2,TRUE);
               isStatus=1;
 
               if(isStatus==1){
+              $('#tab2').attr('hidden',true);
+              $('#switch_col').removeClass('col-md-10');
+              $('#switch_col').addClass('col-md-12');
                 var data = {
                   'STATUS'      : 'SaveBill',
                   'docno'      : docno,
@@ -584,6 +585,7 @@ $array2 = json_decode($json2,TRUE);
 
                   // ShowDocument();
               }else{
+                
                 $("#bImport").prop('disabled', false);
                 $("#bDelete").prop('disabled', false);
                 $("#bSave").prop('disabled', false);

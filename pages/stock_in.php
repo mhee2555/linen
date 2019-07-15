@@ -269,9 +269,11 @@ $array2 = json_decode($json2,TRUE);
         }
 
         function SelectDocument(){
-          $('#tab2').attr('hidden',true);
-          $('#switch_col').removeClass('col-md-10');
-          $('#switch_col').addClass('col-md-12');
+
+          $('#tab2').attr('hidden',false);
+          $('#switch_col').removeClass('col-md-12');
+          $('#switch_col').addClass('col-md-10');
+
           var selectdocument = "";
           $("#checkdocno:checked").each(function() {
             selectdocument = $(this).val();
@@ -547,9 +549,7 @@ $array2 = json_decode($json2,TRUE);
             }
 
             function SaveBill(){
-              $('#tab2').attr('hidden',true);
-          $('#switch_col').removeClass('col-md-10');
-          $('#switch_col').addClass('col-md-12');
+ 
               var hotpCode = $('#hotpital option:selected').attr("value");
               var docno = $("#docno").val();
               var isStatus = $("#IsStatus").val();
@@ -561,6 +561,9 @@ $array2 = json_decode($json2,TRUE);
               isStatus=1;
 
               if(isStatus==1){
+          $('#tab2').attr('hidden',true);
+          $('#switch_col').removeClass('col-md-10');
+          $('#switch_col').addClass('col-md-12');
                 var data = {
                   'STATUS'      : 'SaveBill',
                   'xdocno'      : docno,

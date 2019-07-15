@@ -593,9 +593,7 @@ $(document).ready(function(e){
       }
 
       function SaveBill(){
-        $('#tab2').attr('hidden',true);
-        $('#switch_col').removeClass('col-md-10');
-        $('#switch_col').addClass('col-md-12');
+      
 
         var docno = $("#docno").val();
         var docno2 = $("#RefDocNo").val();
@@ -608,6 +606,9 @@ $(document).ready(function(e){
         isStatus=1;
 
         if(isStatus==1){
+          $('#tab2').attr('hidden',true);
+        $('#switch_col').removeClass('col-md-10');
+        $('#switch_col').addClass('col-md-12');
           var data = {
             'STATUS'      : 'SaveBill',
             'xdocno'      : docno,
