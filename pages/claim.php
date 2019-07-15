@@ -1079,7 +1079,7 @@ $array2 = json_decode($json2,TRUE);
         }
         .icon{
             padding-top: 6px;
-            padding-left: 44px;
+            padding-left: 42px;
           }
           @media (min-width: 992px) and (max-width: 1199.98px) { 
 
@@ -1088,7 +1088,7 @@ $array2 = json_decode($json2,TRUE);
               padding-left: 23px;
             }
             .sidenav a {
-              font-size: 21px;
+              font-size: 20px;
 
             }
           }

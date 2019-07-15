@@ -731,6 +731,12 @@ function OpenDialogItem(){
           })
         }
 
+
+        function show_btn(DocNo){
+          if(DocNo != undefined || DocNo != ''){
+              $(btn_show).attr('disabled',false);
+          }
+        }
         function keydownupdate(rowid,cnt){
           var max = $('#max'+cnt).val();
           var par = $('#qty1_'+cnt).val();
@@ -849,7 +855,7 @@ function OpenDialogItem(){
 
                   for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                     var rowCount = $('#TableDocument >tbody >tr').length;
-                    var chkDoc = "<input type='radio' name='checkdocno' id='checkdocno' value='"+temp[i]['DocNo']+"' >";
+                    var chkDoc = "<input type='radio' name='checkdocno' id='checkdocno' onclick='show_btn(\""+temp[i]['DocNo']+"\");' value='"+temp[i]['DocNo']+"' >";
                     var Status = "";
                     var Style  = "";
                     if(temp[i]['IsStatus']==1){
@@ -1461,7 +1467,7 @@ a.nav-link{
                         </div>
                       </div>
                       <div class="col-md-2 text-right">
-                        <button type="button"  class="btn btn-warning" name="button" onclick="SelectDocument();"><?php echo $array['show'][$language]; ?></button>
+                        <button type="button"  class="btn btn-warning" name="button" id='btn_show' onclick="SelectDocument();" disabled='true'><?php echo $array['show'][$language]; ?></button>
                       </div>
                     </div>
 
