@@ -38,7 +38,7 @@ $array2 = json_decode($json2,TRUE);
 
   <link rel="icon" type="image/png" href="../img/pose_favicon.png">
   <!-- Bootstrap core CSS-->
-  <link href="../template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../template/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
   <link href="../bootstrap/css/tbody.css" rel="stylesheet">
   <link href="../bootstrap/css/myinput.css" rel="stylesheet">
 
@@ -1005,7 +1005,11 @@ $array2 = json_decode($json2,TRUE);
             font-size: 24px!important;
           }
           .table > thead > tr >th {
-            background: #4f88e3!important;
+            /* background: #4f88e3!important; */
+            background-color: #1659a2;
+          }
+          .table th, .table td {
+              border-top: none !important;
           }
 
           table tr th,
@@ -1020,18 +1024,23 @@ $array2 = json_decode($json2,TRUE);
           }
           table tr th {
             background: #eee;
-            border-top: 0px solid #bbb;
+            /* border-top: 0px solid #bbb; */
             text-align: left;
           }
-
           /* top-left border-radius */
           table tr:first-child th:first-child {
-            border-top-left-radius: 6px;
+            border-top-left-radius: 15px;
+          }
+          table tr:first-child th:first-child {
+            border-bottom-left-radius: 15px;
           }
 
           /* top-right border-radius */
           table tr:first-child th:last-child {
-            border-top-right-radius: 6px;
+            border-top-right-radius: 15px;
+          }
+          table tr:first-child th:last-child {
+            border-bottom-right-radius: 15px;
           }
 
           /* bottom-left border-radius */
