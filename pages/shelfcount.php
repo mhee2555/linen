@@ -1055,7 +1055,7 @@ $array2 = json_decode($json2,TRUE);
                 "<td style='width: 20%;'nowrap>"+temp[i]['ItemName']+"</td>"+
                 "<td style='width: 10%;'nowrap>"+temp[i]['UnitName']+"</td>"+
                 "<td style='width: 10%;'nowrap>"+Max+"</td>"+
-                "<td style='width: 22%;'nowrap>"+Qty+"</td>"+
+                "<td style='width: 18%;'nowrap>"+Qty+"</td>"+
                 "<td style='width: 10%;'nowrap>"+Order+"</td>"+
                 "</tr>";
 
@@ -1524,17 +1524,17 @@ $array2 = json_decode($json2,TRUE);
                                 id="TableItemDetail" width="98%" cellspacing="0" role="grid" style="">
                                 <thead id="theadsum" style="font-size:24px;">
                                     <tr role="row" id='tr_1'>
-                                        <th style='width: 7%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                                        <th style='width: 5%;' nowrap><?php echo $array['no'][$language]; ?></th>
                                         <th style='width: 20%;' nowrap><?php echo $array['code'][$language]; ?></th>
-                                        <th style='width: 28%;' nowrap><?php echo $array['item'][$language]; ?></th>
-                                        <th style='width: 10%;' nowrap><?php echo $array['unit'][$language]; ?></th>
-                                        <th style='width: 10%;' nowrap>
+                                        <th style='width: 15%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                                        <th style='width: 13%;' nowrap><?php echo $array['unit'][$language]; ?></th>
+                                        <th style='width: 18%;' nowrap>
                                             <center><?php echo $array['parsc'][$language]; ?></center>
                                         </th>
-                                        <th style='width: 15%;' nowrap>
+                                        <th style='width: 8%;' nowrap>
                                             <center><?php echo $array['leftsc'][$language]; ?></center>
                                         </th>
-                                        <th style='width: 10%;' nowrap>
+                                        <th style='width: 21%;' nowrap>
                                             <center><?php echo $array['order'][$language]; ?><center>
                                         </th>
                                     </tr>
