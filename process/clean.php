@@ -264,31 +264,20 @@ function CreateDocument($conn, $DATA)
     // mysqli_query($conn,$Sqlx);
 
     $Sql = "SELECT
-      item_stock.RowID,
-      site.HptName,
-      department.DepName,
-      item_category.CategoryName,
-      item_stock.UsageCode,
-      item.ItemCode,
-      item.ItemName,
-      item.UnitCode,
-      item_unit.UnitName,
-      item_stock.ParQty,
-      item_stock.CcQty,
-      item_stock.TotalQty
-      FROM site
-      INNER JOIN department ON site.HptCode = department.HptCode
-      INNER JOIN item_stock ON department.DepCode = item_stock.DepCode
-      INNER JOIN item ON item_stock.ItemCode = item.ItemCode
-      INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
-      INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
-      WHERE item.ItemName LIKE '%$searchitem%'
-      GROUP BY item.ItemCode
-      ORDER BY item.ItemCode ASC LImit 100";
+    item_category.CategoryName,
+    item.ItemCode,
+    item.ItemName,
+    item.UnitCode,
+    item_unit.UnitName,
+    item.ParQty
+    FROM item
+    INNER JOIN item_category ON item.CategoryCode= item_category.CategoryCode
+    INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
+    WHERE item.ItemName LIKE '%%'
+    GROUP BY item.ItemCode
+    ORDER BY item.ItemCode ASC LImit 100";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
-      $return[$count]['RowID'] = $Result['RowID'];
-      $return[$count]['UsageCode'] = $Result['UsageCode'];
       $return[$count]['ItemCode'] = $Result['ItemCode'];
       $return[$count]['ItemName'] = $Result['ItemName'];
       $return[$count]['UnitCode'] = $Result['UnitCode'];
@@ -484,14 +473,12 @@ function CreateDocument($conn, $DATA)
       // $Sqlx = "INSERT INTO log ( log ) VALUES ('RowID :: $iItemStockId')";
       // mysqli_query($conn, $Sqlx);
 
-      $Sql = "SELECT item_stock.ItemCode,item_stock.UsageCode,item.UnitCode
-      FROM item_stock
-      INNER JOIN item ON item_stock.ItemCode = item.ItemCode
-      WHERE RowID = $iItemStockId";
+      $Sql = "SELECT item.ItemCode,item.UnitCode
+		  FROM item
+      WHERE ItemCode = '$iItemStockId'";
       $meQuery = mysqli_query($conn, $Sql);
       while ($Result = mysqli_fetch_assoc($meQuery)) {
         $ItemCode = $Result['ItemCode'];
-        $UsageCode = $Result['UsageCode'];
         $iunit1 = $Result['UnitCode'];
       }
 
@@ -764,6 +751,7 @@ function CreateDocument($conn, $DATA)
     INNER JOIN clean ON clean_detail.DocNo = clean.DocNo
     WHERE clean_detail.DocNo = '$DocNo'
     ORDER BY clean_detail.Id DESC";
+    $return['sql']=$Sql;
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
 
