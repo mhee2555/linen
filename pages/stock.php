@@ -210,7 +210,7 @@ $array = json_decode($json,TRUE);
             for (var i = 0; i < temp["Row"]; i++) {
               var rowCount = $('#TableDocument >tbody >tr').length;
 
-              StrTr="<tr id='tr"+temp[i]['DocNo']+"'>"+
+              StrTr="<tr id='tr"+temp[i]['DocNo']+"' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>"+
               "<td style='width: 5%;'nowrap>"+(i+1)+"</td>"+
               "<td style='width: 15%;'nowrap>"+temp[i]['ItemCode']+"</td>"+
               "<td style='width: 21%;'nowrap>"+temp[i]['ItemName']+"</td>"+
@@ -318,9 +318,11 @@ $array = json_decode($json,TRUE);
     font-size: 24px!important;
   }
   .table > thead > tr >th {
-    background: #4f88e3!important;
+    background-color: #1659a2;
   }
-
+  .table th, .table td {
+        border-top: none !important;
+    }
   table tr th,
   table tr td {
     border-right: 0px solid #bbb;
@@ -338,24 +340,31 @@ $array = json_decode($json,TRUE);
   }
 
   /* top-left border-radius */
+  /* top-left border-radius */
   table tr:first-child th:first-child {
-    border-top-left-radius: 6px;
-  }
+      border-top-left-radius: 15px;
+    }
+    table tr:first-child th:first-child {
+      border-bottom-left-radius: 15px;
+    }
 
-  /* top-right border-radius */
-  table tr:first-child th:last-child {
-    border-top-right-radius: 6px;
-  }
+    /* top-right border-radius */
+    table tr:first-child th:last-child {
+      border-top-right-radius: 15px;
+    }
+    table tr:first-child th:last-child {
+      border-bottom-right-radius: 15px;
+    }
 
-  /* bottom-left border-radius */
-  table tr:last-child td:first-child {
-    border-bottom-left-radius: 6px;
-  }
+    /* bottom-left border-radius */
+    table tr:last-child td:first-child {
+      border-bottom-left-radius: 6px;
+    }
 
-  /* bottom-right border-radius */
-  table tr:last-child td:last-child {
-    border-bottom-right-radius: 6px;
-  }
+    /* bottom-right border-radius */
+    table tr:last-child td:last-child {
+      border-bottom-right-radius: 6px;
+    }
   a.nav-link{
     width:auto!important;
   }

@@ -299,7 +299,7 @@ $array = json_decode($json,TRUE);
       font-size: 24px!important;
     }
     .table > thead > tr >th {
-      background: #4f88e3!important;
+      background-color: #1659a2;
     }
 
     table tr th,
@@ -351,7 +351,7 @@ $array = json_decode($json,TRUE);
       width: 250px;                 /* Set width of cards */
       display: flex;                /* Children use Flexbox */
       flex-direction: column;       /* Rotate Axis */
-      border: 1px solid #589fe5;    /* Set up Border */
+      border: 1px solid #1659a2;    /* Set up Border */
       border-radius: 4px;           /* Slightly Curve edges */
       overflow: hidden;             /* Fixes the corners */
       margin: 5px;                  /* Add space between cards */
@@ -362,8 +362,8 @@ $array = json_decode($json,TRUE);
       text-align: center;
       font-size: 24px;
       font-weight: 600;
-      border-bottom: 1px solid #589fe5;
-      background-color: #2077cc;
+      border-bottom: 1px solid #1659a2;
+      background-color: #1659a2;
       padding: 5px 10px;
     }
 

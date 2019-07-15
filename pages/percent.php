@@ -349,9 +349,11 @@ $array = json_decode($json,TRUE);
       font-size: 24px!important;
     }
     .table > thead > tr >th {
-      background: #4f88e3!important;
+      background-color: #1659a2;
     }
-
+    .table th, .table td {
+        border-top: none !important;
+    }
     table tr th,
     table tr td {
       border-right: 0px solid #bbb;
@@ -367,15 +369,20 @@ $array = json_decode($json,TRUE);
       border-top: 0px solid #bbb;
       text-align: left;
     }
-
-    /* top-left border-radius */
+/* top-left border-radius */
+table tr:first-child th:first-child {
+      border-top-left-radius: 15px;
+    }
     table tr:first-child th:first-child {
-      border-top-left-radius: 6px;
+      border-bottom-left-radius: 15px;
     }
 
     /* top-right border-radius */
     table tr:first-child th:last-child {
-      border-top-right-radius: 6px;
+      border-top-right-radius: 15px;
+    }
+    table tr:first-child th:last-child {
+      border-bottom-right-radius: 15px;
     }
 
     /* bottom-left border-radius */
