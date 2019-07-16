@@ -463,6 +463,7 @@ function AddUnit($conn, $DATA)
   $MpCode = $DATA['MpCode'];
   $UnitCode = $DATA['UnitCode'];
   $Multiply = $DATA['Multiply'];
+  $priceunit = $DATA['priceunit'];
 
   $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = 1 AND UnitCode = 1 AND ItemCode = '$ItemCode'";
   $MQuery = mysqli_query($conn,$countM);
@@ -472,19 +473,19 @@ function AddUnit($conn, $DATA)
 
     if($MResult['cnt']==0){
       if($MpCode == 1 && $Multiply == 1){
-        $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode ) VALUES
-        ($MpCode, $UnitCode, $Multiply, '$ItemCode') ";
+        $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
+        ($MpCode, $UnitCode, $Multiply, '$ItemCode' , $priceunit) ";
         mysqli_query($conn,$Sql2);
         $return['have'] = 1;
 
       }else{
-        $Sql1 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode ) VALUES
-        (1,1,1,'$ItemCode') ";
+        $Sql1 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit) VALUES
+        (1,1,1,'$ItemCode',1) ";
         mysqli_query($conn,$Sql1);
 
         $return['have'] = 2;
-        $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode ) VALUES
-        ($MpCode, $UnitCode, $Multiply, '$ItemCode') ";
+        $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
+        ($MpCode, $UnitCode, $Multiply, '$ItemCode' , $priceunit) ";
         mysqli_query($conn,$Sql2);
       }
       $count++;
@@ -493,8 +494,8 @@ function AddUnit($conn, $DATA)
       $return['UnitCode'] = $UnitCode;
       $return['Multiply'] = $Multiply;
       if($MpCode != 1 && $Multiply != 1){
-        $Sql3 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode ) VALUES 
-        ($MpCode, $UnitCode, $Multiply, '$ItemCode') ";
+        $Sql3 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit) VALUES 
+        ($MpCode, $UnitCode, $Multiply, '$ItemCode' , $priceunit) ";
         mysqli_query($conn,$Sql3);
         $count++;
       }

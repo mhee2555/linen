@@ -17,6 +17,8 @@
 <titlecus><en>Customer bill records</en><th>บันทึกบิลลูกค้า</th></titlecus>
 <titlewash><en>Washing bill records</en><th>บันทึกบิลซัก</th></titlewash>
 <titlecontractfac><en>Factory Contract</en><th>สัญญาโรงงาน</th></titlecontractfac>
+<priceunit><en>PriceUnit</en><th>ราคาต่อหน่วย</th></priceunit>
+
 <titlecontracthos><en>Hospital Contract</en><th>สัญญาโรงพยาบาล</th></titlecontracthos>
 <titlefactory><en>Factory</en><th>โรงงานซัก</th></titlefactory>
 <titlefactoryin><en>FactoryIn</en><th>รับผ้าสกปรก</th></titlefactoryin>

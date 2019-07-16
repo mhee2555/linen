@@ -546,9 +546,12 @@ var isChecked2 = false;
     }
 
     function AddUnit(){
+      var priceunit = $('#priceunit').val();
       var mul = $('#mulinput').val();
       var u1 = $('#Unitshows').val();
       var u2 = $('#subUnit').val();
+
+    
       var itemcode = $('#ItemCode').val();
 
       if(mul!=""){
@@ -557,7 +560,8 @@ var isChecked2 = false;
           'ItemCode' : itemcode,
           'MpCode' : u2,
           'UnitCode' : u1,
-          'Multiply' : mul
+          'Multiply' : mul,
+          'priceunit' : priceunit
         };
 
         console.log(JSON.stringify(data));
@@ -958,7 +962,9 @@ var isChecked2 = false;
                                                   "<td style='width: 40%;' align='left'nowrap>"+temp[i]['ItemName']+"</td>"+
                                                   "<td style='width: 15%;' align='left'nowrap>"+temp[i]['MpCode']+"</td>"+
                                                   "<td style='width: 15%;' align='left'nowrap>"+temp[i]['UnitName2']+"</td>"+
-                                                  "<td style='width: 20%;' align='left'nowrap>"+temp[i]['Multiply']+"</td>"+
+                                                  "<td style='width: 10%;' align='left'nowrap>"+temp[i]['Multiply']+"</td>"+
+                                                  "<td style='width: 10%;' align='left'nowrap>"+temp[i]['priceunit']+"</td>"+
+
                                                   "</tr>";
 
                                    if(rowCount == 0){
@@ -1083,6 +1089,7 @@ var isChecked2 = false;
                               getdetail(itemcode);
                               $('#subUnit').val("1");
                               $('#mulinput').val("");
+                              $('#priceunit').val("");
                             })
                           }else if( (temp["form"]=='CancelUnit') ){
                             switch (temp['msg']) {
@@ -1137,6 +1144,8 @@ var isChecked2 = false;
                               getdetail(itemcode);
                               $('#subUnit').val("1");
                               $('#mulinput').val("");
+                              $('#priceunit').val("");
+
                             })
                           }else if( (temp["form"]=='CancelItem') ){
                             switch (temp['msg']) {
@@ -1637,21 +1646,27 @@ var isChecked2 = false;
                                             </select>
                                           </div>
                                       </div>
-                                      <div style="margin-left:20px;width:100px;">
+                                      <div style="margin-left:20px;width:90px;">
 												<label><?php echo $array['secunit'][$language]; ?></label>
                                       </div>
                                       <div style="width:200px;">
-                                      		<div style="font-size:24px;width:200px;">
+                                      		<div style="font-size:24px;width:150px;">
                                                     <select class="form-control" style="font-size:24px;" id="subUnit">
                                                     </select>
                                        		</div>
                                       </div>
-                                      <div style="margin-left:20px;width:80px;">
-												<label><?php echo $array['multiply'][$language]; ?></label>
+                                      <div style="margin-left:20px;width:60px;">
+												                  <label><?php echo $array['multiply'][$language]; ?></label>
                                       </div>
-                                       <input type="text" class="form-control numonly" style="font-size:24px;width:80px;" name="mulinput" id="mulinput" placeholder="0.00" >
-                                       <button style="margin-left:11px;width:60px;" type="button" class="btn btn-success" onclick="AddUnit();"><?php echo $array['save'][$language]; ?></button>
-                                       <button style="margin-left:4px;width:50px;" type="button" class="btn btn-danger" onclick="DeleteUnit();"><?php echo $array['delete'][$language]; ?></button>
+                                       <input type="text" class="form-control numonly" style="font-size:24px;width:59px;" name="mulinput" id="mulinput" placeholder="0.00" >
+
+                                       <div style="margin-left:20px;width:100px;">
+												                  <label><?php echo $array['priceunit'][$language]; ?></label>
+                                      </div>
+                                      <input type="text" class="form-control numonly" style="font-size:24px;width:59px;" name="priceunit" id="priceunit" placeholder="0.00" >
+
+                                       <button style="margin-left:11px;width:64px;" type="button" class="btn btn-success" onclick="AddUnit();"><?php echo $array['save'][$language]; ?></button>
+                                       <button style="margin-left:4px;width:64px;" type="button" class="btn btn-danger" onclick="DeleteUnit();"><?php echo $array['delete'][$language]; ?></button>
                         			  </div>
                     </div>
                   </div>
