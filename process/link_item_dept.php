@@ -392,7 +392,8 @@ function ShowItemStock($conn, $DATA)
           item_stock.ItemCode,
           item.ItemName,
           item_stock.ParQty,
-          DATE(item_stock.ExpireDate) AS ExpireDate
+          DATE(item_stock.ExpireDate) AS ExpireDate,
+          UsageCode
           FROM
           item_stock
           INNER JOIN item ON item_stock.ItemCode = item.ItemCode
@@ -405,11 +406,15 @@ function ShowItemStock($conn, $DATA)
     $return[$count]['ItemCode'] = $Result['ItemCode'];
     $return[$count]['ItemName'] = $Result['ItemName'];
     $return[$count]['ParQty'] = $Result['ParQty'];
-    if($Result['ExpireDate']!=""){
-    $tempdate = explode("-",$Result['ExpireDate']);
-    $tempdate = $tempdate[2]."/".$tempdate[1]."/".$tempdate[0];
-    }else{
-      $tempdate = "";
+    // $return[$count]['UsageCode'] = $Result['UsageCode'];
+    // if($Result['ExpireDate']!=""){
+    //   $tempdate = explode("-",$Result['ExpireDate']);
+    //   $tempdate = $tempdate[2]."/".$tempdate[1]."/".$tempdate[0];
+    // }else{
+    //   $tempdate = "";
+    // }
+    if($Result['UsageCode']=="" || $Result['UsageCode']==null){
+      $return[$count]['UsageCode'] = '';
     }
     $return[$count]['ExpireDate'] = $tempdate;
     $count++;
@@ -460,7 +465,33 @@ function setdateitemstock($conn, $DATA)
   }
 
 }
+function SaveUsageCode($conn, $DATA)
+{
+  // var_dump($DATA); die;
+  $boolean = 0;
+  $count = 0;
+  $UsageCode = $DATA['UsageCode'];
+  $RowID = $DATA['RowID'];
+  $Sql = "UPDATE item_stock SET UsageCode = '$UsageCode' WHERE RowID = $RowID";
+  // var_dump($Sql); die;
+  if(mysqli_query($conn,$Sql)){
+    $count++;
+  }
+  if($count>0){
+    $return['status'] = "success";
+    $return['form'] = "SaveUsageCode";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }else{
+    $return['status'] = "failed";
+    $return['msg'] = "addfailed";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }
 
+}
 function Submititemstock($conn, $DATA)
 {
   // var_dump($DATA); die;
@@ -557,6 +588,8 @@ if(isset($_POST['DATA']))
         setdateitemstock($conn,$DATA);
       }else if ($DATA['STATUS'] == 'Submititemstock') {
         Submititemstock($conn,$DATA);
+      }else if ($DATA['STATUS'] == 'SaveUsageCode') {
+        SaveUsageCode($conn,$DATA);
       }
 
 }else{

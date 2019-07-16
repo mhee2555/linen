@@ -779,7 +779,16 @@ $array = json_decode($json,TRUE);
           }
         })
       }
+      function SaveUsageCode(row) {
+        var UsageCode = $('#exp_'+row).val();
 
+        var data = {
+          'STATUS' : 'SaveUsageCode',
+          'UsageCode' : UsageCode,
+          'RowID' : row
+        }
+        senddata(JSON.stringify(data));
+      }
 
 
       function senddata(data){
@@ -1085,9 +1094,14 @@ $array = json_decode($json,TRUE);
                             }else if(temp['form']=="ShowItemStock"){
                               $( "#TableItemStock tbody" ).empty();
                               for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+                                  if(temp[i]['UsageCode'] == undefined || temp[i]['UsageCode'] == ''){
+                                      var UsageCode = "";
+                                  }else{
+                                    var UsageCode = temp[i]['UsageCode'];
+                                  }
                                  var rowCount = $('#TableItemStock >tbody >tr').length;
                                 //  var txtno = '<input type="text" style="font-size:24px;text-align:center;" class="form-control" id="exp_'+temp[i]['RowID']+'" onclick="datedialog(\''+temp[i]['RowID']+'\')" value="'+temp[i]['ExpireDate']+'" placeholder="<?php echo $array['choose'][$language]; ?>" READONLY>';
-                                 var txtno = '<input tyle="text" class="form-control">';
+                                 var txtno = '<input tyle="text" class="form-control" id="exp_'+temp[i]['RowID']+'" value="'+UsageCode+'" onKeyPress="if(event.keyCode==13){SaveUsageCode('+temp[i]['RowID']+')}">';
                                  StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
                                                 "<td style='width: 5%;' nowrap></td>"+
                                                 "<td style='width: 25%;' nowrap>"+temp[i]['ItemCode']+"</td>"+
@@ -1119,6 +1133,18 @@ $array = json_decode($json,TRUE);
 
                               ShowItem();
                               ShowItemStock();
+                            }else if(temp['form']=="SaveUsageCode"){
+                              swal({
+                                title: '',
+                                text: '<?php echo $array['success'][$language]; ?>',
+                                type: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                showConfirmButton: false,
+                                timer: 1000,
+                                // confirmButtonText: 'Ok'
+                              })
                             }
                           }else if (temp['status']=="failed") {
                             switch (temp['msg']) {
