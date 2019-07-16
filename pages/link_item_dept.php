@@ -1086,7 +1086,8 @@ $array = json_decode($json,TRUE);
                               $( "#TableItemStock tbody" ).empty();
                               for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                                  var rowCount = $('#TableItemStock >tbody >tr').length;
-                                 var txtno = '<input type="text" style="font-size:24px;text-align:center;" class="form-control" id="exp_'+temp[i]['RowID']+'" onclick="datedialog(\''+temp[i]['RowID']+'\')" value="'+temp[i]['ExpireDate']+'" placeholder="<?php echo $array['choose'][$language]; ?>" READONLY>';
+                                //  var txtno = '<input type="text" style="font-size:24px;text-align:center;" class="form-control" id="exp_'+temp[i]['RowID']+'" onclick="datedialog(\''+temp[i]['RowID']+'\')" value="'+temp[i]['ExpireDate']+'" placeholder="<?php echo $array['choose'][$language]; ?>" READONLY>';
+                                 var txtno = '<input tyle="text" class="form-control">';
                                  StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
                                                 "<td style='width: 5%;' nowrap></td>"+
                                                 "<td style='width: 25%;' nowrap>"+temp[i]['ItemCode']+"</td>"+
@@ -1408,7 +1409,7 @@ $array = json_decode($json,TRUE);
                           <th style='width: 24%;' nowrap><?php echo $array['nono'][$language]; ?></th>
                           <th style='width: 47%;' nowrap><?php echo $array['item'][$language]; ?></th>
                           <!-- <th style='width: 11%;' nowrap>Par</th> -->
-                          <th style='width: 24%;' nowrap><?php echo $array['expireday'][$language]; ?></th>
+                          <th style='width: 24%;' nowrap><?php echo $array['rfid'][$language]; ?></th>
                         </tr>
                       </thead>
                       <tbody id="tbody" class="nicescrolled" style="font-size:11px;height:420px;">
