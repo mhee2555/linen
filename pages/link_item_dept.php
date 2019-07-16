@@ -19,8 +19,11 @@ if(empty($_SESSION['lang'])){
 
 header ('Content-type: text/html; charset=utf-8');
 $xml = simplexml_load_file('../xml/general_lang.xml');
+$xml2 = simplexml_load_file('../xml/main_lang.xml');
 $json = json_encode($xml);
 $array = json_decode($json,TRUE);
+$json2 = json_encode($xml2);
+$array2 = json_decode($json2,TRUE);
  ?>
 
 <!DOCTYPE html>
@@ -1101,7 +1104,7 @@ $array = json_decode($json,TRUE);
                                   }
                                  var rowCount = $('#TableItemStock >tbody >tr').length;
                                 //  var txtno = '<input type="text" style="font-size:24px;text-align:center;" class="form-control" id="exp_'+temp[i]['RowID']+'" onclick="datedialog(\''+temp[i]['RowID']+'\')" value="'+temp[i]['ExpireDate']+'" placeholder="<?php echo $array['choose'][$language]; ?>" READONLY>';
-                                 var txtno = '<input tyle="text" class="form-control" id="exp_'+temp[i]['RowID']+'" value="'+UsageCode+'" onKeyPress="if(event.keyCode==13){SaveUsageCode('+temp[i]['RowID']+')}">';
+                                 var txtno = '<input tyle="text" class="form-control" id="exp_'+temp[i]['RowID']+'" value="'+UsageCode+'" onKeyPress="if(event.keyCode==13){SaveUsageCode('+temp[i]['RowID']+')}" style=" margin-left: -34px;width: 168px;">';
                                  StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
                                                 "<td style='width: 5%;' nowrap></td>"+
                                                 "<td style='width: 25%;' nowrap>"+temp[i]['ItemCode']+"</td>"+
@@ -1342,6 +1345,11 @@ $array = json_decode($json,TRUE);
   </head>
 
   <body id="page-top">
+  <ol class="breadcrumb">
+  
+  <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['system']['title'][$language]; ?></a></li>
+  <li class="breadcrumb-item active"><?php echo $array2['menu']['system']['sub'][7][$language]; ?></li>
+</ol>
     <div id="wrapper">
       <div id="content-wrapper">
         <div class="row">

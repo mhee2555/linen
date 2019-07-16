@@ -39,7 +39,7 @@ $array2 = json_decode($json2,TRUE);
 
   <link rel="icon" type="image/png" href="../img/pose_favicon.png">
   <!-- Bootstrap core CSS-->
-  <link href="../template/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="../template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../bootstrap/css/tbody.css" rel="stylesheet">
   <link href="../bootstrap/css/myinput.css" rel="stylesheet">
 
@@ -1200,7 +1200,7 @@ $(document).ready(function(e){
   <body id="page-top">
 
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="javascript:void(0)">หน้าแรก</a></li>
+    <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['general']['title'][$language]; ?></a></li>
       <li class="breadcrumb-item active"><?php echo $array2['menu']['general']['sub'][2][$language]; ?></li>
     </ol>
     <input class='form-control' type="hidden" style="margin-left:-48px;margin-top:10px;font-size:16px;width:100px;height:30px;text-align:right;padding-top: 15px;" id='IsStatus'>
@@ -1211,7 +1211,7 @@ $(document).ready(function(e){
               <div class="col-md-10" style='padding-left: 26px;' id='switch_col'>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" onclick="switch_tap1()" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['titledirty'][$language]; ?></a>
+                    <a class="nav-link active" id="home-tab" onclick="switch_tap1()" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['titleclean'][$language]; ?></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" id="profile-tab" onclick="switch_tap2()" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><?php echo $array['search'][$language]; ?></a>

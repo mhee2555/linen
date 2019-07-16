@@ -21,7 +21,6 @@ $json = json_encode($xml);
 $array = json_decode($json,TRUE);
 $json2 = json_encode($xml2);
 $array2 = json_decode($json2,TRUE);
-
 ?>
 
 <!DOCTYPE html>
@@ -34,11 +33,11 @@ $array2 = json_decode($json2,TRUE);
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>ใบเคลม</title>
+  <title><?php echo $array['titlewash'][$language]; ?></title>
 
   <link rel="icon" type="image/png" href="../img/pose_favicon.png">
   <!-- Bootstrap core CSS-->
-  <link href="../template/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="../template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../bootstrap/css/tbody.css" rel="stylesheet">
   <link href="../bootstrap/css/myinput.css" rel="stylesheet">
 
@@ -133,7 +132,6 @@ $array2 = json_decode($json2,TRUE);
       });
 
     });
-
     function OpenDialogItem(){
       var docno = $("#docno").val();
       if( docno != "" ){
@@ -173,7 +171,7 @@ $array2 = json_decode($json2,TRUE);
       xrow = xrow.split(",");
       swal({
         title: "<?php echo $array['confirm'][$language]; ?>",
-        text: "<?php echo $array['confirmdelete1'][$language]; ?>"+xrow[1]+"<?php echo $array['confirmdelete2'][$language]; ?>",
+        text: "<?php echo $array['confirm1'][$language]; ?>"+xrow[1]+"<?php echo $array['confirm2'][$language]; ?>่",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
@@ -227,19 +225,6 @@ $array2 = json_decode($json2,TRUE);
         senddata(JSON.stringify(data));
       }
 
-      function ShowDocument_sub(){
-        var searchdocument = $('#searchdocument').val();
-        if( typeof searchdocument == 'undefined' ) searchdocument = "";
-        var deptCode = $('#Dep2 option:selected').attr("value");
-        if( typeof deptCode == 'undefined' ) deptCode = "1";
-        var data = {
-          'STATUS'  	: 'ShowDocument',
-          'xdocno'	: searchdocument,
-          'deptCode'	: deptCode
-        };
-        senddata(JSON.stringify(data));
-      }
-
       function ShowItem(){
         var searchitem = $('#searchitem').val();
         var data = {
@@ -256,8 +241,6 @@ $array2 = json_decode($json2,TRUE);
         });
         var deptCode = $('#Dep2 option:selected').attr("value");
         if( typeof deptCode == 'undefined' ) deptCode = "1";
-
-
 
         var data = {
           'STATUS'  	: 'SelectDocument',
@@ -286,11 +269,11 @@ $array2 = json_decode($json2,TRUE);
 
       function CancelBill() {
         var docno = $("#docno").val();
-        var dept = $("#Dep2").val();
+        var dept = $('#Dep2').val();
         var data = {
           'STATUS'  : 'CancelBill',
           'DocNo'   : docno,
-          'deptCode'   : dept
+          'deptCode' : dept
         };
         senddata(JSON.stringify(data));
         $('#profile-tab').tab('show');
@@ -354,7 +337,7 @@ $array2 = json_decode($json2,TRUE);
           'Hotp'		: Hotp
         };
         senddata(JSON.stringify(data));
-          $('#dialogItemCode').modal('toggle');
+        $('#dialogItemCode').modal('toggle');
         dialogUsageCode.dialog( "close" );
       }
 
@@ -546,9 +529,9 @@ $array2 = json_decode($json2,TRUE);
 
           function SaveBill(){
             var docno = $("#docno").val();
-            var isStatus = $("#IsStatus").val();
-            var isStatus_chk = $("#IsStatus").val();
             var dept = $('#Dep2').val();
+            var isStatus_chk = $("#IsStatus").val();
+            var isStatus = $("#IsStatus").val();
             // alert( isStatus );
             if(isStatus==1)
             isStatus=0;
@@ -619,12 +602,11 @@ $array2 = json_decode($json2,TRUE);
                       var Str = "<option value="+temp[i]['DepCode']+">"+temp[i]['DepName']+"</option>";
                       $("#department").append(Str);
                       $("#Dep2").append(Str);
-
                     }
                   }else if( (temp["form"]=='CreateDocument') ){
                     swal({
                       title: "<?php echo $array['createdocno'][$language]; ?>",
-                      text: temp[0]['DocNo'] + " <?php echo $array['success'][$language]; ?>",
+                      text: temp[0]['DocNo'] + "   <?php echo $array['success'][$language]; ?>",
                       type: "success",
                       showCancelButton: false,
                       timer: 5000,
@@ -656,7 +638,7 @@ $array2 = json_decode($json2,TRUE);
                         Status = "<?php echo $array['draft'][$language]; ?>";
                         Style  = "style='width: 10%;color: #3399ff;'";
                       }if(temp[i]['IsStatus']==2){
-                        Status = "<?php echo $array['cancel'][$language]; ?>";
+                        Status = "<?php echo $array['cancelbill'][$language]; ?>";
                         Style  = "style='width: 10%;color: #ff0000;'";
                       }
 
@@ -689,7 +671,7 @@ $array2 = json_decode($json2,TRUE);
                     // $("#total").val(temp[0]['Total']);
                     $( "#TableItemDetail tbody" ).empty();
                     $("#hotpital").val("1");
-
+                    $("#department").val("");
                     $("#docdate").val("");
                     $("#docno").val("");
                     $("#recorder").val("");
@@ -706,7 +688,7 @@ $array2 = json_decode($json2,TRUE);
                         Status = "<?php echo $array['draft'][$language]; ?>";
                         Style  = "style='width: 10%;color: #3399ff;'";
                       }if(temp[i]['IsStatus']==2){
-                        Status = "<?php echo $array['cancel'][$language]; ?>";
+                        Status = "<?php echo $array['cancelbill'][$language]; ?>";
                         Style  = "style='width: 10%;color: #ff0000;'";
                       }
 
@@ -762,8 +744,8 @@ $array2 = json_decode($json2,TRUE);
                       $("#docno").prop('disabled', true);
                       $("#docdate").prop('disabled', true);
                       $("#recorder").prop('disabled', true);
-                      $("#timerec").prop('disabled', true);
                       $("#department").prop('disabled', true);
+                      $("#timerec").prop('disabled', true);
                       $("#total").prop('disabled', true);
 
                       $('#qty1_'+i).prop('disabled', true);
@@ -778,7 +760,7 @@ $array2 = json_decode($json2,TRUE);
                     $("#total").val(temp['TotalPrice']);
                     var isStatus = $("#IsStatus").val();
 
-                    var st1 = "style='font-size:24px;margin-left:30px; width:130px;font-family:THSarabunNew'";
+                    var st1 = "style='font-size:24px;margin-left:30px; width:140px;font-family:THSarabunNew'";
                     for (var i = 0; i < temp["Row"]; i++) {
                       var rowCount = $('#TableItemDetail >tbody >tr').length;
 
@@ -789,17 +771,14 @@ $array2 = json_decode($json2,TRUE);
                         chkunit += "<option selected value="+i+","+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+","+temp['Multiply_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
                         else
                         chkunit += "<option value="+i+","+temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]+","+temp['Multiply_'+temp[i]['ItemCode']+'_'+i][j]+">"+temp['UnitName_'+temp[i]['ItemCode']+'_'+i][j]+"</option>";
-                      
-                      
                       }
-
                       chkunit += "</select>";
-                      var chkDoc = "<input type='radio' name='checkrow' id='checkrow' value='"+temp[i]['RowID']+","+temp[i]['ItemName']+"'>";
 
+                      var chkDoc = "<input type='radio' name='checkrow' id='checkrow' value='"+temp[i]['RowID']+","+temp[i]['ItemName']+"'>";
                       var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['Qty2']+"' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
                       var OleQty = "<div class='row' style='margin-left:2px;'><input type='hidden' class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='OleQty_"+i+"' value='"+temp[i]['Qty1']+"' ></div>";
 
-                      var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:110px; margin-left:3px; margin-right:3px; text-align:center;' id='weight_"+i+"' value='"+temp[i]['Weight']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
+                      var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='weight_"+i+"' value='"+temp[i]['Weight']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
 
                       var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:30px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
 
@@ -821,8 +800,8 @@ $array2 = json_decode($json2,TRUE);
                         $("#docno").prop('disabled', false);
                         $("#docdate").prop('disabled', false);
                         $("#recorder").prop('disabled', false);
-                        $("#timerec").prop('disabled', false);
                         $("#department").prop('disabled', false);
+                        $("#timerec").prop('disabled', false);
                         $("#total").prop('disabled', false);
 
                         $('#qty1_'+i).prop('disabled', false);
@@ -835,8 +814,8 @@ $array2 = json_decode($json2,TRUE);
                         $("#docno").prop('disabled', true);
                         $("#docdate").prop('disabled', true);
                         $("#recorder").prop('disabled', true);
-                        $("#timerec").prop('disabled', true);
                         $("#department").prop('disabled', true);
+                        $("#timerec").prop('disabled', true);
                         $("#total").prop('disabled', true);
 
                         $('#qty1_'+i).prop('disabled', true);
@@ -853,7 +832,7 @@ $array2 = json_decode($json2,TRUE);
                     for (var i = 0; i < temp["Row"]; i++) {
                       var rowCount = $('#TableItem >tbody >tr').length;
 
-                      var chkunit ="<select "+st1+" onchange='convertUnit(\""+temp[i]['RowID']+"\",this)' class='form-control' style='font-size:24px;' id='iUnit_"+i+"'>";
+                      var chkunit ="<select "+st1+" onchange='convertUnit(\""+temp[i]['RowID']+"\",this)' class='form-control' id='iUnit_"+i+"'>";
 
                       for(var j = 0; j < temp['Cnt_'+temp[i]['ItemCode']][i]; j++){
                         if(temp['MpCode_'+temp[i]['ItemCode']+'_'+i][j]==temp[i]['UnitCode2'])
@@ -986,122 +965,122 @@ $array2 = json_decode($json2,TRUE);
           }
 
           </script>
-          <style media="screen">
+   <style media="screen">
 
-        @font-face {
-            font-family: myFirstFont;
-            src: url("../fonts/DB Helvethaica X.ttf");
-            }
-        body{
-          font-family: myFirstFont;
-          font-size:22px;
-        }
+@font-face {
+    font-family: myFirstFont;
+    src: url("../fonts/DB Helvethaica X.ttf");
+    }
+body{
+  font-family: myFirstFont;
+  font-size:22px;
+}
 
-        .nfont{
-          font-family: myFirstFont;
-          font-size:22px;
-        }
-          button,input[id^='qty'],input[id^='weight'],input[id^='price']{
-            font-size: 24px!important;
-          }
-          .table > thead > tr >th {
-            /* background: #4f88e3!important; */
-            background-color: #1659a2;
-          }
-          .table th, .table td {
-              border-top: none !important;
-          }
+.nfont{
+  font-family: myFirstFont;
+  font-size:22px;
+}
+  button,input[id^='qty'],input[id^='weight'],input[id^='price']{
+    font-size: 24px!important;
+  }
+  .table > thead > tr >th {
+    /* background: #4f88e3!important; */
+    background-color: #1659a2;
+  }
+  .table th, .table td {
+      border-top: none !important;
+  }
 
-          table tr th,
-          table tr td {
-            border-right: 0px solid #bbb;
-            border-bottom: 0px solid #bbb;
-            padding: 5px;
-          }
-          table tr th:first-child,
-          table tr td:first-child {
-            border-left: 0px solid #bbb;
-          }
-          table tr th {
-            background: #eee;
-            /* border-top: 0px solid #bbb; */
-            text-align: left;
-          }
-          /* top-left border-radius */
-          table tr:first-child th:first-child {
-            border-top-left-radius: 15px;
-          }
-          table tr:first-child th:first-child {
-            border-bottom-left-radius: 15px;
-          }
+  table tr th,
+  table tr td {
+    border-right: 0px solid #bbb;
+    border-bottom: 0px solid #bbb;
+    padding: 5px;
+  }
+  table tr th:first-child,
+  table tr td:first-child {
+    border-left: 0px solid #bbb;
+  }
+  table tr th {
+    background: #eee;
+    /* border-top: 0px solid #bbb; */
+    text-align: left;
+  }
+  /* top-left border-radius */
+  table tr:first-child th:first-child {
+    border-top-left-radius: 15px;
+  }
+  table tr:first-child th:first-child {
+    border-bottom-left-radius: 15px;
+  }
 
-          /* top-right border-radius */
-          table tr:first-child th:last-child {
-            border-top-right-radius: 15px;
-          }
-          table tr:first-child th:last-child {
-            border-bottom-right-radius: 15px;
-          }
+  /* top-right border-radius */
+  table tr:first-child th:last-child {
+    border-top-right-radius: 15px;
+  }
+  table tr:first-child th:last-child {
+    border-bottom-right-radius: 15px;
+  }
 
-          /* bottom-left border-radius */
-          table tr:last-child td:first-child {
-            border-bottom-left-radius: 6px;
-          }
+  /* bottom-left border-radius */
+  table tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+  }
 
-          /* bottom-right border-radius */
-          table tr:last-child td:last-child {
-            border-bottom-right-radius: 6px;
-          }
-          a.nav-link{
-            width:auto!important;
-          }
-          .datepicker{z-index:9999 !important}
-          .hidden{visibility: hidden;}
-          .sidenav {
-          height: 100%;
-          overflow-x: hidden;
-          /* padding-top: 20px; */
-          border-left: 2px solid #bdc3c7;
-        }
+  /* bottom-right border-radius */
+  table tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+  }
+  a.nav-link{
+    width:auto!important;
+  }
+  .datepicker{z-index:9999 !important}
+  .hidden{visibility: hidden;}
+  .sidenav {
+  height: 100%;
+  overflow-x: hidden;
+  /* padding-top: 20px; */
+  border-left: 2px solid #bdc3c7;
+}
 
-        .sidenav a {
-          padding: 6px 8px 6px 16px;
-          text-decoration: none;
-          font-size: 25px;
-          color: #818181;
-          display: block;
-        }
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
 
-        .sidenav a:hover {
-          color: #2c3e50;
-          font-weight:bold;
-          font-size:26px;
-        }
-        .icon{
-            padding-top: 6px;
-            padding-left: 42px;
-          }
-          @media (min-width: 992px) and (max-width: 1199.98px) { 
+.sidenav a:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+}
+.icon{
+    padding-top: 6px;
+    padding-left: 42px;
+  }
+  @media (min-width: 992px) and (max-width: 1199.98px) { 
 
-            .icon{
-              padding-top: 6px;
-              padding-left: 23px;
-            }
-            .sidenav a {
-              font-size: 20px;
+    .icon{
+      padding-top: 6px;
+      padding-left: 23px;
+    }
+    .sidenav a {
+      font-size: 20px;
 
-            }
-          }
-        </style>
+    }
+  }
+</style>
         </head>
 
         <body id="page-top">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="javascript:void(0)">หน้าแรก</a></li>
-          <li class="breadcrumb-item active"><?php echo $array2['menu']['account']['sub'][0][$language]; ?></li>
-        </ol>
           <input class='form-control' type="hidden" style="margin-left:-48px;margin-top:10px;font-size:16px;width:100px;height:30px;text-align:right;padding-top: 15px;" id='IsStatus'>
-
+          <ol class="breadcrumb">
+  
+  <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['account']['title'][$language]; ?></a></li>
+  <li class="breadcrumb-item active"><?php echo $array2['menu']['account']['sub'][0][$language]; ?></li>
+</ol>
           <div id="wrapper">
             <!-- content-wrapper -->
             <div id="content-wrapper">
@@ -1121,10 +1100,12 @@ $array2 = json_decode($json2,TRUE);
                     <div class="tab-content" id="myTabContent">
                       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <!-- /.content-wrapper -->
-                        <div class="row  mt-3">
+                        <div class="row mt-3">
                           <div class="col-md-9"> <!-- tag column 1 -->
+                            <div class="container-fluid">
                               <div class="card-body" style="padding:0px; margin-top:10px;">
-                                <div class="row">
+
+                              <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
@@ -1140,8 +1121,8 @@ $array2 = json_decode($json2,TRUE);
                                     </div>
                                   </div>
                                 </div>
-                                <!-- =================================================================== -->
-                                <div class="row">
+                    <!-- =================================================================== -->
+                    <div class="row">
                                   <div class="col-md-6">
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['docdate'][$language]; ?></label>
@@ -1155,27 +1136,32 @@ $array2 = json_decode($json2,TRUE);
                                     </div>
                                   </div>
                                 </div>
-                                <!-- =================================================================== -->
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
-                                      <input type="text" class="form-control col-sm-7"  name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
-                                    </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <div class='form-group row'>
-                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
-                                        <input type="text" class="form-control col-sm-7" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
-                                    </div>
-                                  </div>
+                    <!-- =================================================================== -->
+
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['employee'][$language]; ?></label>
+                                  <input type="text" class="form-control col-sm-7"  name="searchitem" id="recorder" placeholder="<?php echo $array['employee'][$language]; ?>" >
                                 </div>
-                                <!-- =================================================================== -->
                               </div>
+                              <div class="col-md-6">
+                                <div class='form-group row'>
+                                  <label class="col-sm-4 col-form-label text-right"><?php echo $array['time'][$language]; ?></label>
+                                    <input type="text" class="form-control col-sm-7" name="searchitem" id="timerec" placeholder="<?php echo $array['time'][$language]; ?>" >
+                                </div>
+                              </div>
+                            </div>
+                    <!-- =================================================================== -->
+
+                             
+                    </div>
+                            </div>
                           </div> <!-- tag column 1 -->
                           <div class="col-md-3"> <!-- tag column 2 -->
                             <div class='row' style='margin-left:2px;'>
-                              <input class='form-control' style="margin-left:-48px;margin-top:10px;font-size:60px;width:100%;height:162px;text-align:right;padding-top: 15px;" id='total' placeholder="0.00" >
+                              <input class='form-control'  style="margin-left:-48px;margin-top:10px;font-size:60px;width:100%;height:162px;text-align:right;padding-top: 15px;" id='total' placeholder="0.00" >
                             </div>
 
                           </div> <!-- tag column 2 -->
@@ -1199,8 +1185,8 @@ $array2 = json_decode($json2,TRUE);
                               </tbody>
                             </table>
                           </div> <!-- tag column 1 -->
-                        
-                          <div class="col-md-2" <?php if($PmID == 1) echo 'hidden'; ?>>  <!-- tag column 2 -->
+  <!-- =============================================================================================== -->
+  <div class="col-md-2" <?php if($PmID == 1) echo 'hidden'; ?>>  <!-- tag column 2 -->
                             <!-- button----------------------------------------- -->
                               <div class="sidenav">
                                 <div class="" style="margin-top:5px;">
@@ -1278,6 +1264,7 @@ $array2 = json_decode($json2,TRUE);
                             <!-- end button----------------------------------------- -->
                           </div>
                         </div>
+
                       </div>
                       <!-- search document -->
                       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -1290,7 +1277,7 @@ $array2 = json_decode($json2,TRUE);
                           </div>
                           <div class="col-md-6">
                             <div class="row" style="margin-left:2px;">
-                              <input type="text" class="form-control" style="font-size:24px;width:50%;" name="searchdocument" id="searchdocument" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                              <input type="text" class="form-control" style="font-size:24px;width:50%;" name="searchdocument" id="searchdocument" placeholder="ค้นหารายการ" >
                               <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(0);"><?php echo $array['search'][$language]; ?></button>
                               <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
                             </div>
@@ -1306,8 +1293,8 @@ $array2 = json_decode($json2,TRUE);
                               <thead id="theadsum" style="font-size:24px;">
                                 <tr role="row">
                                   <th style='width: 10%;'nowrap>&nbsp;</th>
-                                  <th style='width: 15%;'nowrap><?php echo $array['docno'][$language]; ?></th>
                                   <th style='width: 15%;'nowrap><?php echo $array['docdate'][$language]; ?></th>
+                                  <th style='width: 15%;'nowrap><?php echo $array['docno'][$language]; ?></th>
                                   <th style='width: 15%;'nowrap><?php echo $array['department'][$language]; ?></th>
                                   <th style='width: 15%;'nowrap><?php echo $array['employee'][$language]; ?></th>
                                   <th style='width: 10%;'nowrap><?php echo $array['time'][$language]; ?></th>
@@ -1325,60 +1312,99 @@ $array2 = json_decode($json2,TRUE);
 
 
                     </div>
-                    <div id="dialogUsageCode" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
+
+                    <!-- /#wrapper -->
+                    <!-- Scroll to Top Button-->
+                    <a class="scroll-to-top rounded" href="#page-top">
+                      <i class="fas fa-angle-up"></i>
+                    </a>
+
+                    <!-- /#wrapper -->
+                    <!-- Scroll to Top Button-->
+                    <a class="scroll-to-top rounded" href="#page-top">
+                      <i class="fas fa-angle-up"></i>
+                    </a>
+
+                    <!-- Dialog Modal
+                    <div id="dialog" title="นำเข้า"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
                       <div class="container">
                         <div class="row">
                           <div class="col-md-10">
-                            <!--
                             <div class="row">
-                            <label><?php echo $array['searchplace'][$language]; ?></label>
-                            <div class="row" style="font-size:16px;margin-left:20px;width:350px;">
-                            <input type="text" class="form-control" style="font-size:24px;width:100%;font-family: 'THSarabunNew'" name="searchitem1" id="searchitem1" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                              <label><?php echo $array['searchplace'][$language]; ?></label>
+                              <div class="row" style="font-size:16px;margin-left:20px;width:350px;">
+                                <input type="text" class="form-control" style="font-size:24px;width:100%;font-family: 'THSarabunNew'" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                              </div>
+
+                              <button type="button" style="font-size:18px;margin-left:30px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
+                            </div>
                           </div>
-                          <button type="button" style="font-size:18px;margin-left:30px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" onclick="ShowUsageCode();"><?php echo $array['search'][$language]; ?></button>
+                          <div class="col-md-1">
+                            <button type="button" style="font-size:18px;margin-left:70px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" name="button" onclick="getImport(1);"><?php echo $array['import'][$language]; ?></button>
+                          </div>
                         </div>
-                      -->
-                    </div>
-                    <div class="col-md-1">
-                      <button type="button" style="font-size:18px;margin-left:70px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" name="button" onclick="getImport(2);"><?php echo $array['import'][$language]; ?></button>
+                        <div class="dropdown-divider" style="margin-top:20px;; margin-bottom:20px;"></div>
+                        <div class="row">
+
+                          <div class="card-body" style="padding:0px;">
+                            <table class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
+                              <thead style="font-size:24px;">
+                                <tr role="row">
+                                  <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                                  <th style='width: 15%;'nowrap><?php echo $array['code'][$language]; ?></th>
+                                  <th style='width: 25%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                                  <th style='width: 20%;'nowrap><center><?php echo $array['unit'][$language]; ?></center></th>
+                                  <th style='width: 15%;'nowrap><center><?php echo $array['numofpiece'][$language]; ?></center></th>
+                                  <th style='width: 15%;'nowrap><center><?php echo $array['weight'][$language]; ?></center></th>
+                                </tr>
+                              </thead>
+                              <tbody id="tbody1_modal" style="font-size:23px;">
+                              </tbody>
+                            </table>
+                          </div>
+                        </div> -->
+
+                        <div id="dialogUsageCode" title="<?php echo $array['import'][$language]; ?>"  style="z-index:999999 !important;font-family: 'THSarabunNew';font-size:24px;">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-md-10">
+                                <!--
+                                <div class="row">
+                                <label><?php echo $array['searchplace'][$language]; ?></label>
+                                <div class="row" style="font-size:16px;margin-left:20px;width:350px;">
+                                <input type="text" class="form-control" style="font-size:24px;width:100%;font-family: 'THSarabunNew'" name="searchitem1" id="searchitem1" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                              </div>
+                              <button type="button" style="font-size:18px;margin-left:30px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" onclick="ShowUsageCode();"><?php echo $array['search'][$language]; ?></button>
+                            </div>
+                          -->
+                        </div>
+                        <div class="col-md-1">
+                          <button type="button" style="font-size:18px;margin-left:70px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" name="button" onclick="getImport(2);"><?php echo $array['import'][$language]; ?></button>
+                        </div>
+                      </div>
+
+                      <div class="dropdown-divider" style="margin-top:20px;; margin-bottom:20px;"></div>
+
+                      <div class="row">
+                        <div class="card-body" style="padding:0px;">
+                          <table class="table table-fixed table-condensed table-striped" id="TableUsageCode" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
+                            <thead style="font-size:24px;">
+                              <tr role="row">
+                                <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
+                                <th style='width: 20%;'nowrap><?php echo $array['rfid'][$language]; ?></th>
+                                <th style='width: 40%;'nowrap><?php echo $array['item'][$language]; ?></th>
+                                <th style='width: 15%;'nowrap><?php echo $array['unit'][$language]; ?></th>
+                                <th style='width: 15%;'nowrap><?php echo $array['numofpiece'][$language]; ?></th>
+                              </tr>
+                            </thead>
+                            <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
                   </div>
-
-                  <div class="dropdown-divider" style="margin-top:20px;; margin-bottom:20px;"></div>
-
-                  <div class="row">
-                    <div class="card-body" style="padding:0px;">
-                      <table class="table table-fixed table-condensed table-striped" id="TableUsageCode" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
-                        <thead style="font-size:24px;">
-                          <tr role="row">
-                            <th style='width: 10%;'nowrap><?php echo $array['no'][$language]; ?></th>
-                            <th style='width: 20%;'nowrap><?php echo $array['rfid'][$language]; ?></th>
-                            <th style='width: 40%;'nowrap><?php echo $array['item'][$language]; ?></th>
-                            <th style='width: 15%;'nowrap><?php echo $array['unit'][$language]; ?></th>
-                            <th style='width: 15%;'nowrap><?php echo $array['numofpiece'][$language]; ?></th>
-                          </tr>
-                        </thead>
-                        <tbody id="tbody1_modal" class="nicescrolled" style="font-size:23px;height:300px;">
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-                    <!-- /#wrapper -->
-                    <!-- Scroll to Top Button-->
-                    <a class="scroll-to-top rounded" href="#page-top">
-                      <i class="fas fa-angle-up"></i>
-                    </a>
-
-                    <!-- /#wrapper -->
-                    <!-- Scroll to Top Button-->
-                    <a class="scroll-to-top rounded" href="#page-top">
-                      <i class="fas fa-angle-up"></i>
-                    </a>
-
-          <!-- -----------------------------Custom1------------------------------------ -->
+                    <!-- -----------------------------Custom1------------------------------------ -->
  <div class="modal" id="dialogItemCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -1422,23 +1448,23 @@ $array2 = json_decode($json2,TRUE);
       </div>
     </div>
   </div>
-                        <!-- Bootstrap core JavaScript-->
-                        <script src="../template/vendor/jquery/jquery.min.js"></script>
-                        <script src="../template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                  <!-- Bootstrap core JavaScript-->
+                  <script src="../template/vendor/jquery/jquery.min.js"></script>
+                  <script src="../template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-                        <!-- Core plugin JavaScript-->
-                        <script src="../template/vendor/jquery-easing/jquery.easing.min.js"></script>
+                  <!-- Core plugin JavaScript-->
+                  <script src="../template/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-                        <!-- Page level plugin JavaScript-->
-                        <script src="../template/vendor/datatables/jquery.dataTables.js"></script>
-                        <script src="../template/vendor/datatables/dataTables.bootstrap4.js"></script>
+                  <!-- Page level plugin JavaScript-->
+                  <script src="../template/vendor/datatables/jquery.dataTables.js"></script>
+                  <script src="../template/vendor/datatables/dataTables.bootstrap4.js"></script>
 
-                        <!-- Custom scripts for all pages-->
-                        <script src="../template/js/sb-admin.min.js"></script>
+                  <!-- Custom scripts for all pages-->
+                  <script src="../template/js/sb-admin.min.js"></script>
 
-                        <!-- Demo scripts for this page-->
-                        <script src="../template/js/demo/datatables-demo.js"></script>
+                  <!-- Demo scripts for this page-->
+                  <script src="../template/js/demo/datatables-demo.js"></script>
 
-                      </body>
+                </body>
 
-                      </html>
+                </html>

@@ -40,7 +40,7 @@ $array2 = json_decode($json2,TRUE);
 
   <link rel="icon" type="image/png" href="../img/pose_favicon.png">
   <!-- Bootstrap core CSS-->
-  <link href="../template/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="../template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../bootstrap/css/tbody.css" rel="stylesheet">
   <link href="../bootstrap/css/myinput.css" rel="stylesheet">
 
@@ -1207,7 +1207,7 @@ $array2 = json_decode($json2,TRUE);
 
 <body id="page-top">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="javascript:void(0)">หน้าแรก</a></li>
+  <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['general']['title'][$language]; ?></a></li>
     <li class="breadcrumb-item active"><?php echo $array2['menu']['general']['sub'][1][$language]; ?></li>
   </ol>
 

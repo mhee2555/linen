@@ -54,9 +54,9 @@ switch ($PmID) {
         $sys_s7=1;
         $sys_s8=0;
         $sys_s9=0;
-        $sys_s10=0;
+        $sys_s10=1;
         $sys_s11=1;
-        $sys_s12=0;
+        $sys_s12=1;
         $sys_s13=0;
         $sys_s14=1;
         break;
@@ -85,8 +85,8 @@ switch ($PmID) {
         $fac_s1=0;
         $fac_s2=0;
         //report
-        $re_s1=1;
-        $re_head=1;
+        $re_s1=0;
+        $re_head=0;
         //system
         $sys_head=1;
         $sys_s1=0;
@@ -113,7 +113,7 @@ switch ($PmID) {
         $gen_s4=1;
         $gen_s5=1;
         $gen_s6=1;
-        $gen_s7=1;
+        $gen_s7=0;
         $gen_s8=1;
         $gen_s9=1;
         $gen_s10=1;
@@ -125,12 +125,12 @@ switch ($PmID) {
         $ac_s4=1;
         $ac_s5=1;
         //factory
-        $fac_head=1;
-        $fac_s1=1;
-        $fac_s2=1;
+        $fac_head=0;
+        $fac_s1=0;
+        $fac_s2=0;
         //report
-        $re_head=1;
-        $re_s1=1;
+        $re_head=0;
+        $re_s1=0;
         //system
         $sys_head=1;
         $sys_s1=1;
@@ -144,7 +144,7 @@ switch ($PmID) {
         $sys_s9=0;
         $sys_s10=0;
         $sys_s11=0;
-        $sys_s12=0;
+        $sys_s12=1;
         $sys_s13=0;
         $sys_s14=1;
         break;
@@ -159,8 +159,8 @@ switch ($PmID) {
         $gen_s6=0;
         $gen_s7=0;
         $gen_s8=0;
-        $gen_s9=1;
-        $gen_s10=1;
+        $gen_s9=0;
+        $gen_s10=0;
         //account
         $ac_head=1;
         $ac_s1=0;
@@ -176,7 +176,7 @@ switch ($PmID) {
         $re_head=0;
         $re_s1=0;
         //system
-        $sys_head=1;
+        $sys_head=0;
         $sys_s1=0;
         $sys_s2=0;
         $sys_s3=0;
@@ -184,8 +184,8 @@ switch ($PmID) {
         $sys_s5=0;
         $sys_s6=0;
         $sys_s7=0;
-        $sys_s8=1;
-        $sys_s9=1;
+        $sys_s8=0;
+        $sys_s9=0;
         $sys_s10=0;
         $sys_s11=0;
         $sys_s12=0;
@@ -220,7 +220,7 @@ switch ($PmID) {
         $re_head=0;
         $re_s1=0;
         //system
-        $sys_head=1;
+        $sys_head=0;
         $sys_s1=0;
         $sys_s2=0;
         $sys_s3=0;
@@ -228,8 +228,8 @@ switch ($PmID) {
         $sys_s5=0;
         $sys_s6=0;
         $sys_s7=0;
-        $sys_s8=1;
-        $sys_s9=1;
+        $sys_s8=0;
+        $sys_s9=0;
         $sys_s10=0;
         $sys_s11=0;
         $sys_s12=0;

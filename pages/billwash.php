@@ -1077,9 +1077,10 @@ body{
         <body id="page-top">
           <input class='form-control' type="hidden" style="margin-left:-48px;margin-top:10px;font-size:16px;width:100px;height:30px;text-align:right;padding-top: 15px;" id='IsStatus'>
           <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="javascript:void(0)">หน้าแรก</a></li>
-          <li class="breadcrumb-item active"><?php echo $array2['menu']['account']['sub'][2][$language]; ?></li>
-        </ol>
+  
+  <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['account']['title'][$language]; ?></a></li>
+  <li class="breadcrumb-item active"><?php echo $array2['menu']['account']['sub'][2][$language]; ?></li>
+</ol>
           <div id="wrapper">
             <!-- content-wrapper -->
             <div id="content-wrapper">

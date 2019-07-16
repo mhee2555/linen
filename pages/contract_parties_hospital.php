@@ -13,10 +13,14 @@ if(empty($_SESSION['lang'])){
 
 }
 
+
 header ('Content-type: text/html; charset=utf-8');
 $xml = simplexml_load_file('../xml/general_lang.xml');
+$xml2 = simplexml_load_file('../xml/main_lang.xml');
 $json = json_encode($xml);
 $array = json_decode($json,TRUE);
+$json2 = json_encode($xml2);
+$array2 = json_decode($json2,TRUE);
  ?>
 
 <!DOCTYPE html>
@@ -284,9 +288,9 @@ $array = json_decode($json,TRUE);
                           var days = Math.round(diff/1000/60/60/24);
 
 												  if(days <= 30){
-													   Style  = "style='font-weight: bold;color: #ff0000;'";
+													   Style  = "style='font-weight: bold;color: #ff0000;border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;''";
 												   }else{
-													   Style  = "style='color: #1e1e2f;'";
+													   Style  = "style='color: #1e1e2f;border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;''";
 												   }
 
 												   $StrTr="<tr "+Style+" id='tr"+temp[i]['RowID']+"' onclick='getRow( "+temp[i]['RowID']+" )'>"+
@@ -401,68 +405,120 @@ $array = json_decode($json,TRUE);
     </script>
     <style media="screen">
 
-		body{
-		   font-family: 'THSarabunNew';
-		   font-size:22px;
-		}
+@font-face {
+    font-family: myFirstFont;
+    src: url("../fonts/DB Helvethaica X.ttf");
+    }
+body{
+  font-family: myFirstFont;
+  font-size:22px;
+}
 
-		.nfont{
-		   font-family: 'THSarabunNew';
-		   font-size:22px;
-		}
-    button,input[id^='qty'],input[id^='weight'],input[id^='price']{
-      font-size: 24px!important;
-    }
-    .table > thead > tr >th {
-      background: #4f88e3!important;
-    }
+.nfont{
+  font-family: myFirstFont;
+  font-size:22px;
+}
+  button,input[id^='qty'],input[id^='weight'],input[id^='price']{
+    font-size: 24px!important;
+  }
+  .table > thead > tr >th {
+    /* background: #4f88e3!important; */
+    background-color: #1659a2;
+  }
+  .table th, .table td {
+      border-top: none !important;
+  }
 
-    table tr th,
-    table tr td {
-      border-right: 0px solid #bbb;
-      border-bottom: 0px solid #bbb;
-      padding: 5px;
-    }
-    table tr th:first-child,
-    table tr td:first-child {
-      border-left: 0px solid #bbb;
-    }
-    table tr th {
-      background: #eee;
-      border-top: 0px solid #bbb;
-      text-align: left;
-    }
+  table tr th,
+  table tr td {
+    border-right: 0px solid #bbb;
+    border-bottom: 0px solid #bbb;
+    padding: 5px;
+  }
+  table tr th:first-child,
+  table tr td:first-child {
+    border-left: 0px solid #bbb;
+  }
+  table tr th {
+    background: #eee;
+    /* border-top: 0px solid #bbb; */
+    text-align: left;
+  }
+  /* top-left border-radius */
+  table tr:first-child th:first-child {
+    border-top-left-radius: 15px;
+  }
+  table tr:first-child th:first-child {
+    border-bottom-left-radius: 15px;
+  }
 
-    /* top-left border-radius */
-    table tr:first-child th:first-child {
-      border-top-left-radius: 6px;
-    }
+  /* top-right border-radius */
+  table tr:first-child th:last-child {
+    border-top-right-radius: 15px;
+  }
+  table tr:first-child th:last-child {
+    border-bottom-right-radius: 15px;
+  }
 
-    /* top-right border-radius */
-    table tr:first-child th:last-child {
-      border-top-right-radius: 6px;
-    }
+  /* bottom-left border-radius */
+  table tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+  }
 
-    /* bottom-left border-radius */
-    table tr:last-child td:first-child {
-      border-bottom-left-radius: 6px;
-    }
+  /* bottom-right border-radius */
+  table tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+  }
+  a.nav-link{
+    width:auto!important;
+  }
+  .datepicker{z-index:9999 !important}
+  .hidden{visibility: hidden;}
+  .sidenav {
+  height: 100%;
+  overflow-x: hidden;
+  /* padding-top: 20px; */
+  border-left: 2px solid #bdc3c7;
+}
 
-    /* bottom-right border-radius */
-    table tr:last-child td:last-child {
-      border-bottom-right-radius: 6px;
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+}
+.icon{
+    padding-top: 6px;
+    padding-left: 33px;
+  }
+  @media (min-width: 992px) and (max-width: 1199.98px) { 
+
+    .icon{
+      padding-top: 6px;
+      padding-left: 23px;
     }
-		a.nav-link{
-			width:auto!important;
-		}
-       .datepicker{z-index:9999 !important}
-       .hidden{visibility: hidden;}
-    </style>
+    .sidenav a {
+      font-size: 20px;
+
+    }
+  }
+</style>
   </head>
 
   <body id="page-top">
   <input class='form-control' type="hidden" style="margin-left:-48px;margin-top:10px;font-size:16px;width:100px;height:30px;text-align:right;padding-top: 15px;" id='IsStatus'>
-
+  <ol class="breadcrumb">
+  
+          <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['account']['title'][$language]; ?></a></li>
+          <li class="breadcrumb-item active"><?php echo $array2['menu']['account']['sub'][4][$language]; ?></li>
+        </ol>
     <div id="wrapper">
       <!-- content-wrapper -->
       <div id="content-wrapper">
@@ -569,21 +625,51 @@ $array = json_decode($json,TRUE);
 </div>
 
 
-<div class="col-md-2">
+<!-- =============================================================================================== -->
+<div class="sidenav" style=" margin-left: 92px;margin-top: 33px;">
+              <div class="" style="margin-top:5px;">
+                <div class="card-body" style="padding:0px; margin-top:10px;">
+<!-- =============================================================================================== -->
 
-          <div class="row" style="margin-top:30px">
-                    <button type="button" style="font-size:18px;margin-left:10px; width:100px;font-family: 'THSarabunNew'" class="btn btn-success" name="button" onclick="SaveRow();"><?php echo $array['save'][$language]; ?></button>
+                                    <div class="row" style="margin-top:0px;">
+                                      <div class="col-md-3 icon" >
+                                        <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
+                                      </div>
+                                      <div class="col-md-9">
+                                        <a href='javascript:void(0)' onclick="SaveRow()" id="bSave">
+                                          <?php echo $array['save'][$language]; ?>
+                                        </a>
+                                      </div>
+                                    </div>
+        
+<!-- =============================================================================================== -->
+<div class="row" style="margin-top:0px;">
+                                      <div class="col-md-3 icon" >
+                                        <img src="../img/icon/i_clean.png" style='width:40px;' class='mr-3'>
+                                      </div>
+                                      <div class="col-md-9">
+                                        <a href='javascript:void(0)' onclick="ClearRow()" id="bDelete">
+                                          <?php echo $array['clear'][$language]; ?>
+                                        </a>
+                                      </div>
+                                    </div>
+<!-- =============================================================================================== -->
+          <div class="row" style="margin-top:0px;">
+                                      <div class="col-md-3 icon" >
+                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
+                                      </div>
+                                      <div class="col-md-9">
+                                        <a href='javascript:void(0)' onclick="CancelRow()" id="bCancel">
+                                          <?php echo $array['cancel'][$language]; ?>
+                                        </a>
+                                      </div>
+                                    </div>
+<!-- =============================================================================================== -->
+              </div>
+            </div>
           </div>
+<!-- =============================================================================================== -->
 
-          <div class="row" style="margin-top:3px">
-                    <button type="button" style="font-size:18px;margin-left:10px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" name="button" onclick="ClearRow();"><?php echo $array['clear'][$language]; ?></button>
-          </div>
-
-          <div class="row" style="margin-top:3px">
-                    <button type="button" style="font-size:18px;margin-left:10px; width:100px;font-family: 'THSarabunNew'" class="btn btn-danger" name="button" onclick="CancelRow();"><?php echo $array['cancel'][$language]; ?></button>
-          </div>
-
-</div>
 
 </div> <!-- end row tab -->
 

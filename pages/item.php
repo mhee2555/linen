@@ -15,8 +15,11 @@ if(empty($_SESSION['lang'])){
 
 header ('Content-type: text/html; charset=utf-8');
 $xml = simplexml_load_file('../xml/general_lang.xml');
+$xml2 = simplexml_load_file('../xml/main_lang.xml');
 $json = json_encode($xml);
 $array = json_decode($json,TRUE);
+$json2 = json_encode($xml2);
+$array2 = json_decode($json2,TRUE);
  ?>
 
 <!DOCTYPE html>
@@ -1267,9 +1270,8 @@ var isChecked2 = false;
     }
 
     </script>
-    <style media="screen">
-
-@font-face {
+   <style media="screen">
+    @font-face {
             font-family: myFirstFont;
             src: url("../fonts/DB Helvethaica X.ttf");
             }
@@ -1289,7 +1291,7 @@ var isChecked2 = false;
       font-size:24px!important;
     }
     .table > thead > tr >th {
-      background: #4f88e3!important;
+      background-color: #1659a2;
     }
 
     table tr th,
@@ -1310,36 +1312,85 @@ var isChecked2 = false;
 
     /* top-left border-radius */
     table tr:first-child th:first-child {
-      border-top-left-radius: 6px;
-    }
+    border-top-left-radius: 15px;
+  }
+  table tr:first-child th:first-child {
+    border-bottom-left-radius: 15px;
+  }
 
-    /* top-right border-radius */
-    table tr:first-child th:last-child {
-      border-top-right-radius: 6px;
-    }
+  /* top-right border-radius */
+  table tr:first-child th:last-child {
+    border-top-right-radius: 15px;
+  }
+  table tr:first-child th:last-child {
+    border-bottom-right-radius: 15px;
+  }
 
-    /* bottom-left border-radius */
-    table tr:last-child td:first-child {
-      border-bottom-left-radius: 6px;
-    }
+  /* bottom-left border-radius */
+  table tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+  }
 
-    /* bottom-right border-radius */
-    table tr:last-child td:last-child {
-      border-bottom-right-radius: 6px;
-    }
-    button{
+  /* bottom-right border-radius */
+  table tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+  }
+  button{
       font-size: 24px!important;
     }
+  a.nav-link{
+    width:auto!important;
+  }
+  .datepicker{z-index:9999 !important}
+  .hidden{visibility: hidden;}
+  
+  .sidenav {
+  height: 100%;
+  overflow-x: hidden;
+  /* padding-top: 20px; */
+  border-left: 2px solid #bdc3c7;
+}
 
-		a.nav-link{
-			width:auto!important;
-		}
-       .datepicker{z-index:9999 !important}
-       .hidden{visibility: hidden;}
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+}
+.icon{
+    padding-top: 6px;
+    padding-left: 33px;
+  }
+  @media (min-width: 992px) and (max-width: 1199.98px) { 
+
+    .icon{
+      padding-top: 6px;
+      padding-left: 23px;
+    }
+    .sidenav{
+      margin-left:30px;
+    }
+    .sidenav a {
+      font-size: 20px;
+
+    }
+  }
     </style>
   </head>
 
   <body id="page-top">
+  <ol class="breadcrumb">
+  
+  <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['system']['title'][$language]; ?></a></li>
+  <li class="breadcrumb-item active"><?php echo $array2['menu']['system']['sub'][3][$language]; ?></li>
+</ol>
     <div id="wrapper">
       <!-- content-wrapper -->
       <div id="content-wrapper">
@@ -1577,11 +1628,11 @@ var isChecked2 = false;
                   <div class="container-fluid">
                     <div class="card-body" style="padding:0px; margin-top:10px;">
                         <div class="row">
-                                      <div style="margin-left:20px;width:50px;">
+                                      <div style="margin-left:20px;width:60px;">
                         <label><?php echo $array['unit'][$language]; ?></label>
                                       </div>
                                       <div style="width:160px;">
-                                          <div style="font-size:24px;width:160px;">
+                                          <div style="font-size:24px;width:130px;">
                                             <select class="form-control" style="font-size:24px;" id="Unitshows" disabled>
                                             </select>
                                           </div>
@@ -1599,8 +1650,8 @@ var isChecked2 = false;
 												<label><?php echo $array['multiply'][$language]; ?></label>
                                       </div>
                                        <input type="text" class="form-control numonly" style="font-size:24px;width:80px;" name="mulinput" id="mulinput" placeholder="0.00" >
-                                       <button style="margin-left:20px;width:65px;" type="button" class="btn btn-success" onclick="AddUnit();"><?php echo $array['save'][$language]; ?></button>
-                                       <button style="margin-left:10px;width:65px;" type="button" class="btn btn-danger" onclick="DeleteUnit();"><?php echo $array['delete'][$language]; ?></button>
+                                       <button style="margin-left:11px;width:60px;" type="button" class="btn btn-success" onclick="AddUnit();"><?php echo $array['save'][$language]; ?></button>
+                                       <button style="margin-left:4px;width:50px;" type="button" class="btn btn-danger" onclick="DeleteUnit();"><?php echo $array['delete'][$language]; ?></button>
                         			  </div>
                     </div>
                   </div>
@@ -1626,50 +1677,63 @@ var isChecked2 = false;
                       </div>
 				</div>
 </div>
-<div class="col-md-1" > <!-- tag column 2 -->
 
-                  <div class="container-fluid" style="margin-top:50px;">
-                    <div class="card-body" style="padding:0px; margin-top:10px;">
-                      <div class="row" style="margin-top:2px;">
-                                      <div class="col-md-1">
-                                        <div class="row" style="margin-left:2px;">
-											<div class="row" style="margin-left:30px;">
-                                          		<button style="width:105px"; type="button" id="NewItem" class="btn btn-primary" onclick="NewItem()"><?php echo $array['itemnew'][$language]; ?></button>
-                                        	</div>
-                                        </div>
+<!-- =============================================================================================== -->
+<div class="sidenav" style=" margin-left: 0px;margin-top: 73px;">
+              <div class="" style="margin-top:5px;">
+                <div class="card-body" style="padding:0px; margin-top:10px;">
+<!-- =============================================================================================== -->
+<div class="row" style="margin-top:0px;">
+                                      <div class="col-md-3 icon" >
+                                        <img src="../img/icon/i_listnew.png" style='width:36px;' class='mr-3'>
                                       </div>
-                        </div>
-                        <div class="row" style="margin-top:2px;">
-                                      <div class="col-md-1">
-                                        <div class="row" style="margin-left:2px;">
-											<div class="row" style="margin-left:30px;">
-                                          		<button style="width:105px"; type="button" class="btn btn-success" onclick="AddItem()"><?php echo $array['save'][$language]; ?></button>
-                                        	</div>
-                                        </div>
+                                      <div class="col-md-9">
+                                        <a href='javascript:void(0)' onclick="NewItem()" id="bSave">
+                                          <?php echo $array['itemnew'][$language]; ?>
+                                        </a>
                                       </div>
-                        </div>
-                        <div class="row" style="margin-top:2px;">
-                                      <div class="col-md-1">
-                                        <div class="row" style="margin-left:2px;">
-											<div class="row" style="margin-left:30px;">
-                                          		<button style="width:105px"; type="button" class="btn btn-info" onclick="Blankinput();"><?php echo $array['clear'][$language]; ?></button>
-                                        	</div>
-                                        </div>
-                                      </div>
-                        </div>
-                        <div class="row" style="margin-top:2px;">
-                                      <div class="col-md-1">
-                                        <div class="row" style="margin-left:2px;">
-											<div class="row" style="margin-left:30px;">
-                                          		<button style="width:105px"; type="button" class="btn btn-danger" onclick="CancelItem();"><?php echo $array['cancel'][$language]; ?></button>
-                                        	</div>
-                                        </div>
-                                      </div>
-                        </div>
-                    </div>
-                  </div>
+                                    </div>
+<!-- =============================================================================================== -->
 
-</div>
+                                    <div class="row" style="margin-top:0px;">
+                                      <div class="col-md-3 icon" >
+                                        <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
+                                      </div>
+                                      <div class="col-md-9">
+                                        <a href='javascript:void(0)' onclick="AddItem()" id="bSave">
+                                          <?php echo $array['save'][$language]; ?>
+                                        </a>
+                                      </div>
+                                    </div>
+        
+<!-- =============================================================================================== -->
+<div class="row" style="margin-top:0px;">
+                                      <div class="col-md-3 icon" >
+                                        <img src="../img/icon/i_clean.png" style='width:40px;' class='mr-3'>
+                                      </div>
+                                      <div class="col-md-9">
+                                        <a href='javascript:void(0)' onclick="Blankinput()" id="bDelete">
+                                          <?php echo $array['clear'][$language]; ?>
+                                        </a>
+                                      </div>
+                                    </div>
+<!-- =============================================================================================== -->
+          <div class="row" style="margin-top:0px;">
+                                      <div class="col-md-3 icon" >
+                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
+                                      </div>
+                                      <div class="col-md-9">
+                                        <a href='javascript:void(0)' onclick="CancelItem()" id="bCancel">
+                                          <?php echo $array['cancel'][$language]; ?>
+                                        </a>
+                                      </div>
+                                    </div>
+<!-- =============================================================================================== -->
+              </div>
+            </div>
+          </div>
+<!-- =============================================================================================== -->
+
     </div> <!-- end row tab -->
 
 

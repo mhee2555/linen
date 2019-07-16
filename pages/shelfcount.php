@@ -44,7 +44,7 @@ $array2 = json_decode($json2,TRUE);
   <!-- <link href="../fontawesome/css/fontawesome.min.css" rel="stylesheet"> -->
   <link href="../template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-  <link href="../template/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="../template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../bootstrap/css/tbody.css" rel="stylesheet">
   <link href="../bootstrap/css/myinput.css" rel="stylesheet">
   <!-- Page level plugin CSS-->
@@ -1447,7 +1447,7 @@ $array2 = json_decode($json2,TRUE);
 
 <body id="page-top">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="javascript:void(0)">หน้าแรก</a></li>
+  <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['general']['title'][$language]; ?></a></li>
     <li class="breadcrumb-item active"><?php echo $array2['menu']['general']['sub'][3][$language]; ?></li>
   </ol>
   <hr style='width: 98%;height:1px;background-color: #ecf0f1;'>
