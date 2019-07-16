@@ -87,6 +87,7 @@ $array2 = json_decode($json2,TRUE);
             getHotpital();
             getCategoryMain();
             getCategorySub(1);
+            getDate_price();
             var HptCode = $('#hptsel').val();
             var data = {
                 'STATUS': 'ShowItem1',
@@ -284,16 +285,16 @@ $array2 = json_decode($json2,TRUE);
         }
 
         function onCreate() {
-            var xDate = $('#datepicker').val();
+            // var xDate = $('#datepicker').val();
             var HptCode = $("#hptsel1").val();
+            xDate = $("#startDate").val();
 
             if(xDate==""){
                 $('#rem').show(5).css("color","red");
             }else{
                 $('#rem').hide();
                 /* we join the array separated by the comma */
-                xDate = xDate.substr(6,4)+"-"+xDate.substr(3,2)+"-"+xDate.substr(0,2);
-
+                // xDate = xDate.substr(6,4)+"-"+xDate.substr(3,2)+"-"+xDate.substr(0,2);
                 var data = {
                     'STATUS' : 'CreateDoc',
                     'Price' : Price,
@@ -537,6 +538,18 @@ $array2 = json_decode($json2,TRUE);
             })
         }
 
+        function getDate_price()
+        {
+            var HptCode = $('#hptsel1').val();
+            var data = 
+            {
+                'STATUS': 'getDate_price',
+                'HptCode': HptCode
+            }
+            senddata(JSON.stringify(data));
+
+        }
+
         function senddata(data) {
             var form_data = new FormData();
             form_data.append("DATA", data);
@@ -747,6 +760,19 @@ $array2 = json_decode($json2,TRUE);
                                   $("#Category_Sub").append(StrTr);
                                   $("#Category_Sub1").append(StrTr);
                               }
+                        } else if ((temp["form"] == 'getDate_price')) {
+                            if(temp['StartDate']==null || temp['StartDate']==''){
+                                $("#startDate").val("");
+
+                                $('#create1').attr('disabled',true);
+                                $('#btn_save').attr('disabled',true);
+                            }else{
+                                $("#startDate").val("");
+                                $("#startDate").val(temp['StartDate']);
+
+                                $('#create1').attr('disabled',false);
+                                $('#btn_save').attr('disabled',false);
+                            }
                         }
 
                     } else if (temp['status'] == "failed") {
@@ -825,117 +851,117 @@ $array2 = json_decode($json2,TRUE);
         }
     </script>
     <style media="screen">
-    @font-face {
-            font-family: myFirstFont;
-            src: url("../fonts/DB Helvethaica X.ttf");
+            @font-face {
+                    font-family: myFirstFont;
+                    src: url("../fonts/DB Helvethaica X.ttf");
+                    }
+                body{
+                font-family: myFirstFont;
+                font-size:22px;
+                }
+
+                .nfont{
+                font-family: myFirstFont;
+                font-size:22px;
+                }
+            input,select{
+            font-size:24px!important;
             }
-        body{
-          font-family: myFirstFont;
-          font-size:22px;
+            th,td{
+            font-size:24px!important;
+            }
+            .table > thead > tr >th {
+            background-color: #1659a2;
+            }
+
+            table tr th,
+            table tr td {
+            border-right: 0px solid #bbb;
+            border-bottom: 0px solid #bbb;
+            padding: 5px;
+            }
+            table tr th:first-child,
+            table tr td:first-child {
+            border-left: 0px solid #bbb;
+            }
+            table tr th {
+            background: #eee;
+            border-top: 0px solid #bbb;
+            text-align: left;
+            }
+
+            /* top-left border-radius */
+            table tr:first-child th:first-child {
+            border-top-left-radius: 15px;
+        }
+        table tr:first-child th:first-child {
+            border-bottom-left-radius: 15px;
         }
 
-        .nfont{
-          font-family: myFirstFont;
-          font-size:22px;
+        /* top-right border-radius */
+        table tr:first-child th:last-child {
+            border-top-right-radius: 15px;
         }
-    input,select{
-      font-size:24px!important;
-    }
-    th,td{
-      font-size:24px!important;
-    }
-    .table > thead > tr >th {
-      background-color: #1659a2;
-    }
+        table tr:first-child th:last-child {
+            border-bottom-right-radius: 15px;
+        }
 
-    table tr th,
-    table tr td {
-      border-right: 0px solid #bbb;
-      border-bottom: 0px solid #bbb;
-      padding: 5px;
-    }
-    table tr th:first-child,
-    table tr td:first-child {
-      border-left: 0px solid #bbb;
-    }
-    table tr th {
-      background: #eee;
-      border-top: 0px solid #bbb;
-      text-align: left;
-    }
+        /* bottom-left border-radius */
+        table tr:last-child td:first-child {
+            border-bottom-left-radius: 6px;
+        }
 
-    /* top-left border-radius */
-    table tr:first-child th:first-child {
-    border-top-left-radius: 15px;
-  }
-  table tr:first-child th:first-child {
-    border-bottom-left-radius: 15px;
-  }
+        /* bottom-right border-radius */
+        table tr:last-child td:last-child {
+            border-bottom-right-radius: 6px;
+        }
+        button{
+            font-size: 24px!important;
+            }
+        a.nav-link{
+            width:auto!important;
+        }
+        .datepicker{z-index:9999 !important}
+        .hidden{visibility: hidden;}
+        
+        .sidenav {
+        height: 100%;
+        overflow-x: hidden;
+        /* padding-top: 20px; */
+        border-left: 2px solid #bdc3c7;
+        }
 
-  /* top-right border-radius */
-  table tr:first-child th:last-child {
-    border-top-right-radius: 15px;
-  }
-  table tr:first-child th:last-child {
-    border-bottom-right-radius: 15px;
-  }
+        .sidenav a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        }
 
-  /* bottom-left border-radius */
-  table tr:last-child td:first-child {
-    border-bottom-left-radius: 6px;
-  }
+        .sidenav a:hover {
+        color: #2c3e50;
+        font-weight:bold;
+        font-size:26px;
+        }
+        .icon{
+            padding-top: 6px;
+            padding-left: 33px;
+        }
+        @media (min-width: 992px) and (max-width: 1199.98px) { 
 
-  /* bottom-right border-radius */
-  table tr:last-child td:last-child {
-    border-bottom-right-radius: 6px;
-  }
-  button{
-      font-size: 24px!important;
-    }
-  a.nav-link{
-    width:auto!important;
-  }
-  .datepicker{z-index:9999 !important}
-  .hidden{visibility: hidden;}
-  
-  .sidenav {
-  height: 100%;
-  overflow-x: hidden;
-  /* padding-top: 20px; */
-  border-left: 2px solid #bdc3c7;
-}
+            .icon{
+            padding-top: 6px;
+            padding-left: 23px;
+            }
+            .sidenav{
+            margin-left:30px;
+            }
+            .sidenav a {
+            font-size: 20px;
 
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-}
-
-.sidenav a:hover {
-  color: #2c3e50;
-  font-weight:bold;
-  font-size:26px;
-}
-.icon{
-    padding-top: 6px;
-    padding-left: 33px;
-  }
-  @media (min-width: 992px) and (max-width: 1199.98px) { 
-
-    .icon{
-      padding-top: 6px;
-      padding-left: 23px;
-    }
-    .sidenav{
-      margin-left:30px;
-    }
-    .sidenav a {
-      font-size: 20px;
-
-    }
-  }
+            }
+        }
     </style>
 </head>
 
@@ -1218,15 +1244,15 @@ $array2 = json_decode($json2,TRUE);
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row mb-3">
-                                <select class="form-control ml-5" style="font-family: 'THSarabunNew';font-size:22px;width:250px;" id="hptsel1"></select>
+                                <select class="form-control ml-5" style="font-family: 'THSarabunNew';font-size:22px;width:250px;" id="hptsel1" onchange="getDate_price();"></select>
 
                                 <label id="rem" style="margin-left:20px;"> *** </label>
-                                <input type="text" class="form-control datepicker-here" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" id="datepicker" data-language='en' data-date-format='dd/mm/yyyy' placeholder="<?php echo $array['datepicker'][$language]; ?>">
+                                <input type="text" class="form-control datepicker-here" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" id="startDate">
                                 <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" name="docno" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
 
-                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" id="create1" name="button" onclick="onCreate();"><?php echo $array['createdocno'][$language]; ?></button>
-                                <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search1"  id="search1" onKeyPress='if(event.keyCode==13){ShowItem2()}' placeholder="<?php echo $array['search'][$language]; ?>" >
-                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" onclick="UpdatePrice();"><?php echo $array['saveprice'][$language]; ?></button>
+                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" id="create1" disabled="true" name="button" onclick="onCreate();"><?php echo $array['createdocno'][$language]; ?></button>
+                                <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search1"   id="search1" onKeyPress='if(event.keyCode==13){ShowItem2()}' placeholder="<?php echo $array['search'][$language]; ?>" >
+                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" id="btn_save" disabled="true" onclick="UpdatePrice();"><?php echo $array['saveprice'][$language]; ?></button>
                             </div>
                         </div>
                     </div>

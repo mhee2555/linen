@@ -218,48 +218,28 @@ $array = json_decode($json,TRUE);
             var result = '<table class="table table-fixed table-condensed table-striped">';
             var PmID = <?php echo $PmID; ?>;
             if(temp['countRow']==1){
-              if(PmID == 1){
-                  for (var i = 0; i < temp['countRow']; i++) {
-                      result += "<tr class='text-left'>"+
-                      '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
-                      '<td nowrap style="width: 26%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
-                      '<td nowrap style="width: 30%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
-                      '<td nowrap style="width: 20%;">วันที่: '+temp[i]['newDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
-                    "</tr>";
-                  }
-              }else{
-                for (var i = 0; i < temp['countRow']; i++) {
-                  result += "<tr class='text-left'>"+
-                      // '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
-                      '<td nowrap style="width: 26%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
-                      '<td nowrap style="width: 30%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
-                      // '<td nowrap style="width: 18%;">หมวดหมู่: '+temp[i]['CategoryName']+'</td>'+
-                      '<td nowrap style="width: 20%;">วันที่: '+temp[i]['newDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
-                    "</tr>";
-                }
-              }
+             
+                result += "<tr class='text-left'>"+
+                  // '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
+                  '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
+                  '<td nowrap style="width: 40%;">วันที่ทำสัญญา: '+temp[i]['StartDate']+'</td>'+
+                  '<td nowrap style="width: 40%;">วันที่สิ้นสุดสัญญา: '+temp[i]['EndDate']+'</td>'+
+                  '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
+                  '<td nowrap style="width: 20%;">เปลี่ยนราคาวันที่: '+temp[i]['EndDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
+                "</tr>";
+              
               $("#result_alert").append(result);
               $("#alert_SetPrice").modal('show');
             }else if(temp['countRow']>1){
-              if(PmID == 1){
-                for (var i = 0; i < temp['countRow']; i++) {
-                    result += "<tr class='text-left'>"+
-                    '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
-                    '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
-                    '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
-                    '<td nowrap style="width: 20%;">วันที่: '+temp[i]['newDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
-                  "</tr>";
-                }
-              }else{
-                for (var i = 0; i < temp['countRow']; i++) {
+              for (var i = 0; i < temp['countRow']; i++) {
                   result += "<tr class='text-left'>"+
-                      '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
-                      '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
-                      '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
-                      // '<td nowrap style="width: 18%;">หมวดหมู่: '+temp[i]['CategoryName']+'</td>'+
-                      '<td nowrap style="width: 20%;">วันที่: '+temp[i]['newDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
-                    "</tr>";
-                }
+                  '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
+                  '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
+                  '<td nowrap style="width: 40%;">วันที่ทำสัญญา: '+temp[i]['StartDate']+'</td>'+
+                  '<td nowrap style="width: 40%;">วันที่สิ้นสุดสัญญา: '+temp[i]['EndDate']+'</td>'+
+                  '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
+                  '<td nowrap style="width: 20%;">เปลี่ยนราคาวันที่: '+temp[i]['EndDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
+                "</tr>";
               }
               $("#result_alert tbody").append(result);
               $("#alert_SetPrice").modal('show');
