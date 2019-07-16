@@ -1275,7 +1275,7 @@ a.nav-link{
                       </div> <!-- end row tab -->
                     </div>
 <!-- =============================================================================================================================== -->
-                      <div class="col-md-2" id='tab2'>
+                      <div class="col-md-2" id='tab2' <?php if($PmID == 1) echo 'hidden'; ?>>
                 <!-- button----------------------------------------- -->
                 <div class="sidenav">
                     <div class="" style="margin-top:5px;">

@@ -393,7 +393,7 @@ $array = json_decode($json,TRUE);
                           <div class="col-md-4">
                             <div class='form-group row'>
                               <label class="col-sm-5 col-form-label text-right"><?php echo $array['side'][$language]; ?></label>
-                              <select class="form-control col-sm-6"  <?php if($PmID != 1 && $PmID != 2 && $PmID != 3) {echo "disabled='true'" ;} ?> id="hotpital" onchange="getDepartment();" ></select>
+                              <select class="form-control col-sm-6"  <?php if($PmID != 1  && $PmID != 3) {echo "disabled='true'" ;} ?> id="hotpital" onchange="getDepartment();" ></select>
                             </div>
                           </div>
   

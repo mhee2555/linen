@@ -187,7 +187,7 @@ function getdetail($conn, $DATA)
           item_multiple_unit.RowID,
           U1.UnitName AS MpCode,
           U2.UnitName AS UnitName2,
-          Multiply,
+          Multiply,PriceUnit,
           item_multiple_unit.ItemCode
           item
           FROM
@@ -201,6 +201,7 @@ function getdetail($conn, $DATA)
           WHERE item.ItemCode = '$ItemCode'
           ";
   // var_dump($Sql); die;
+  $return['sql']=$Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['ItemCode'] = $Result['ItemCode'];
@@ -216,6 +217,7 @@ function getdetail($conn, $DATA)
     $return[$count]['MpCode'] = $Result['MpCode'];
     $return[$count]['UnitName2'] = $Result['UnitName2'];
     $return[$count]['Multiply'] = $Result['Multiply'];
+    $return[$count]['PriceUnit'] = $Result['PriceUnit'];
     $count++;
   }
 

@@ -959,11 +959,11 @@ var isChecked2 = false;
                                    StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
                                                   "<td style='width: 5%;' align='center'nowrap>"+chkDoc+"</td>"+
                                                   "<td style='width: 5%;' align='center'nowrap><label> "+(i+1)+"</label></td>"+
-                                                  "<td style='width: 40%;' align='left'nowrap>"+temp[i]['ItemName']+"</td>"+
+                                                  "<td style='width: 30%;' align='left'nowrap>"+temp[i]['ItemName']+"</td>"+
                                                   "<td style='width: 15%;' align='left'nowrap>"+temp[i]['MpCode']+"</td>"+
-                                                  "<td style='width: 15%;' align='left'nowrap>"+temp[i]['UnitName2']+"</td>"+
-                                                  "<td style='width: 10%;' align='left'nowrap>"+temp[i]['Multiply']+"</td>"+
-                                                  "<td style='width: 10%;' align='left'nowrap>"+temp[i]['priceunit']+"</td>"+
+                                                  "<td style='width: 17%;' align='left'nowrap>"+temp[i]['UnitName2']+"</td>"+
+                                                  "<td style='width: 18%;' align='left'nowrap>"+temp[i]['Multiply']+"</td>"+
+                                                  "<td style='width: 10%;' align='left'nowrap>"+temp[i]['PriceUnit']+"</td>"+
 
                                                   "</tr>";
 
@@ -1677,10 +1677,11 @@ var isChecked2 = false;
                             <tr role="row">
                               <th style='width: 5%;'>&nbsp;</th>
                               <th style='width: 5%;'><?php echo $array['no'][$language]; ?></th>
-                              <th style='width: 40%;'><?php echo $array['item'][$language]; ?></th>
-                              <th style='width: 15%;'><?php echo $array['unit'][$language]; ?></th>
-                              <th align='center' style='width: 15%;' ><?php echo $array['secunit'][$language]; ?></th>
-                              <th align='center' style='width: 20%;'><?php echo $array['multiply'][$language]; ?></th>
+                              <th style='width: 30%;'><?php echo $array['item'][$language]; ?></th>
+                              <th style='width: 12%;'><?php echo $array['unit'][$language]; ?></th>
+                              <th align='center' style='width: 20%;' ><?php echo $array['secunit'][$language]; ?></th>
+                              <th align='center' style='width: 10%;'><?php echo $array['multiply'][$language]; ?></th>
+                              <th align='center' style='width: 18%;'><?php echo $array['priceunit'][$language]; ?></th>
                             </tr>
                           </thead>
                           <tbody id="tbody" class="nicescrolled" style="font-size:11px;height:200px;">
