@@ -1,7 +1,4 @@
 <?php
-
-
-
 session_start();
 $Userid = $_SESSION['Userid'];
 $PmID= $_SESSION['PmID'];
@@ -12,8 +9,6 @@ if($Userid==""){
 }
 
 $language = $_SESSION['lang'];
-
-
 
 header ('Content-type: text/html; charset=utf-8');
 $xml = simplexml_load_file('xml/main_lang.xml');
@@ -57,13 +52,13 @@ switch ($PmID) {
         $sys_s5=1;
         $sys_s6=1;
         $sys_s7=1;
-        $sys_s8=1;
-        $sys_s8=1;
-        $sys_s9=1;
-        $sys_s10=1;
+        $sys_s8=0;
+        $sys_s9=0;
+        $sys_s10=0;
         $sys_s11=1;
-        $sys_s12=1;
-        $sys_s13=1;
+        $sys_s12=0;
+        $sys_s13=0;
+        $sys_s14=1;
         break;
     case "2":
         //genneral
@@ -102,11 +97,12 @@ switch ($PmID) {
         $sys_s6=0;
         $sys_s7=0;
         $sys_s8=1;
-        $sys_s9=1;
+        $sys_s9=0;
         $sys_s10=0;
         $sys_s11=0;
         $sys_s12=0;
         $sys_s13=0;
+        $sys_s14=1;
         break;
     case "3":
         //genneral
@@ -145,11 +141,12 @@ switch ($PmID) {
         $sys_s6=1;
         $sys_s7=1;
         $sys_s8=1;
-        $sys_s9=1;
+        $sys_s9=0;
         $sys_s10=0;
         $sys_s11=0;
         $sys_s12=0;
         $sys_s13=0;
+        $sys_s14=1;
         break;
     case "4":
         //genneral
@@ -193,6 +190,7 @@ switch ($PmID) {
         $sys_s11=0;
         $sys_s12=0;
         $sys_s13=0;
+        $sys_s14=0;
         break;
     case "5":
         //genneral
@@ -236,6 +234,7 @@ switch ($PmID) {
         $sys_s11=0;
         $sys_s12=0;
         $sys_s13=0;
+        $sys_s14=0;
         break;
     case "6":
         //genneral
@@ -279,6 +278,7 @@ switch ($PmID) {
         $sys_s11=0;
         $sys_s12=0;
         $sys_s13=0;
+        $sys_s14=0;
         break;
 }
 
@@ -546,10 +546,10 @@ switch ($PmID) {
   </script>
 
   <style>
-    @font-face {
-          font-family: myFirstFont;
-          src: url("../fonts/DB Helvethaica X.ttf");
-          }
+      @font-face {
+            font-family: myFirstFont;
+            src: url("../fonts/DB Helvethaica X.ttf");
+            }
      
     @font-face {
       font-family: 'DB Helvethaica X';
@@ -620,9 +620,8 @@ switch ($PmID) {
     }
 
     .bluebg {
-      background: #0058a5 !important;
+      background: rgb(0, 51, 141) !important;
       color: white !important;
-      border-radius: 0px 50px 50px 0px;
     }
 
     .bluebg:hover {
@@ -637,15 +636,15 @@ switch ($PmID) {
     }
 
     #navmenu {
-      border: none;
-      border-radius: 0px;
+      border: 2px solid #ececec;
+      border-radius: 8px;
     }
 
     .sub-menu li a {
       color: #797979;
       text-shadow: 1px 1px 0px rgba(255, 255, 255, .2);
-      background: none !important;
-      border-bottom: none;
+      background: #f2f2f2 !important;
+      border-bottom: 1px solid #c9c9c9;
       -webkit-box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, .1), 0px 1px 0px 0px rgba(0, 0, 0, .1);
       -moz-box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, .1), 0px 1px 0px 0px rgba(0, 0, 0, .1);
       box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, .1), 0px 1px 0px 0px rgba(0, 0, 0, .1);
@@ -653,7 +652,7 @@ switch ($PmID) {
 
     .active_li {
       color: #24246A !important;
-      font-size: 22px !important;
+      font-size: 24px !important;
       font-weight: bold !important;
     }
   </style>
@@ -671,11 +670,10 @@ switch ($PmID) {
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0" >
       <div style="padding-top:15px;" hidden><a href="#" onclick="switchlang('th');">TH</a> / <a href="#" onclick="switchlang('en');">EN</a></div>
-      <li class="nav-item dropdown no-arrow" style="padding-top:22px;">
+      <li class="nav-item dropdown no-arrow" style="padding-top:12px;">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <img src="img/icon/ic_profile2.png" class="fa-fw" >
-          <!-- <i class="fas fa-user-circle fa-fw"></i> -->
+          <i class="fas fa-user-circle fa-fw"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <a class="dropdown-item" href="#" data-toggle="modal"
@@ -696,7 +694,7 @@ switch ($PmID) {
     <ul class="accordion" id="navmenu">
       <?php if($gen_head== 1){ ?>
       <li id="general">
-        
+
         <a class="bluebg" style="font-family: 'DB Helvethaica X'; font-size:20px;"
           href="#general"><?php echo $array['menu']['general']['title'][$language]; ?><span id='main_Cnt'>0</span></a>
 
@@ -944,6 +942,7 @@ switch ($PmID) {
               <em></em><?php echo $array['menu']['system']['sub'][10][$language]; ?></a>
           </li>
           <?php } ?>
+
           <?php if($sys_s12== 1){ ?>
           <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;"
               href="pages/set_price.php?lang=<?php echo $language; ?>" class="current_page"
@@ -951,14 +950,25 @@ switch ($PmID) {
               <em></em><?php echo $array['menu']['system']['sub'][11][$language]; ?></a>
           </li>
           <?php } ?>
+
+          <?php if($sys_s13== 1){ ?>
           <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;"
               href="pages/change_lang.php?lang=<?php echo $language; ?>" class="current_page"
               onclick="return loadIframe('ifrm', this.href)">
               <em></em><?php echo $array['menu']['system']['sub'][12][$language]; ?></a>
           </li>
-          <!-- <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;" href="pages/item_multiple_unit.php" onclick="return loadIframe('ifrm', this.href)">
-                    	<em></em>หลายหน่วยนับ</a>
-                    </li> -->
+          <?php } ?>
+
+            <?php if($sys_s14== 1){ ?>
+                <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;"
+                       href="pages/setting.php?lang=<?php echo $language; ?>" class="current_page"
+                       onclick="return loadIframe('ifrm', this.href)">
+                        <em></em><?php echo $array['menu']['system']['sub'][13][$language]; ?></a>
+                </li>
+            <?php } ?>
+            <!-- <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;" href="pages/item_multiple_unit.php" onclick="return loadIframe('ifrm', this.href)">
+                          <em></em>หลายหน่วยนับ</a>
+                      </li> -->
 
         </ul>
 
