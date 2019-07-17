@@ -174,17 +174,33 @@ function getdetail($conn, $DATA)
 {
   $count = 0;
   $ItemCode = $DATA['ItemCode'];
-
-  $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = 1 AND UnitCode = 1 AND ItemCode = '$ItemCode'";
-  $MQuery = mysqli_query($conn,$countM);
-  $return['sql'] = $countM;
-  while ($MResult = mysqli_fetch_assoc($MQuery)) {
-   if($MResult['cnt']==0){
-     $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
-             (1, 1, 1, '$ItemCode' , 1) ";
-             mysqli_query($conn,$Sql2);
+// ====================================================================================
+  $Sqlz = "SELECT item.CusPrice FROM item          
+  INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
+  INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
+  INNER JOIN item_unit AS item_unit2 ON item.SizeCode = item_unit2.UnitCode
+  LEFT JOIN item_multiple_unit ON item_multiple_unit.ItemCode = item.ItemCode
+  LEFT JOIN item_unit AS U1 ON item_multiple_unit.UnitCode = U1.UnitCode
+  LEFT JOIN item_unit AS U2 ON item_multiple_unit.MpCode = U2.UnitCode
+  WHERE item.ItemCode = '$ItemCode'";
+    $meQuery = mysqli_query($conn, $Sqlz);
+    while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $CusPrice = $Result['CusPrice'];
     }
-  }
+
+    $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = 1 AND UnitCode = 1 AND ItemCode = '$ItemCode'";
+    $MQuery = mysqli_query($conn,$countM);
+    $return['sql'] = $countM;
+    while ($MResult = mysqli_fetch_assoc($MQuery)) {
+     if($MResult['cnt']==0){
+       $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
+               (1, 1, 1, '$ItemCode' , $CusPrice) ";
+               mysqli_query($conn,$Sql2);
+      }
+    }
+// ====================================================================================
+
+
 
   $Sql = "SELECT
           item.ItemCode,
@@ -213,6 +229,7 @@ function getdetail($conn, $DATA)
 					LEFT JOIN item_unit AS U2 ON item_multiple_unit.MpCode = U2.UnitCode
           WHERE item.ItemCode = '$ItemCode'
           ";
+
   // var_dump($Sql); die;
   $return['sql']=$Sql;
   $meQuery = mysqli_query($conn, $Sql);
@@ -233,6 +250,9 @@ function getdetail($conn, $DATA)
     $return[$count]['PriceUnit'] = $Result['PriceUnit'];
     $count++;
   }
+
+  
+
 
   if($count>0){
     $return['status'] = "success";
