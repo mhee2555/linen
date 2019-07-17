@@ -450,6 +450,7 @@ $array2 = json_decode($json2,TRUE);
             var add = parseInt($('#qty1_'+cnt).val())+1;
             var newQty = parseInt($('#OleQty_'+cnt).val())+1;
             var isStatus = $("#IsStatus").val();
+
             if(isStatus==0){
               if((add>=0) && (add<=500)){
                 $('#qty1_'+cnt).val(add);
@@ -473,11 +474,15 @@ $array2 = json_decode($json2,TRUE);
             var sub = parseInt($('#qty1_'+cnt).val())-1;
             var newQty = parseInt($('#OleQty_'+cnt).val())-1;
             var isStatus = $("#IsStatus").val();
+            // if(sub <0)
+            // {
+            //   $('#qty1_'+cnt).val(0);
+            // }
+            if((sub>=0) && (sub<=500)) {
             if(isStatus==0){
-              if((sub>=0) && (sub<=500)) {
-                $('#qty1_'+cnt).val(sub);
-                $('#OleQty_'+cnt).val(newQty);
-              }
+              // alert(sub);
+              $('#qty1_'+cnt).val(sub);
+              $('#OleQty_'+cnt).val(newQty);
               var data = {
                 'STATUS'      : 'UpdateDetailQty',
                 'Rowid'       : rowid,
@@ -489,6 +494,8 @@ $array2 = json_decode($json2,TRUE);
               senddata(JSON.stringify(data));
             }
           }
+          }
+          
 
           function updateWeight(row,rowid) {
             var docno = $("#docno").val();
@@ -776,8 +783,8 @@ $array2 = json_decode($json2,TRUE);
                       chkunit += "</select>";
 
                       var chkDoc = "<input type='radio' name='checkrow' id='checkrow' value='"+temp[i]['RowID']+","+temp[i]['ItemName']+"'>";
-                      var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['Qty2']+"' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
-                      var OleQty = "<div class='row' style='margin-left:2px;'><input type='hidden' class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='OleQty_"+i+"' value='"+temp[i]['Qty1']+"' ></div>";
+                      var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['Qty2']+"' onkeyup='if(this.value <0){this.value=0}' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
+                      var OleQty = "<div class='row' style='margin-left:2px;'><input type='hidden' class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='OleQty_"+i+"' value='"+temp[i]['Qty1']+"' onkeyup='if(this.value <0){this.value=0}' ></div>";
 
                       var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='weight_"+i+"' value='"+temp[i]['Weight']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
 

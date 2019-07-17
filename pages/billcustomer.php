@@ -364,7 +364,7 @@ $array2 = json_decode($json2,TRUE);
         var weight = $('#weight_'+chkArray[0]).val();
         var qty = $('#qty1_'+chkArray[0]).val();
         var oleqty = $('#OleQty_'+chkArray[0]).val();
-        qty = oleqty*chkArray[2];
+        // qty = oleqty*chkArray[2];
         $('#qty1_'+chkArray[0]).val(qty);
 
         var data = {
@@ -471,11 +471,15 @@ $array2 = json_decode($json2,TRUE);
             var sub = parseInt($('#qty1_'+cnt).val())-1;
             var newQty = parseInt($('#OleQty_'+cnt).val())-1;
             var isStatus = $("#IsStatus").val();
+            // if(sub <0)
+            // {
+            //   $('#qty1_'+cnt).val(0);
+            // }
+            if((sub>=0) && (sub<=500)) {
             if(isStatus==0){
-              if((sub>=0) && (sub<=500)) {
-                $('#qty1_'+cnt).val(sub);
-                $('#OleQty_'+cnt).val(newQty);
-              }
+              // alert(sub);
+              $('#qty1_'+cnt).val(sub);
+              $('#OleQty_'+cnt).val(newQty);
               var data = {
                 'STATUS'      : 'UpdateDetailQty',
                 'Rowid'       : rowid,
@@ -486,6 +490,7 @@ $array2 = json_decode($json2,TRUE);
               };
               senddata(JSON.stringify(data));
             }
+          }
           }
 
           function updateWeight(row,rowid) {

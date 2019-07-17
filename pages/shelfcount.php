@@ -531,7 +531,6 @@ $array2 = json_decode($json2,TRUE);
       var docno = $("#docno").val();
       var add = parseInt($('#qty1_'+cnt).val())+1;
       var isStatus = $("#IsStatus").val();
-      
       if(isStatus==0){
         if(add>max){
           $('#qty1_'+cnt).val(max);

@@ -544,7 +544,7 @@ var isChecked2 = false;
         senddata(JSON.stringify(data));
       }
     }
-
+// ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙
     function AddUnit(){
       var priceunit = $('#priceunit').val();
       var mul = $('#mulinput').val();
@@ -580,6 +580,7 @@ var isChecked2 = false;
         })
       }
     }
+// ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙
 
     function CancelItem() {
       var itemcode = $("#ItemCode").val();
@@ -1279,6 +1280,7 @@ var isChecked2 = false;
     }
 
     </script>
+    <!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
    <style media="screen">
     @font-face {
             font-family: myFirstFont;
@@ -1392,14 +1394,21 @@ var isChecked2 = false;
     }
   }
     </style>
+<!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
+
   </head>
 
   <body id="page-top">
+  
+  <!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
   <ol class="breadcrumb">
   
   <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['system']['title'][$language]; ?></a></li>
   <li class="breadcrumb-item active"><?php echo $array2['menu']['system']['sub'][3][$language]; ?></li>
 </ol>
+<!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
+
+
     <div id="wrapper">
       <!-- content-wrapper -->
       <div id="content-wrapper">
@@ -1631,9 +1640,9 @@ var isChecked2 = false;
     </div>
 
                             </div>
-
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
- <div class="row">
+<!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="row">
                   <div class="container-fluid">
                     <div class="card-body" style="padding:0px; margin-top:10px;">
                         <div class="row">
@@ -1647,12 +1656,12 @@ var isChecked2 = false;
                                           </div>
                                       </div>
                                       <div style="margin-left:20px;width:90px;">
-												<label><?php echo $array['secunit'][$language]; ?></label>
+												                <label><?php echo $array['secunit'][$language]; ?></label>
                                       </div>
-                                      <div style="width:200px;">
-                                      		<div style="font-size:24px;width:150px;">
-                                                    <select class="form-control" style="font-size:24px;" id="subUnit">
-                                                    </select>
+                                    <div style="width:200px;">
+                                      	<div style="font-size:24px;width:150px;">
+                                          <select class="form-control" style="font-size:24px;" id="subUnit">
+                                          </select>
                                        		</div>
                                       </div>
                                       <div style="margin-left:20px;width:60px;">
@@ -1686,14 +1695,19 @@ var isChecked2 = false;
                           </thead>
                           <tbody id="tbody" class="nicescrolled" style="font-size:11px;height:200px;">
                           </tbody>
-		</table>
- </div>
+		                  </table>
+                    </div>
+                  </div>
+<!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
+                   
 
-                            </div>
-                      </div>
-				</div>
+        </div>
+		</div>
 </div>
 
+
+
+<!-- หมีทำนะคับ         ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙            -->
 <!-- =============================================================================================== -->
 <div class="sidenav" style=" margin-left: 0px;margin-top: 73px;">
               <div class="" style="margin-top:5px;">
@@ -1749,6 +1763,7 @@ var isChecked2 = false;
             </div>
           </div>
 <!-- =============================================================================================== -->
+<!-- หมีทำนะคับ         ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙            -->
 
     </div> <!-- end row tab -->
 
