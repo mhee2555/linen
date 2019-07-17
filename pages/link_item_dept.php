@@ -1325,7 +1325,7 @@ $array2 = json_decode($json2,TRUE);
             width: 84px;
         }
         #magin_cus{
-            margin-top: 200px;
+            margin-top: 183px;
         }
     @media (min-width: 700px) and (max-width: 1199.99px){ 
         #btn_margin {
@@ -1419,7 +1419,8 @@ $array2 = json_decode($json2,TRUE);
                 </div>
 
                 <div class="col-xl-1 col-12 text-center" id='btn_margin'>
-                  <button class="btn btn-primary btn-sm" id='size_custom' type="button" onclick="Addtodoc();"> <?php echo $array['addnewitem'][$language]; ?> <div style="padding-top:10px;" id='rotate_custom'>🡆</div> </button>
+                <img src="../img/icon/ic_import.png" style='width:75px;margin-right: -20px;' class=' btn' onclick="Addtodoc();">
+                  <!-- <button class="btn btn-primary btn-sm" id='size_custom' type="button" onclick="Addtodoc();"> <?php echo $array['addnewitem'][$language]; ?> <div style="padding-top:10px;" id='rotate_custom'>🡆</div> </button> -->
                 </div>
 
                 <div class="col-xl-6 col-12">
@@ -1433,7 +1434,9 @@ $array2 = json_decode($json2,TRUE);
                         <div class='form-group form-inline'>
                           <label class="mr-2"><?php echo $array['search'][$language]; ?></label>
                           <input type="text" class="form-control mr-2" name="searchitemstock" id="searchitemstock" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                          <button type="button" class="btn btn-success btn-sm" name="btnsubmit" id="btnsubmit" onclick="submititemstock();"><?php echo $array['confirm'][$language]; ?></button>
+                          <img src="../img/icon/ic_save.png" style='width:70px;' class='mr-3 btn' onclick="submititemstock();">
+                                      
+                          <!-- <button type="button" class="btn btn-success btn-sm" name="btnsubmit" id="btnsubmit" onclick="submititemstock();"><?php echo $array['confirm'][$language]; ?></button> -->
                         </div>
                       </div>
                     <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItemStock" width="100%" cellspacing="0" role="grid">
