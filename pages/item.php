@@ -356,10 +356,17 @@ var isChecked2 = false;
       var item = $("#searchitem").val();
       var catagory = $("#catagory1").val();
       // alert(item);
+      if('<?php echo $PmID; ?>'==1){
+        var active = '0';
+      }else{
+        var active = '1';
+      }
+
       var data = {
         'STATUS'    : 'ShowItem',
-        'Catagory'      : catagory,
-        'Keyword' : item
+        'Catagory'  : catagory,
+        'Keyword'   : item,
+        'active'   : active
       };
       console.log(JSON.stringify(data));
       senddata(JSON.stringify(data));

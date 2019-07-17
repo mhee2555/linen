@@ -364,7 +364,7 @@ $array2 = json_decode($json2,TRUE);
         var weight = $('#weight_'+chkArray[0]).val();
         var qty = $('#qty1_'+chkArray[0]).val();
         var oleqty = $('#OleQty_'+chkArray[0]).val();
-        // qty = oleqty*chkArray[2];
+        qty = oleqty*chkArray[2];
         $('#qty1_'+chkArray[0]).val(qty);
 
         var data = {

@@ -568,25 +568,52 @@ function CreateDocument($conn, $DATA)
       $UniCode2           = $Result['UnitCode2'];
       $ItemCode           = $Result['ItemCode'];
       $UnitCode           = $Result['UnitCode1'];
+      $Qty                = $Result['Qty2'];
       $count2 = 0;
 
-     if($UniCode2 !=1){
-      $PriceUnit = "SELECT item_multiple_unit.PriceUnit FROM item_multiple_unit 
-      WHERE item_multiple_unit.ItemCode = '$ItemCode' AND item_multiple_unit.MpCode = $UniCode2 ";
-      $PUQuery = mysqli_query($conn, $PriceUnit);
-      while ($PUResult = mysqli_fetch_assoc($PUQuery)) {
-      $return[$count]['CusPrice']   = $PUResult['PriceUnit'] * $Result['Qty2'];
-      $return['TotalPrice']  += $return[$count]['CusPrice'];
+        if($Qty!=0 && $UniCode2 !=1){
+          $PriceUnit = "SELECT item_multiple_unit.PriceUnit FROM item_multiple_unit 
+                        WHERE item_multiple_unit.ItemCode = '$ItemCode' AND item_multiple_unit.MpCode = $UniCode2 ";
+                        $PUQuery = mysqli_query($conn, $PriceUnit);
+                        while ($PUResult = mysqli_fetch_assoc($PUQuery)) {
+                        $return[$count]['CusPrice']   = $PUResult['PriceUnit'] * $Result['Qty2'];
+                        $return['TotalPrice']  += $return[$count]['CusPrice'];
+                      }
+      }else if($Qty==0 && $UniCode2 !=1 && $UniCode2 !=4){
+                      $PriceUnit = "SELECT item_multiple_unit.PriceUnit FROM item_multiple_unit 
+                      WHERE item_multiple_unit.ItemCode = '$ItemCode' AND item_multiple_unit.MpCode = $UniCode2 ";
+                      $PUQuery = mysqli_query($conn, $PriceUnit);
+                      while ($PUResult = mysqli_fetch_assoc($PUQuery)) {
+                      $return[$count]['CusPrice']   = $PUResult['PriceUnit'] * $Result['Weight'];
+                      $return['TotalPrice']  += $return[$count]['CusPrice'];
+                      }
+      }else{
+                      $Price = "SELECT item.CusPrice FROM item WHERE item.ItemCode = '$ItemCode'";
+                      $PQuery = mysqli_query($conn, $Price);
+                      while ($PResult = mysqli_fetch_assoc($PQuery)) {
+                      $return[$count]['CusPrice']   = $PResult['CusPrice'] * $Result['Qty2'];
+                      $return['TotalPrice']  += $return[$count]['CusPrice'];
+                      }
       }
 
-     }else{
-      $Price = "SELECT item.CusPrice FROM item WHERE item.ItemCode = '$ItemCode'";
-      $PQuery = mysqli_query($conn, $Price);
-      while ($PResult = mysqli_fetch_assoc($PQuery)) {
-        $return[$count]['CusPrice']   = $PResult['CusPrice'] * $Result['Qty2'];
-        $return['TotalPrice']  += $return[$count]['CusPrice'];
-      }
-     }
+
+    //  if($UniCode2 !=1){
+    //   $PriceUnit = "SELECT item_multiple_unit.PriceUnit FROM item_multiple_unit 
+    //   WHERE item_multiple_unit.ItemCode = '$ItemCode' AND item_multiple_unit.MpCode = $UniCode2 ";
+    //   $PUQuery = mysqli_query($conn, $PriceUnit);
+    //   while ($PUResult = mysqli_fetch_assoc($PUQuery)) {
+    //   $return[$count]['CusPrice']   = $PUResult['PriceUnit'] * $Result['Qty2'];
+    //   $return['TotalPrice']  += $return[$count]['CusPrice'];
+    //   }
+
+    //  }else{
+    //   $Price = "SELECT item.CusPrice FROM item WHERE item.ItemCode = '$ItemCode'";
+    //   $PQuery = mysqli_query($conn, $Price);
+    //   while ($PResult = mysqli_fetch_assoc($PQuery)) {
+    //     $return[$count]['CusPrice']   = $PResult['CusPrice'] * $Result['Qty2'];
+    //     $return['TotalPrice']  += $return[$count]['CusPrice'];
+    //   }
+    //  }
 
 
 
