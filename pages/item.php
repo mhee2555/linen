@@ -554,7 +554,7 @@ var isChecked2 = false;
     
       var itemcode = $('#ItemCode').val();
 
-      if(mul!=""){
+      if(mul!="" && priceunit!=""){
         var data = {
           'STATUS' : 'AddUnit',
           'ItemCode' : itemcode,

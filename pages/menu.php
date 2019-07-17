@@ -218,7 +218,6 @@ $array = json_decode($json,TRUE);
             var result = '<table class="table table-fixed table-condensed table-striped">';
             var PmID = <?php echo $PmID; ?>;
             if(temp['countRow']==1){
-             
                 result += "<tr class='text-left'>"+
                   // '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
                   '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
@@ -231,6 +230,7 @@ $array = json_decode($json,TRUE);
               $("#result_alert").append(result);
               $("#alert_SetPrice").modal('show');
             }else if(temp['countRow']>1){
+
               for (var i = 0; i < temp['countRow']; i++) {
                   result += "<tr class='text-left'>"+
                   '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+

@@ -565,17 +565,32 @@ function CreateDocument($conn, $DATA)
       $return[$count]['Qty2']     = $Result['Qty2'];
       $return[$count]['Weight']     = $Result['Weight'];
       $return[$count]['Price']     = $Result['Total'];
+      $UniCode2           = $Result['UnitCode2'];
       $ItemCode           = $Result['ItemCode'];
       $UnitCode           = $Result['UnitCode1'];
       $count2 = 0;
 
+     if($UniCode2 !=1){
+      $PriceUnit = "SELECT item_multiple_unit.PriceUnit FROM item_multiple_unit 
+      WHERE item_multiple_unit.ItemCode = '$ItemCode' AND item_multiple_unit.MpCode = $UniCode2 ";
+      $PUQuery = mysqli_query($conn, $PriceUnit);
+      while ($PUResult = mysqli_fetch_assoc($PUQuery)) {
+      $return[$count]['CusPrice']   = $PUResult['PriceUnit'] * $Result['Qty2'];
+      $return['TotalPrice']  += $return[$count]['CusPrice'];
+      }
+
+     }else{
       $Price = "SELECT item.CusPrice FROM item WHERE item.ItemCode = '$ItemCode'";
       $PQuery = mysqli_query($conn, $Price);
       while ($PResult = mysqli_fetch_assoc($PQuery)) {
         $return[$count]['CusPrice']   = $PResult['CusPrice'] * $Result['Qty2'];
         $return['TotalPrice']  += $return[$count]['CusPrice'];
-
       }
+     }
+
+
+
+   
       $countM = "SELECT COUNT(*) AS cnt FROM item_multiple_unit  WHERE  item_multiple_unit.UnitCode  = $UnitCode 
       AND item_multiple_unit.ItemCode = '$ItemCode'";
       $return['sqlxxx'] = $countM;

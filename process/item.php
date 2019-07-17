@@ -173,6 +173,22 @@ function getdetail($conn, $DATA)
 {
   $count = 0;
   $ItemCode = $DATA['ItemCode'];
+
+  $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = 1 AND UnitCode = 1 AND ItemCode = '$ItemCode'";
+  $MQuery = mysqli_query($conn,$countM);
+  $return['sql'] = $countM;
+  while ($MResult = mysqli_fetch_assoc($MQuery)) {
+
+   if($MResult['cnt']==0){
+     $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
+             (1, 1, 1, '$ItemCode' , 1) ";
+              $return['Sql2'] = $Sql2;
+             mysqli_query($conn,$Sql2);
+  }
+ }
+
+
+
   $Sql = "SELECT
           item.ItemCode,
           item.ItemName,
@@ -467,42 +483,65 @@ function AddUnit($conn, $DATA)
   $Multiply = $DATA['Multiply'];
   $priceunit = $DATA['priceunit'];
 
-  $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = 1 AND UnitCode = 1 AND ItemCode = '$ItemCode'";
-  $MQuery = mysqli_query($conn,$countM);
-  while ($MResult = mysqli_fetch_assoc($MQuery)) {
 
-    $return['sql'] = $countM;
+  $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = $MpCode AND UnitCode = $UnitCode AND ItemCode = '$ItemCode'";
+   $MQuery = mysqli_query($conn,$countM);
+   $return['sql'] = $countM;
+   while ($MResult = mysqli_fetch_assoc($MQuery)) {
 
     if($MResult['cnt']==0){
-      if($MpCode == 1 && $Multiply == 1){
-        $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
-        ($MpCode, $UnitCode, $Multiply, '$ItemCode' , $priceunit) ";
-        mysqli_query($conn,$Sql2);
-        $return['have'] = 1;
-
-      }else{
-        $Sql1 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit) VALUES
-        (1,1,1,'$ItemCode',1) ";
-        mysqli_query($conn,$Sql1);
-
-        $return['have'] = 2;
-        $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
-        ($MpCode, $UnitCode, $Multiply, '$ItemCode' , $priceunit) ";
-        mysqli_query($conn,$Sql2);
-      }
-      $count++;
-    }else{
-      $return['have'] = 3;
-      $return['UnitCode'] = $UnitCode;
-      $return['Multiply'] = $Multiply;
-      if($MpCode != 1 && $Multiply != 1){
-        $Sql3 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit) VALUES 
-        ($MpCode, $UnitCode, $Multiply, '$ItemCode' , $priceunit) ";
-        mysqli_query($conn,$Sql3);
-        $count++;
-      }
-    }
+      $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
+              ($MpCode, $UnitCode, $Multiply, '$ItemCode' , $priceunit) ";
+               $return['Sql2'] = $Sql2;
+              mysqli_query($conn,$Sql2);
+   }else{
+      $Sql1 = "UPDATE item_multiple_unit SET  MpCode = $MpCode , UnitCode = $UnitCode , Multiply = $Multiply , ItemCode = '$ItemCode' , PriceUnit = $priceunit
+               WHERE ItemCode = '$ItemCode' AND MpCode = $MpCode AND UnitCode  = $UnitCode  ";
+               $return['Sql1'] = $Sql1;
+              mysqli_query($conn,$Sql1);
+   }
+    $count++;
   }
+
+
+// ==================================================================================================================================
+
+  // $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = 1 AND UnitCode = 1 AND ItemCode = '$ItemCode'";
+  // $MQuery = mysqli_query($conn,$countM);
+  // while ($MResult = mysqli_fetch_assoc($MQuery)) {
+
+  //   $return['sql'] = $countM;
+
+  //   if($MResult['cnt']==0){
+  //     if($MpCode == 1 && $Multiply == 1){
+  //       $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
+  //       ($MpCode, $UnitCode, $Multiply, '$ItemCode' , $priceunit) ";
+  //       mysqli_query($conn,$Sql2);
+  //       $return['have'] = 1;
+
+  //     }else{
+  //       $Sql1 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit) VALUES
+  //       (1,1,1,'$ItemCode',1) ";
+  //       mysqli_query($conn,$Sql1);
+
+  //       $return['have'] = 2;
+  //       $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
+  //       ($MpCode, $UnitCode, $Multiply, '$ItemCode' , $priceunit) ";
+  //       mysqli_query($conn,$Sql2);
+  //     }
+  //     $count++;
+  //   }else{
+  //     $return['have'] = 3;
+  //     $return['UnitCode'] = $UnitCode;
+  //     $return['Multiply'] = $Multiply;
+  //     if($MpCode != 1 && $Multiply != 1){
+  //       $Sql3 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit) VALUES 
+  //       ($MpCode, $UnitCode, $Multiply, '$ItemCode' , $priceunit) ";
+  //       mysqli_query($conn,$Sql3);
+  //       $count++;
+  //     }
+  //   }
+  // }
  
   // var_dump($Sql); die;
   if($count>0){
