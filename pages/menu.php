@@ -426,6 +426,7 @@ $array = json_decode($json,TRUE);
     }
 
     #alert_SetPrice .modal-body{
+        width: 100% !important;
         height: 600px;
         overflow-y: auto;
     }

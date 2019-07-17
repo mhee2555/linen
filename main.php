@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Bangkok");
 session_start();
 $Userid = $_SESSION['Userid'];
 $PmID= $_SESSION['PmID'];
@@ -365,17 +366,30 @@ switch ($PmID) {
         var micro = parseInt(cur_date.getTime() - last_move.getTime());
         var newDate = new Date();
         newDate.setTime((target - micro));
-        var h = newDate.getHours();
-        var m = newDate.getMinutes();
-        var s = newDate.getSeconds();
-        var hms = "";
-        m = checkTime(m);
-        s = checkTime(s);
 
-        if(redirectInSecond>=60)
-            hms = h + ":" + m + ":" + s;
-        else
-            hms = m + ":" + s;
+        // var h = newDate.getHours();
+        // var m = newDate.getMinutes();
+        // var s = newDate.getSeconds();
+        // var hms = "";
+        // m = checkTime(m);
+        // s = checkTime(s);
+        // if(redirectInSecond>=60)
+        //     hms = h + ":" + m + ":" + s;
+        // else
+        //     hms = m + ":" + s;
+
+        var differ = target-micro;
+        var ms = differ % 1000;
+        differ = (differ - ms) / 1000;
+        var secs = differ % 60;
+        differ = (differ - secs) / 60;
+        var mins = differ % 60;
+        var hrs = (differ - mins) / 60;
+
+        if(secs < 10){secs = "0" + secs;}
+        if(mins < 10){mins = "0" + mins;}
+        if(hrs < 10){hrs = "0" + hrs;}
+        var hms = hrs + ':' + mins + ':' + secs;
 
         $('#ShowTime').val( 'Timeout : ' + hms );
 
