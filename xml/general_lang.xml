@@ -177,4 +177,5 @@
 <alertPar><en>Over Par</en><th>แจ้งเตือนจำนวนเกิน</th></alertPar>
 <par><en>Par</en><th>Par</th></par>
 <count> <en>count</en><th>นับได้</th></count>
+<minute><en>Minute</en><th>นาที</th></minute>
 </lang>

@@ -11,9 +11,12 @@ $language = $_SESSION['lang'];
 
 header ('Content-type: text/html; charset=utf-8');
 $xml = simplexml_load_file('../xml/general_lang.xml');
+$xml2 = simplexml_load_file('../xml/main_lang.xml');
 $json = json_encode($xml);
 $array = json_decode($json,TRUE);
-?>
+$json2 = json_encode($xml2);
+$array2 = json_decode($json2,TRUE);
+ ?>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -229,21 +232,69 @@ $array = json_decode($json,TRUE);
         height: 70px;
       }
 
-          .centered {
-              position: fixed;
-              top: 50%;
-              left: 50%;
-              margin-top: -150px;
-              margin-left: -250px;
-          }
+        .centered {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -150px;
+            margin-left: -250px;
+        }
+        /* ----------------- */
+        .card{
+            height:400px;
+            background-color:#e9ecef;
+            -webkit-box-shadow: 10px 12px 5px -7px rgba(0,0,0,0.23);
+            -moz-box-shadow: 10px 12px 5px -7px rgba(0,0,0,0.23);
+            box-shadow: 10px 12px 5px -7px rgba(0,0,0,0.23);
+            border-radius:20px;
+        }
+        h4{
+            color:rgb(0, 51, 141) !important;
+            font-weight:bold;
+        }
+        input{
+            border-radius:20px!important;
+            border:2px solid rgb(0, 51, 141) !important;
+            color:rgb(0, 51, 141) !important;
+        }
+        .btn_customer {
+            font-size:24px!important;
+            border-radius:15px!important;
+            width:200px!important;
+            background-color:rgb(0, 51, 141) !important;
+            color:#fff;
+        }
+
+        #label1{
+            position: absolute;
+            right: 48px;
+            top: 210px;
+        }
+        #label1 label{
+            font-size:30px;
+            font-weight:bold;
+            color:rgb(0, 51, 141) !important;
+        }
+
+        select{
+            border-radius:20px!important;
+            border:2px solid rgb(0, 51, 141) !important;
+            color:rgb(0, 51, 141) !important;
+            height: 70px!important;
+            font-size:30px!important;
+            font-weight:bold;
+
+        }
+
+    
     </style>
     <title>Login</title>
   </head>
   <body>
 
-  <div class="centered">
+  <!-- <div class="centered">
       <div class="row">
-          <div class="col-md-12"> <!-- tag column 1 -->
+          <div class="col-md-12"> 
 
               <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItemDetail" width="100%" cellspacing="0" role="grid" style="">
 
@@ -277,10 +328,70 @@ $array = json_decode($json,TRUE);
                     </tr>
                   </tbody>
               </table>
-          </div> <!-- tag column 1 -->
+          </div>
       </div>
 
-  </div>
+  </div> -->
+
+  <!-- ------------------------------------------------------------------  -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['system']['title'][$language]; ?></a></li>
+        <li class="breadcrumb-item active"><?php echo $array2['menu']['system']['sub'][13][$language]; ?></li>
+    </ol>
+
+    <div class="row mt-5">
+        <div class="offset-3 col-md-3 ">
+            <div class="card">
+                <div class="card-body">
+                    <div  class="d-flex justify-content-center mt-3">
+                        <img src="../img/icon/clock.png">
+                    </div>
+                    <div  class="d-flex justify-content-center mt-3">
+                        <h4><?php echo $array['changetimeout'][$language]; ?></h4>
+                    </div>
+                    <div  class="d-flex justify-content-center mt-5">
+                        <div class="input-group">
+                            <input type="text" class="form-control text-left pl-4 numonly" id="timeout"  value="<?= $TimeOut ?>" maxlength="10" required>
+                        </div>
+                        <div id="label1">
+                            <label for="timeout"><?php echo $array['minute'][$language]; ?></label>
+                        </div>
+                    </div>
+                    <div  class="d-flex justify-content-center mt-5">
+                        <button class="btn btn_customer" onclick="timeoutUpdate();"><?php echo $array['save'][$language]; ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 ">
+            <div class="card">
+                <div class="card-body">
+                    <div  class="d-flex justify-content-center mt-3">
+                        <img src="../img/icon/lang.png">
+                    </div>
+                    <div  class="d-flex justify-content-center mt-3">
+                        <h4><?php echo $array['changelang'][$language]; ?></h4>
+                    </div>
+                    <div  class="d-flex justify-content-center mt-5">
+                        <div class="input-group">
+                            <select  class="form-control" id="lang">
+                                <?php if($language=='th'){ ?>
+                                    <option selected value="th"><?php echo $array['thai'][$language]; ?></option>
+                                    <option value="en"><?php echo $array['eng'][$language]; ?></option>
+                                <?php } else { ?>
+                                    <option value="th"><?php echo $array['thai'][$language]; ?></option>
+                                    <option selected value="en"><?php echo $array['eng'][$language]; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div  class="d-flex justify-content-center mt-5" onclick="switchlang()">
+                        <button class="btn btn_customer"><?php echo $array['save'][$language]; ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
   </body>
 </html>
