@@ -29,6 +29,10 @@ $array = json_decode($json,TRUE);
 
         $(document).ready(function(e) {
 
+            $('.numonly').on('input', function() {
+                this.value = this.value.replace(/[^0-9.]/g, ''); //<-- replace all other than given set of values
+            });
+
         }).mousemove(function(e) { parent.afk();parent.last_move = new Date();
         }).keyup(function(e) { parent.last_move = new Date();
         });
@@ -250,7 +254,7 @@ $array = json_decode($json,TRUE);
                         </td>
                         <td style='width: 50%;'>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="timeout" onchange="timeoutUpdate();"
+                                <input type="text" class="form-control numonly" id="timeout" onchange="timeoutUpdate();"
                                        placeholder="set new timeout" value="<?= $TimeOut ?>">
                             </div>
                         </td>
