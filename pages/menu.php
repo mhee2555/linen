@@ -416,16 +416,16 @@ $array = json_decode($json,TRUE);
       color: #D32F2F;
     }
     /* -------------------------- */
-    #alert_SetPrice .modal-content {
+    /* #alert_SetPrice .modal-content {
       width: 130% !important;
       right: 15% !important;
-    }
+    } */
 
     #alert_SetPrice1 .modal-content {
         width: 100% !important;
     }
 
-    .modal-body{
+    #alert_SetPrice .modal-body{
         height: 600px;
         overflow-y: auto;
     }
