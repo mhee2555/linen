@@ -358,14 +358,15 @@ switch ($PmID) {
       else
           hms = "00:00";
       $('#ShowTime').val( redirectInSecond + ' / Timeout : ' + hms );
+      return last_move;
     }
 
     function chk_last_move(){
       cur_date = new Date(); // อ่านเวลาปัจจุบันไว้ใน cur_date
       if( cur_date>last_move){ // ตรวจสอบเวลา
         var micro = parseInt(cur_date.getTime() - last_move.getTime());
-        var newDate = new Date();
-        newDate.setTime((target - micro));
+        // var newDate = new Date();
+        // newDate.setTime((target - micro));
 
         // var h = newDate.getHours();
         // var m = newDate.getMinutes();
@@ -377,7 +378,6 @@ switch ($PmID) {
         //     hms = h + ":" + m + ":" + s;
         // else
         //     hms = m + ":" + s;
-
         var differ = target-micro;
         var ms = differ % 1000;
         differ = (differ - ms) / 1000;
