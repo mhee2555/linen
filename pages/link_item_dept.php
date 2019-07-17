@@ -120,9 +120,9 @@ $array2 = json_decode($json2,TRUE);
         getHospital();
         ShowItem();
         // ShowItemStock();
-      }).mousemove(function(e) { parent.last_move = new Date();;
-      }).keyup(function(e) { parent.last_move = new Date();;
-      });
+      }).mousemove(function(e) { parent.afk();
+        }).keyup(function(e) { parent.afk();
+        });
 
       function chkbox(ItemCode){
         console.log($('#checkitem_'+ItemCode));
@@ -1345,6 +1345,18 @@ $array2 = json_decode($json2,TRUE);
     button{
       font-size: 24px!important;
     }
+    .mhee a{
+  /* padding: 6px 8px 6px 16px; */
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+.mhee a:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+}
       a.nav-link{
         width:auto!important;
       }
@@ -1366,7 +1378,7 @@ $array2 = json_decode($json2,TRUE);
             width: 84px;
         }
         #magin_cus{
-            margin-top: 183px;
+            margin-top: 204px;
         }
     @media (min-width: 700px) and (max-width: 1199.99px){ 
         #btn_margin {
@@ -1460,7 +1472,11 @@ $array2 = json_decode($json2,TRUE);
                 </div>
 
                 <div class="col-xl-1 col-12 text-center" id='btn_margin'>
-                <img src="../img/icon/ic_import.png" style='width:75px;margin-right: -20px;' class=' btn' onclick="Addtodoc();">
+                <img src="../img/icon/ic_import.png" style='width:34px;margin-right: -20px;' class=' mr-2' >
+         <div class="mhee">
+         <a href='javascript:void(0)' onclick="Addtodoc()" id="bSave">
+                                          <?php echo $array['addnewitem'][$language]; ?></a>    
+         </div>
                   <!-- <button class="btn btn-primary btn-sm" id='size_custom' type="button" onclick="Addtodoc();"> <?php echo $array['addnewitem'][$language]; ?> <div style="padding-top:10px;" id='rotate_custom'>🡆</div> </button> -->
                 </div>
 
@@ -1471,12 +1487,13 @@ $array2 = json_decode($json2,TRUE);
                           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><?php echo $array['itemnew'][$language]; ?></a>
                         </li>
                       </ul>
-                      <div class="row ml-2" style='margin-top:10px;'>
+                      <div class="row ml-2 mhee" style='margin-top:10px;'>
                         <div class='form-group form-inline'>
                           <label class="mr-2"><?php echo $array['search'][$language]; ?></label>
                           <input type="text" class="form-control mr-2" name="searchitemstock" id="searchitemstock" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                          <img src="../img/icon/ic_save.png" style='width:70px;' class='mr-3 btn' onclick="submititemstock();">
-                                      
+                          <img src="../img/icon/ic_save.png" style='margin-left: 15px;width:36px;' class='mr-3 ' >
+                          <a href='javascript:void(0)' onclick="submititemstock()" id="bSave">
+                                          <?php echo $array['save'][$language]; ?></a>             
                           <!-- <button type="button" class="btn btn-success btn-sm" name="btnsubmit" id="btnsubmit" onclick="submititemstock();"><?php echo $array['confirm'][$language]; ?></button> -->
                         </div>
                       </div>

@@ -94,9 +94,9 @@ $array2 = json_decode($json2,TRUE);
 			// console.log(JSON.stringify(data));
 			senddata(JSON.stringify(data));
 		  }
-    }).mousemove(function(e) { parent.last_move = new Date();;
-    }).keyup(function(e) { parent.last_move = new Date();;
-    });
+    }).mousemove(function(e) { parent.afk();
+        }).keyup(function(e) { parent.afk();
+        });
 
   jqui(document).ready(function($){
 
@@ -1549,6 +1549,7 @@ var isChecked2 = false;
                                   </div>
                                 </div>
                                 <div class="col-md-2">
+                                <!-- ssssssssssssssssssssss -->
                                   <button type="button" class="btn btn-primary btn-block" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
                                 </div>
                                 <div class="col-md-2">

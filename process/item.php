@@ -196,6 +196,10 @@ function getdetail($conn, $DATA)
        $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
                (1, 1, 1, '$ItemCode' , $CusPrice) ";
                mysqli_query($conn,$Sql2);
+      }else{
+        $Sql2 = "UPDATE item_multiple_unit SET MpCode = 1, UnitCode = 1, Multiply = 1, ItemCode = '$ItemCode' , PriceUnit = $CusPrice 
+        WHERE ItemCode =  '$ItemCode' AND MpCode =1";
+        mysqli_query($conn,$Sql2);
       }
     }
 // ====================================================================================

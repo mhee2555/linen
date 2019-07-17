@@ -84,9 +84,9 @@ $array = json_decode($json,TRUE);
 
         OnLoadPage();
 		    getDepartment();
-    }).mousemove(function(e) { parent.last_move = new Date();;
-    }).keyup(function(e) { parent.last_move = new Date();;
-    });
+    }).mousemove(function(e) { parent.afk();
+        }).keyup(function(e) { parent.afk();
+        });
 
     jqui(document).ready(function($){
 

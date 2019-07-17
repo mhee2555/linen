@@ -85,9 +85,9 @@ $array2 = json_decode($json2,TRUE);
 		OnLoadPage();
     ShowDocument();
 		// getDepartment();
-    }).mousemove(function(e) { parent.last_move = new Date();;
-    }).keyup(function(e) { parent.last_move = new Date();;
-    });
+    }).mousemove(function(e) { parent.afk();
+        }).keyup(function(e) { parent.afk();
+        });
 
     jqui(document).ready(function($){
 
@@ -482,7 +482,18 @@ body{
   /* padding-top: 20px; */
   border-left: 2px solid #bdc3c7;
 }
-
+.mhee a{
+  /* padding: 6px 8px 6px 16px; */
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+.mhee a:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+}
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -547,9 +558,11 @@ body{
                                     </div>
                                   </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-4 mhee">
                               <div class='form-group row'>
-                              <button type="button" class="btn btn-primary col-sm-3 btn-sm ml-3" onclick="ShowDocument()" id="bSearch"><?php echo $array['search'][$language]; ?></button>
+                              <img src="../img/icon/i_search.png" style="margin-left: 15px;width:36px;" class='mr-3'>
+                                          <a href='javascript:void(0)' onclick="ShowDocument()" id="bSave">
+                                          <?php echo $array['search'][$language]; ?></a>                    
 
                             </div>
                           </div>

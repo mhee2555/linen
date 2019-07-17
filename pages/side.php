@@ -114,9 +114,9 @@ $array2 = json_decode($json2,TRUE);
           this.value = this.value.replace(/[^a-zA-Zก-ฮๅภถุึคตจขชๆไำพะัีรนยบลฃฟหกดเ้่าสวงผปแอิืทมใฝ๑๒๓๔ู฿๕๖๗๘๙๐ฎฑธํ๊ณฯญฐฅฤฆฏโฌ็๋ษศซฉฮฺ์ฒฬฦ. ]/g, ''); //<-- replace all other than given set of values
         });
 
-      }).mousemove(function(e) { parent.last_move = new Date();;
-      }).keyup(function(e) { parent.last_move = new Date();;
-      });
+      }).mousemove(function(e) { parent.afk();
+        }).keyup(function(e) { parent.afk();
+        });
 
       dialog = jqui( "#dialog" ).dialog({
         autoOpen: false,
@@ -941,7 +941,18 @@ $array2 = json_decode($json2,TRUE);
   /* padding-top: 20px; */
   border-left: 2px solid #bdc3c7;
 }
-
+.mhee a{
+  /* padding: 6px 8px 6px 16px; */
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+.mhee a:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+}
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -996,15 +1007,15 @@ $array2 = json_decode($json2,TRUE);
                   <div class="container-fluid">
                     <div class="card-body" style="padding:0px; margin-top:-12px;">
                         <div class="row">
-                                      <div class="col-md-9">
+                                      <div class="col-md-9 mhee">
                                         <div class="row" style="margin-left:5px;">
                                           <input type="text" class="form-control" style="width:70%;" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                                          <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
-                                        </div>
+                                          <img src="../img/icon/i_search.png" style="margin-left: 15px;width:36px;" class='mr-3'>
+                                          <a href='javascript:void(0)' onclick="ShowItem()" id="bSave">
+                                          <?php echo $array['search'][$language]; ?></a>                                        
+                                          </div>
                                       </div>
-                                      <div class="col-md-2">
-
-                                      </div>
+                               
                         </div>
                         <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid">
                           <thead id="theadsum" style="font-size:11px;">

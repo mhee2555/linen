@@ -115,9 +115,9 @@
       $('.charonly').on('input', function() {
         this.value = this.value.replace(/[^a-zA-Zก-ฮๅภถุึคตจขชๆไำพะัีรนยบลฃฟหกดเ้่าสวงผปแอิืทมใฝ๑๒๓๔ู฿๕๖๗๘๙๐ฎฑธํ๊ณฯญฐฅฤฆฏโฌ็๋ษศซฉฮฺ์ฒฬฦ. ]/g, ''); //<-- replace all other than given set of values
       });
-    }).mousemove(function(e) { parent.last_move = new Date();;
-    }).keyup(function(e) { parent.last_move = new Date();;
-    });
+    }).mousemove(function(e) { parent.afk();
+        }).keyup(function(e) { parent.afk();
+        });
 
     dialog = jqui( "#dialog" ).dialog({
       autoOpen: false,
@@ -1419,7 +1419,18 @@ var isChecked2 = false;
   /* padding-top: 20px; */
   border-left: 2px solid #bdc3c7;
 }
-
+.mhee a{
+  /* padding: 6px 8px 6px 16px; */
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+.mhee a:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+}
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -1493,11 +1504,12 @@ var isChecked2 = false;
                         					<select class="form-control" style="font-size:24px;" id="catagory1"></select>
                         				</div>
                                    </div>
-                                      <div class="col-md-5">
+                                      <div class="col-md-5 mhee">
                                         <div class="row" style="margin-left:2px;">
                                           <input type="text" class="form-control" style="font-size:24px;width:70%;" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                                          <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
-                                        </div>
+                                          <img src="../img/icon/i_search.png" style="margin-left: 15px;width:36px;"' class='mr-3'>
+                                          <a href='javascript:void(0)' onclick="ShowItem()" id="bSave">
+                                          <?php echo $array['search'][$language]; ?></a>                                              </div>
                                       </div>
                                       <div class="col-md-2">
 

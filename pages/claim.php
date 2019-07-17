@@ -91,9 +91,9 @@ $array2 = json_decode($json2,TRUE);
         // console.log(JSON.stringify(data));
         senddata(JSON.stringify(data));
       }
-  }).mousemove(function(e) { parent.last_move = new Date();;
-  }).keyup(function(e) { parent.last_move = new Date();;
-  });
+  }).mousemove(function(e) { parent.afk();
+        }).keyup(function(e) { parent.afk();
+        });
 
     jqui(document).ready(function($){
 
@@ -1038,6 +1038,18 @@ body{
   table tr:last-child td:last-child {
     border-bottom-right-radius: 6px;
   }
+  .mhee a{
+  /* padding: 6px 8px 6px 16px; */
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+.mhee a:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+}
   a.nav-link{
     width:auto!important;
   }
@@ -1429,11 +1441,19 @@ body{
                   <input type="text" class="form-control col-sm-9" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
                 </div>
               </div>
-              <div class="col-md-2">
-                <button type="button" class="btn btn-primary btn-block" name="button" onclick="ShowItem();"><?php echo $array['search'][$language]; ?></button>
+              <div class="col-md-1 ">
+              <img src="../img/icon/i_search.png" style="margin-left: 35px;width:36px;" class='mr-3'>
               </div>
-              <div class="col-md-2">
-                  <button type="button" class="btn btn-warning  btn-block" name="button" onclick="getImport(1);"><?php echo $array['import'][$language]; ?></button>
+              <div class="col-md-1 mhee">
+                    <a href='javascript:void(0)' onclick="ShowItem()" id="bSave">
+                   <?php echo $array['search'][$language]; ?></a>                                  
+                 </div>
+                 <div class="col-md-1 ">
+              <img src="../img/icon/ic_import.png" style="margin-left: 2px;width:36px;" class='mr-3'>
+              </div>
+              <div class="col-md-1 mhee">
+                  <a href='javascript:void(0)' onclick="getImport(1)" id="bSave" style="margin-left: -33px;">
+                <?php echo $array['import'][$language]; ?></a>   
               </div>
             </div>
             <table class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="font-size:24px;width:1100px;font-family: 'THSarabunNew'">
