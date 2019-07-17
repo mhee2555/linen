@@ -2,6 +2,8 @@
 session_start();
 $Userid = $_SESSION['Userid'];
 $TimeOut = $_SESSION['TimeOut'];
+$PmID = $_SESSION['PmID'];
+
 if($Userid==""){
    header("location:../index.html");
 }
@@ -614,7 +616,7 @@ body{
 
 </div>
 <!-- =============================================================================================== -->
-            <div class="sidenav" style=" margin-left: 92px;margin-top: 33px;">
+            <div class="sidenav" style=" margin-left: 92px;margin-top: 33px;" <?php if($PmID == 2) echo 'hidden'; ?>>
               <div class="" style="margin-top:5px;">
                 <div class="card-body" style="padding:0px; margin-top:10px;">
 <!-- =============================================================================================== -->
