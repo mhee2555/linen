@@ -552,6 +552,7 @@ function CreateDocument($conn,$DATA){
       $ItemCode   				    = $Result['ItemCode'];
       $UnitCode 					= $Result['UnitCode1'];
       $UniCode2 					= $Result['UnitCode2'];
+      $Qty                = $Result['Qty2'];
 
       $count2=0;
 

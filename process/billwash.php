@@ -552,6 +552,7 @@ function ShowDetail($conn, $DATA)
     $UnitCode           = $Result['UnitCode1'];
     $ItemCode               = $Result['ItemCode'];
     $UniCode2 					= $Result['UnitCode2'];
+    $Qty                = $Result['Qty2'];
 
     $count2 = 0;
 
