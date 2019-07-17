@@ -98,7 +98,7 @@ $array2 = json_decode($json2,TRUE);
                 swal({
                     type: 'warning',
                     title: 'Something Wrong',
-                    text: 'Please recheck your username and password!'
+                    text: 'Please recheck your Time out!'
                 })
             }
 
