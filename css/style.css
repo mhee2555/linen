@@ -366,4 +366,12 @@ input{
     background: linear-gradient(21deg, #1a0246, #33023b);
 }
 
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 30px 30px 30px 30px white inset !important;
+}
+
 
