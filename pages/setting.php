@@ -81,13 +81,12 @@ $array2 = json_decode($json2,TRUE);
 
         function timeoutUpdate() {
             var timeout = document.getElementById("timeout").value;
-
-            parent.redirectInSecond = timeout;
-            parent.target = parent.redirectInSecond * 1000; // แปลงค่าเป็น microsecond
-            parent.target = parent.target * 60;
-
             var Id = "<?php echo $Id ?>";
-            if(timeout!=0){
+            if(timeout!=0 && timeout!='' && timeout != null){
+                parent.redirectInSecond = timeout;
+                parent.target = parent.redirectInSecond * 1000;
+                parent.target = parent.target * 60;
+                
                 var data = {
                     'STATUS' : 'cTimeout',
                     'timeout': timeout,
@@ -102,6 +101,7 @@ $array2 = json_decode($json2,TRUE);
                     text: 'Please recheck your username and password!'
                 })
             }
+
         }
 
     function senddata(data)
