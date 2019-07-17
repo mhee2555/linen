@@ -1,26 +1,27 @@
 <?php
-session_start();
-$Userid = $_SESSION['Userid'];
-$TimeOut = $_SESSION['TimeOut'];
-if($Userid==""){
-  // header("location:../index.html");
-}
+  session_start();
+  $Userid = $_SESSION['Userid'];
+  $TimeOut = $_SESSION['TimeOut'];
+  $PmID= $_SESSION['PmID'];
+  if($Userid==""){
+    // header("location:../index.html");
+  }
 
-if(empty($_SESSION['lang'])){
-  $language ='th';
-}else{
-  $language =$_SESSION['lang'];
+  if(empty($_SESSION['lang'])){
+    $language ='th';
+  }else{
+    $language =$_SESSION['lang'];
 
-}
+  }
 
-header ('Content-type: text/html; charset=utf-8');
-$xml = simplexml_load_file('../xml/general_lang.xml');
-$xml2 = simplexml_load_file('../xml/main_lang.xml');
-$json = json_encode($xml);
-$array = json_decode($json,TRUE);
-$json2 = json_encode($xml2);
-$array2 = json_decode($json2,TRUE);
- ?>
+  header ('Content-type: text/html; charset=utf-8');
+  $xml = simplexml_load_file('../xml/general_lang.xml');
+  $xml2 = simplexml_load_file('../xml/main_lang.xml');
+  $json = json_encode($xml);
+  $array = json_decode($json,TRUE);
+  $json2 = json_encode($xml2);
+  $array2 = json_decode($json2,TRUE);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -71,6 +72,14 @@ $array2 = json_decode($json2,TRUE);
       var summary = [];
 
     $(document).ready(function(e){
+      if('<?php echo $PmID; ?>'==1){
+        $('#NewItem').hide();
+        $('#BlankItemBNT').hide();
+      }else{
+        $('#ActiveBNT').hide();
+      }
+      $('#AddItemBNT').hide();
+
       GetHospital();
       GetmainCat();
       getCatagory();
@@ -515,8 +524,6 @@ var isChecked2 = false;
     }
 
     function CreateItemCode(){
-
-      //toy
       var Catagory = $('#catagory2').val();
       var modeCode = $('#formatitem:checked').val();
       console.log(modeCode);
@@ -544,7 +551,7 @@ var isChecked2 = false;
         senddata(JSON.stringify(data));
       }
     }
-// ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙
+
     function AddUnit(){
       var priceunit = $('#priceunit').val();
       var mul = $('#mulinput').val();
@@ -580,13 +587,12 @@ var isChecked2 = false;
         })
       }
     }
-// ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙
 
     function CancelItem() {
       var itemcode = $("#ItemCode").val();
       swal({
         title: "<?php echo $array['canceldata'][$language]; ?>",
-        text: "<?php echo $array['canceldata1'][$language]; ?>",
+        text: "<?php echo $array['confirm1'][$language]; ?>"+itemcode+"<?php echo $array['confirm2'][$language]; ?>",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
@@ -605,12 +611,21 @@ var isChecked2 = false;
           console.log(JSON.stringify(data));
           senddata(JSON.stringify(data));
         })
+      if('<?php echo $PmID; ?>'!=1){
+        $('#NewItem').show();
+      }
+      $('#AddItemBNT').hide();
+      $("input[name=formatitem][value=1]").prop('checked', true);
     }
 
     function Blankinput() {
-      $('#NewItem').prop("disabled", false);
       $(".radio-c :input").attr("disabled", false);
-      $('#formatitem:checked').prop('checked', false);
+      if('<?php echo $PmID; ?>'!=1){
+        $('#NewItem').show();
+      }
+      $('#AddItemBNT').hide();
+      $("input[name=formatitem][value=1]").prop('checked', true);
+      $('#oldCodetype').show();
       $('.checkblank').each(function() {
         $(this).val("");
       });
@@ -622,6 +637,11 @@ var isChecked2 = false;
     }
 
     function getdetail(ItemCode) {
+      if(ItemCode.length>9){
+        $("input[name=formatitem][value=1]").prop('checked', true);
+      }else{
+        $("input[name=formatitem][value=2]").prop('checked', true);
+      }
       if(ItemCode!=""&&ItemCode!=undefined){
         var data = {
           'STATUS'      : 'getdetail',
@@ -631,9 +651,24 @@ var isChecked2 = false;
         console.log(JSON.stringify(data));
         senddata(JSON.stringify(data));
       }
-      $('#NewItem').prop("disabled", true);
+      $('#AddItemBNT').show();
+      if('<?php echo $PmID; ?>'!=1){
+        $('#NewItem').hide();
+      }
       $(".radio-c :input").attr("disabled", true);
-      $('#formatitem:checked').prop('checked', false);
+    }
+
+    function ActiveItem() {
+      var ItemCode = $('#ItemCode').val();
+      if(ItemCode!=""&&ItemCode!=undefined){
+        var data = {
+          'STATUS'      : 'ActiveItem',
+          'ItemCode'    : ItemCode
+        };
+
+        console.log(JSON.stringify(data));
+        senddata(JSON.stringify(data));
+      }
     }
 
     function DeleteUnit(){
@@ -748,7 +783,7 @@ var isChecked2 = false;
         $('#qty'+cnt).val(add);
       }
     }
-
+    
     function subtractnum(cnt) {
       var sub = parseInt($('#qty'+cnt).val())-1;
       if((sub>=0) && (sub<=500)) {
@@ -866,7 +901,7 @@ var isChecked2 = false;
                           }else if( (temp["form"]=='GetHospital') ){
                             for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                               var StrTr = "<option value = '"+temp[i]['HospitalCode']+"'> " + temp[i]['HospitalName'] + " </option>";
-                              $("#hospital").append(StrTr);//toy
+                              $("#hospital").append(StrTr);
                             }
                           }else if( (temp["form"]=='GetmainCat') ){
                             for (var i = 0; i < (Object.keys(temp).length-2); i++) {
@@ -977,7 +1012,10 @@ var isChecked2 = false;
                               }
                             }
                           }else if( (temp["form"]=='AddItem') ){
-                            $('#NewItem').prop("disabled", false);
+                            $('#AddItemBNT').hide();
+                            if('<?php echo $PmID; ?>'!=1){
+                              $('#NewItem').show();
+                            }
                             $(".radio-c :input").attr("disabled", false);
                             $('#ItemCode').val("");
                             switch (temp['msg']) {
@@ -1090,7 +1128,6 @@ var isChecked2 = false;
                               getdetail(itemcode);
                               $('#subUnit').val("1");
                               $('#mulinput').val("");
-                              $('#priceunit').val("");
                             })
                           }else if( (temp["form"]=='CancelUnit') ){
                             switch (temp['msg']) {
@@ -1145,8 +1182,6 @@ var isChecked2 = false;
                               getdetail(itemcode);
                               $('#subUnit').val("1");
                               $('#mulinput').val("");
-                              $('#priceunit').val("");
-
                             })
                           }else if( (temp["form"]=='CancelItem') ){
                             switch (temp['msg']) {
@@ -1208,6 +1243,19 @@ var isChecked2 = false;
                             })
                           }else if(temp['form']=='CreateItemCode'){
                             $('#ItemCode').val(temp['ItemCode']);
+                          }else if(temp['form']=='ActiveItem'){
+                            temp['msg'] = "<?php echo $array['addsuccessmsg'][$language]; ?>";
+                            swal({
+                              title: '',
+                              text: temp['msg'],
+                              type: 'success',
+                              showCancelButton: false,
+                              confirmButtonColor: '#3085d6',
+                              cancelButtonColor: '#d33',
+                              showConfirmButton: false,
+                              timer: 2000,
+                              confirmButtonText: 'Ok'
+                            })
                           }
                         }else if (temp['status']=="failed") {
                           switch (temp['msg']) {
@@ -1280,8 +1328,8 @@ var isChecked2 = false;
     }
 
     </script>
-    <!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
-   <style media="screen">
+
+<style media="screen">
     @font-face {
             font-family: myFirstFont;
             src: url("../fonts/DB Helvethaica X.ttf");
@@ -1394,20 +1442,15 @@ var isChecked2 = false;
     }
   }
     </style>
-<!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
 
   </head>
 
   <body id="page-top">
   
-  <!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
-  <ol class="breadcrumb">
-  
-  <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['system']['title'][$language]; ?></a></li>
-  <li class="breadcrumb-item active"><?php echo $array2['menu']['system']['sub'][3][$language]; ?></li>
-</ol>
-<!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
-
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="javascript:void(0)"><?php echo $array2['menu']['system']['title'][$language]; ?></a></li>
+      <li class="breadcrumb-item active"><?php echo $array2['menu']['system']['sub'][3][$language]; ?></li>
+    </ol>
 
     <div id="wrapper">
       <!-- content-wrapper -->
@@ -1488,10 +1531,10 @@ var isChecked2 = false;
                       <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 <!-- /.content-wrapper -->
-<div class="row">
-              <div class="col-md-11"> <!-- tag column 1 -->
-                  <div class="container-fluid">
-                    <div class="card-body" style="padding:0px; margin-top:10px;">
+                    <div class="row">
+                        <div class="col-md-12"> <!-- tag column 1 -->
+                          <div class="container-fluid">
+                            <div class="card-body" style="padding:0px; margin-top:10px;">
    <!-- =================================================================== -->
                                 <div class="row mt-4">
                                   <div class="col-md-6">
@@ -1507,7 +1550,7 @@ var isChecked2 = false;
                                       <div class="col-md-6">
                                         <div class='form-group row' >
                                           <div class='radio-c' style="align-content:center" >
-                                            <input type='radio' name='formatitem' id='formatitem' value='1' onclick="CreateItemCode()">
+                                            <input type='radio' name='formatitem' id='formatitem' value='1' onclick="CreateItemCode()" checked="checked">
                                           </div>
                                           <label class="col-sm-10 col-form-label text-left"><?php echo $array['oldFormatItemCode'][$language]; ?></label>
                                         </div>
@@ -1528,34 +1571,37 @@ var isChecked2 = false;
                                   <div class="col-md-6">
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['hosname'][$language]; ?></label>
-                                      <select class="form-control col-sm-8" id="hospital" onchange="CreateItemCode()"></select>
+                                      <select class="form-control col-sm-8 checkblank" id="hospital" onchange="CreateItemCode()"></select>
                                     </div>
                                   </div>
-                                  <div class="col-md-3">
-                                    <div class='form-group row'>
-                                        <label class="col-sm-4 col-form-label text-right"><?php echo $array['type'][$language]; ?></label>
-                                        <select class="form-control col-sm-8 checkblank" id="typeLinen" onchange="CreateItemCode()" >
-                                          <option value="P">Patient Shirt</option>
-                                          <option value="S">Staff Uniform</option>
-                                          <option value="F">Flat Sheet</option>
-                                          <option value="T">Towel</option>
-                                          <option value="G">Green Linen</option>
-                                          <option value="O">Other</option>
-                                        </select>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class='form-group row'>
-                                        <label class="col-sm-4 col-form-label text-right"><?php echo $array['pack'][$language]; ?></label>
-                                        <select class="form-control col-sm-8 checkblank numonly" id="numPack" onchange="CreateItemCode()" >
-                                          <option value="01">1 Psc</option>
-                                          <option value="05">5 Pc</option>
-                                          <option value="10">10 Pc</option>
-                                          <option value="15">15 Pc</option>
-                                          <option value="20">20 Pc</option>
-                                          <option value="00">None</option>
-                                        </select>
+                                  <div class="col-md-6">
+                                    <div class="row">
+                                      <div class="col-md-4 ">
+                                        <label class="col-sm-12 col-form-label text-right"><?php echo $array['type'][$language]; ?></label>
                                       </div>
+                                      <div class="col-md-8">
+                                        <div class='form-group row'>
+                                          <select class="form-control col-sm-5 checkblank" id="typeLinen" onchange="CreateItemCode()" >
+                                            <option value="P">Patient Shirt</option>
+                                            <option value="S">Staff Uniform</option>
+                                            <option value="F">Flat Sheet</option>
+                                            <option value="T">Towel</option>
+                                            <option value="G">Green Linen</option>
+                                            <option value="O">Other</option>
+                                          </select>
+                                        
+                                          <label class="col-sm-3 col-form-label text-right"><?php echo $array['pack'][$language]; ?></label>
+                                          <select class="form-control col-sm-4 checkblank numonly" id="numPack" onchange="CreateItemCode()" >
+                                            <option value="01">1 Psc</option>
+                                            <option value="05">5 Pc</option>
+                                            <option value="10">10 Pc</option>
+                                            <option value="15">15 Pc</option>
+                                            <option value="20">20 Pc</option>
+                                            <option value="00">None</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>                    
    <!-- =================================================================== -->
@@ -1637,95 +1683,99 @@ var isChecked2 = false;
                   </div>
               </div> <!-- tag column 1 -->
 
-    </div>
-
-                            </div>
-<!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
+          </div>
+          </div>
+            
               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="row">
                   <div class="container-fluid">
                     <div class="card-body" style="padding:0px; margin-top:10px;">
-                        <div class="row">
-                                      <div style="margin-left:20px;width:60px;">
-                        <label><?php echo $array['unit'][$language]; ?></label>
-                                      </div>
-                                      <div style="width:160px;">
-                                          <div style="font-size:24px;width:130px;">
-                                            <select class="form-control" style="font-size:24px;" id="Unitshows" disabled>
-                                            </select>
-                                          </div>
-                                      </div>
-                                      <div style="margin-left:20px;width:90px;">
-												                <label><?php echo $array['secunit'][$language]; ?></label>
-                                      </div>
-                                    <div style="width:200px;">
-                                      	<div style="font-size:24px;width:150px;">
-                                          <select class="form-control" style="font-size:24px;" id="subUnit">
-                                          </select>
-                                       		</div>
-                                      </div>
-                                      <div style="margin-left:20px;width:60px;">
-												                  <label><?php echo $array['multiply'][$language]; ?></label>
-                                      </div>
-                                       <input type="text" class="form-control numonly" style="font-size:24px;width:59px;" name="mulinput" id="mulinput" placeholder="0.00" >
-
-                                       <div style="margin-left:20px;width:100px;">
-												                  <label><?php echo $array['priceunit'][$language]; ?></label>
-                                      </div>
-                                      <input type="text" class="form-control numonly" style="font-size:24px;width:59px;" name="priceunit" id="priceunit" placeholder="0.00" >
-
-                                       <button style="margin-left:11px;width:64px;" type="button" class="btn btn-success" onclick="AddUnit();"><?php echo $array['save'][$language]; ?></button>
-                                       <button style="margin-left:4px;width:64px;" type="button" class="btn btn-danger" onclick="DeleteUnit();"><?php echo $array['delete'][$language]; ?></button>
-                        			  </div>
+                      <div class="row">
+                        <div style="margin-left:20px;width:60px;">
+                          <label><?php echo $array['unit'][$language]; ?></label>
+                        </div>
+                        <div style="width:160px;">
+                          <div style="font-size:24px;width:130px;">
+                            <select class="form-control" style="font-size:24px;" id="Unitshows" disabled>
+                            </select>
+                          </div>
+                        </div>
+                        <div style="margin-left:20px;width:90px;">
+												  <label><?php echo $array['secunit'][$language]; ?></label>
+                        </div>
+                        <div style="width:200px;">
+                        <div style="font-size:24px;width:150px;">
+                          <select class="form-control" style="font-size:24px;" id="subUnit">
+                          </select>
+                        </div>
+                      </div>
+                      <div style="margin-left:20px;width:60px;">
+												<label><?php echo $array['multiply'][$language]; ?></label>
+                      </div>
+                        <input type="text" class="form-control numonly" style="font-size:24px;width:59px;" name="mulinput" id="mulinput" placeholder="0.00" >
+                        <div style="margin-left:20px;width:100px;">
+												  <label><?php echo $array['priceunit'][$language]; ?></label>
+                        </div>
+                        <input type="text" class="form-control numonly" style="font-size:24px;width:59px;" name="priceunit" id="priceunit" placeholder="0.00" >
+                        <button style="margin-left:11px;width:64px;" type="button" class="btn btn-success" onclick="AddUnit();"><?php echo $array['save'][$language]; ?></button>
+                        <button style="margin-left:4px;width:64px;" type="button" class="btn btn-danger" onclick="DeleteUnit();"><?php echo $array['delete'][$language]; ?></button>
+                      </div>
                     </div>
                   </div>
-</div>
- <div class="row" style="margin-top:5px;">
-		<table class="table table-fixed table-condensed table-striped" id="TableUnit" width="100%" cellspacing="0" role="grid">
-                          <thead id="theadsum" style="font-size:18px;">
-                            <tr role="row">
-                              <th style='width: 5%;'>&nbsp;</th>
-                              <th style='width: 5%;'><?php echo $array['no'][$language]; ?></th>
-                              <th style='width: 30%;'><?php echo $array['item'][$language]; ?></th>
-                              <th style='width: 12%;'><?php echo $array['unit'][$language]; ?></th>
-                              <th align='center' style='width: 20%;' ><?php echo $array['secunit'][$language]; ?></th>
-                              <th align='center' style='width: 10%;'><?php echo $array['multiply'][$language]; ?></th>
-                              <th align='center' style='width: 18%;'><?php echo $array['priceunit'][$language]; ?></th>
-                            </tr>
-                          </thead>
-                          <tbody id="tbody" class="nicescrolled" style="font-size:11px;height:200px;">
-                          </tbody>
-		                  </table>
-                    </div>
-                  </div>
-<!-- ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙ -->
-                   
+                </div>
+                <div class="row" style="margin-top:5px;">
+		              <table class="table table-fixed table-condensed table-striped" id="TableUnit" width="100%" cellspacing="0" role="grid">
+                    <thead id="theadsum" style="font-size:18px;">
+                      <tr role="row">
+                        <th style='width: 5%;'>&nbsp;</th>
+                        <th style='width: 5%;'><?php echo $array['no'][$language]; ?></th>
+                        <th style='width: 30%;'><?php echo $array['item'][$language]; ?></th>
+                        <th style='width: 12%;'><?php echo $array['unit'][$language]; ?></th>
+                        <th align='center' style='width: 20%;' ><?php echo $array['secunit'][$language]; ?></th>
+                        <th align='center' style='width: 10%;'><?php echo $array['multiply'][$language]; ?></th>
+                        <th align='center' style='width: 18%;'><?php echo $array['priceunit'][$language]; ?></th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody" class="nicescrolled" style="font-size:11px;height:200px;">
+                    </tbody>
+		              </table>
+                </div>
+              </div>
 
-        </div>
-		</div>
-</div>
+          </div>
+		    </div>
+      </div>
 
-
-
-<!-- หมีทำนะคับ         ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙            -->
+      <div class="col-md-2" >
+                              <div class="sidenav" style=" margin-left: 0px;margin-top: 73px;">
+                                <div class="" style="margin-top:5px;">
+                                  <div class="card-body" style="padding:0px; margin-top:10px;">
 <!-- =============================================================================================== -->
-<div class="sidenav" style=" margin-left: 0px;margin-top: 73px;">
-              <div class="" style="margin-top:5px;">
-                <div class="card-body" style="padding:0px; margin-top:10px;">
-<!-- =============================================================================================== -->
-<div class="row" style="margin-top:0px;">
+                                    <div class="row" style="margin-top:0px;" id="ActiveBNT">
                                       <div class="col-md-3 icon" >
                                         <img src="../img/icon/i_listnew.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="NewItem()" id="bSave">
+                                        <a href='javascript:void(0)' onclick="ActiveItem()" id="bActive">
+                                          <?php echo $array['activeItem'][$language]; ?>(รอรูป)
+                                        </a>
+                                      </div>
+                                    </div>
+                                    
+<!-- =============================================================================================== -->
+                                    <div class="row" style="margin-top:0px;" id="NewItem">
+                                      <div class="col-md-3 icon" >
+                                        <img src="../img/icon/i_listnew.png" style='width:36px;' class='mr-3'>
+                                      </div>
+                                      <div class="col-md-9">
+                                        <a href='javascript:void(0)' onclick="NewItem()" id="bNewItem">
                                           <?php echo $array['itemnew'][$language]; ?>
                                         </a>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
 
-                                    <div class="row" style="margin-top:0px;">
+                                    <div class="row" style="margin-top:0px;" id="AddItemBNT">
                                       <div class="col-md-3 icon" >
                                         <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
                                       </div>
@@ -1737,10 +1787,10 @@ var isChecked2 = false;
                                     </div>
         
 <!-- =============================================================================================== -->
-<div class="row" style="margin-top:0px;">
+                                    <div class="row" style="margin-top:0px;" id="BlankItemBNT">
                                       <div class="col-md-3 icon" >
                                         <img src="../img/icon/i_clean.png" style='width:40px;' class='mr-3'>
-                                      </div>
+                                        </div>
                                       <div class="col-md-9">
                                         <a href='javascript:void(0)' onclick="Blankinput()" id="bDelete">
                                           <?php echo $array['clear'][$language]; ?>
@@ -1748,7 +1798,7 @@ var isChecked2 = false;
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
-          <div class="row" style="margin-top:0px;">
+                                    <div class="row" style="margin-top:0px;" id="CancelBNT">
                                       <div class="col-md-3 icon" >
                                         <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
                                       </div>

@@ -1263,7 +1263,7 @@ $array2 = json_decode($json2,TRUE);
       font-size:22px!important;
     }
     .table > thead > tr >th {
-      background: #4f88e3!important;
+      background-color: #1659a2;
     }
 
     table tr th,
