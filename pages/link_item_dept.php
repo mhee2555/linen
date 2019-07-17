@@ -793,6 +793,17 @@ $array2 = json_decode($json2,TRUE);
         senddata(JSON.stringify(data));
       }
 
+      function SelectItemStock(ItemCode){
+        var DepCode = $('#department').val();
+        var data = {
+          'STATUS'      : 'SelectItemStock',
+          'DepCode'       : DepCode,
+          'ItemCode'   : ItemCode
+        };
+
+        console.log(JSON.stringify(data));
+        senddata(JSON.stringify(data));
+      }
 
       function senddata(data){
          var form_data = new FormData();
@@ -1091,7 +1102,7 @@ $array2 = json_decode($json2,TRUE);
                               })
 
 
-                              ShowItemStock();
+                              SelectItemStock(temp['ItemCode']);
                               ShowItem();
 
                             }else if(temp['form']=="ShowItemStock"){
@@ -1130,12 +1141,17 @@ $array2 = json_decode($json2,TRUE);
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
                                 showConfirmButton: false,
-                                timer: 2000,
-                                confirmButtonText: 'Ok'
-                              })
+                                timer: 1500,
+                                // confirmButtonText: 'Ok'
+                              });
+                              setTimeout(function () {
+                                $("#TableItemStock tbody").empty();
+                                $("#parnum").val("");
+                                $("#department").val(1);
+                                ShowItem();
+                              }, 1500);
 
-                              ShowItem();
-                              ShowItemStock();
+                              // ShowItemStock();
                             }else if(temp['form']=="SaveUsageCode"){
                               swal({
                                 title: '',
@@ -1148,6 +1164,31 @@ $array2 = json_decode($json2,TRUE);
                                 timer: 1000,
                                 // confirmButtonText: 'Ok'
                               })
+                            }else if(temp['form']=="SelectItemStock"){
+                              $( "#TableItemStock tbody" ).empty();
+                              for (var i = 0; i < (Object.keys(temp).length-2); i++) {
+                                  if(temp[i]['UsageCode'] == undefined || temp[i]['UsageCode'] == ''){
+                                      var UsageCode = "";
+                                  }else{
+                                    var UsageCode = temp[i]['UsageCode'];
+                                  }
+                                 var rowCount = $('#TableItemStock >tbody >tr').length;
+                                //  var txtno = '<input type="text" style="font-size:24px;text-align:center;" class="form-control" id="exp_'+temp[i]['RowID']+'" onclick="datedialog(\''+temp[i]['RowID']+'\')" value="'+temp[i]['ExpireDate']+'" placeholder="<?php echo $array['choose'][$language]; ?>" READONLY>';
+                                 var txtno = '<input tyle="text" class="form-control" id="exp_'+temp[i]['RowID']+'" value="'+UsageCode+'" onKeyPress="if(event.keyCode==13){SaveUsageCode('+temp[i]['RowID']+')}" style=" margin-left: -34px;width: 168px;">';
+                                 StrTR = "<tr id='tr"+temp[i]['RowID']+"'>"+
+                                                "<td style='width: 5%;' nowrap></td>"+
+                                                "<td style='width: 25%;' nowrap>"+temp[i]['ItemCode']+"</td>"+
+                                                "<td style='width: 46%;' nowrap>"+temp[i]['ItemName']+"</td>"+
+                                                // "<td style='width: 10%;' nowrap><center>"+temp[i]['ParQty']+"</center></td>"+
+                                                "<td style='width: 24%;' nowrap>"+txtno+"</td>"+
+                                                "</tr>";
+
+                                 if(rowCount == 0){
+                                   $("#TableItemStock tbody").append( StrTR );
+                                 }else{
+                                   $('#TableItemStock tbody:last-child').append( StrTR );
+                                 }
+                              }
                             }
                           }else if (temp['status']=="failed") {
                             switch (temp['msg']) {

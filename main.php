@@ -352,6 +352,7 @@ switch ($PmID) {
 
     <!-- ============================================================================ -->
     function afk() {
+      $("#ShowTime").attr('hidden',true);
       last_move = new Date();
       if(redirectInSecond>=60)
           hms = "00:00:00";
@@ -365,19 +366,6 @@ switch ($PmID) {
       cur_date = new Date(); // อ่านเวลาปัจจุบันไว้ใน cur_date
       if( cur_date>last_move){ // ตรวจสอบเวลา
         var micro = parseInt(cur_date.getTime() - last_move.getTime());
-        // var newDate = new Date();
-        // newDate.setTime((target - micro));
-
-        // var h = newDate.getHours();
-        // var m = newDate.getMinutes();
-        // var s = newDate.getSeconds();
-        // var hms = "";
-        // m = checkTime(m);
-        // s = checkTime(s);
-        // if(redirectInSecond>=60)
-        //     hms = h + ":" + m + ":" + s;
-        // else
-        //     hms = m + ":" + s;
         var differ = target-micro;
         var ms = differ % 1000;
         differ = (differ - ms) / 1000;
@@ -393,14 +381,14 @@ switch ($PmID) {
 
         $('#ShowTime').val( 'Timeout : ' + hms );
 
-        if( micro > target ) location.href=redirect_url;
-        else {
-            $('#ShowTime').attr('hidden', false);
+        if( micro > target ) {
+          location.href=redirect_url;
+        }else {
+            $("#ShowTime").attr('hidden',false);
             var new_time = target - micro;
             setTimeout('chk_last_move()', 1000 ); //new_time
         }
       }else{
-        $('#ShowTime').attr('hidden', true);
         setTimeout('chk_last_move()', 1000 );
       }
     }
@@ -993,7 +981,7 @@ switch ($PmID) {
 
     </ul>
     <div class='row col-12'>
-        <input class='form-control ' style='border:none;width:90%'  id='ShowTime' hidden>
+        <input class='form-control ' style='border:none;width:90%'  id='ShowTime' >
     </div>
   </nav>
   <!-- div id="siteAds">Ads</div -->
