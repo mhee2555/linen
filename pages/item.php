@@ -526,29 +526,32 @@ var isChecked2 = false;
     function CreateItemCode(){
       var Catagory = $('#catagory2').val();
       var modeCode = $('#formatitem:checked').val();
-      console.log(modeCode);
-      if(!(typeof modeCode == 'undefined')){
-        if(modeCode==1){
-        $('#oldCodetype').show();
-        var hospitalCode = $('#hospital').val();
-        var typeCode = $('#typeLinen').val();
-        var packCode = $('#numPack').val();
-      }else{
-        $('#oldCodetype').hide();
-        var hospitalCode = "";
-        var typeCode = "";
-        var packCode = "";
-      }
-      var data = {
-        'STATUS' : 'CreateItemCode',
-        'Catagory' : Catagory,
-        'modeCode' : modeCode,
-        'hospitalCode' : hospitalCode,
-        'typeCode' : typeCode,
-        'packCode' : packCode,
-      };
-        console.log(JSON.stringify(data));
-        senddata(JSON.stringify(data));
+      var modeCheck = $('#checkitem:checked').val();
+      console.log(typeof modeCheck == 'undefined');
+      if('<?php echo $PmID; ?>'!=1){
+        if(typeof modeCheck == 'undefined'){
+          if(modeCode==1){
+          $('#oldCodetype').show();
+          var hospitalCode = $('#hospital').val();
+          var typeCode = $('#typeLinen').val();
+          var packCode = $('#numPack').val();
+          }else{
+            $('#oldCodetype').hide();
+            var hospitalCode = "";
+            var typeCode = "";
+            var packCode = "";
+            }
+          var data = {
+            'STATUS' : 'CreateItemCode',
+            'Catagory' : Catagory,
+            'modeCode' : modeCode,
+            'hospitalCode' : hospitalCode,
+            'typeCode' : typeCode,
+            'packCode' : packCode,
+          };
+          console.log(JSON.stringify(data));
+          senddata(JSON.stringify(data));
+        }
       }
     }
 
@@ -613,8 +616,8 @@ var isChecked2 = false;
         })
       if('<?php echo $PmID; ?>'!=1){
         $('#NewItem').show();
+        $('#AddItemBNT').hide();
       }
-      $('#AddItemBNT').hide();
       $("input[name=formatitem][value=1]").prop('checked', true);
     }
 
@@ -622,8 +625,8 @@ var isChecked2 = false;
       $(".radio-c :input").attr("disabled", false);
       if('<?php echo $PmID; ?>'!=1){
         $('#NewItem').show();
+        $('#AddItemBNT').hide();
       }
-      $('#AddItemBNT').hide();
       $("input[name=formatitem][value=1]").prop('checked', true);
       $('#oldCodetype').show();
       $('.checkblank').each(function() {
@@ -651,9 +654,9 @@ var isChecked2 = false;
         console.log(JSON.stringify(data));
         senddata(JSON.stringify(data));
       }
-      $('#AddItemBNT').show();
       if('<?php echo $PmID; ?>'!=1){
         $('#NewItem').hide();
+        $('#AddItemBNT').show();
       }
       $(".radio-c :input").attr("disabled", true);
     }
@@ -974,7 +977,7 @@ var isChecked2 = false;
                             $('.checkblank').each(function() {
                               $(this).val("");
                             });
-                          }else if( (temp["form"]=='getdetail') ){
+                          } else if( (temp["form"]=='getdetail') ){
                             if((Object.keys(temp).length-2)>0){
                               $( "#TableUnit tbody" ).empty();
                               // console.log(temp);
@@ -1012,9 +1015,9 @@ var isChecked2 = false;
                               }
                             }
                           }else if( (temp["form"]=='AddItem') ){
-                            $('#AddItemBNT').hide();
                             if('<?php echo $PmID; ?>'!=1){
                               $('#NewItem').show();
+                              $('#AddItemBNT').hide();
                             }
                             $(".radio-c :input").attr("disabled", false);
                             $('#ItemCode').val("");
