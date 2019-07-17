@@ -178,16 +178,12 @@ function getdetail($conn, $DATA)
   $MQuery = mysqli_query($conn,$countM);
   $return['sql'] = $countM;
   while ($MResult = mysqli_fetch_assoc($MQuery)) {
-
    if($MResult['cnt']==0){
      $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
              (1, 1, 1, '$ItemCode' , 1) ";
-              $return['Sql2'] = $Sql2;
              mysqli_query($conn,$Sql2);
+    }
   }
- }
-
-
 
   $Sql = "SELECT
           item.ItemCode,
@@ -437,7 +433,8 @@ function NewItem($conn, $DATA)
             SizeCode,
             CusPrice,
             FacPrice,
-            Weight
+            Weight,
+            IsActive
            )
             VALUES
             (
@@ -448,7 +445,8 @@ function NewItem($conn, $DATA)
               '".$DATA['SizeCode']."',
               '".$DATA['CusPrice']."',
               '".$DATA['FacPrice']."',
-              '".$DATA['Weight']."'
+              '".$DATA['Weight']."',
+              0
             )
     ";
     if(mysqli_query($conn, $Sql)){
@@ -472,6 +470,33 @@ function NewItem($conn, $DATA)
     mysqli_close($conn);
     die;
   }
+}
+
+function ActiveItem($conn, $DATA)
+{
+  if($DATA["ItemCode"]!=""){
+    $Sql = "UPDATE item SET IsActive = 1 WHERE ItemCode = '".$DATA['ItemCode']."'";
+    if(mysqli_query($conn, $Sql)){
+      $return['status'] = "success";
+      $return['form'] = "ActiveItem";
+      echo json_encode($return);
+      mysqli_close($conn);
+      die;
+    }else{
+      $return['status'] = "failed";
+      $return['msg'] = "editfailed";
+      echo json_encode($return);
+      mysqli_close($conn);
+      die;
+    }
+  }else{
+    $return['status'] = "failed";
+    $return['msg'] = "editfailed";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }
+
 }
 
 function AddUnit($conn, $DATA)
@@ -689,6 +714,8 @@ if(isset($_POST['DATA']))
         NewItem($conn,$DATA);
       }else if ($DATA['STATUS'] == 'GetmainCat') {
         GetmainCat($conn,$DATA);
+      }else if ($DATA['STATUS'] == 'ActiveItem') {
+        ActiveItem($conn,$DATA);
       }
 
 }else{
