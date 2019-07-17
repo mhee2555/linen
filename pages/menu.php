@@ -215,31 +215,49 @@ $array = json_decode($json,TRUE);
             }
           } else if(temp["form"]=='alert_SetPrice'){
             $('#countRow').val(temp['countRow']);
-            var result = '<table class="table table-fixed table-condensed table-striped">';
+            var result = '<table class="table table-fixed ">';
             var PmID = <?php echo $PmID; ?>;
             if(temp['countRow']==1){
-                result += "<tr class='text-left'>"+
-                  // '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
-                  '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[0]['HptName']+'</td>'+
-                  '<td nowrap style="width: 40%;">วันที่ทำสัญญา: '+temp[0]['StartDate']+'</td>'+
-                  '<td nowrap style="width: 40%;">วันที่สิ้นสุดสัญญา: '+temp[0]['EndDate']+'</td>'+
-                  '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[0]['DocNo']+'</td>'+
-                  '<td nowrap style="width: 20%;">เปลี่ยนราคาวันที่: '+temp[0]['EndDate']+' เหลือเวลา '+temp[0]['DateDiff']+' วัน</td>'+
-                "</tr>";
+                // result += "<tr class='text-left'>"+
+                //   // '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
+                //   '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[0]['HptName']+'</td>'+
+                //   '<td nowrap style="width: 40%;">วันที่ทำสัญญา: '+temp[0]['StartDate']+'</td>'+
+                //   '<td nowrap style="width: 40%;">วันที่สิ้นสุดสัญญา: '+temp[0]['EndDate']+'</td>'+
+                //   '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[0]['DocNo']+'</td>'+
+                //   '<td nowrap style="width: 20%;">เปลี่ยนราคาวันที่: '+temp[0]['EndDate']+' เหลือเวลา '+temp[0]['DateDiff']+' วัน</td>'+
+                // "</tr>";
+                result += '<tr style="background-color:#2980b9;color:#ffffff">'+
+                            '<td nowrap style="width: 30%;font-size:24px;font-weight:bold;padding-left:30px;">โรงพยาบาล '+temp[0]['HptName']+'</td>'+
+                          '</tr>' +
+                          '<tr>'+
+                            '<td style="width:18%"></td>' + 
+                            '<td nowrap style="width:40%" class="text-left">วันที่ทำสัญญา: ' +temp[0]['StartDate']+ '</td>' + 
+                            '<td nowrap style="width:40%" class="text-left">วันที่สิ้นสุดสัญญา: ' + temp[0]['EndDate']+ '</td>' +
+                          '</tr>' +
+                          '<tr>'+
+                            '<td style="width:18%"></td>' + 
+                            '<td nowrap style="width:40%" class="text-left">เอกสารเลขที่: ' +temp[0]['DocNo']+ '</td>'+
+                            '<td nowrap style="width:40%" class="text-left">เปลี่ยนราคาวันที่: ' +temp[0]['EndDate']+ ' เหลือเวลา ' +temp[0]['DateDiff']+  ' วัน</td>'+
+                          '</tr>' ;
               
-              $("#result_alert").append(result);
-              $("#alert_SetPrice").modal('show');
+              $("#result_alert1").append(result);
+              $("#alert_SetPrice1").modal('show');
             }else if(temp['countRow']>1){
 
               for (var i = 0; i < temp['countRow']; i++) {
-                  result += "<tr class='text-left'>"+
-                  '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
-                  '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
-                  '<td nowrap style="width: 40%;">วันที่ทำสัญญา: '+temp[i]['StartDate']+'</td>'+
-                  '<td nowrap style="width: 40%;">วันที่สิ้นสุดสัญญา: '+temp[i]['EndDate']+'</td>'+
-                  '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
-                  '<td nowrap style="width: 20%;">เปลี่ยนราคาวันที่: '+temp[i]['EndDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
-                "</tr>";
+                  result += '<tr style="background-color:#2980b9;color:#ffffff">'+
+                              '<td nowrap style="width: 30%;font-size:24px;font-weight:bold;padding-left:30px;">'+(i+1)+'.'+' โรงพยาบาล '+temp[i]['HptName']+'</td>'+
+                            '</tr>' +
+                            '<tr>'+
+                              '<td style="width:18%"></td>' + 
+                              '<td nowrap style="width:40%" class="text-left">วันที่ทำสัญญา: ' +temp[i]['StartDate']+ '</td>' + 
+                              '<td nowrap style="width:40%" class="text-left">วันที่สิ้นสุดสัญญา: ' + temp[i]['EndDate']+ '</td>' +
+                            '</tr>' +
+                            '<tr>'+
+                              '<td style="width:18%"></td>' + 
+                              '<td nowrap style="width:40%" class="text-left">เอกสารเลขที่: ' +temp[i]['DocNo']+ '</td>'+
+                              '<td nowrap style="width:40%" class="text-left">เปลี่ยนราคาวันที่: ' +temp[i]['EndDate']+ ' เหลือเวลา ' +temp[i]['DateDiff']+  ' วัน</td>'+
+                            '</tr>' ;
               }
               $("#result_alert tbody").append(result);
               $("#alert_SetPrice").modal('show');
@@ -398,9 +416,18 @@ $array = json_decode($json,TRUE);
       color: #D32F2F;
     }
     /* -------------------------- */
-    .modal-content {
+    #alert_SetPrice .modal-content {
       width: 130% !important;
       right: 15% !important;
+    }
+
+    #alert_SetPrice1 .modal-content {
+        width: 100% !important;
+    }
+
+    .modal-body{
+        height: 600px;
+        overflow-y: auto;
     }
   </style>
 </head>
@@ -437,6 +464,29 @@ $array = json_decode($json,TRUE);
       </div>
       <div class="modal-body text-center">
       <table style="margin-top:10px;" class="table-borderless" id="result_alert" width="100%" cellspacing="0" role="grid" style="">
+        <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:auto">
+        </tbody>
+      </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="alert_SetPrice1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h1 class="modal-title" style='font-size:30px;color: rgb(0, 51, 141) '>กำหนดเวลาเปลี่ยนราคา</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+      <table style="margin-top:10px;" class="table-borderless" id="result_alert1" width="100%" cellspacing="0" role="grid" style="">
         <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:auto">
         </tbody>
       </table>
