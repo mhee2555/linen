@@ -44,7 +44,7 @@
                         <label for="password">Password</label>
                     </div>
                     <div class="input-group color1">
-                        <input type="password" class="form-control" id="password">
+                        <input type="password" class="form-control" id="password" required>
                     </div>
                     <div class='icon_password'>
                         <img src="img/icon2.png">
@@ -80,7 +80,7 @@
                         <label for="username">Username</label>
                     </div>
                     <div class="input-group color2">
-                        <input type="text" class="form-control change_input" id="username" required>
+                        <input type="text" class="form-control change_input" id="username2" required>
                     </div>
                 </div>
                 <!-- ------------------------------------------- -->
@@ -163,7 +163,7 @@
             var oldpassword = document.getElementById("oldpassword").value;
             var newpassword = document.getElementById("newpassword").value;
             var confirmpassword = document.getElementById("confirmpassword").value;
-            var Username = document.getElementById("username").value;
+            var Username = document.getElementById("username2").value;
             if(oldpassword!="" && newpassword!=""&& confirmpassword!=""){
                 var data = {
                 'STATUS' : 'cPassword',
@@ -196,14 +196,6 @@
             processData: false,
             data: form_data,
             type: 'post',
-            // beforeSend: function () {
-            //     swal({
-            //     title: 'Please wait..',
-            //     text: 'Processing',
-            //     allowOutsideClick: false
-            //     })
-            //     swal.showLoading()
-            // },
             success: function (result) {
                 try {
                     var temp = $.parseJSON(result);
@@ -213,7 +205,6 @@
                 }
                 if (temp["status"] == 'success') {
                     if(temp["form"] == 'chk_login'){
-                        // swal.hideLoading()
                         swal({
                             title: '',
                             text: temp["msg"],
@@ -245,6 +236,8 @@
                         }, 1000);
                     }
                 } else if (temp["status"] == 'change_pass') {
+                    $('#username2').val(temp['username']);
+                    $('#oldpassword').val(temp['password']);
                     $('#form_white').attr('hidden', true);
                     $('#form_change').attr('hidden', false);
                 } else {

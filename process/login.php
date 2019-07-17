@@ -50,8 +50,10 @@ function checklogin($conn,$DATA)
         $return['form'] = "chk_login";
         $return['msg'] = "Login Success";
       }else{
+        // $return['status'] = "success";
         $return['status'] = "change_pass";
-        $return['form'] = "change";
+        $return['username'] = $user;
+        $return['password'] =$password;
 
       }
       echo json_encode($return);
