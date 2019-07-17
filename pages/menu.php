@@ -215,7 +215,7 @@ $array = json_decode($json,TRUE);
             }
           } else if(temp["form"]=='alert_SetPrice'){
             $('#countRow').val(temp['countRow']);
-            var result = '<table class="table table-fixed table-condensed table-striped">';
+            var result = '<table class="table table-fixed ">';
             var PmID = <?php echo $PmID; ?>;
             if(temp['countRow']==1){
                 // result += "<tr class='text-left'>"+
@@ -226,7 +226,7 @@ $array = json_decode($json,TRUE);
                 //   '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[0]['DocNo']+'</td>'+
                 //   '<td nowrap style="width: 20%;">เปลี่ยนราคาวันที่: '+temp[0]['EndDate']+' เหลือเวลา '+temp[0]['DateDiff']+' วัน</td>'+
                 // "</tr>";
-                result += '<tr>'+
+                result += '<tr style="background-color:#2980b9;color:#ffffff">'+
                             '<td nowrap style="width: 30%;font-size:24px;font-weight:bold;padding-left:30px;">โรงพยาบาล '+temp[0]['HptName']+'</td>'+
                           '</tr>' +
                           '<tr>'+
@@ -245,7 +245,7 @@ $array = json_decode($json,TRUE);
             }else if(temp['countRow']>1){
 
               for (var i = 0; i < temp['countRow']; i++) {
-                  result += '<tr>'+
+                  result += '<tr style="background-color:#2980b9;color:#ffffff">'+
                               '<td nowrap style="width: 30%;font-size:24px;font-weight:bold;padding-left:30px;">'+(i+1)+'.'+' โรงพยาบาล '+temp[i]['HptName']+'</td>'+
                             '</tr>' +
                             '<tr>'+
