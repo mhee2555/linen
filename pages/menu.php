@@ -221,11 +221,11 @@ $array = json_decode($json,TRUE);
              
                 result += "<tr class='text-left'>"+
                   // '<td nowrap style="width: 4%;">'+(i+1)+'</td>'+
-                  '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[i]['HptName']+'</td>'+
-                  '<td nowrap style="width: 40%;">วันที่ทำสัญญา: '+temp[i]['StartDate']+'</td>'+
-                  '<td nowrap style="width: 40%;">วันที่สิ้นสุดสัญญา: '+temp[i]['EndDate']+'</td>'+
-                  '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[i]['DocNo']+'</td>'+
-                  '<td nowrap style="width: 20%;">เปลี่ยนราคาวันที่: '+temp[i]['EndDate']+' เหลือเวลา '+temp[i]['DateDiff']+' วัน</td>'+
+                  '<td nowrap style="width: 40%;">โรงพยาบาล: '+temp[0]['HptName']+'</td>'+
+                  '<td nowrap style="width: 40%;">วันที่ทำสัญญา: '+temp[0]['StartDate']+'</td>'+
+                  '<td nowrap style="width: 40%;">วันที่สิ้นสุดสัญญา: '+temp[0]['EndDate']+'</td>'+
+                  '<td nowrap style="width: 30%;" >เอกสารเลขที่: '+temp[0]['DocNo']+'</td>'+
+                  '<td nowrap style="width: 20%;">เปลี่ยนราคาวันที่: '+temp[0]['EndDate']+' เหลือเวลา '+temp[0]['DateDiff']+' วัน</td>'+
                 "</tr>";
               
               $("#result_alert").append(result);
