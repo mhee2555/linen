@@ -60,9 +60,15 @@ $array = json_decode($json,TRUE);
                 showConfirmButton: false
             });
             setTimeout(function () {
-            parent.location.reload();
+                parent.location.reload();
             }, 1000);
         })
+        
+        if(lang == "th"){
+            $('#lang').val('en');
+        }else{
+            $('#lang').val('th');
+        }
 
     }
 
