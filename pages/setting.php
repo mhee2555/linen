@@ -285,53 +285,17 @@ $array2 = json_decode($json2,TRUE);
             font-weight:bold;
 
         }
-
+        .row {
+            margin-right: 0 !important;
+            margin-left: 0 !important;
+        }
     
     </style>
     <title>Login</title>
   </head>
   <body>
 
-  <!-- <div class="centered">
-      <div class="row">
-          <div class="col-md-12"> 
-
-              <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItemDetail" width="100%" cellspacing="0" role="grid" style="">
-
-                  <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:300px;">
-                    <tr>
-                        <td style='width: 50%;'>
-                            <?php echo $array['changetimeout'][$language]; ?>
-                        </td>
-                        <td style='width: 50%;'>
-                            <div class="form-group">
-                                <input type="text" class="form-control numonly" id="timeout" onchange="timeoutUpdate();"
-                                       placeholder="set new timeout" value="<?= $TimeOut ?>">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <?php echo $array['changelang'][$language]; ?>
-                        </td>
-                        <td>
-                            <select  class="form-control" id="lang" style="font-size:30px;height: 65px" onchange="switchlang()">
-                                <?php if($language=='th'){ ?>
-                                    <option selected value="th"><?php echo $array['thai'][$language]; ?></option>
-                                    <option value="en"><?php echo $array['eng'][$language]; ?></option>
-                                <?php } else { ?>
-                                    <option value="th"><?php echo $array['thai'][$language]; ?></option>
-                                    <option selected value="en"><?php echo $array['eng'][$language]; ?></option>
-                                <?php } ?>
-                            </select>
-                        </td>
-                    </tr>
-                  </tbody>
-              </table>
-          </div>
-      </div>
-
-  </div> -->
+  
 
   <!-- ------------------------------------------------------------------  -->
     <ol class="breadcrumb">
@@ -340,7 +304,7 @@ $array2 = json_decode($json2,TRUE);
     </ol>
 
     <div class="row mt-5">
-        <div class="offset-3 col-md-3 ">
+        <div class="offset-3 col-md-3 mr-3">
             <div class="card">
                 <div class="card-body">
                     <div  class="d-flex justify-content-center mt-3">
@@ -363,7 +327,7 @@ $array2 = json_decode($json2,TRUE);
                 </div>
             </div>
         </div>
-        <div class="col-md-3 ">
+        <div class="col-md-3 ml-3">
             <div class="card">
                 <div class="card-body">
                     <div  class="d-flex justify-content-center mt-3">
