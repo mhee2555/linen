@@ -108,9 +108,10 @@ function alert_SetPrice($conn,$DATA)
     $Sql = "SELECT 
       cat_P.DocNo,
       site.HptName,
+      CURDATE() AS CurDate,
       c.StartDate,
       c.EndDate,
-      DATEDIFF(c.EndDate, c.StartDate) AS dateDiff
+      DATEDIFF(c.EndDate, CURDATE()) AS dateDiff
     FROM contract_parties_hospital c
     INNER JOIN users ON users.ID = 100
     INNER JOIN site ON site.HptCode = c.HptCode
@@ -121,9 +122,10 @@ function alert_SetPrice($conn,$DATA)
       $Sql = "SELECT 
       cat_P.DocNo,
       site.HptName,
+      CURDATE() AS CurDate,
       c.StartDate,
       c.EndDate,
-      DATEDIFF(c.EndDate, c.StartDate) AS dateDiff
+      DATEDIFF(c.EndDate, CURDATE()) AS dateDiff
     FROM contract_parties_hospital c
     INNER JOIN users ON users.ID = $Userid
     INNER JOIN site ON site.HptCode = '$HptCode'
