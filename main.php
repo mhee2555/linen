@@ -384,14 +384,11 @@ switch ($PmID) {
         if( micro > target ) {
           location.href=redirect_url;
         }else {
-          console.log(1);
-          $("#ShowTime").attr('hidden',false);
-
+            $("#ShowTime").attr('hidden',false);
             var new_time = target - micro;
             setTimeout('chk_last_move()', 1000 ); //new_time
         }
       }else{
-        console.log(2);
         setTimeout('chk_last_move()', 1000 );
       }
     }
