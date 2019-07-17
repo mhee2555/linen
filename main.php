@@ -395,10 +395,12 @@ switch ($PmID) {
 
         if( micro > target ) location.href=redirect_url;
         else {
+            $('#ShowTime').attr('hidden', false);
             var new_time = target - micro;
             setTimeout('chk_last_move()', 1000 ); //new_time
         }
       }else{
+        $('#ShowTime').attr('hidden', true);
         setTimeout('chk_last_move()', 1000 );
       }
     }
@@ -991,7 +993,7 @@ switch ($PmID) {
 
     </ul>
     <div class='row col-12'>
-        <input class='form-control ' style='border:none;width:90%'  id='ShowTime' >
+        <input class='form-control ' style='border:none;width:90%'  id='ShowTime' hidden>
     </div>
   </nav>
   <!-- div id="siteAds">Ads</div -->
