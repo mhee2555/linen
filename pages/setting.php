@@ -289,6 +289,16 @@ $array2 = json_decode($json2,TRUE);
             margin-right: 0 !important;
             margin-left: 0 !important;
         }
+
+        select {
+            text-align: center;
+            text-align-last: center;
+            /* webkit*/
+        }
+        option {
+            text-align: left;
+            /* reset to left*/
+        }
     
     </style>
     <title>Login</title>
@@ -315,7 +325,7 @@ $array2 = json_decode($json2,TRUE);
                     </div>
                     <div  class="d-flex justify-content-center mt-5">
                         <div class="input-group">
-                            <input type="text" class="form-control text-left pl-4 numonly" id="timeout"  value="<?= $TimeOut ?>" maxlength="10" required>
+                            <input type="text" class="form-control text-center numonly" id="timeout"  value="<?= $TimeOut ?>" maxlength="10" required>
                         </div>
                         <div id="label1">
                             <label for="timeout"><?php echo $array['minute'][$language]; ?></label>
@@ -340,7 +350,7 @@ $array2 = json_decode($json2,TRUE);
                         <div class="input-group">
                             <select  class="form-control" id="lang">
                                 <?php if($language=='th'){ ?>
-                                    <option selected value="th"><?php echo $array['thai'][$language]; ?></option>
+                                    <option selected value="th" ><?php echo $array['thai'][$language]; ?></option>
                                     <option value="en"><?php echo $array['eng'][$language]; ?></option>
                                 <?php } else { ?>
                                     <option value="th"><?php echo $array['thai'][$language]; ?></option>
