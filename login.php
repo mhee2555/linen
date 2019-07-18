@@ -28,6 +28,7 @@ $array = json_decode($json,TRUE);
 </head>
 <body>
     <!-- ====================== form Login======================= -->
+    <div id="form_input">
         <div id="form_white">
             <div class="row">
                 <!-- logo -->
@@ -74,6 +75,7 @@ $array = json_decode($json,TRUE);
                 </div>
             </div>
         </div>
+    </div>
     <!-- ==================== End form ========================== -->
 
     <!-- ====================== form Sendmail======================= -->
@@ -183,7 +185,8 @@ $array = json_decode($json,TRUE);
         function back()
         {
             $('#form_white').attr('hidden', false);
-            $('#form_change').attr('hidden', true);
+            $('#form_change').remove();
+
             $('#form_sendmail').attr('hidden', true);
         }
 
