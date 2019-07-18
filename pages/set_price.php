@@ -666,8 +666,9 @@ $array2 = json_decode($json2,TRUE);
                                 } else {
                                     $('#TableItemPrice tbody:last-child').append(StrTR);
                                 }
+                                var rowCount = i;
                             }
-
+                            $('#rowCount').val(rowCount+1);
                             $("#hptsel1").empty();
                             for (var i = 0; i < 1; i++) {
                                 var StrTr = "<option value = '" + temp[i]['HptCode'] + "'> " + temp[i]['HptName'] + " </option>";
@@ -717,8 +718,8 @@ $array2 = json_decode($json2,TRUE);
                             var cn = temp["Cnt"];
                             var sv = "<?php echo $array['save'][$language]; ?>";
                             var svs = "<?php echo $array['savesuccess'][$language]; ?>";
-
-                            if((Sel+1)==6)
+                            var rowCount = $('#rowCount').val();
+                            if((Sel+1)==rowCount)
                                 $('#price_0').focus().select();
                             else
                                 $('#price_'+(Sel+1)).focus().select();
@@ -1261,6 +1262,8 @@ $array2 = json_decode($json2,TRUE);
 
             <!-- -----------------------------Custom1------------------------------------ -->
 <div class="modal" id="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<input type="hidden" id="rowCount">
+
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
