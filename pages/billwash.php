@@ -576,6 +576,11 @@ $array2 = json_decode($json2,TRUE);
             })
           }
 
+          function currencyFormat(num) {
+            var price =  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+            $("#total").val(price);
+          }
+
           function senddata(data){
             var form_data = new FormData();
             form_data.append("DATA",data);
@@ -762,7 +767,9 @@ $array2 = json_decode($json2,TRUE);
                     ShowDetail();
                   }else if(temp["form"]=='getImport'  || temp["form"]=='ShowDetail'){
                     $( "#TableItemDetail tbody" ).empty();
-                    $("#total").val(temp['TotalPrice']);
+                    // $("#total").val(temp['TotalPrice']);
+                    currencyFormat(temp['TotalPrice']);
+
                     var isStatus = $("#IsStatus").val();
 
                     var st1 = "style='font-size:24px;margin-left:30px; width:140px;font-family:THSarabunNew'";
