@@ -1159,7 +1159,9 @@ $array2 = json_decode($json2,TRUE);
       table tr:last-child td:last-child {
         border-bottom-right-radius: 6px;
       }
-
+      .opacity{
+        opacity:0.5;
+      }
       a.nav-link{
         width:auto!important;
       }
