@@ -293,7 +293,7 @@ $array2 = json_decode($json2,TRUE);
         select {
             text-align: center;
             text-align-last: center;
-            /* webkitt*/
+            /* webkit*/
         }
         option {
             text-align: left;
