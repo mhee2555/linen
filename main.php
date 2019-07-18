@@ -327,6 +327,7 @@ switch ($PmID) {
     var redirectInSecond = <?php echo $TimeOut ?>; // กำหนดเวลา redirect เป็นวินาที
     var redirect_url = 'http://poseintelligence.dyndns.biz:8181/linen/login.php'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
     $(document).ready(function (e) {
+      
       OnLoadPage();
       target = redirectInSecond * 1000; // แปลงค่าเป็น microsecond
       target = target * 60;
