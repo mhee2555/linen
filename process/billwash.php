@@ -463,18 +463,21 @@ function UpdateDetailQty($conn, $DATA)
 }
 
 function UpdateDetailWeight($conn, $DATA)
-{
-  $RowID  = $DATA["Rowid"];
-  $Weight  =  $DATA["Weight"];
-  $Price  =  $DATA["Price"];
-  $isStatus = $DATA["isStatus"];
-  $Sql = "UPDATE billwash_detail
-	SET Weight = $Weight,Total = $Price
-	WHERE billwash_detail.Id = $RowID";
-  mysqli_query($conn, $Sql);
-  ShowDetail($conn, $DATA);
-}
+  {
+    $RowID  = $DATA["Rowid"];
+    $Weight  =  $DATA["Weight"];
+    // $Price  =  $DATA["Price"];
+    $isStatus = $DATA["isStatus"];
+    $Sql = "UPDATE billwash_detail
+    SET Weight = $Weight
+    -- ,Total = $Price
+    WHERE billwash_detail.Id = $RowID";
+    $return['sql']=$Sql;
+    echo json_encode($return);
 
+    mysqli_query($conn, $Sql);
+    ShowDetail($conn, $DATA);
+  }
 function updataDetail($conn, $DATA)
 {
   $RowID  = $DATA["Rowid"];
