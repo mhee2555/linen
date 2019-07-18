@@ -630,10 +630,6 @@ var isChecked2 = false;
 
     function Blankinput() {
       $(".radio-c :input").attr("disabled", false);
-      if('<?php echo $PmID; ?>'!=1){
-        $('#NewItem').show();
-        $('#AddItemBNT').hide();
-      }
       $("input[name=formatitem][value=1]").prop('checked', true);
       $('#oldCodetype').show();
       $('.checkblank').each(function() {
@@ -647,6 +643,11 @@ var isChecked2 = false;
       $('#typeLinen').val("P");
       $('#numPack').val("01");
       ShowItem();
+      if('<?php echo $PmID; ?>'!=1){
+        $('#NewItem').show();
+        $('#AddItemBNT').hide();
+        CreateItemCode();
+      }
     }
 
     function getdetail(ItemCode) {
