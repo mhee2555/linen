@@ -1447,18 +1447,6 @@ var isChecked2 = false;
   font-weight:bold;
   font-size:26px;
 }
-a {
-  /* padding: 6px 8px 6px 16px; */
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-}
-a :hover {
-  color: #2c3e50;
-  font-weight:bold;
-  font-size:26px;
-}
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
