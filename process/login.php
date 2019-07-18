@@ -115,6 +115,50 @@ function cPassword($conn,$DATA)
     }
   }
 }
+function rand_string( $length ) {
+  $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz@#$&*";
+  $size = strlen( $chars );
+  $str = '';
+  for( $i = 0; $i < $length; $i++ ) {
+    $str .= $chars[ rand( 0, $size - 1 ) ];
+  }
+  return $str;
+}
+
+function sendmail($conn,$DATA)
+{
+  if (isset($DATA)) {
+    $email = $DATA['email'];
+    $newpassword = rand_string(5);
+
+    $Sql = "UPDATE users SET users.`Password` = '$newpassword',Count = 0 WHERE users.email = '$email'";
+    $Chk = mysqli_query($conn,$Sql);
+    if($Chk){
+        $Sql = "SELECT users.UserName,users.`Password`
+              FROM users
+              WHERE users.email = '$email'";
+        $meQuery = mysqli_query($conn,$Sql);
+        while ($Result = mysqli_fetch_assoc($meQuery)) {
+          $return['UserName'] = $Result['UserName'];
+          $return['Password'] = $Result['Password'];
+        }
+        $return['status'] = "success";
+        $return['form'] = "sendmail";
+        $return['msg'] = "Chang password to email success.";
+        $return['email'] = $email;
+
+        echo json_encode($return);
+        mysqli_close($conn);
+        die;
+    }else{
+      $return['status'] = "failed";
+      $return['msg'] = "Not found chang password !";
+      echo json_encode($return);
+      mysqli_close($conn);
+      die;
+    }
+  }
+}
 
 if(isset($_POST['DATA']))
 {
@@ -125,6 +169,8 @@ if(isset($_POST['DATA']))
     checklogin($conn, $DATA);
   }else if ($DATA['STATUS'] == 'cPassword') {
     cPassword($conn, $DATA);
+  }else if ($DATA['STATUS'] == 'sendmail') {
+    sendmail($conn, $DATA);
   }
 }else{
 	$return['status'] = "error";
