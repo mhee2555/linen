@@ -666,8 +666,9 @@ $array2 = json_decode($json2,TRUE);
                                 } else {
                                     $('#TableItemPrice tbody:last-child').append(StrTR);
                                 }
+                                var rowCount = i;
                             }
-
+                            $('#rowCount').val(rowCount+1);
                             $("#hptsel1").empty();
                             for (var i = 0; i < 1; i++) {
                                 var StrTr = "<option value = '" + temp[i]['HptCode'] + "'> " + temp[i]['HptName'] + " </option>";
@@ -717,8 +718,8 @@ $array2 = json_decode($json2,TRUE);
                             var cn = temp["Cnt"];
                             var sv = "<?php echo $array['save'][$language]; ?>";
                             var svs = "<?php echo $array['savesuccess'][$language]; ?>";
-
-                            if((Sel+1)==6)
+                            var rowCount = $('#rowCount').val();
+                            if((Sel+1)==rowCount)
                                 $('#price_0').focus().select();
                             else
                                 $('#price_'+(Sel+1)).focus().select();
@@ -1261,6 +1262,8 @@ $array2 = json_decode($json2,TRUE);
 
             <!-- -----------------------------Custom1------------------------------------ -->
 <div class="modal" id="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<input type="hidden" id="rowCount">
+
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -1271,18 +1274,21 @@ $array2 = json_decode($json2,TRUE);
             <div class="modal-body">
                 <div class="card-body" style="padding:0px;">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 mhee">
                             <div class="row mb-3">
-                                <select class="form-control ml-5" style="font-family: 'THSarabunNew';font-size:22px;width:250px;" id="hptsel1" onchange="getDate_price();"></select>
+                                <select class="form-control ml-2" style="font-family: 'THSarabunNew';font-size:22px;width:250px;" id="hptsel1" onchange="getDate_price();"></select>
 
                                 <label id="rem" style="margin-left:20px;"> *** </label>
-                                <input type="text" class="form-control datepicker-here" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" id="startDate">
+                                <input type="text" class="form-control datepicker-here" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:150px;" id="startDate">
                                 <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" name="docno" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
 
-                                
-                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" id="create1" disabled="true" name="button" onclick="onCreate();"><?php echo $array['createdocno'][$language]; ?></button>
+                                <button onclick="onCreate();" class="mr-3 ml-3 btn" style="font-size: 25px !important;background:none ;" id="create1" disabled="true"><img src="../img/icon/ic_create.png" style='width:31px; ' class="mr-1"><?php echo $array['createdocno'][$language]; ?></button>
+
+                                <!-- <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" id="create1" disabled="true" name="button" onclick="onCreate();"><?php echo $array['createdocno'][$language]; ?></button> -->
                                 <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search1"   id="search1" onKeyPress='if(event.keyCode==13){ShowItem2()}' placeholder="<?php echo $array['search'][$language]; ?>" >
-                                <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" id="btn_save" disabled="true" onclick="UpdatePrice();"><?php echo $array['saveprice'][$language]; ?></button>
+                                <button onclick="UpdatePrice();" class="mr-3 ml-3 btn" style="font-size: 25px !important;background:none ;" id="btn_save" disabled="true"><img src="../img/icon/ic_import.png" style='width:31px; ' class="mr-1"><?php echo $array['saveprice'][$language]; ?></button>
+
+                                <!-- <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" id="btn_save" disabled="true" onclick="UpdatePrice();"><?php echo $array['saveprice'][$language]; ?></button> -->
                             </div>
                         </div>
                     </div>

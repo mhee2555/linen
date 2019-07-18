@@ -1793,11 +1793,11 @@ var isChecked2 = false;
 <!-- =============================================================================================== -->
                                     <div class="row" style="margin-top:0px;" id="ActiveBNT">
                                       <div class="col-md-3 icon" >
-                                        <img src="../img/icon/i_listnew.png" style='width:36px;' class='mr-3'>
+                                        <img src="../img/icon/i_active.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
                                         <a href='javascript:void(0)' onclick="ActiveItem()" id="bActive">
-                                          <?php echo $array['activeItem'][$language]; ?>(รอรูป)
+                                          <?php echo $array['activeItem'][$language]; ?>
                                         </a>
                                       </div>
                                     </div>
