@@ -24,6 +24,20 @@ body {
     -moz-box-shadow: 6px 4px 5px 0px rgba(0,0,0,0.51);
     box-shadow: 6px 4px 5px 0px rgba(0,0,0,0.51);
 }
+
+#form_sendmail{
+    position: fixed;
+    background-color:#ffffff;
+    height: 500px;
+    width: 700px;
+    left:150px;
+    bottom:50px;
+    border-radius: 50px;
+    -webkit-box-shadow: 6px 4px 5px 0px rgba(0,0,0,0.51);
+    -moz-box-shadow: 6px 4px 5px 0px rgba(0,0,0,0.51);
+    box-shadow: 6px 4px 5px 0px rgba(0,0,0,0.51);
+}
+
 /* ----------------------------- */
 #logo_top{
     position: absolute;
@@ -259,9 +273,23 @@ input{
     font-size:40px;
     color: #074a6e;
 }
+#title_change_1{
+    position: absolute;
+    left: 205px;
+    top: 151px;
+}
+#title_change_1 h3{
+    font-size:40px;
+    color: #074a6e;
+}
 #oldpassword_div{
     position: absolute;
     top: 256px;
+    left: 135px;
+}
+#send_email_div{
+    position: absolute;
+    top: 206px;
     left: 135px;
 }
 #label_old{
@@ -276,6 +304,22 @@ input{
     padding-left: 7px;
 }
 #label_old label{
+    font-size: 30px;
+    color: #4834d4;
+}
+
+#label_email{
+    position: relative;
+    background-color: #ffffff;
+    width: 140px;
+    left: 44px;
+    top: 25px;
+    z-index: 999999;
+    font-size: 22px;
+    padding: -1px;
+    padding-left: 7px;
+}
+#label_email label{
     font-size: 30px;
     color: #4834d4;
 }
@@ -328,6 +372,21 @@ input{
     left: 154px;
     width: 450px;
 }
+
+#back1_row{
+    position: absolute;
+    top: 400px;
+    left: 154px;
+    width: 450px;
+}
+
+#send_row{
+    position: absolute;
+    top: 400px;
+    left: 418px;
+    width: 450px;
+}
+
 .btn-back
 {
     border-radius: 50px !important;
