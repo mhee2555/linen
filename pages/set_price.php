@@ -948,6 +948,18 @@ $array2 = json_decode($json2,TRUE);
             padding-top: 6px;
             padding-left: 33px;
         }
+        .mhee a{
+            /* padding: 6px 8px 6px 16px; */
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            }
+            .mhee a:hover {
+            color: #2c3e50;
+            font-weight:bold;
+            font-size:26px;
+        }
         @media (min-width: 992px) and (max-width: 1199.98px) { 
 
             .icon{
@@ -1006,14 +1018,17 @@ $array2 = json_decode($json2,TRUE);
                                                   <select class="form-control" id="Category_Sub"></select>
                                               </div>
                                           </div>
-                                          <div class="col-md-5">
+                                          <div class="col-md-5 mhee">
                                                 <div class="row" style="margin-left:5px;">
-                                                    <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowItem1(1);">
+                                                    <!-- <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowItem1(1);">
                                                         <?php echo $array['search_hp'][$language]; ?></button>
                                                     <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowItem1(2);">
                                                         <?php echo $array['search_ct_main'][$language]; ?></button>
                                                     <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowItem1(3);">
-                                                        <?php echo $array['search_ct_sub'][$language]; ?></button>
+                                                        <?php echo $array['search_ct_sub'][$language]; ?></button> -->
+                                                        <a href="javascript:void(0)" onclick="ShowItem1(1);" class="mr-4"><img src="../img/icon/location.png" style='width:34px;' class="mr-3"><?php echo $array['search_hp'][$language]; ?></a>
+                                                        <a href="javascript:void(0)"onclick="ShowItem1(2);" class="mr-4"><img src="../img/icon/list1.png" style='width:34px;' class="mr-3"><?php echo $array['search_ct_main'][$language]; ?></a>
+                                                        <a href="javascript:void(0)"onclick="ShowItem1(3);" ><img src="../img/icon/list2.png" style='width:34px;' class="mr-3"><?php echo $array['search_ct_sub'][$language]; ?></a>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
