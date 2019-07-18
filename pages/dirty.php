@@ -1190,6 +1190,8 @@ $array2 = json_decode($json2,TRUE);
             font-size: 23px;
             color: #818181;
             display: block;
+            background: none;
+
             }
             .mhee button:hover {
             color: #2c3e50;
@@ -1405,7 +1407,7 @@ $array2 = json_decode($json2,TRUE);
 
               <div class="col-md-2" id='tab2' <?php if($PmID == 1) echo 'hidden'; ?>>
                 <!-- button----------------------------------------- -->
-                <div class="sidenav">
+                <div class="sidenav mhee">
                     <div class="" style="margin-top:5px;">
                       <div class="card-body" style="padding:0px; margin-top:10px;">
                         <div class="row" style="margin-top:0px;">
@@ -1413,9 +1415,9 @@ $array2 = json_decode($json2,TRUE);
                             <img src="../img/icon/ic_create.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
-                            <a  href='javascript:void(0)' onclick="CreateDocument()" id="bCreate">
+                            <button  class="btn"   onclick="CreateDocument()" id="bCreate">
                               <?php echo $array['createdocno'][$language]; ?>
-                            </a>
+                            </button>
                           </div>
                         </div>
 
@@ -1424,9 +1426,9 @@ $array2 = json_decode($json2,TRUE);
                             <img src="../img/icon/ic_import.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
-                            <a href='javascript:void(0)' onclick="OpenDialogItem()" id="bImport">
+                            <button  class="btn" onclick="OpenDialogItem()" id="bImport">
                               <?php echo $array['import'][$language]; ?>
-                            </a>
+                            </button>
                           </div>
                         </div>
 
@@ -1435,9 +1437,9 @@ $array2 = json_decode($json2,TRUE);
                             <img src="../img/icon/ic_delete.png" style='width:40px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
-                            <a href='javascript:void(0)' onclick="DeleteItem()" id="bDelete">
+                            <button class="btn"  onclick="DeleteItem()" id="bDelete">
                               <?php echo $array['delitem'][$language]; ?>
-                            </a>
+                            </button>
                           </div>
                         </div>
 
@@ -1446,9 +1448,9 @@ $array2 = json_decode($json2,TRUE);
                             <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
-                            <a href='javascript:void(0)' onclick="SaveBill()" id="bSave">
+                            <button class="btn"  onclick="SaveBill()" id="bSave">
                               <?php echo $array['save'][$language]; ?>
-                            </a>
+                            </button>
                           </div>
                         </div>
 
@@ -1457,9 +1459,9 @@ $array2 = json_decode($json2,TRUE);
                             <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
                           </div>
                           <div class="col-md-9">
-                            <a href='javascript:void(0)' onclick="CancelDocument()" id="bCancel">
+                            <button class="btn"   onclick="CancelDocument()" id="bCancel">
                               <?php echo $array['cancel'][$language]; ?>
-                            </a>
+                            </button>
                           </div>
                         </div>
               
