@@ -54,7 +54,7 @@ function getdetail($conn, $DATA)
   //    mysqli_query($conn,$Sqlx);
 
   $Sql = "SELECT users.ID,users.UserName,users.`Password`,users.FName,site.HptName,site.HptCode,permission.Permission,
-      permission.PmID, factory.FacCode
+      permission.PmID, factory.FacCode , users.email
         FROM users
         INNER JOIN permission ON users.PmID = permission.PmID
         INNER JOIN site ON users.HptCode = site.HptCode
@@ -73,6 +73,7 @@ function getdetail($conn, $DATA)
       $return['HptName'] = $Result['HptName'];
       $return['HptCode'] = $Result['HptCode'];
       $return['FacCode'] = $Result['FacCode'];
+      $return['email'] = $Result['email'];
 
   }
 
@@ -242,6 +243,7 @@ function AddItem($conn, $DATA)
     $FName = $DATA['FName'];
     $Permission = $DATA['Permission'];
     $facID = $DATA['facID'];
+    $email = $DATA['email'];
 
     if($UsID != ""){
         $Sql = "UPDATE users SET 
@@ -251,6 +253,7 @@ function AddItem($conn, $DATA)
         users.FName='$FName',
         users.PmID=$Permission,
         users.FacCode=$facID,
+        users.email='$email',
         users.Modify_Date=NOW() 
         WHERE users.ID = $UsID";
 
@@ -276,6 +279,8 @@ function AddItem($conn, $DATA)
         users.Count,
         users.Modify_Date,
         users.TimeOut
+        users.email
+
 		)
           VALUES
         (
@@ -289,7 +294,8 @@ function AddItem($conn, $DATA)
             $facID,
             0,
             NOW(),
-            30
+            30,
+            '$email'
           )";
 
         if(mysqli_query($conn, $Sql)){
