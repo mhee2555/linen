@@ -1431,6 +1431,18 @@ var isChecked2 = false;
   font-weight:bold;
   font-size:26px;
 }
+a {
+  /* padding: 6px 8px 6px 16px; */
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+a :hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+}
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -1710,7 +1722,7 @@ var isChecked2 = false;
             
               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="row">
-                  <div class="container-fluid">
+                  <div class="container-fluid mhee">
                     <div class="card-body" style="padding:0px; margin-top:10px;">
                       <div class="row">
                         <div style="margin-left:20px;width:60px;">
@@ -1739,8 +1751,12 @@ var isChecked2 = false;
 												  <label><?php echo $array['priceunit'][$language]; ?></label>
                         </div>
                         <input type="text" class="form-control numonly" style="font-size:24px;width:59px;" name="priceunit" id="priceunit" placeholder="0.00" >
-                        <button style="margin-left:11px;width:64px;" type="button" class="btn btn-success" onclick="AddUnit();"><?php echo $array['save'][$language]; ?></button>
-                        <button style="margin-left:4px;width:64px;" type="button" class="btn btn-danger" onclick="DeleteUnit();"><?php echo $array['delete'][$language]; ?></button>
+                        <!-- <button style="margin-left:11px;width:64px;" type="button" class="btn btn-success" onclick="AddUnit();"><?php echo $array['save'][$language]; ?></button>
+                        <button style="margin-left:4px;width:64px;" type="button" class="btn btn-danger" onclick="DeleteUnit();"><?php echo $array['delete'][$language]; ?></button> -->
+                        <!-- <div class="mhee"> -->
+                          <a href="javascript:void(0)" onclick="AddUnit();" class="ml-3 "><img src="../img/icon/ic_save.png" style="width:34px;" class="mr-2"><?php echo $array['save'][$language]; ?></a>
+                          <a href="javascript:void(0)" onclick="DeleteUnit();" class="ml-3 "><img src="../img/icon/ic_delete.png" style="width:36px;" class="mr-2"><?php echo $array['delete'][$language]; ?></a>
+                        <!-- </div>  -->
                       </div>
                     </div>
                   </div>
