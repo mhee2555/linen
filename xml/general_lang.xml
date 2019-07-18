@@ -181,4 +181,5 @@
 <par><en>Par</en><th>Par</th></par>
 <count> <en>count</en><th>นับได้</th></count>
 <minute><en>Minute</en><th>นาที</th></minute>
+<datafail><en>Please fill in the information correctly.</en><th>กรูณากรอกข้อมูลให้ถูกต้อง</th></datafail>
 </lang>

@@ -264,9 +264,10 @@ $array2 = json_decode($json2,TRUE);
             var Permission = $('#Permission').val();
             var facID = $('#factory').val();
             var email = $('#email').val();
-
-
-            var data = {
+            
+            var chkEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+            if (chkEmail.test(email)){
+                var data = {
                 'STATUS': 'AddItem',
                 'UsID': UsID,
                 'UserName': UserName,
@@ -277,8 +278,27 @@ $array2 = json_decode($json2,TRUE);
                 'facID' : facID,
                 'email' : email
             };
+                senddata(JSON.stringify(data));
+            }
+            else{
+                swal({
+                    title: "<?php echo $array['datafail'][$language]; ?>",
+                    type: "warning",
+                    showCancelButton: false,
+                    confirmButtonClass: "btn-danger",
+                    closeOnConfirm: false,
+                    closeOnCancel: false,
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    timer:2000
+                });
+                setTimeout(function () {
+                    $('#email').focus();
+                }, 2000);
 
-            senddata(JSON.stringify(data));
+            }
+                
+  
         }
 
         function CancelItem() {
