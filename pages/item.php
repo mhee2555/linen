@@ -633,6 +633,7 @@ var isChecked2 = false;
       if('<?php echo $PmID; ?>'!=1){
         $('#NewItem').show();
         $('#AddItemBNT').hide();
+        CreateItemCode();
       }
       $("input[name=formatitem][value=1]").prop('checked', true);
       $('#oldCodetype').show();
