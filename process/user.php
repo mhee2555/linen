@@ -11,7 +11,7 @@ function ShowItem($conn, $DATA)
   }
 
   $Keyword = $DATA['Keyword'];
-  $Sql="SELECT users.ID,users.FName,users.`Password`,users.UserName,
+  $Sql="SELECT users.ID,users.FName,users.`Password`,users.UserName,users.email,
         -- CONCAT(IFNULL(employee.FirstName,''),' ',IFNULL(employee.LastName,'')) AS xName
         permission.Permission, HptName
         FROM users
@@ -25,6 +25,7 @@ function ShowItem($conn, $DATA)
     $return[$count]['FName'] = $Result['FName'];
     $return[$count]['Password'] = $Result['Password'];
     $return[$count]['UserName'] = $Result['UserName'];
+    $return[$count]['email'] = $Result['email'];
 	  $return[$count]['Permission'] = $Result['Permission'];
 	  $return[$count]['HptName'] = $Result['HptName'];
     $count++;
