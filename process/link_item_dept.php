@@ -369,6 +369,7 @@ function additemstock($conn, $DATA)
     $return['msg'] = "addsuccess";
     $return['form'] = "additemstock";
     $return['ItemCode'] = $DATA['ItemCode'];
+    $return['Number'] = $DATA['Number'];
     echo json_encode($return);
     mysqli_close($conn);
     die;
@@ -387,33 +388,40 @@ function SelectItemStock($conn, $DATA)
   $count = 0;
   $DepCode = $DATA['DepCode'];
   $ItemCode = explode(",", $DATA['ItemCode']);
+  $Number = explode(",",$DATA['Number']);
+  $return['num'] = $Number;
+
   for ($i=0; $i < sizeof($ItemCode,0) ; $i++) {
-    $Sql = "SELECT
-      item_stock.RowID, 
-      item_stock.ItemCode,
-      item.ItemName,
-      item_stock.ParQty,
-      DATE(item_stock.ExpireDate) AS ExpireDate,
-      UsageCode
-    FROM item_stock
-    INNER JOIN item ON item_stock.ItemCode = item.ItemCode
-    WHERE item_stock.ItemCode = '$ItemCode[$i]' AND item_stock.IsStatus = 9 AND item_stock.DepCode = $DepCode
-    GROUP BY item_stock.ItemCode
-    ORDER BY item_stock.RowID DESC";
-    $return['sql'] = $Sql;
-    $meQuery = mysqli_query($conn,$Sql);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-      $return[$count]['RowID'] = $Result['RowID'];
-      $return[$count]['ItemCode'] = $Result['ItemCode'];
-      $return[$count]['ItemName'] = $Result['ItemName'];
-      $return[$count]['ParQty'] = $Result['ParQty'];
-      if($Result['UsageCode']=="" || $Result['UsageCode']==null){
-        $return[$count]['UsageCode'] = '';
+    for ($j=0; $j < $Number[$i] ; $j++) {
+      $Sql = "SELECT
+        item_stock.RowID, 
+        item_stock.ItemCode,
+        item.ItemName,
+        item_stock.ParQty,
+        DATE(item_stock.ExpireDate) AS ExpireDate,
+        UsageCode
+      FROM item_stock
+      INNER JOIN item ON item_stock.ItemCode = item.ItemCode
+      WHERE item_stock.ItemCode = '$ItemCode[$i]' AND item_stock.UsageCode = 0 AND item_stock.IsStatus = 9 AND item_stock.DepCode = $DepCode
+      -- GROUP BY item_stock.ItemCode
+      ORDER BY item_stock.RowID DESC";
+      $return['sql'] = $Sql;
+      $meQuery = mysqli_query($conn,$Sql);
+      while ($Result = mysqli_fetch_assoc($meQuery)) {
+        $return[$count]['RowID'] = $Result['RowID'];
+        $return[$count]['ItemCode'] = $Result['ItemCode'];
+        $return[$count]['ItemName'] = $Result['ItemName'];
+        $return[$count]['ParQty'] = $Result['ParQty'];
+        if($Result['UsageCode']=="" || $Result['UsageCode']==null){
+          $return[$count]['UsageCode'] = '';
+        }
+        $return[$count]['ExpireDate'] = $tempdate;
       }
-      $return[$count]['ExpireDate'] = $tempdate;
       $count++;
     }
   }
+  $return['count'] = $count;
+
   if($count>0){
     $return['status'] = "success";
     $return['form'] = "SelectItemStock";

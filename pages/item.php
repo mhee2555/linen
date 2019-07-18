@@ -643,14 +643,20 @@ var isChecked2 = false;
       $('#catagory2').val("1");
       $('#UnitName').val("1");
       $('#SizeCode').val("1");
+      $('#hospital').val("BHQ");
+      $('#typeLinen').val("P");
+      $('#numPack').val("01");
       ShowItem();
     }
 
     function getdetail(ItemCode) {
       if(ItemCode.length>9){
         $("input[name=formatitem][value=1]").prop('checked', true);
+        $('#oldCodetype').show();
+
       }else{
         $("input[name=formatitem][value=2]").prop('checked', true);
+        $('#oldCodetype').hide();
       }
       if(ItemCode!=""&&ItemCode!=undefined){
         var data = {
@@ -981,6 +987,9 @@ var isChecked2 = false;
                             $('#catagory2').val("1");
                             $('#UnitName').val("1");
                             $('#SizeCode').val("1");
+                            $('#hospital').val("BHQ");
+                            $('#typeLinen').val("P");
+                            $('#numPack').val("01");
                             $('.checkblank').each(function() {
                               $(this).val("");
                             });
@@ -1082,6 +1091,10 @@ var isChecked2 = false;
                               $('#catagory2').val("1");
                               $('#UnitName').val("1");
                               $('#SizeCode').val("1");
+                              $('#hospital').val("BHQ");
+                              $('#typeLinen').val("P");
+                              $('#numPack').val("01");
+
                               ShowItem();
                             })
                           }else if( (temp["form"]=='AddUnit') ){
@@ -1249,6 +1262,9 @@ var isChecked2 = false;
                               $('#catagory2').val("1");
                               $('#UnitName').val("1");
                               $('#SizeCode').val("1");
+                              $('#hospital').val("BHQ");
+                              $('#typeLinen').val("P");
+                              $('#numPack').val("01");
                               ShowItem();
                             })
                           }else if(temp['form']=='CreateItemCode'){
@@ -1598,9 +1614,7 @@ var isChecked2 = false;
                                   </div>
                                   <div class="col-md-6">
                                     <div class="row">
-                                      <div class="col-md-4 ">
-                                        <label class="col-sm-12 col-form-label text-right"><?php echo $array['type'][$language]; ?></label>
-                                      </div>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['type'][$language]; ?></label>
                                       <div class="col-md-8">
                                         <div class='form-group row'>
                                           <select class="form-control col-sm-5 checkblank" id="typeLinen" onchange="CreateItemCode()" >
@@ -1710,7 +1724,7 @@ var isChecked2 = false;
             
               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="row">
-                  <div class="container-fluid">
+                  <div class="container-fluid mhee">
                     <div class="card-body" style="padding:0px; margin-top:10px;">
                       <div class="row">
                         <div style="margin-left:20px;width:60px;">
@@ -1739,8 +1753,12 @@ var isChecked2 = false;
 												  <label><?php echo $array['priceunit'][$language]; ?></label>
                         </div>
                         <input type="text" class="form-control numonly" style="font-size:24px;width:59px;" name="priceunit" id="priceunit" placeholder="0.00" >
-                        <button style="margin-left:11px;width:64px;" type="button" class="btn btn-success" onclick="AddUnit();"><?php echo $array['save'][$language]; ?></button>
-                        <button style="margin-left:4px;width:64px;" type="button" class="btn btn-danger" onclick="DeleteUnit();"><?php echo $array['delete'][$language]; ?></button>
+                        <!-- <button style="margin-left:11px;width:64px;" type="button" class="btn btn-success" onclick="AddUnit();"><?php echo $array['save'][$language]; ?></button>
+                        <button style="margin-left:4px;width:64px;" type="button" class="btn btn-danger" onclick="DeleteUnit();"><?php echo $array['delete'][$language]; ?></button> -->
+                        <!-- <div class="mhee"> -->
+                          <a href="javascript:void(0)" onclick="AddUnit();" class="ml-3 "><img src="../img/icon/ic_save.png" style="width:34px;" class="mr-2"><?php echo $array['save'][$language]; ?></a>
+                          <a href="javascript:void(0)" onclick="DeleteUnit();" class="ml-3 "><img src="../img/icon/ic_delete.png" style="width:36px;" class="mr-2"><?php echo $array['delete'][$language]; ?></a>
+                        <!-- </div>  -->
                       </div>
                     </div>
                   </div>

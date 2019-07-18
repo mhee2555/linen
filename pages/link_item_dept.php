@@ -793,12 +793,13 @@ $array2 = json_decode($json2,TRUE);
         senddata(JSON.stringify(data));
       }
 
-      function SelectItemStock(ItemCode){
+      function SelectItemStock(ItemCode, Number){
         var DepCode = $('#department').val();
         var data = {
           'STATUS'      : 'SelectItemStock',
           'DepCode'       : DepCode,
-          'ItemCode'   : ItemCode
+          'ItemCode'   : ItemCode,
+          'Number'   : Number
         };
 
         console.log(JSON.stringify(data));
@@ -1102,7 +1103,7 @@ $array2 = json_decode($json2,TRUE);
                               })
 
 
-                              SelectItemStock(temp['ItemCode']);
+                              SelectItemStock(temp['ItemCode'], temp['Number']);
                               ShowItem();
 
                             }else if(temp['form']=="ShowItemStock"){
