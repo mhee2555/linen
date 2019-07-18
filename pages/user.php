@@ -263,6 +263,7 @@ $array2 = json_decode($json2,TRUE);
             var host = $('#host').val();
             var Permission = $('#Permission').val();
             var facID = $('#factory').val();
+            var email = $('#email').val();
 
 
             var data = {
@@ -273,7 +274,8 @@ $array2 = json_decode($json2,TRUE);
                 'FName': FName,
                 'host': host,
                 'Permission' : Permission,
-                'facID' : facID
+                'facID' : facID,
+                'email' : email
             };
 
             senddata(JSON.stringify(data));
@@ -312,6 +314,7 @@ $array2 = json_decode($json2,TRUE);
             $('#host tbody').empty();
             $('#Permission tbody').empty();
             $('#UsID').empty();
+            $('#email').val("");
 
             getHotpital();
             getEmployee();
@@ -397,6 +400,8 @@ $array2 = json_decode($json2,TRUE);
                                 $('#username').val(temp['UserName']);
                                 $('#Password').val(temp['Password']);
                                 $('#flname').val(temp['FName']);
+                                $('#email').val(temp['email']);
+
 
                                 var StrTr="";
                                 $("#host").empty();
@@ -955,6 +960,15 @@ $array2 = json_decode($json2,TRUE);
                                     </div>
                                   </div>
                                 </div>
+<!-- =================================================================== -->
+                                <div class="row">
+                                  <div class="col-md-7">
+                                    <div class='form-group row'>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['email'][$language]; ?></label>
+                                      <input type="email"  class="form-control col-sm-8 checkblank" id="email"    placeholder="<?php echo $array['email'][$language]; ?>">
+                                    </div>
+                                  </div>
+                                </div>
 <!-- =================================================================== -->  
                                 <div class="row" hidden id='row_fac'>
                                   <div class="col-md-7">
@@ -965,6 +979,7 @@ $array2 = json_decode($json2,TRUE);
                                   </div>
                                 </div>
 <!-- =================================================================== -->  
+
                         </div>
                     </div>
                 </div> <!-- tag column 2 -->

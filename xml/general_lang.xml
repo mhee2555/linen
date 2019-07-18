@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lang>
 <activeItem><en>Active</en><th>Active</th></activeItem>
+
+<email><en>Email</en><th>Email</th></email>
+
 <pack><en>Pack</en><th>แพ็ค</th></pack>
 <type><en>type</en><th>ประเภท</th></type>
 <search><en>Search for</en><th>ค้นหา</th></search>
