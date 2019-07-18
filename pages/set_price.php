@@ -951,11 +951,23 @@ $array2 = json_decode($json2,TRUE);
         .mhee a{
             /* padding: 6px 8px 6px 16px; */
             text-decoration: none;
-            font-size: 25px;
+            font-size: 23px;
             color: #818181;
             display: block;
             }
             .mhee a:hover {
+            color: #2c3e50;
+            font-weight:bold;
+            font-size:26px;
+        }
+        .mhee button{
+            /* padding: 6px 8px 6px 16px; */
+            text-decoration: none;
+            font-size: 23px;
+            color: #818181;
+            display: block;
+            }
+            .mhee button:hover {
             color: #2c3e50;
             font-weight:bold;
             font-size:26px;
@@ -1026,9 +1038,9 @@ $array2 = json_decode($json2,TRUE);
                                                         <?php echo $array['search_ct_main'][$language]; ?></button>
                                                     <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowItem1(3);">
                                                         <?php echo $array['search_ct_sub'][$language]; ?></button> -->
-                                                        <a href="javascript:void(0)" onclick="ShowItem1(1);" class="mr-4"><img src="../img/icon/location.png" style='width:34px;' class="mr-3"><?php echo $array['search_hp'][$language]; ?></a>
-                                                        <a href="javascript:void(0)"onclick="ShowItem1(2);" class="mr-4"><img src="../img/icon/list1.png" style='width:34px;' class="mr-3"><?php echo $array['search_ct_main'][$language]; ?></a>
-                                                        <a href="javascript:void(0)"onclick="ShowItem1(3);" ><img src="../img/icon/list2.png" style='width:34px;' class="mr-3"><?php echo $array['search_ct_sub'][$language]; ?></a>
+                                                        <a href="javascript:void(0)" onclick="ShowItem1(1);" class="mr-3"><img src="../img/icon/location.png" style='width:30px;' class="mr-1"><?php echo $array['search_hp'][$language]; ?></a>
+                                                        <a href="javascript:void(0)"onclick="ShowItem1(2);" class="mr-3"><img src="../img/icon/list1.png" style='width:30px;' class="mr-1"><?php echo $array['search_ct_main'][$language]; ?></a>
+                                                        <a href="javascript:void(0)"onclick="ShowItem1(3);" ><img src="../img/icon/list2.png" style='width:30px;' class="mr-1"><?php echo $array['search_ct_sub'][$language]; ?></a>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -1165,12 +1177,14 @@ $array2 = json_decode($json2,TRUE);
                         <div class="card-body" style="padding:0px; margin-top:12px;margin-left:30px;">
                             <div class="row">
                                 <div class="col-md-11">
-                                    <div class="row">
+                                    <div class="row mhee">
                                         <select class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:250px;" id="hptsel2"></select>
-                                        <input type="hidden" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search2" id="search2" placeholder="<?php echo $array['search'][$language]; ?>" >
-                                        <button type="button" style="margin-left:20px;" class="btn btn-primary" name="button" onclick="ShowDoc();">
-                                            <?php echo $array['search'][$language]; ?></button>
-                                        <button type="button" class="btn btn-warning ml-2" name="button" disabled='true' onclick="OpenDialog(1);" id='show_btn'><?php echo $array['show'][$language]; ?></button>
+                                        <!-- <input type="hidden" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search2" id="search2" placeholder="<?php echo $array['search'][$language]; ?>" > -->
+                                        <a href="javascript:void(0)" onclick="ShowDoc();" class="mr-3 ml-3" style="font-size: 25px !important;"><img src="../img/icon/i_search.png" style='width:35px; ' class="mr-1"><?php echo $array['search'][$language]; ?></a>
+                                        <!-- <button type="button" style="margin-left:20px;" class="btn btn-primary" name="button" onclick="ShowDoc();">
+                                            <?php echo $array['search'][$language]; ?></button> -->
+                                        <button onclick="OpenDialog(1);" class="mr-3 ml-3 btn" id="show_btn" disabled='true' style="font-size: 25px !important; background:none"><img src="../img/icon/doc.png" style='width:35px; ' class="mr-1"><?php echo $array['show'][$language]; ?></button>
+                                        <!-- <button type="button" class="btn btn-warning ml-2" name="button" disabled='true' onclick="OpenDialog(1);" id='show_btn'><?php echo $array['show'][$language]; ?></button> -->
                                     </div>
                                 </div>
                             </div>
