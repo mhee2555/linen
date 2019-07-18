@@ -1056,7 +1056,7 @@ $array2 = json_decode($json2,TRUE);
                                         <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3 opacity' id="delete_icon">
                                       </div>
                                       <div class="col-md-9">
-                                        <button class="btn" onclick="CancelItem()" id="bCancel">
+                                        <button class="btn" onclick="CancelItem()" id="bCancel" disabled="true">
                                           <?php echo $array['cancel'][$language]; ?>
                                         </button>
                                       </div>

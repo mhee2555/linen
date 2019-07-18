@@ -125,6 +125,8 @@ $array2 = json_decode($json2,TRUE);
         });
 
       function chkbox(ItemCode){
+        $('#bSave').attr('disabled', false);
+        $('#delete_icon').removeClass('opacity');
         console.log($('#checkitem_'+ItemCode));
         if($('#checkitem_'+ItemCode).is(":checked")){
           $('#checkitem_'+ItemCode).prop('checked', true);
@@ -134,6 +136,7 @@ $array2 = json_decode($json2,TRUE);
           $('#checkitem_'+ItemCode).prop('checked', false);
           $('#txtno_'+ItemCode).val("");
         }
+
       }
 
       function getDepartment(){
@@ -850,6 +853,7 @@ $array2 = json_decode($json2,TRUE);
                                                 "<td style='width: 16%;' nowrap>"+txtno+"</td>"+
                                                 "</tr>";
 
+
                                  if(rowCount == 0){
                                    $("#TableItem tbody").append( StrTR );
                                  }else{
@@ -1358,12 +1362,29 @@ $array2 = json_decode($json2,TRUE);
   font-weight:bold;
   font-size:26px;
 }
+.mhee button{
+  /* padding: 6px 8px 6px 16px; */
+  font-size: 21px;
+  color: #2c3e50;
+  background:none;
+  box-shadow:none!important;
+  margin-left:-20px;
+}
+
+.mhee button:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+  outline:none;
+}
       a.nav-link{
         width:auto!important;
       }
       .datepicker{z-index:9999 !important}
       .hidden{visibility: hidden;}
-
+      .opacity{
+          opacity:0.5;
+        }
       @media (min-width: 1200px){
         #btn_margin {
             max-width: 14.333333%;
@@ -1380,6 +1401,7 @@ $array2 = json_decode($json2,TRUE);
         }
         #magin_cus{
             margin-top: 204px;
+            margin-left:-32px;
         }
     @media (min-width: 700px) and (max-width: 1199.99px){ 
         #btn_margin {
@@ -1473,10 +1495,10 @@ $array2 = json_decode($json2,TRUE);
                 </div>
 
                 <div class="col-xl-1 col-12 text-center" id='btn_margin'>
-                <img src="../img/icon/ic_import.png" style='width:34px;margin-right: -20px;' class=' mr-2' >
+                <img src="../img/icon/ic_import.png" style='width:34px;margin-right: 20px;' class=' mr-4 opacity' id="delete_icon" >
          <div class="mhee">
-         <a href='javascript:void(0)' onclick="Addtodoc()" id="bSave">
-                                          <?php echo $array['addnewitem'][$language]; ?></a>    
+         <button class="btn" onclick="Addtodoc()" id="bSave" disabled="true">
+                                          <?php echo $array['addnewitem'][$language]; ?></button>    
          </div>
                   <!-- <button class="btn btn-primary btn-sm" id='size_custom' type="button" onclick="Addtodoc();"> <?php echo $array['addnewitem'][$language]; ?> <div style="padding-top:10px;" id='rotate_custom'>🡆</div> </button> -->
                 </div>
