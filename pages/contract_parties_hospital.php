@@ -147,6 +147,9 @@ $array2 = json_decode($json2,TRUE);
 		$("#datepicker4").val('');
 		$("#xDetail").val('');
 		$('#side option[value="1"]').prop("selected", true);
+
+    $('#bCancel').attr('disabled', true);
+    $('#delete_icon').addClass('opacity');
 	}
 
 	function CancelRow(){
@@ -486,16 +489,17 @@ body{
 }
 .mhee button{
   /* padding: 6px 8px 6px 16px; */
-  text-decoration: none;
   font-size: 25px;
   color: #2c3e50;
-  display: block;
   background:none;
+  box-shadow:none!important;
 }
+
 .mhee button:hover {
   color: #2c3e50;
   font-weight:bold;
   font-size:26px;
+  outline:none;
 }
 .sidenav a {
   padding: 6px 8px 6px 16px;
