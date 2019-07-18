@@ -497,15 +497,15 @@ $array2 = json_decode($json2,TRUE);
           function updateWeight(row,rowid) {
             var docno = $("#docno").val();
             var weight = $("#weight_"+row).val();
-            var price = $("#price_"+row).val();
+            // var price = $("#price_"+row).val();
             var isStatus = $("#IsStatus").val();
             if(isStatus==0){
               var data = {
                 'STATUS'      : 'UpdateDetailWeight',
                 'Rowid'       : rowid,
                 'DocNo'       : docno,
-                'Weight'      : weight,
-                'Price'      : price
+                'Weight'      : weight
+                // 'Price'      : price
               };
               senddata(JSON.stringify(data));
             }
@@ -785,7 +785,7 @@ $array2 = json_decode($json2,TRUE);
 
                       var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='weight_"+i+"' value='"+temp[i]['Weight']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
 
-                      var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:30px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
+                      // var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:30px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
 
                       $StrTR = "<tr id='tr"+temp[i]['RowID']+"' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>"+
                       "<td style='width: 6%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+

@@ -480,11 +480,15 @@ function CreateDocument($conn, $DATA)
   {
     $RowID  = $DATA["Rowid"];
     $Weight  =  $DATA["Weight"];
-    $Price  =  $DATA["Price"];
+    // $Price  =  $DATA["Price"];
     $isStatus = $DATA["isStatus"];
     $Sql = "UPDATE claim_detail
-    SET Weight = $Weight,Total = $Price
+    SET Weight = $Weight
+    -- ,Total = $Price
     WHERE claim_detail.Id = $RowID";
+    $return['sql']=$Sql;
+    echo json_encode($return);
+
     mysqli_query($conn, $Sql);
     ShowDetail($conn, $DATA);
   }

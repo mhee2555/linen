@@ -467,16 +467,21 @@ function CreateDocument($conn,$DATA){
     ShowDetail($conn,$DATA);
   }
 
-  function UpdateDetailWeight($conn,$DATA){
+  function UpdateDetailWeight($conn, $DATA)
+  {
     $RowID  = $DATA["Rowid"];
-    $Weight	=  $DATA["Weight"];
-    $Price  =  $DATA["Price"];
+    $Weight  =  $DATA["Weight"];
+    // $Price  =  $DATA["Price"];
     $isStatus = $DATA["isStatus"];
     $Sql = "UPDATE billcustomer_detail
-    SET Weight = $Weight,Total = $Price
+    SET Weight = $Weight
+    -- ,Total = $Price
     WHERE billcustomer_detail.Id = $RowID";
-    mysqli_query($conn,$Sql);
-    ShowDetail($conn,$DATA);
+    $return['sql']=$Sql;
+    echo json_encode($return);
+
+    mysqli_query($conn, $Sql);
+    ShowDetail($conn, $DATA);
   }
 
   function updataDetail($conn,$DATA){
