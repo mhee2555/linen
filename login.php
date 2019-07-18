@@ -194,10 +194,10 @@
                         method: "POST",
                         url: "change_password.html",
                         success: function (data) {
-                            $('#username2').val(temp['username']);
-                            $('#oldpassword').val(temp['password']);
                             $('#form_white').attr('hidden', true);
                             $('#form_input').append(data);
+                            $('#username2').val(temp['username']);
+                            $('#oldpassword').val(temp['password']);
                         }
                     })
                    
