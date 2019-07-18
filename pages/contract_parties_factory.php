@@ -146,6 +146,8 @@ $array2 = json_decode($json2,TRUE);
 		$("#datepicker4").val('');
 		$("#xDetail").val('');
 		$('#factory option[value="1"]').prop("selected", true);
+    $('#bCancel').attr('disabled', true);
+    $('#delete_icon').addClass('opacity');
 	}
 
 	function CancelRow(){
@@ -323,7 +325,8 @@ $array2 = json_decode($json2,TRUE);
 												for(var i=0;i<fac_length;i++){
 													if(fac_code == i) $('#factory option[value="'+i+'"]').prop("selected", true);
 												}
-
+                        $('#bCancel').attr('disabled', false);
+                        $('#delete_icon').removeClass('opacity');
 										  }
 
                         	}else if (temp['status']=="failed") {
@@ -483,6 +486,20 @@ body{
   /* padding-top: 20px; */
   border-left: 2px solid #bdc3c7;
 }
+.mhee button{
+  /* padding: 6px 8px 6px 16px; */
+  text-decoration: none;
+  font-size: 25px;
+  color: #2c3e50;
+  display: block;
+  background:none;
+  box-shadow:none !important;
+}
+.mhee button:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+}
 
 .sidenav a {
   padding: 6px 8px 6px 16px;
@@ -500,6 +517,9 @@ body{
 .icon{
     padding-top: 6px;
     padding-left: 33px;
+  }
+  .opacity{
+    opacity:0.5;
   }
   @media (min-width: 992px) and (max-width: 1199.98px) { 
 
@@ -630,7 +650,7 @@ body{
 
 </div>
 <!-- =============================================================================================== -->
-            <div class="sidenav" style=" margin-left: 92px;margin-top: 33px;" <?php if($PmID == 2) echo 'hidden'; ?>>
+            <div class="sidenav mhee" style=" margin-left: 92px;margin-top: 33px;" <?php if($PmID == 2) echo 'hidden'; ?>>
               <div class="" style="margin-top:5px;">
                 <div class="card-body" style="padding:0px; margin-top:10px;">
 <!-- =============================================================================================== -->
@@ -640,9 +660,9 @@ body{
                                         <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="SaveRow()" id="bSave">
+                                        <button class="btn" onclick="SaveRow()" id="bSave">
                                           <?php echo $array['save'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
         
@@ -652,20 +672,20 @@ body{
                                         <img src="../img/icon/i_clean.png" style='width:40px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="ClearRow()" id="bDelete">
+                                        <button class="btn" onclick="ClearRow()" id="bDelete">
                                           <?php echo $array['clear'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
           <div class="row" style="margin-top:0px;">
                                       <div class="col-md-3 icon" >
-                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
+                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3 opacity' id="delete_icon">
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="CancelRow()" id="bCancel">
+                                        <button class="btn" onclick="CancelRow()" id="bCancel" disabled="true">
                                           <?php echo $array['cancel'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
