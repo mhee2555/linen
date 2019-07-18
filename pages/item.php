@@ -643,14 +643,20 @@ var isChecked2 = false;
       $('#catagory2').val("1");
       $('#UnitName').val("1");
       $('#SizeCode').val("1");
+      $('#hospital').val("BHQ");
+      $('#typeLinen').val("P");
+      $('#numPack').val("01");
       ShowItem();
     }
 
     function getdetail(ItemCode) {
       if(ItemCode.length>9){
         $("input[name=formatitem][value=1]").prop('checked', true);
+        $('#oldCodetype').show();
+
       }else{
         $("input[name=formatitem][value=2]").prop('checked', true);
+        $('#oldCodetype').hide();
       }
       if(ItemCode!=""&&ItemCode!=undefined){
         var data = {
@@ -981,6 +987,9 @@ var isChecked2 = false;
                             $('#catagory2').val("1");
                             $('#UnitName').val("1");
                             $('#SizeCode').val("1");
+                            $('#hospital').val("BHQ");
+                            $('#typeLinen').val("P");
+                            $('#numPack').val("01");
                             $('.checkblank').each(function() {
                               $(this).val("");
                             });
@@ -1082,6 +1091,10 @@ var isChecked2 = false;
                               $('#catagory2').val("1");
                               $('#UnitName').val("1");
                               $('#SizeCode').val("1");
+                              $('#hospital').val("BHQ");
+                              $('#typeLinen').val("P");
+                              $('#numPack').val("01");
+
                               ShowItem();
                             })
                           }else if( (temp["form"]=='AddUnit') ){
@@ -1249,6 +1262,9 @@ var isChecked2 = false;
                               $('#catagory2').val("1");
                               $('#UnitName').val("1");
                               $('#SizeCode').val("1");
+                              $('#hospital').val("BHQ");
+                              $('#typeLinen').val("P");
+                              $('#numPack').val("01");
                               ShowItem();
                             })
                           }else if(temp['form']=='CreateItemCode'){
@@ -1610,9 +1626,7 @@ a :hover {
                                   </div>
                                   <div class="col-md-6">
                                     <div class="row">
-                                      <div class="col-md-4 ">
-                                        <label class="col-sm-12 col-form-label text-right"><?php echo $array['type'][$language]; ?></label>
-                                      </div>
+                                      <label class="col-sm-4 col-form-label text-right"><?php echo $array['type'][$language]; ?></label>
                                       <div class="col-md-8">
                                         <div class='form-group row'>
                                           <select class="form-control col-sm-5 checkblank" id="typeLinen" onchange="CreateItemCode()" >
