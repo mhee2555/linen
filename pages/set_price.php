@@ -1183,7 +1183,7 @@ $array2 = json_decode($json2,TRUE);
                                         <a href="javascript:void(0)" onclick="ShowDoc();" class="mr-3 ml-3" style="font-size: 25px !important;"><img src="../img/icon/i_search.png" style='width:35px; ' class="mr-1"><?php echo $array['search'][$language]; ?></a>
                                         <!-- <button type="button" style="margin-left:20px;" class="btn btn-primary" name="button" onclick="ShowDoc();">
                                             <?php echo $array['search'][$language]; ?></button> -->
-                                        <button onclick="OpenDialog(1);" class="mr-3 ml-3 btn" id="show_btn" disabled='true' style="font-size: 25px !important; background:none"><img src="../img/icon/doc.png" style='width:35px; ' class="mr-1"><?php echo $array['show'][$language]; ?></button>
+                                        <button onclick="OpenDialog(1);" class="mr-3 ml-3 btn" id="show_btn" disabled='true' style="font-size: 25px !important; background:none; margin-top: -7px;"><img src="../img/icon/doc.png" style='width:35px; ' class="mr-1"><?php echo $array['show'][$language]; ?></button>
                                         <!-- <button type="button" class="btn btn-warning ml-2" name="button" disabled='true' onclick="OpenDialog(1);" id='show_btn'><?php echo $array['show'][$language]; ?></button> -->
                                     </div>
                                 </div>
