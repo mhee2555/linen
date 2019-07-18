@@ -1178,9 +1178,10 @@ $(document).ready(function(e){
             /* padding: 6px 8px 6px 16px; */
             text-decoration: none;
             font-size: 23px;
-            color: #818181;
+            color: #2c3e50;
             display: block;
             background: none;
+            
           }
           .mhee button:hover {
             color: #2c3e50;
