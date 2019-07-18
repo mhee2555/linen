@@ -1279,6 +1279,7 @@ $array2 = json_decode($json2,TRUE);
                                 <input type="text" class="form-control datepicker-here" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" id="startDate">
                                 <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:200px;" name="docno" id="docno" placeholder="<?php echo $array['docno'][$language]; ?>" >
 
+                                
                                 <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" id="create1" disabled="true" name="button" onclick="onCreate();"><?php echo $array['createdocno'][$language]; ?></button>
                                 <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search1"   id="search1" onKeyPress='if(event.keyCode==13){ShowItem2()}' placeholder="<?php echo $array['search'][$language]; ?>" >
                                 <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" id="btn_save" disabled="true" onclick="UpdatePrice();"><?php echo $array['saveprice'][$language]; ?></button>

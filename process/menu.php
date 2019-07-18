@@ -113,10 +113,10 @@ function alert_SetPrice($conn,$DATA)
       c.EndDate,
       DATEDIFF(c.EndDate, CURDATE()) AS dateDiff
     FROM contract_parties_hospital c
-    INNER JOIN users ON users.ID = 100
+    INNER JOIN users ON users.ID = $Userid
     INNER JOIN site ON site.HptCode = c.HptCode
     INNER JOIN category_price_time cat_P ON cat_P.HptCode = c.HptCode
-    WHERE cat_P.Status = 0
+    WHERE cat_P.IsStatus = 0
     GROUP BY  c.StartDate,c.EndDate, cat_P.DocNo ORDER BY dateDiff ASC";
   }else{
       $Sql = "SELECT 
@@ -130,7 +130,7 @@ function alert_SetPrice($conn,$DATA)
     INNER JOIN users ON users.ID = $Userid
     INNER JOIN site ON site.HptCode = '$HptCode'
     INNER JOIN category_price_time cat_P ON cat_P.HptCode = c.HptCode
-    WHERE c.HptCode = '$HptCode' AND cat_P.Status = 0
+    WHERE c.HptCode = '$HptCode' AND cat_P.IsStatus = 0
     GROUP BY c.StartDate,c.EndDate, cat_P.DocNo ORDER BY dateDiff ASC";
   }
   $return['sql'] = $Sql;
