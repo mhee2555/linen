@@ -368,6 +368,30 @@ $array = json_decode($json,TRUE);
   a.nav-link{
     width:auto!important;
   }
+  .mhee a{
+            /* padding: 6px 8px 6px 16px; */
+            text-decoration: none;
+            font-size: 23px;
+            color: #818181;
+            display: block;
+            }
+            .mhee a:hover {
+            color: #2c3e50;
+            font-weight:bold;
+            font-size:26px;
+        }
+        .mhee button{
+            /* padding: 6px 8px 6px 16px; */
+            text-decoration: none;
+            font-size: 23px;
+            color: #818181;
+            display: block;
+            }
+            .mhee button:hover {
+            color: #2c3e50;
+            font-weight:bold;
+            font-size:26px;
+        }
   .datepicker{z-index:9999 !important}
   .hidden{visibility: hidden;}
   </style>
@@ -398,18 +422,18 @@ $array = json_decode($json,TRUE);
                           </div>
   
 
-                          <div class="col-md-4">
+                          <div class="col-md-3">
                             <div class='form-group row'>
                               <label class="col-sm-3 col-form-label text-right"><?php echo $array['department'][$language]; ?></label>
                               <select  class="form-control col-sm-7"<?php if($PmID != 1 && $PmID != 2 && $PmID != 3) {echo "disabled='true'" ;} ?> id="department"></select>
                             </div>
                           </div>
 
-                          <div class="col-md-4">
+                          <div class="col-md-5 mhee">
                             <div class='form-group row'>
-                              <input  type="text" class="form-control col-sm-6"  id="searchtxt" name="searchtxt" value="" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                              <button type="button" class="btn btn-info col-sm-2 btn-sm ml-1" onclick="ShowDocument(0)" id="bSearch"><?php echo $array['search'][$language]; ?></button>
-                              <button type="button" class="btn btn-info col-sm-3 btn-sm ml-1" onclick="ShowDocument(2)" id="bSearch"><?php echo $array['searchall'][$language]; ?></button>
+                              <input  type="text" class="form-control col-sm-5"  id="searchtxt" name="searchtxt" value="" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                              <a href="javascript:void(0)" onclick="ShowDocument(0);" class="mr-3 ml-3" style="font-size: 25px !important;"><img src="../img/icon/i_search.png" style='width:35px; ' class="mr-1"><?php echo $array['search'][$language]; ?></a>
+                              <a href="javascript:void(0)" onclick="ShowDocument(2);" class="mr-3 ml-3" style="font-size: 25px !important;"><img src="../img/icon/all.png" style='width:35px; ' class="mr-1"><?php echo $array['searchalldep'][$language]; ?></a>
                             </div>
                           </div>
                         </div>                 

@@ -397,6 +397,30 @@ table tr:first-child th:first-child {
 		a.nav-link{
 			width:auto!important;
 		}
+    .mhee a{
+            /* padding: 6px 8px 6px 16px; */
+            text-decoration: none;
+            font-size: 23px;
+            color: #818181;
+            display: block;
+            }
+            .mhee a:hover {
+            color: #2c3e50;
+            font-weight:bold;
+            font-size:26px;
+        }
+        .mhee button{
+            /* padding: 6px 8px 6px 16px; */
+            text-decoration: none;
+            font-size: 23px;
+            color: #818181;
+            display: block;
+            }
+            .mhee button:hover {
+            color: #2c3e50;
+            font-weight:bold;
+            font-size:26px;
+        }
        .datepicker{z-index:9999 !important}
        .hidden{visibility: hidden;}
     </style>
@@ -450,9 +474,11 @@ table tr:first-child th:first-child {
                                   <input type="text" class="form-control col-sm-7"  id="datepicker2"  data-language='en' data-date-format='dd/mm/yyyy' >
                                 </div>
                               </div>
-                              <div class="col-md-2">
+                              <div class="col-md-2 mhee">
                                 <div class='form-group row'>
-                                <button  type="button" class="btn btn-info col-sm-9" onclick="ShowDocument()" id="bSearch"><?php echo $array['search'][$language]; ?></button>
+                                <a href="javascript:void(0)" onclick="ShowDocument();" class="mr-3 ml-3" style="font-size: 25px !important;"><img src="../img/icon/i_search.png" style='width:35px; ' class="mr-3"><?php echo $array['search'][$language]; ?></a>
+
+                                <!-- <button  type="button" class="btn btn-info col-sm-9" onclick="ShowDocument()" id="bSearch"><?php echo $array['search'][$language]; ?></button> -->
                                 </div>
                               </div>
                             </div>

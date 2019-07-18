@@ -1309,6 +1309,18 @@ a.nav-link{
   font-weight:bold;
   font-size:26px;
 }
+.mhee button{
+            /* padding: 6px 8px 6px 16px; */
+            text-decoration: none;
+            font-size: 23px;
+            color: #818181;
+            display: block;
+            }
+            .mhee button:hover {
+            color: #2c3e50;
+            font-weight:bold;
+            font-size:26px;
+        }
       .sidenav a {
         padding: 6px 8px 6px 16px;
         text-decoration: none;
@@ -1470,16 +1482,20 @@ a.nav-link{
                           </select>
 
                       </div>
-                      <div class="col-md-6">
-                        <div class="row" style="margin-left:2px;">
-                          <input type="text" class="form-control" style="font-size:24px;width:30%;" name="searchdocument" id="searchdocument" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                          <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(0);"><?php echo $array['search'][$language]; ?></button>
-                          <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['searchalldep'][$language]; ?></button>
+                      <div class="col-md-6 mhee">
+                          <div class="row" style="margin-left:2px;">
+                            <input type="text" class="form-control" style="font-size:24px;width:50%;" name="searchdocument" id="searchdocument" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                            <a href="javascript:void(0)" onclick="ShowDocument(0);" class="mr-3 ml-3" style="font-size: 25px !important;"><img src="../img/icon/i_search.png" style='width:35px; ' class="mr-1"><?php echo $array['search'][$language]; ?></a>
+                            <!-- <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(1);"><?php echo $array['search'][$language]; ?></button> -->
+                            <a href="javascript:void(0)" onclick="ShowDocument(1);" class="mr-3 ml-3" style="font-size: 25px !important;"><img src="../img/icon/all.png" style='width:35px; ' class="mr-1"><?php echo $array['searchalldep'][$language]; ?></a>
+                            <!-- <button type="button" style="margin-left:10px;" class="btn btn-primary" name="button" onclick="ShowDocument(2);"><?php echo $array['searchalldep'][$language]; ?></button> -->
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-md-2 text-right">
-                        <button type="button"  class="btn btn-warning" name="button" id='btn_show' onclick="SelectDocument();" disabled='true'><?php echo $array['show'][$language]; ?></button>
-                      </div>
+                        <div class="col-md-2 text-right mhee">
+                        <button onclick="SelectDocument();" class="mr-3 ml-3 btn" id="btn_show" disabled='true' style="font-size: 25px !important; background:none; margin-top: -7px;"><img src="../img/icon/doc.png" style='width:35px; ' class="mr-1"><?php echo $array['show'][$language]; ?></button>
+
+                          <!-- <button type="button" class="btn btn-warning" name="button"  id='btn_show' onclick="SelectDocument();" disabled='true'><?php echo $array['show'][$language]; ?></button> -->
+                        </div>
                     </div>
 
                     <div class="row">
