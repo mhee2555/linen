@@ -227,7 +227,7 @@ $array = json_decode($json,TRUE);
                 //   '<td nowrap style="width: 20%;">เปลี่ยนราคาวันที่: '+temp[0]['EndDate']+' เหลือเวลา '+temp[0]['DateDiff']+' วัน</td>'+
                 // "</tr>";
                 result += '<tr style="background-color:#2980b9;color:#ffffff">'+
-                            '<td nowrap style="width: 30%;font-size:24px;font-weight:bold;padding-left:30px;">โรงพยาบาล '+temp[0]['HptName']+'</td>'+
+                            '<td nowrap style="width: 30%;font-size:24px;font-weight:bold;padding-left:30px;"><?php echo $array['side'][$language]; ?> '+temp[0]['HptName']+'</td>'+
                           '</tr>' +
                           '<tr>'+
                             '<td style="width:18%"></td>' + 
@@ -246,7 +246,7 @@ $array = json_decode($json,TRUE);
 
               for (var i = 0; i < temp['countRow']; i++) {
                   result += '<tr style="background-color:#2980b9;color:#ffffff">'+
-                              '<td nowrap style="width: 30%;font-size:24px;font-weight:bold;padding-left:30px;">'+(i+1)+'.'+' โรงพยาบาล '+temp[i]['HptName']+'</td>'+
+                              '<td nowrap style="width: 30%;font-size:24px;font-weight:bold;padding-left:30px;">'+(i+1)+'.'+' <?php echo $array['side'][$language]; ?> '+temp[i]['HptName']+'</td>'+
                             '</tr>' +
                             '<tr>'+
                               '<td style="width:18%"></td>' + 
