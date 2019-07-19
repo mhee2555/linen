@@ -53,7 +53,7 @@ switch ($PmID) {
         $sys_s5=1;
         $sys_s6=1;
         $sys_s7=1;
-        $sys_s8=0;
+        $sys_s8=1;
         $sys_s9=0;
         $sys_s10=1;
         $sys_s11=1;
@@ -97,7 +97,7 @@ switch ($PmID) {
         $sys_s5=0;
         $sys_s6=0;
         $sys_s7=0;
-        $sys_s8=1;
+        $sys_s8=0;
         $sys_s9=0;
         $sys_s10=0;
         $sys_s11=0;
@@ -137,11 +137,11 @@ switch ($PmID) {
         $sys_s1=1;
         $sys_s2=1;
         $sys_s3=1;
-        $sys_s4=1;
+        $sys_s4=0;
         $sys_s5=1;
         $sys_s6=1;
         $sys_s7=1;
-        $sys_s8=1;
+        $sys_s8=0;
         $sys_s9=0;
         $sys_s10=0;
         $sys_s11=0;
