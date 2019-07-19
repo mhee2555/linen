@@ -448,6 +448,26 @@ function CancelDocNo($conn,$DATA)
     echo json_encode($return);
 }
 
+function saveDoc($conn, $DATA)
+{
+  $DocNo = $DATA['DocNo'];
+  $RowId = explode(',', $DATA['RowId']);
+  $Price = explode(',', $DATA['Price']);
+  $limit = sizeof($RowId, 0);
+
+  for($i=0; $i < $limit; $i++)
+  {
+    $Sql = "UPDATE category_price_time SET Price = $Price[$i] WHERE DocNo ='$DocNo' AND RowID = $RowId[$i]";
+    $meQuery = mysqli_query($conn, $Sql);
+  }
+  // $return['Sql'] = $Sql;
+  // $return['docno'] = $DocNo;
+  // $return['RowId'] = $RowId;
+  // $return['limit'] = $limit;
+  // $return['Price'] = $Price;
+  // echo json_encode($return);
+}
+
 if(isset($_POST['DATA']))
 {
   $data = $_POST['DATA'];
@@ -484,7 +504,9 @@ if(isset($_POST['DATA']))
           CancelDocNo($conn,$DATA);
       }else if ($DATA['STATUS'] == 'getDate_price') {
         getDate_price($conn,$DATA);
-    }
+      }else if ($DATA['STATUS'] == 'saveDoc') {
+        saveDoc($conn,$DATA);
+      }
 
 
 }else{

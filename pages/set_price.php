@@ -63,7 +63,7 @@ $array2 = json_decode($json2,TRUE);
         jqui = jQuery.noConflict(true);
     </script>
 
-    <link href="../dist/css/sweetalert2.min.css" rel="stylesheet">
+    <link href="../dist/css/sweetalert2.css" rel="stylesheet">
     <script src="../dist/js/sweetalert2.min.js"></script>
     <script src="../dist/js/jquery-3.3.1.min.js"></script>
 
@@ -386,13 +386,61 @@ $array2 = json_decode($json2,TRUE);
             // console.log(JSON.stringify(data));
             senddata(JSON.stringify(data));
         }
+        function saveDoc(){
+            var DocNo = $('#docno').val();
+
+            var chkArray = [];
+            var chkPriceArray = [];
+
+            $(".checkPrice").each(function() {
+                chkArray.push($(this).val());
+            });
+
+            $(".price_array").each(function() {
+                chkPriceArray.push($(this).val());
+            });
+            var RowId = chkArray.join(',');
+            var Price = chkPriceArray.join(',');
+
+            // alert(RowId);
+            // alert(Price);
+            swal({
+                title: "<?php echo $array['confirm'][$language]; ?>",
+                text: "<?php echo $array['savedoc'][$language]; ?> : " +$('#hptsel1 option:selected').text(),
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
+                cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                showCancelButton: true}).then(result => {
+                    swal({
+                        title: "<?php echo $array['savedoc'][$language]; ?>",
+                        text: DocNo + " <?php echo $array['success'][$language]; ?>",
+                        type: "success",
+                        showCancelButton: false,
+                        timer: 1000,
+                        confirmButtonText: 'Ok',
+                        showConfirmButton: false
+                    });setTimeout(function () {
+                        $('#dialog').modal('toggle');
+                        var data = {
+                            'STATUS'    : 'saveDoc',
+                            'DocNo'  : DocNo,
+                            'RowId'  : RowId,
+                            'Price'	: Price
+                        };
+                        senddata(JSON.stringify(data));
+                    }, 1000);
+                });
+        }
 
         function UpdatePrice() {
             var DocNo = $('#docno').val();
 
             swal({
                 title: "<?php echo $array['save'][$language]; ?>",
-                text: "<?php echo $array['saveprice'][$language]; ?>",
+                text: "<?php echo $array['updateprice'][$language]; ?>",
                 type: "info",
                 showCancelButton: true,
                 confirmButtonClass: "btn-primary",
@@ -507,6 +555,8 @@ $array2 = json_decode($json2,TRUE);
             }else{
                 getHotpital();
                 $("#create1").show();
+                $('#btn_save').attr('hidden', true);
+                $('#btn_saveDoc').attr('hidden', true);
             }
             $("#search1").hide();
             $("#TableItemPrice tbody").empty();
@@ -583,7 +633,9 @@ $array2 = json_decode($json2,TRUE);
 
                         if ((temp["form"] == 'CreateDoc')) {
                             $("#docno").val( temp["DocNo"] );
-                            $("#create1").hide(500);
+                            $("#create1").hide(300);
+                            $("#btn_save").attr('hidden', false);
+                            $("#btn_saveDoc").attr('hidden', false);
                             ShowItem2();
                         }else if ((temp["form"] == 'UpdatePrice')) {
                             var sv = "<?php echo $array['save'][$language]; ?>";
@@ -651,10 +703,12 @@ $array2 = json_decode($json2,TRUE);
                             for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
                                 var rowCount = $('#TableItem >tbody >tr').length;
                                 var RowID = "<input type='hidden' name='RowID_"+i+"' id='RowID_"+i+"' value='" + temp[i]['RowID'] +"'>";
-                                var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' onKeyPress='if(event.keyCode==13){SavePriceTime("+i+")}'></div>";
+                                var Price = "<div class='row' style='margin-left:2px;'><input class='form-control price_array' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' onKeyPress='if(event.keyCode==13){SavePriceTime("+i+")}'></div>";
+                                var chkPrice = "<input type='radio' name='checkPrice' class='checkPrice' value='"+temp[i]['RowID']+"'>";
 
                                 StrTR = "<tr id='tr" + RowID + "'>" +
                                     "<td style='width: 5%;' nowrap>"+ RowID +"</td>" +
+                                    "<td hidden>"+ chkPrice +"</td>" +
                                     "<td style='width: 25%;' nowrap>" + temp[i]['HptName'] + "</td>" +
                                     "<td style='width: 26%;' nowrap>" + temp[i]['MainCategoryName'] + "</td>" +
                                     "<td style='width: 25%;' nowrap>" + temp[i]['CategoryName'] + "</td>" +
@@ -766,13 +820,13 @@ $array2 = json_decode($json2,TRUE);
                                 $("#startDate").val("");
 
                                 $('#create1').attr('disabled',true);
-                                $('#btn_save').attr('disabled',true);
+                                // $('#btn_save').attr('disabled',true);
                             }else{
                                 $("#startDate").val("");
                                 $("#startDate").val(temp['StartDate']);
 
                                 $('#create1').attr('disabled',false);
-                                $('#btn_save').attr('disabled',false);
+                                // $('#btn_save').attr('disabled',false);
                             }
                         }
 
@@ -852,140 +906,141 @@ $array2 = json_decode($json2,TRUE);
         }
     </script>
     <style media="screen">
-            @font-face {
-                    font-family: myFirstFont;
-                    src: url("../fonts/DB Helvethaica X.ttf");
-                    }
-                body{
+        @font-face {
                 font-family: myFirstFont;
-                font-size:22px;
+                src: url("../fonts/DB Helvethaica X.ttf");
                 }
+            body{
+            font-family: myFirstFont;
+            font-size:22px;
+            }
 
-                .nfont{
-                font-family: myFirstFont;
-                font-size:22px;
-                }
+            .nfont{
+            font-family: myFirstFont;
+            font-size:22px;
+            }
             input,select{
-            font-size:24px!important;
+                font-size:24px!important;
             }
             th,td{
-            font-size:24px!important;
+                font-size:24px!important;
             }
             .table > thead > tr >th {
-            background-color: #1659a2;
+                background-color: #1659a2;
             }
 
             table tr th,
             table tr td {
-            border-right: 0px solid #bbb;
-            border-bottom: 0px solid #bbb;
-            padding: 5px;
+                border-right: 0px solid #bbb;
+                border-bottom: 0px solid #bbb;
+                padding: 5px;
             }
             table tr th:first-child,
             table tr td:first-child {
-            border-left: 0px solid #bbb;
+                border-left: 0px solid #bbb;
             }
             table tr th {
-            background: #eee;
-            border-top: 0px solid #bbb;
-            text-align: left;
+                background: #eee;
+                border-top: 0px solid #bbb;
+                text-align: left;
             }
 
             /* top-left border-radius */
             table tr:first-child th:first-child {
-            border-top-left-radius: 15px;
-        }
-        table tr:first-child th:first-child {
-            border-bottom-left-radius: 15px;
-        }
-
-        /* top-right border-radius */
-        table tr:first-child th:last-child {
-            border-top-right-radius: 15px;
-        }
-        table tr:first-child th:last-child {
-            border-bottom-right-radius: 15px;
-        }
-
-        /* bottom-left border-radius */
-        table tr:last-child td:first-child {
-            border-bottom-left-radius: 6px;
-        }
-
-        /* bottom-right border-radius */
-        table tr:last-child td:last-child {
-            border-bottom-right-radius: 6px;
-        }
-        button{
-            font-size: 24px!important;
+                border-top-left-radius: 15px;
             }
-        a.nav-link{
-            width:auto!important;
-        }
-        .datepicker{z-index:9999 !important}
-        .hidden{visibility: hidden;}
+            table tr:first-child th:first-child {
+                border-bottom-left-radius: 15px;
+            }
+
+            /* top-right border-radius */
+            table tr:first-child th:last-child {
+                border-top-right-radius: 15px;
+                }
+            table tr:first-child th:last-child {
+                border-bottom-right-radius: 15px;
+            }
+
+            /* bottom-left border-radius */
+            table tr:last-child td:first-child {
+                border-bottom-left-radius: 6px;
+            }
+
+            /* bottom-right border-radius */
+            table tr:last-child td:last-child {
+                border-bottom-right-radius: 6px;
+            }
+            button{
+                font-size: 24px!important;
+                }
+            a.nav-link{
+                width:auto!important;
+            }
+            .datepicker{z-index:9999 !important}
+            .hidden{visibility: hidden;}
         
-        .sidenav {
-        height: 100%;
-        overflow-x: hidden;
-        /* padding-top: 20px; */
-        border-left: 2px solid #bdc3c7;
-        }
-
-        .sidenav a {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-        }
-
-        .sidenav a:hover {
-        color: #2c3e50;
-        font-weight:bold;
-        font-size:26px;
-        }
-        .icon{
-            padding-top: 6px;
-            padding-left: 33px;
-        }
-        .mhee a{
-            /* padding: 6px 8px 6px 16px; */
-            text-decoration: none;
-            font-size: 23px;
-            color: #818181;
-            display: block;
+            .sidenav {
+            height: 100%;
+            overflow-x: hidden;
+            /* padding-top: 20px; */
+            border-left: 2px solid #bdc3c7;
             }
-            .mhee a:hover {
-            color: #2c3e50;
-            font-weight:bold;
-            font-size:26px;
-        }
-        .mhee button{
-            /* padding: 6px 8px 6px 16px; */
-            text-decoration: none;
-            font-size: 23px;
-            color: #818181;
-            display: block;
+
+            .sidenav a {
+                padding: 6px 8px 6px 16px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
             }
-            .mhee button:hover {
-            color: #2c3e50;
-            font-weight:bold;
-            font-size:26px;
-        }
-        @media (min-width: 992px) and (max-width: 1199.98px) { 
+
+            .sidenav a:hover {
+                color: #2c3e50;
+                font-weight:bold;
+                font-size:26px;
+            }
+            .icon{
+                padding-top: 6px;
+                padding-left: 33px;
+            }
+            .mhee a{
+                /* padding: 6px 8px 6px 16px; */
+                text-decoration: none;
+                font-size: 23px;
+                color: #818181;
+                display: block;
+                }
+                .mhee a:hover {
+                color: #2c3e50;
+                font-weight:bold;
+                font-size:26px;
+            }
+            .mhee button{
+                /* padding: 6px 8px 6px 16px; */
+                text-decoration: none;
+                font-size: 23px;
+                color: #818181;
+                display: block;
+                }
+                .mhee button:hover {
+                color: #2c3e50;
+                font-weight:bold;
+                font-size:26px;
+            }
+            @media (min-width: 992px) and (max-width: 1199.98px) { 
 
             .icon{
-            padding-top: 6px;
-            padding-left: 23px;
+                padding-top: 6px;
+                padding-left: 23px;
             }
             .sidenav{
-            margin-left:30px;
+             margin-left:30px;
             }
             .sidenav a {
-            font-size: 20px;
+                font-size: 20px;
 
             }
+
         }
     </style>
 </head>
@@ -1286,7 +1341,8 @@ $array2 = json_decode($json2,TRUE);
 
                                 <!-- <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" id="create1" disabled="true" name="button" onclick="onCreate();"><?php echo $array['createdocno'][$language]; ?></button> -->
                                 <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search1"   id="search1" onKeyPress='if(event.keyCode==13){ShowItem2()}' placeholder="<?php echo $array['search'][$language]; ?>" >
-                                <button onclick="UpdatePrice();" class="mr-3 ml-3 btn" style="font-size: 25px !important;background:none ;" id="btn_save" disabled="true"><img src="../img/icon/ic_import.png" style='width:31px; ' class="mr-1"><?php echo $array['saveprice'][$language]; ?></button>
+                                <button onclick="UpdatePrice();" class="mr-3 ml-3 btn" style="font-size: 25px !important;background:none ;" id="btn_save" hidden="true"><img src="../img/icon/ic_import.png" style='width:31px; ' class="mr-1"><?php echo $array['updateprice'][$language]; ?></button>
+                                <button onclick="saveDoc();" class="mr-3 ml-3 btn" style="font-size: 25px !important;background:none ;" id="btn_saveDoc" hidden="true"><img src="../img/icon/ic_save.png" style='width:31px; ' class="mr-1"><?php echo $array['savedoc'][$language]; ?></button>
 
                                 <!-- <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" id="btn_save" disabled="true" onclick="UpdatePrice();"><?php echo $array['saveprice'][$language]; ?></button> -->
                             </div>
