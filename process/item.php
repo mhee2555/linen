@@ -38,6 +38,7 @@ function ShowItem($conn, $DATA)
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $Result = mysqli_fetch_assoc($meQuery);
     $return[$count]['ItemCode'] = $Result['ItemCode'];
     $return[$count]['ItemName'] = $Result['ItemName'];
     $return[$count]['CategoryName'] = $Result['CategoryName'];
@@ -49,6 +50,13 @@ function ShowItem($conn, $DATA)
     $return[$count]['Picture'] = $Result['Picture'];
     $count++;
   }
+
+  $Sql = "SELECT    Price 
+          FROM      category_price
+          WHERE     category_price.CategoryCode=$Catagory";
+  $meQuery = mysqli_query($conn, $Sql);
+  $Result = mysqli_fetch_assoc($meQuery);
+  $return['Price'] = $Result['Price'];
 
   if ($count > 0) {
     $return['status'] = "success";
@@ -314,9 +322,6 @@ function getdetail($conn, $DATA)
     $return[$count]['PriceUnit'] = $Result['PriceUnit'];
     $count++;
   }
-
-
-
 
   if ($count > 0) {
     $return['status'] = "success";
