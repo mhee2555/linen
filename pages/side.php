@@ -416,6 +416,8 @@ $array2 = json_decode($json2,TRUE);
         $('#HptCode').val("");
         //$('#Dept').val("1");
         ShowItem();
+        $('#bCancel').attr('disabled', true);
+        $('#delete_icon').addClass('opacity');
       }
 
       function getdetail(HptCode) {
@@ -603,6 +605,8 @@ $array2 = json_decode($json2,TRUE);
                                 $('#HptName').val(temp['HptName']);
                                 //$('#IsStatus').val(temp['IsStatus']);
                               }
+                              $('#bCancel').attr('disabled', false);
+                              $('#delete_icon').removeClass('opacity');
                             }else if( (temp["form"]=='AddItem') ){
                               switch (temp['msg']) {
                                 case "notchosen":
@@ -953,6 +957,20 @@ $array2 = json_decode($json2,TRUE);
   font-weight:bold;
   font-size:26px;
 }
+.mhee button{
+  /* padding: 6px 8px 6px 16px; */
+  font-size: 25px;
+  color: #2c3e50;
+  background:none;
+  box-shadow:none!important;
+}
+
+.mhee button:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+  outline:none;
+}
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -969,6 +987,9 @@ $array2 = json_decode($json2,TRUE);
 .icon{
     padding-top: 6px;
     padding-left: 33px;
+  }
+  .opacity{
+    opacity:0.5;
   }
   @media (min-width: 992px) and (max-width: 1199.98px) { 
 
@@ -1068,7 +1089,7 @@ $array2 = json_decode($json2,TRUE);
               </div> <!-- tag column 2 -->
               
 <!-- =============================================================================================== -->
-<div class="sidenav" style=" margin-left: 200px;margin-top: 73px;">
+<div class="sidenav mhee" style=" margin-left: 200px;margin-top: 73px;">
               <div class="" style="margin-top:5px;">
                 <div class="card-body" style="padding:0px; margin-top:10px;">
 <!-- =============================================================================================== -->
@@ -1078,9 +1099,9 @@ $array2 = json_decode($json2,TRUE);
                                         <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="AddItem()" id="bSave">
+                                        <button class="btn" onclick="AddItem()" id="bSave">
                                           <?php echo $array['save'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
         
@@ -1090,20 +1111,20 @@ $array2 = json_decode($json2,TRUE);
                                         <img src="../img/icon/i_clean.png" style='width:40px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="Blankinput()" id="bDelete">
+                                        <button class="btn" onclick="Blankinput()" id="bDelete">
                                           <?php echo $array['clear'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
           <div class="row" style="margin-top:0px;">
                                       <div class="col-md-3 icon" >
-                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
+                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3 opacity'  id="delete_icon">
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="CancelItem()" id="bCancel">
+                                        <button class="btn"  onclick="CancelItem()" id="bCancel" disabled="true">
                                           <?php echo $array['cancel'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->

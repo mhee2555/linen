@@ -335,7 +335,8 @@ $array2 = json_decode($json2,TRUE);
             $('#Permission tbody').empty();
             $('#UsID').empty();
             $('#email').val("");
-
+            $('#bCancel').attr('disabled', true);
+            $('#delete_icon').addClass('opacity');
             getHotpital();
             getEmployee();
             getPermission();
@@ -395,16 +396,18 @@ $array2 = json_decode($json2,TRUE);
                             $("#TableItem tbody").empty();
                             console.log(temp);
                             for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
+                                var email = temp[i]['email'] == null ?'-':temp[i]['email'];
                                 var rowCount = $('#TableItem >tbody >tr').length;
                                 var chkDoc = "<input type='radio' name='checkitem' id='checkitem' value='" + temp[i]['ID'] + "' onclick='getdetail(\"" + temp[i]["ID"] + "\")'>";
                                 // var Qty = "<div class='row' style='margin-left:5px;'><button class='btn btn-danger' style='width:35px;' onclick='subtractnum(\""+i+"\")'>-</button><input class='form-control' style='width:50px; margin-left:3px; margin-right:3px; text-align:center;' id='qty"+i+"' value='0' disabled><button class='btn btn-success' style='width:35px;' onclick='addnum(\""+i+"\")'>+</button></div>";
                                 StrTR = "<tr id='tr" + temp[i]['DepCode'] + "'>" +
-                                    "<td style='width: 5%;' nowrap>" + chkDoc + "</td>" +
-                                    "<td style='width: 10%;' nowrap>" + (i + 1) + "</td>" +
+                                    "<td style='width: 3%;' nowrap>" + chkDoc + "</td>" +
+                                    "<td style='width: 5%;' nowrap>" + (i + 1) + "</td>" +
                                     "<td style='width: 22%;' nowrap>" + temp[i]['FName'] + "</td>" +
-                                    "<td style='width: 16%;' nowrap>" + temp[i]['UserName'] + "</td>" +
+                                    "<td style='width: 10%;' nowrap>" + temp[i]['UserName'] + "</td>" +
                                     "<td style='width: 10%;' nowrap>" + temp[i]['Password'] + "</td>" +
-									"<td style='width: 15%;' nowrap>" + temp[i]['Permission'] + "</td>" +
+                                    "<td style='width: 16%;' nowrap>" + email + "</td>" +
+									"<td style='width: 12%;' nowrap>" + temp[i]['Permission'] + "</td>" +
 									"<td style='width: 22%;' nowrap>" + temp[i]['HptName'] + "</td>" +
                                     "</tr>";
 
@@ -421,7 +424,8 @@ $array2 = json_decode($json2,TRUE);
                                 $('#Password').val(temp['Password']);
                                 $('#flname').val(temp['FName']);
                                 $('#email').val(temp['email']);
-
+                                $('#bCancel').attr('disabled', false);
+                                $('#delete_icon').removeClass('opacity');
 
                                 var StrTr="";
                                 $("#host").empty();
@@ -723,128 +727,145 @@ $array2 = json_decode($json2,TRUE);
         }
     </script>
    <style media="screen">
-    @font-face {
+        @font-face {
+                font-family: myFirstFont;
+                src: url("../fonts/DB Helvethaica X.ttf");
+                }
+            body{
             font-family: myFirstFont;
-            src: url("../fonts/DB Helvethaica X.ttf");
+            font-size:22px;
             }
-        body{
-          font-family: myFirstFont;
-          font-size:22px;
-        }
 
         .nfont{
           font-family: myFirstFont;
           font-size:22px;
+            }
+        input,select{
+        font-size:24px!important;
         }
-    input,select{
-      font-size:24px!important;
-    }
-    th,td{
-      font-size:24px!important;
-    }
-    .table > thead > tr >th {
-      background-color: #1659a2;
-    }
+        th,td{
+        font-size:24px!important;
+        }
+        .table > thead > tr >th {
+        background-color: #1659a2;
+        }
 
-    table tr th,
-    table tr td {
-      border-right: 0px solid #bbb;
-      border-bottom: 0px solid #bbb;
-      padding: 5px;
-    }
-    table tr th:first-child,
-    table tr td:first-child {
-      border-left: 0px solid #bbb;
-    }
-    table tr th {
-      background: #eee;
-      border-top: 0px solid #bbb;
-      text-align: left;
-    }
+        table tr th,
+        table tr td {
+        border-right: 0px solid #bbb;
+        border-bottom: 0px solid #bbb;
+        padding: 5px;
+        }
+        table tr th:first-child,
+        table tr td:first-child {
+        border-left: 0px solid #bbb;
+        }
+        table tr th {
+        background: #eee;
+        border-top: 0px solid #bbb;
+        text-align: left;
+        }
 
-    /* top-left border-radius */
+        /* top-left border-radius */
+        table tr:first-child th:first-child {
+        border-top-left-radius: 15px;
+    }
     table tr:first-child th:first-child {
-    border-top-left-radius: 15px;
-  }
-  table tr:first-child th:first-child {
-    border-bottom-left-radius: 15px;
-  }
-
-  /* top-right border-radius */
-  table tr:first-child th:last-child {
-    border-top-right-radius: 15px;
-  }
-  table tr:first-child th:last-child {
-    border-bottom-right-radius: 15px;
-  }
-
-  /* bottom-left border-radius */
-  table tr:last-child td:first-child {
-    border-bottom-left-radius: 6px;
-  }
-
-  /* bottom-right border-radius */
-  table tr:last-child td:last-child {
-    border-bottom-right-radius: 6px;
-  }
-  button{
-      font-size: 24px!important;
+        border-bottom-left-radius: 15px;
     }
-  a.nav-link{
-    width:auto!important;
-  }
-  .datepicker{z-index:9999 !important}
-  .hidden{visibility: hidden;}
-  
-  .sidenav {
-  height: 100%;
-  overflow-x: hidden;
-  /* padding-top: 20px; */
-  border-left: 2px solid #bdc3c7;
-}
 
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-}
-.mhee a{
-  /* padding: 6px 8px 6px 16px; */
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-}
-.mhee a:hover {
-  color: #2c3e50;
-  font-weight:bold;
-  font-size:26px;
-}
-.sidenav a:hover {
-  color: #2c3e50;
-  font-weight:bold;
-  font-size:26px;
-}
-.icon{
-    padding-top: 6px;
-    padding-left: 33px;
-  }
-  @media (min-width: 992px) and (max-width: 1199.98px) { 
+    /* top-right border-radius */
+    table tr:first-child th:last-child {
+        border-top-right-radius: 15px;
+    }
+    table tr:first-child th:last-child {
+        border-bottom-right-radius: 15px;
+    }
 
-    .icon{
-      padding-top: 6px;
-      padding-left: 23px;
+    /* bottom-left border-radius */
+    table tr:last-child td:first-child {
+        border-bottom-left-radius: 6px;
     }
-    .sidenav{
-      margin-left:30px;
-    }
-    .sidenav a {
-      font-size: 20px;
 
+    /* bottom-right border-radius */
+    table tr:last-child td:last-child {
+        border-bottom-right-radius: 6px;
     }
+    button{
+        font-size: 24px!important;
+        }
+    a.nav-link{
+        width:auto!important;
+    }
+    .datepicker{z-index:9999 !important}
+        .hidden{visibility: hidden;}
+    
+        .sidenav {
+        height: 100%;
+        overflow-x: hidden;
+        /* padding-top: 20px; */
+        border-left: 2px solid #bdc3c7;
+        }
+
+        .sidenav a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        }
+        .mhee a{
+        /* padding: 6px 8px 6px 16px; */
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        }
+        .mhee a:hover {
+        color: #2c3e50;
+        font-weight:bold;
+        font-size:26px;
+        }
+        .mhee button{
+        /* padding: 6px 8px 6px 16px; */
+        font-size: 25px;
+        color: #2c3e50;
+        background:none;
+        box-shadow:none!important;
+        }
+
+        .mhee button:hover {
+        color: #2c3e50;
+        font-weight:bold;
+        font-size:26px;
+        outline:none;
+        }
+        .sidenav a:hover {
+        color: #2c3e50;
+        font-weight:bold;
+        font-size:26px;
+        }
+        .icon{
+            padding-top: 6px;
+            padding-left: 33px;
+    }
+    .opacity{
+    opacity:0.5;
   }
+        @media (min-width: 992px) and (max-width: 1199.98px) { 
+
+            .icon{
+            padding-top: 6px;
+            padding-left: 23px;
+            }
+            .sidenav{
+            margin-left:30px;
+            }
+            .sidenav a {
+            font-size: 20px;
+
+            }
+        }
     </style>
 </head>
 
@@ -894,12 +915,13 @@ $array2 = json_decode($json2,TRUE);
                             <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid">
                                 <thead id="theadsum" style="font-size:11px;">
                                     <tr role="row">
-                                        <th style='width: 5%;' nowrap>&nbsp;</th>
-                                        <th style='width: 10%;' nowrap> <?php echo $array['no'][$language]; ?> </th>
+                                        <th style='width: 3%;' nowrap>&nbsp;</th>
+                                        <th style='width: 5%;' nowrap> <?php echo $array['no'][$language]; ?> </th>
                                         <th style='width: 22%;' nowrap> <?php echo $array['flname'][$language]; ?> </th>
-                                        <th style='width: 16%;' nowrap> <?php echo $array['username'][$language]; ?> </th>
+                                        <th style='width: 10%;' nowrap> <?php echo $array['username'][$language]; ?> </th>
                                         <th style='width: 10%;' nowrap> <?php echo $array['password'][$language]; ?> </th>
-                                        <th style='width: 15%;' nowrap> <?php echo $array['permission'][$language]; ?> </th>
+                                        <th style='width: 16%;' nowrap> <?php echo $array['email'][$language]; ?> </th>
+                                        <th style='width: 12%;' nowrap> <?php echo $array['permission'][$language]; ?> </th>
                                         <th style='width: 22%;' nowrap> <?php echo $array['side'][$language]; ?>  </th>
                                     </tr>
                                 </thead>
@@ -1004,7 +1026,7 @@ $array2 = json_decode($json2,TRUE);
                     </div>
                 </div> <!-- tag column 2 -->
 <!-- =============================================================================================== -->
-<div class="sidenav" style=" margin-left: 200px;margin-top: 73px;">
+<div class="sidenav mhee" style=" margin-left: 200px;margin-top: 73px;">
               <div class="" style="margin-top:5px;">
                 <div class="card-body" style="padding:0px; margin-top:10px;">
 <!-- =============================================================================================== -->
@@ -1014,9 +1036,9 @@ $array2 = json_decode($json2,TRUE);
                                         <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="AddItem()" id="bSave">
+                                        <button class="btn" onclick="AddItem()" id="bSave">
                                           <?php echo $array['save'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
         
@@ -1026,20 +1048,20 @@ $array2 = json_decode($json2,TRUE);
                                         <img src="../img/icon/i_clean.png" style='width:40px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="Blankinput()" id="bDelete">
+                                        <button class="btn" onclick="Blankinput()" id="bDelete">
                                           <?php echo $array['clear'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
           <div class="row" style="margin-top:0px;">
                                       <div class="col-md-3 icon" >
-                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
+                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3 opacity' id="delete_icon">
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="CancelItem()" id="bCancel">
+                                        <button class="btn" onclick="CancelItem()" id="bCancel" disabled="true">
                                           <?php echo $array['cancel'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->

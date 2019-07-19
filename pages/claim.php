@@ -579,6 +579,11 @@ $array2 = json_decode($json2,TRUE);
             })
           }
 
+          function currencyFormat(num) {
+            var price =  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+            $("#total").val(price);
+          }
+
           function senddata(data){
             var form_data = new FormData();
             form_data.append("DATA",data);
@@ -765,9 +770,9 @@ $array2 = json_decode($json2,TRUE);
                     ShowDetail();
                   }else if(temp["form"]=='getImport'  || temp["form"]=='ShowDetail'){
                     $( "#TableItemDetail tbody" ).empty();
-                    $("#total").val(temp['TotalPrice']);
+                    // $("#total").val(temp['TotalPrice']);
+                    currencyFormat(temp['TotalPrice']);
                     var isStatus = $("#IsStatus").val();
-
                     var st1 = "style='font-size:24px;margin-left:30px; width:140px;font-family:THSarabunNew'";
                     for (var i = 0; i < temp["Row"]; i++) {
                       var rowCount = $('#TableItemDetail >tbody >tr').length;
@@ -851,7 +856,7 @@ $array2 = json_decode($json2,TRUE);
                       chkunit += "</select>";
 
                       var chkDoc = "<input type='checkbox' name='checkitem' id='checkitem' value='"+i+"'><input type='hidden' id='RowID"+i+"' value='"+temp[i]['RowID']+"'>";
-                      var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum(\""+i+"\")'>-</button><input class='form-control' "+st2+" id='iqty"+i+"' value='1' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum(\""+i+"\")'>+</button></div>";
+                      var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum(\""+i+"\")'>-</button><input class='form-control' "+st2+" id='iqty"+i+"' value='0' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum(\""+i+"\")'>+</button></div>";
 
                       var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='iweight"+i+"' value='0' ></div>";
 

@@ -147,6 +147,9 @@ $array2 = json_decode($json2,TRUE);
 		$("#datepicker4").val('');
 		$("#xDetail").val('');
 		$('#side option[value="1"]').prop("selected", true);
+
+    $('#bCancel').attr('disabled', true);
+    $('#delete_icon').addClass('opacity');
 	}
 
 	function CancelRow(){
@@ -304,35 +307,37 @@ $array2 = json_decode($json2,TRUE);
 															  "<td style='width: 25%;'>"+temp[i]['Detail']+"</td>"+
 														  "</tr>";
 
-					                               if(rowCount == 0){
-					                                 $("#TableDocument tbody").append( $StrTr );
-					                               }else{
-					                                 $('#TableDocument tbody:last-child').append(  $StrTr );
-					                               }
+                              if(rowCount == 0){
+                                $("#TableDocument tbody").append( $StrTr );
+                              }else{
+                                $('#TableDocument tbody:last-child').append(  $StrTr );
+                              }
 												}
 
 										  }else if(temp["form"]=='getRow'){
-											    $("#IsStatus").val('1');
-											    $("#xRowID").val(temp[0]['RowID']);
-												$("#datepicker3").val(temp[0]['StartDate']);
-												$("#datepicker4").val(temp[0]['EndDate']);
-												$("#xDetail").val(temp[0]['Detail']);
+                          $("#IsStatus").val('1');
+                          $("#xRowID").val(temp[0]['RowID']);
+                          $("#datepicker3").val(temp[0]['StartDate']);
+                          $("#datepicker4").val(temp[0]['EndDate']);
+                          $("#xDetail").val(temp[0]['Detail']);
 
-												var hosCode = temp[0]['HptCode'];
-												var hos_length = $('#side > option').length;
+                          var hosCode = temp[0]['HptCode'];
+                          var hos_length = $('#side > option').length;
 
 
-												for(var i=0;i<hos_length;i++){
-													if(hosCode == i) $('#side option[value="'+i+'"]').prop("selected", true);
+                          for(var i=0;i<hos_length;i++){
+                            if(hosCode == i) $('#side option[value="'+i+'"]').prop("selected", true);
+                          }
+                          //alert(temp['Dep_Cnt']);
+                          $("#department").empty();
+                          for (var i = 0; i < temp['Dep_Cnt']; i++) {
+                            var Str = "<option value="+temp['Dep_'+i]['DepCode']+">"+temp['Dep_'+i]['DepName']+"</option>";
+                            $("#department").append(Str);
+                            if(temp[0]['DepCode'] == temp['Dep_'+i]['DepCode']) $('#department option[value="'+temp[0]['DepCode']+'"]').prop("selected", true);
 												}
-												//alert(temp['Dep_Cnt']);
-												$("#department").empty();
-												for (var i = 0; i < temp['Dep_Cnt']; i++) {
-													var Str = "<option value="+temp['Dep_'+i]['DepCode']+">"+temp['Dep_'+i]['DepName']+"</option>";
-													$("#department").append(Str);
-													if(temp[0]['DepCode'] == temp['Dep_'+i]['DepCode']) $('#department option[value="'+temp[0]['DepCode']+'"]').prop("selected", true);
-												}
-
+                        
+                        $('#bCancel').attr('disabled', false);
+                        $('#delete_icon').removeClass('opacity');
 
 										  }
 
@@ -482,17 +487,19 @@ body{
   /* padding-top: 20px; */
   border-left: 2px solid #bdc3c7;
 }
-.mhee a{
+.mhee button{
   /* padding: 6px 8px 6px 16px; */
-  text-decoration: none;
   font-size: 25px;
-  color: #818181;
-  display: block;
+  color: #2c3e50;
+  background:none;
+  box-shadow:none!important;
 }
-.mhee a:hover {
+
+.mhee button:hover {
   color: #2c3e50;
   font-weight:bold;
   font-size:26px;
+  outline:none;
 }
 .sidenav a {
   padding: 6px 8px 6px 16px;
@@ -511,6 +518,10 @@ body{
     padding-top: 6px;
     padding-left: 33px;
   }
+  .opacity{
+    opacity:0.5;
+  }
+
   @media (min-width: 992px) and (max-width: 1199.98px) { 
 
     .icon{
@@ -641,7 +652,7 @@ body{
 
 
 <!-- =============================================================================================== -->
-<div class="sidenav" style=" margin-left: 92px;margin-top: 33px;"<?php if($PmID == 2) echo 'hidden'; ?>>
+            <div class="sidenav mhee" style=" margin-left: 92px;margin-top: 33px;"<?php if($PmID == 2) echo 'hidden'; ?>>
               <div class="" style="margin-top:5px;">
                 <div class="card-body" style="padding:0px; margin-top:10px;">
 <!-- =============================================================================================== -->
@@ -651,9 +662,9 @@ body{
                                         <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="SaveRow()" id="bSave">
+                                        <button class="btn" onclick="SaveRow()" id="bSave">
                                           <?php echo $array['save'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
         
@@ -663,20 +674,20 @@ body{
                                         <img src="../img/icon/i_clean.png" style='width:40px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="ClearRow()" id="bDelete">
+                                        <button class="btn" onclick="ClearRow()" id="bDelete">
                                           <?php echo $array['clear'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
           <div class="row" style="margin-top:0px;">
-                                      <div class="col-md-3 icon" >
-                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
+                                      <div class="col-md-3 icon " >
+                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3 opacity' id="delete_icon">
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="CancelRow()" id="bCancel">
+                                        <button class="btn" onclick="CancelRow()" id="bCancel" disabled="true">
                                           <?php echo $array['cancel'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
