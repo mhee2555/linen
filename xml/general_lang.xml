@@ -29,8 +29,8 @@
 <titlefactoryin><en>FactoryIn</en><th>รับผ้าสกปรก</th></titlefactoryin>
 <titlefactoryout><en>Send clean linen</en><th>ส่งผ้าสะอาด</th></titlefactoryout>
 <titledraw><en>Save draw</en><th>บันทึกเบิก</th></titledraw>
-<oldFormatItemCode><en>Old Format ItemCode</en><th>รูปแบบรหัสเก่า</th></oldFormatItemCode>
-<newFormatItemCode><en>New Format ItemCode</en><th>รูปแบบรหัสใหม่</th></newFormatItemCode>
+<oldFormatItemCode><en>Old Format Code</en><th>รูปแบบรหัสเก่า</th></oldFormatItemCode>
+<newFormatItemCode><en>New Format Code</en><th>รูปแบบรหัสใหม่</th></newFormatItemCode>
 <logout><en>Logout success</en><th>ออกจากระบบสำเร็จ</th></logout>
 <side><en>Hospital</en><th>โรงพยาบาล</th></side>
 <department><en>Department</en><th>แผนก</th></department>
