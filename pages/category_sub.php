@@ -1017,7 +1017,7 @@ $array2 = json_decode($json2,TRUE);
                                   <div class="col-md-7">
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['codecode'][$language]; ?></label>
-                                      <input type="text"  class="form-control col-sm-8 checkblank" id="CategoryCode"    placeholder="<?php echo $array['codecode'][$language]; ?>" readonly>
+                                      <input type="text"  class="form-control col-sm-8 " id="CategoryCode"    placeholder="<?php echo $array['codecode'][$language]; ?>" readonly>
                                     </div>
                                   </div>
                                 </div> 
