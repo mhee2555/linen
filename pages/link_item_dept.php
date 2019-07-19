@@ -1170,7 +1170,7 @@ $array2 = json_decode($json2,TRUE);
                                 // confirmButtonText: 'Ok'
                               })
                             }else if(temp['form']=="SelectItemStock"){
-                              $( "#TableItemStock tbody" ).empty();
+                              // $( "#TableItemStock tbody" ).empty();
                               for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                                   if(temp[i]['UsageCode'] == undefined || temp[i]['UsageCode'] == ''){
                                       var UsageCode = "";
@@ -1188,11 +1188,13 @@ $array2 = json_decode($json2,TRUE);
                                                 "<td style='width: 24%;' nowrap>"+txtno+"</td>"+
                                                 "</tr>";
 
-                                 if(rowCount == 0){
-                                   $("#TableItemStock tbody").append( StrTR );
-                                 }else{
-                                   $('#TableItemStock tbody:last-child').append( StrTR );
-                                 }
+                                //  if(rowCount == 0){
+                                //    $("#TableItemStock tbody").append(StrTR);
+                                //  }else{
+                                //    $('#TableItemStock tbody:last-child').append(StrTR);
+                                //  }
+                                $('#TableItemStock tbody:last-child').append(StrTR);
+
                               }
                             }
                           }else if (temp['status']=="failed") {
