@@ -279,7 +279,7 @@ function AddItem($conn, $DATA)
         users.FacCode,
         users.Count,
         users.Modify_Date,
-        users.TimeOut
+        users.TimeOut,
         users.email
 
 		)
@@ -298,7 +298,7 @@ function AddItem($conn, $DATA)
             30,
             '$email'
           )";
-
+  $return['sql']=$Sql;
         if(mysqli_query($conn, $Sql)){
             $return['status'] = "success";
             $return['form'] = "AddItem";

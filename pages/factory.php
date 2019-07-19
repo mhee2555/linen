@@ -58,7 +58,7 @@ $array2 = json_decode($json2,TRUE);
       jqui = jQuery.noConflict(true);
     </script>
 
-    <link href="../dist/css/sweetalert2.min.css" rel="stylesheet">
+    <link href="../dist/css/sweetalert2.css" rel="stylesheet">
     <script src="../dist/js/sweetalert2.min.js"></script>
     <script src="../dist/js/jquery-3.3.1.min.js"></script>
 
@@ -351,8 +351,8 @@ $array2 = json_decode($json2,TRUE);
               type: "question",
               showCancelButton: true,
               confirmButtonClass: "btn-success",
-              confirmButtonText: "<?php echo $array['add'][$language]; ?>",
-              cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
+              confirmButtonText: "<?php echo $array['yes'][$language]; ?>",
+              cancelButtonText: "<?php echo $array['isno'][$language]; ?>",
               confirmButtonColor: '#6fc864',
               cancelButtonColor: '#3085d6',
               closeOnConfirm: false,

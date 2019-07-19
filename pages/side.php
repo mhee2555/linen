@@ -1070,7 +1070,7 @@ $array2 = json_decode($json2,TRUE);
                                   <div class="col-md-7">
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['code'][$language]; ?></label>
-                                      <input type="text"  class="form-control col-sm-8 " id="HptCode"    placeholder="<?php echo $array['code'][$language]; ?>">
+                                      <input type="text"  class="form-control col-sm-8 checkblank" id="HptCode"    placeholder="<?php echo $array['code'][$language]; ?>">
                                     </div>
                                   </div>
                                 </div>                        
@@ -1079,7 +1079,7 @@ $array2 = json_decode($json2,TRUE);
                                   <div class="col-md-7">
                                     <div class='form-group row'>
                                       <label class="col-sm-4 col-form-label text-right"><?php echo $array['hosname'][$language]; ?></label>
-                                      <input type="text"  class="form-control col-sm-8 " id="HptName"    placeholder="<?php echo $array['hosname'][$language]; ?>">
+                                      <input type="text"  class="form-control col-sm-8 checkblank" id="HptName"    placeholder="<?php echo $array['hosname'][$language]; ?>">
                                     </div>
                                   </div>
                                 </div>  
