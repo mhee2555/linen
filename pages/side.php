@@ -417,7 +417,7 @@ $array2 = json_decode($json2,TRUE);
         //$('#Dept').val("1");
         ShowItem();
         $('#bCancel').attr('disabled', true);
-    $('#delete_icon').addClass('opacity');
+        $('#delete_icon').addClass('opacity');
       }
 
       function getdetail(HptCode) {

@@ -678,7 +678,7 @@ switch ($PmID) {
       <li class="nav-item dropdown no-arrow" style="padding-top:12px;">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user-circle fa-fw"></i>
+          <i class="fas fa-user-circle fa-fw" style="font-size: 25px;"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <a class="dropdown-item" href="#" data-toggle="modal"
