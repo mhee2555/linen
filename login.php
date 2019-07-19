@@ -28,7 +28,6 @@ $array = json_decode($json,TRUE);
 </head>
 <body>
     <!-- ====================== form Login======================= -->
-    <div id="form_input">
         <div id="form_white">
             <div class="row">
                 <!-- logo -->
@@ -75,7 +74,6 @@ $array = json_decode($json,TRUE);
                 </div>
             </div>
         </div>
-    </div>
     <!-- ==================== End form ========================== -->
 
     <!-- ====================== form Sendmail======================= -->
@@ -108,85 +106,87 @@ $array = json_decode($json,TRUE);
     <!-- ==================== End form ========================== -->
 
     <!-- ====================== form change======================= -->
-      <!-- <div id="form_change" hidden="true">
+      <div id="form_change" hidden="true">
             <div class="row">
                 <div id="logo_top2">
                     <img src="img/logo.png">
                 </div>
                 <div id="title_change">
                     <h3>Change Password</h3>
-                </div> -->
+                </div>
                 <!-- ------------------------------------------- -->
-                <!-- <div id="username_div2">
+                <div id="username_div2">
                     <div id="label1">
                         <label for="username">Username</label>
                     </div>
                     <div class="input-group color2">
                         <input type="text" class="form-control change_input" id="username2" required>
                     </div>
-                </div> -->
+                </div>
                 <!-- ------------------------------------------- -->
-                <!-- <div id="oldpassword_div">
+                <div id="oldpassword_div">
                     <div id="label_old">
                         <label for="old_password">Old Password</label>
                     </div>
                     <div class="input-group color2">
                         <input type="password" class="form-control change_input" id="oldpassword" required>
                     </div>
-                </div> -->
+                </div>
                 <!-- ------------------------------------------- -->
-                <!-- <div id="newpassword_div">
+                <div id="newpassword_div">
                     <div id="new_label">
                         <label for="new_password">New Password</label>
                     </div>
                     <div class="input-group color2">
                         <input type="password" class="form-control change_input" id="newpassword" required>
                     </div>
-                </div> -->
+                </div>
                 <!-- ------------------------------------------- -->
-                <!-- <div id="confirm_div">
+                <div id="confirm_div">
                     <div id="confirm_label">
                         <label for="confirm_password">Confirm Password</label>
                     </div>
                     <div class="input-group color2">
                         <input type="password" class="form-control change_input" id="confirmpassword" required>
                     </div>
-                </div> -->
+                </div>
                 <!-- ------------------------------------------- -->
-                <!-- <div class="row" id="back_row">
+                <div class="row" id="back_row">
                     <a class='btn btn-back' onclick="back();">Back</a>
                 </div>
                 <div class="row" id="save_row">
                     <a class='btn btn-save' onclick="passwordUpdate();">Save</a>
                 </div>
             </div>
-        </div> -->
+        </div>
     <!-- ==================== End form ==================== -->
     <script>
         function reset_pass(){
-            $('#form_white').attr('hidden', true);
-            $('#form_change').attr('hidden', true);
-            $('#form_sendmail').attr('hidden', false);
+            var user = document.getElementById("username").value;
+            if( user != "" ){
+                $('#form_white').attr('hidden', true);
+                $('#form_change').attr('hidden', true);
+                $('#form_sendmail').attr('hidden', false);
+            }else{
+                swal({
+                    type: 'warning',
+                    title: 'Something Wrong',
+                    text: 'Please enter username!'
+                })
+            }
         }
 
         function change_pass()
         {
-            $.ajax({
-                method: "POST",
-                url: "change_password.html",
-                success: function (data) {
-                    $('#form_white').attr('hidden', true);
-                    $('#form_input').append(data);
-                }
-            })
+            $('#form_white').attr('hidden', true);
+            $('#form_change').attr('hidden', false);
+            $('#form_sendmail').attr('hidden', true);
         }
-
 
         function back()
         {
             $('#form_white').attr('hidden', false);
-            $('#form_change').remove();
-
+            $('#form_change').attr('hidden', true);
             $('#form_sendmail').attr('hidden', true);
         }
 
@@ -217,7 +217,9 @@ $array = json_decode($json,TRUE);
 
         function sendmail(){
             var email = document.getElementById("email").value;
-            if( email!="" ){
+            var user = document.getElementById("username").value;
+
+            if( user != "" && email!="" ){
                 var data = {
                     'STATUS' : 'sendmail',
                     'PAGE' : 'sendmail',
@@ -292,7 +294,7 @@ $array = json_decode($json,TRUE);
                             showConfirmButton: false
                         });
                         setTimeout(function(){ 
-                            window.location.href = 'indexlogin.html';
+                            window.location.href = 'main.php';
                         }, 1000);
                     }else if(temp["form"] == 'change_password'){
                         swal({
@@ -331,16 +333,18 @@ $array = json_decode($json,TRUE);
                                 confirmButtonText: 'Ok'
                             }).then(function () {
 
-                            var eamil = temp["email"];
+                            var eamil    = temp["email"];
                             var UserName = temp["UserName"];
                             var Password = temp["Password"];
-
+                            var Subject  = 'Reset password...';
+                            var FName    = temp["FName"];
                             // window.location.href = 'sendmail.php?UserName='+UserName+'&Password='+Password;
-
                             var data = {
-                                    'email': eamil,
-                                    'UserName' : UserName,
-                                    'Password' : Password,
+                                    'email'     : eamil,
+                                    'UserName'  : UserName,
+                                    'Password'  : Password,
+                                    'Subject'   : Subject,
+                                    'FName'     : FName,
                                 };
                                 sendtomail(JSON.stringify(data),)
 
@@ -356,16 +360,11 @@ $array = json_decode($json,TRUE);
 
                     }
                 } else if (temp["status"] == 'change_pass') {
-                    $.ajax({
-                        method: "POST",
-                        url: "change_password.html",
-                        success: function (data) {
-                            $('#form_white').attr('hidden', true);
-                            $('#form_input').append(data);
-                            $('#username2').val(temp['username']);
-                            $('#oldpassword').val(temp['password']);
-                        }
-                    })
+                    $('#username2').val(temp['username']);
+                    $('#oldpassword').val(temp['password']);
+                    $('#form_white').attr('hidden', true);
+                    $('#form_change').attr('hidden', false);
+                    $('#form_sendmail').attr('hidden', true);
                 } else {
                     // swal.hideLoading()
                     swal({

@@ -857,7 +857,7 @@ $(document).ready(function(e){
                 $("#wTotal").val(temp[0]['Total']);
                 else
                 $("#wTotal").val(0);
-                var st1 = "style='font-size:24px;margin-left:3px;font-family:THSarabunNew;font-size:24px;'";
+                var st1 = "style='font-size:24px;margin-left:3px;width:140px;'";
                 var isStatus = $("#IsStatus").val();
                 for (var i = 0; i < temp["Row"]; i++) {
                   var rowCount = $('#TableItem >tbody >tr').length;
@@ -875,20 +875,20 @@ $(document).ready(function(e){
 
                   var chkDoc = "<input type='radio' name='checkrow' id='checkrow' value='"+temp[i]['RowID']+","+temp[i]['ItemName']+"'>";
 
-                  var Qty = "<div class='row' style='margin-left:0px;'><input class='form-control' style='height:40px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='qty1_"+i+"' value='"+temp[i]['Qty']+"' ></div>";
+                  var Qty = "<div class='row' style='margin-left:0px;'><input class='form-control' style=' width:87px;height:40px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='qty1_"+i+"' value='"+temp[i]['Qty']+"' ></div>";
                   // var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn-danger' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode']+"\")'>-</button><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['ParQty']+"' ><button class='btn btn-success' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode']+"\")'>+</button></div>";
                   //var OleQty = "<div class='row' style='margin-left:2px;'><input type='hidden' class='form-control' style='height:40px;width:134px; margin-left:3px; margin-right:3px; text-align:center;' id='OleQty_"+i+"' value='"+temp[i]['MaxQty']+"' ></div>";
-                  var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px; margin-left:3px; margin-right:3px; text-align:center;font-family:THSarabunNew;font-size:24px;' id='weight_"+i+"' value='"+temp[i]['Weight']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
+                  var Weight = "<div class='row' style='margin-left:2px;'><input class='form-control' style=' width:87px;height:40px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='weight_"+i+"' value='"+temp[i]['Weight']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
 
                   var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px; margin-left:3px; margin-right:3px; text-align:center;font-size:24px;' id='price_"+i+"' value='"+temp[i]['Price']+"' OnBlur='updateWeight(\""+i+"\",\""+temp[i]['RowID']+"\")'></div>";
 
                   $StrTR = "<tr id='tr"+temp[i]['RowID']+"' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>"+
-                  "<td style='width: 10%;' nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+                  "<td style='width: 6%;' nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
                   "<td style='width: 20%;' nowrap>"+temp[i]['ItemCode']+"</td>"+
-                  "<td style='width: 25%;' nowrap>"+temp[i]['ItemName']+"</td>"+
-                  "<td style='width: 15%;font-size:24px;' nowrap>"+chkunit+"</td>"+
-                  "<td style='width: 15%;' nowrap>"+Qty+"</td>"+
-                  "<td style='width: 13%;' nowrap>"+Weight+"</td>"+
+                  "<td style='width: 30%;' nowrap>"+temp[i]['ItemName']+"</td>"+
+                  "<td style='width: 20%;font-size:24px;' nowrap>"+chkunit+"</td>"+
+                  "<td style='width: 12%;' nowrap>"+Qty+"</td>"+
+                  "<td style='width: 12%;' nowrap>"+Weight+"</td>"+
                   "</tr>";
 
 
@@ -1322,12 +1322,12 @@ $(document).ready(function(e){
                         <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItemDetail" width="100%" cellspacing="0" role="grid" style="">
                           <thead id="theadsum" style="font-size:24px;">
                             <tr role="row">
-                              <th style='width: 10%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                              <th style='width: 6%;' nowrap><?php echo $array['no'][$language]; ?></th>
                               <th style='width: 20%;' nowrap><?php echo $array['code'][$language]; ?></th>
-                              <th style='width: 25%;' nowrap><?php echo $array['item'][$language]; ?></th>
-                              <th style='width: 15%;' nowrap><center><?php echo $array['unit'][$language]; ?></center></th>
-                              <th style='width: 15%;' nowrap><?php echo $array['qty'][$language]; ?></th>
-                              <th style='width: 15%;' nowrap><center><?php echo $array['weight'][$language]; ?></center></th>
+                              <th style='width: 20%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                              <th style='width: 32%;' nowrap><center><?php echo $array['unit'][$language]; ?></center></th>
+                              <th style='width: 8%;' nowrap><?php echo $array['qty'][$language]; ?></th>
+                              <th style='width: 14%;' nowrap><center><?php echo $array['weight'][$language]; ?></center></th>
                             </tr>
                           </thead>
                           <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:300px;">
