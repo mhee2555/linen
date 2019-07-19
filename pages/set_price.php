@@ -63,7 +63,7 @@ $array2 = json_decode($json2,TRUE);
         jqui = jQuery.noConflict(true);
     </script>
 
-    <link href="../dist/css/sweetalert2.min.css" rel="stylesheet">
+    <link href="../dist/css/sweetalert2.css" rel="stylesheet">
     <script src="../dist/js/sweetalert2.min.js"></script>
     <script src="../dist/js/jquery-3.3.1.min.js"></script>
 
@@ -409,11 +409,8 @@ $array2 = json_decode($json2,TRUE);
                 text: "<?php echo $array['savedoc'][$language]; ?> : " +$('#hptsel1 option:selected').text(),
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonClass: "btn-danger",
                 confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
                 cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
                 closeOnConfirm: false,
                 closeOnCancel: false,
                 showCancelButton: true}).then(result => {
@@ -909,140 +906,141 @@ $array2 = json_decode($json2,TRUE);
         }
     </script>
     <style media="screen">
-            @font-face {
-                    font-family: myFirstFont;
-                    src: url("../fonts/DB Helvethaica X.ttf");
-                    }
-                body{
+        @font-face {
                 font-family: myFirstFont;
-                font-size:22px;
+                src: url("../fonts/DB Helvethaica X.ttf");
                 }
+            body{
+            font-family: myFirstFont;
+            font-size:22px;
+            }
 
-                .nfont{
-                font-family: myFirstFont;
-                font-size:22px;
-                }
+            .nfont{
+            font-family: myFirstFont;
+            font-size:22px;
+            }
             input,select{
-            font-size:24px!important;
+                font-size:24px!important;
             }
             th,td{
-            font-size:24px!important;
+                font-size:24px!important;
             }
             .table > thead > tr >th {
-            background-color: #1659a2;
+                background-color: #1659a2;
             }
 
             table tr th,
             table tr td {
-            border-right: 0px solid #bbb;
-            border-bottom: 0px solid #bbb;
-            padding: 5px;
+                border-right: 0px solid #bbb;
+                border-bottom: 0px solid #bbb;
+                padding: 5px;
             }
             table tr th:first-child,
             table tr td:first-child {
-            border-left: 0px solid #bbb;
+                border-left: 0px solid #bbb;
             }
             table tr th {
-            background: #eee;
-            border-top: 0px solid #bbb;
-            text-align: left;
+                background: #eee;
+                border-top: 0px solid #bbb;
+                text-align: left;
             }
 
             /* top-left border-radius */
             table tr:first-child th:first-child {
-            border-top-left-radius: 15px;
-        }
-        table tr:first-child th:first-child {
-            border-bottom-left-radius: 15px;
-        }
-
-        /* top-right border-radius */
-        table tr:first-child th:last-child {
-            border-top-right-radius: 15px;
-        }
-        table tr:first-child th:last-child {
-            border-bottom-right-radius: 15px;
-        }
-
-        /* bottom-left border-radius */
-        table tr:last-child td:first-child {
-            border-bottom-left-radius: 6px;
-        }
-
-        /* bottom-right border-radius */
-        table tr:last-child td:last-child {
-            border-bottom-right-radius: 6px;
-        }
-        button{
-            font-size: 24px!important;
+                border-top-left-radius: 15px;
             }
-        a.nav-link{
-            width:auto!important;
-        }
-        .datepicker{z-index:9999 !important}
-        .hidden{visibility: hidden;}
+            table tr:first-child th:first-child {
+                border-bottom-left-radius: 15px;
+            }
+
+            /* top-right border-radius */
+            table tr:first-child th:last-child {
+                border-top-right-radius: 15px;
+                }
+            table tr:first-child th:last-child {
+                border-bottom-right-radius: 15px;
+            }
+
+            /* bottom-left border-radius */
+            table tr:last-child td:first-child {
+                border-bottom-left-radius: 6px;
+            }
+
+            /* bottom-right border-radius */
+            table tr:last-child td:last-child {
+                border-bottom-right-radius: 6px;
+            }
+            button{
+                font-size: 24px!important;
+                }
+            a.nav-link{
+                width:auto!important;
+            }
+            .datepicker{z-index:9999 !important}
+            .hidden{visibility: hidden;}
         
-        .sidenav {
-        height: 100%;
-        overflow-x: hidden;
-        /* padding-top: 20px; */
-        border-left: 2px solid #bdc3c7;
-        }
-
-        .sidenav a {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-        }
-
-        .sidenav a:hover {
-        color: #2c3e50;
-        font-weight:bold;
-        font-size:26px;
-        }
-        .icon{
-            padding-top: 6px;
-            padding-left: 33px;
-        }
-        .mhee a{
-            /* padding: 6px 8px 6px 16px; */
-            text-decoration: none;
-            font-size: 23px;
-            color: #818181;
-            display: block;
+            .sidenav {
+            height: 100%;
+            overflow-x: hidden;
+            /* padding-top: 20px; */
+            border-left: 2px solid #bdc3c7;
             }
-            .mhee a:hover {
-            color: #2c3e50;
-            font-weight:bold;
-            font-size:26px;
-        }
-        .mhee button{
-            /* padding: 6px 8px 6px 16px; */
-            text-decoration: none;
-            font-size: 23px;
-            color: #818181;
-            display: block;
+
+            .sidenav a {
+                padding: 6px 8px 6px 16px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
             }
-            .mhee button:hover {
-            color: #2c3e50;
-            font-weight:bold;
-            font-size:26px;
-        }
-        @media (min-width: 992px) and (max-width: 1199.98px) { 
+
+            .sidenav a:hover {
+                color: #2c3e50;
+                font-weight:bold;
+                font-size:26px;
+            }
+            .icon{
+                padding-top: 6px;
+                padding-left: 33px;
+            }
+            .mhee a{
+                /* padding: 6px 8px 6px 16px; */
+                text-decoration: none;
+                font-size: 23px;
+                color: #818181;
+                display: block;
+                }
+                .mhee a:hover {
+                color: #2c3e50;
+                font-weight:bold;
+                font-size:26px;
+            }
+            .mhee button{
+                /* padding: 6px 8px 6px 16px; */
+                text-decoration: none;
+                font-size: 23px;
+                color: #818181;
+                display: block;
+                }
+                .mhee button:hover {
+                color: #2c3e50;
+                font-weight:bold;
+                font-size:26px;
+            }
+            @media (min-width: 992px) and (max-width: 1199.98px) { 
 
             .icon{
-            padding-top: 6px;
-            padding-left: 23px;
+                padding-top: 6px;
+                padding-left: 23px;
             }
             .sidenav{
-            margin-left:30px;
+             margin-left:30px;
             }
             .sidenav a {
-            font-size: 20px;
+                font-size: 20px;
 
             }
+
         }
     </style>
 </head>
