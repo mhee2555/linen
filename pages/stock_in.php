@@ -1095,6 +1095,7 @@ a.nav-link{
             color: #2c3e50;
             display: block;
             background: none;
+            box-shadow:none !important;
             }
             .mhee button:hover {
             color: #2c3e50;

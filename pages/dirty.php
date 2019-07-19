@@ -896,8 +896,8 @@ $array2 = json_decode($json2,TRUE);
 
                         $StrTR = "<tr id='tr"+temp[i]['RowID']+"' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>"+
                         "<td style='width: 6%;' nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-                        "<td style='width: 20%;' nowrap>"+temp[i]['ItemCode']+"</td>"+
-                        "<td style='width: 30%;' nowrap>"+temp[i]['ItemName']+"</td>"+
+                        "<td style='text-overflow: ellipsis;overflow: hidden;width: 20%;' nowrap>"+temp[i]['ItemCode']+"</td>"+
+                        "<td style='text-overflow: ellipsis;overflow: hidden;width: 30%;' nowrap>"+temp[i]['ItemName']+"</td>"+
                         "<td style='width: 20%;' nowrap>"+chkunit+"</td>"+
                         "<td style='width: 12%;' nowrap>"+Qty+"</td>"+
                         "<td style='width: 12%;' nowrap>"+Weight+"</td>"+

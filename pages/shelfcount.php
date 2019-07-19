@@ -1045,7 +1045,7 @@ $array2 = json_decode($json2,TRUE);
 
                 chkunit += "</select>";
 
-                var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn_mhee' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:90px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onkeyup='if(this.value > "+temp[i]['ParQty']+"){this.value="+temp[i]['ParQty']+"}else if(this.value<0){this.value=0}' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn_mheesave' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
+                var Qty = "<div class='row' style='margin-left:2px;'><button class='btn btn_mhee' style='height:40px;width:32px;' onclick='subtractnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>-</button><input class='form-control' style='height:40px;width:60px; margin-left:3px; margin-right:3px; text-align:center;' id='qty1_"+i+"' value='"+temp[i]['CcQty']+"' onkeyup='if(this.value > "+temp[i]['ParQty']+"){this.value="+temp[i]['ParQty']+"}else if(this.value<0){this.value=0}' onblur='keydownupdate(\""+temp[i]['RowID']+"\",\""+i+"\")' ><button class='btn btn_mheesave' style='height:40px;width:32px;' onclick='addnum1(\""+temp[i]['RowID']+"\",\""+i+"\",\""+temp[i]['UnitCode2']+"\")'>+</button></div>";
 
                 var Order = "<input class='form-control' id='order"+i+"' type='text' style='text-align:center;' value='"+(temp[i]['TotalQty'])+"' disabled>";
 
@@ -1056,13 +1056,13 @@ $array2 = json_decode($json2,TRUE);
                 var Price = "";
 
                 $StrTR = "<tr id='tr"+temp[i]['RowID']+"' style='border-radius: 15px 15px 15px 15px;margin-top: 6px;margin-bottom: 6px;'>"+
-                "<td style='width: 7%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
-                "<td style='width: 20%;'nowrap><input type='hidden' id='item_array"+temp[i]['ItemCode']+"' value='"+temp[i]['ItemCode']+"' class='item_array'></input>"+temp[i]['ItemCode']+"</td>"+
-                "<td style='width: 20%;'nowrap>"+temp[i]['ItemName']+"</td>"+
-                "<td style='width: 10%;'nowrap>"+temp[i]['UnitName']+"</td>"+
-                "<td style='width: 10%;'nowrap>"+Max+"</td>"+
+                "<td style='width: 6%;'nowrap>"+chkDoc+" <label style='margin-left:10px;'> "+(i+1)+"</label></td>"+
+                "<td style='text-overflow: ellipsis;overflow: hidden;width: 18%;'nowrap><input type='hidden' id='item_array"+temp[i]['ItemCode']+"' value='"+temp[i]['ItemCode']+"' class='item_array'></input>"+temp[i]['ItemCode']+"</td>"+
+                "<td style='text-overflow: ellipsis;overflow: hidden;width: 24%;'nowrap>"+temp[i]['ItemName']+"</td>"+
+                "<td style='width: 12%;'nowrap>"+temp[i]['UnitName']+"</td>"+
+                "<td style='width: 9%;'nowrap>"+Max+"</td>"+
                 "<td style='width: 18%;'nowrap>"+Qty+"</td>"+
-                "<td style='width: 10%;'nowrap>"+Order+"</td>"+
+                "<td style='width: 9%;'nowrap>"+Order+"</td>"+
                 "</tr>";
 
 
@@ -1424,6 +1424,7 @@ $array2 = json_decode($json2,TRUE);
             color: #2c3e50;
             display: block;
             background: none;
+            box-shadow:none !important;
 
             }
             .mhee button:hover {
@@ -1569,17 +1570,17 @@ $array2 = json_decode($json2,TRUE);
                                 id="TableItemDetail" width="98%" cellspacing="0" role="grid" style="">
                                 <thead id="theadsum" style="font-size:24px;">
                                     <tr role="row" id='tr_1'>
-                                        <th style='width: 5%;' nowrap><?php echo $array['no'][$language]; ?></th>
-                                        <th style='width: 20%;' nowrap><?php echo $array['code'][$language]; ?></th>
-                                        <th style='width: 15%;' nowrap><?php echo $array['item'][$language]; ?></th>
-                                        <th style='width: 13%;' nowrap><?php echo $array['unit'][$language]; ?></th>
-                                        <th style='width: 18%;' nowrap>
+                                        <th style='width: 6%;' nowrap><?php echo $array['no'][$language]; ?></th>
+                                        <th style='width: 18%;' nowrap><?php echo $array['code'][$language]; ?></th>
+                                        <th style='width: 23%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                                        <th style='width: 12%;' nowrap><?php echo $array['unit'][$language]; ?></th>
+                                        <th style='width: 11%;' nowrap>
                                             <center><?php echo $array['parsc'][$language]; ?></center>
                                         </th>
-                                        <th style='width: 8%;' nowrap>
+                                        <th style='width: 13%;' nowrap>
                                             <center><?php echo $array['leftsc'][$language]; ?></center>
                                         </th>
-                                        <th style='width: 21%;' nowrap>
+                                        <th style='width: 17%;' nowrap>
                                             <center><?php echo $array['order'][$language]; ?><center>
                                         </th>
                                     </tr>
