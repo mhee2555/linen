@@ -659,6 +659,8 @@ var isChecked2 = false;
       $('#typeLinen').val("P");
       $('#numPack').val("01");
       ShowItem();
+      $('#bCancel').attr('disabled', true);
+      $('#delete_icon').addClass('opacity');
       if('<?php echo $PmID; ?>'!=1){
         $('#NewItem').show();
         $('#AddItemBNT').hide();
@@ -1024,7 +1026,8 @@ var isChecked2 = false;
                               $('#Unitshows').val(temp[0]['UnitCode']);
                               $('#SizeCode').val(temp[0]['SizeCode']);
                               $('#Weight').val(temp[0]['Weight']);
-
+                              $('#bCancel').attr('disabled', false);
+                              $('#delete_icon').removeClass('opacity');
                               if(temp[0]['RowID']){
                                 for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                                    var rowCount = $('#TableUnit >tbody >tr').length;
@@ -1474,6 +1477,20 @@ var isChecked2 = false;
   font-weight:bold;
   font-size:26px;
 }
+.mhee button{
+  /* padding: 6px 8px 6px 16px; */
+  font-size: 25px;
+  color: #2c3e50;
+  background:none;
+  box-shadow:none!important;
+}
+
+.mhee button:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+  outline:none;
+}
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -1490,6 +1507,9 @@ var isChecked2 = false;
 .icon{
     padding-top: 6px;
     padding-left: 33px;
+  }
+  .opacity{
+    opacity:0.5;
   }
   @media (min-width: 992px) and (max-width: 1199.98px) { 
 
@@ -1818,7 +1838,7 @@ var isChecked2 = false;
 		    </div>
       </div>
 
-      <div class="col-md-2" >
+      <div class="col-md-2 mhee" >
                               <div class="sidenav" style=" margin-left: 0px;margin-top: 73px;">
                                 <div class="" style="margin-top:5px;">
                                   <div class="card-body" style="padding:0px; margin-top:10px;">
@@ -1828,9 +1848,9 @@ var isChecked2 = false;
                                         <img src="../img/icon/i_active.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="ActiveItem()" id="bActive">
+                                        <button class="btn" onclick="ActiveItem()" id="bActive">
                                           <?php echo $array['activeItem'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
                                     
@@ -1840,9 +1860,9 @@ var isChecked2 = false;
                                         <img src="../img/icon/i_listnew.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="NewItem()" id="bNewItem">
+                                        <button class="btn" onclick="NewItem()" id="bNewItem">
                                           <?php echo $array['itemnew'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
@@ -1852,9 +1872,9 @@ var isChecked2 = false;
                                         <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="AddItem()" id="bSave">
+                                        <button class="btn" onclick="AddItem()" id="bSave">
                                           <?php echo $array['save'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
         
@@ -1864,20 +1884,20 @@ var isChecked2 = false;
                                         <img src="../img/icon/i_clean.png" style='width:40px;' class='mr-3'>
                                         </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="Blankinput()" id="bDelete">
+                                        <button class="btn" onclick="Blankinput()" id="bDelete">
                                           <?php echo $array['clear'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
                                     <div class="row" style="margin-top:0px;" id="CancelBNT">
                                       <div class="col-md-3 icon" >
-                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
+                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3 opacity' id="delete_icon"> 
                                       </div>
                                       <div class="col-md-9">
-                                        <a href='javascript:void(0)' onclick="CancelItem()" id="bCancel">
+                                        <button class="btn" href='javascript:void(0)' onclick="CancelItem()" id="bCancel" disabled="true">
                                           <?php echo $array['cancel'][$language]; ?>
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
