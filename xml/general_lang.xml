@@ -95,7 +95,7 @@
 <percent><en>Percent</en><th>เปอร์เซ็นต์</th></percent>
 <date><en>Date</en><th>วันที่</th></date>
 <categorymain><en>Main category</en><th>หมวดหมู่หลัก</th></categorymain>
-<categorysub><en>Secondary category</en><th>หมวดหมู่รอง</th></categorysub>
+<categorysub><en>Subcategory</en><th>หมวดหมู่รอง</th></categorysub>
 <category><en>Category</en><th>หมวดหมู่</th></category>
 <deptnum><en>Department(Number)</en><th>แผนก(จำนวน)</th></deptnum>
 <factnum><en>Factory(Number)</en><th>โรงงานซัก(จำนวน)</th></factnum>
