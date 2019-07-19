@@ -1181,6 +1181,7 @@ $(document).ready(function(e){
             color: #2c3e50;
             display: block;
             background: none;
+            box-shadow: none !important;
             
           }
           .mhee button:hover {
