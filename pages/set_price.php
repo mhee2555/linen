@@ -437,7 +437,24 @@ $array2 = json_decode($json2,TRUE);
 
         function UpdatePrice() {
             var DocNo = $('#docno').val();
+            var chkArray = [];
+            var chkPriceArray = [];
+            var chkCategoryCode = [];
 
+            $(".checkPrice").each(function() {
+                chkArray.push($(this).val());
+            });
+
+            $(".price_array").each(function() {
+                chkPriceArray.push($(this).val());
+            });
+
+            $(".chkCategoryCode").each(function() {
+                chkCategoryCode.push($(this).val());
+            });
+            var RowId = chkArray.join(',');
+            var Price = chkPriceArray.join(',');
+            var CategoryCode = chkCategoryCode.join(',');
             swal({
                 title: "<?php echo $array['save'][$language]; ?>",
                 text: "<?php echo $array['updateprice'][$language]; ?>",
@@ -454,7 +471,10 @@ $array2 = json_decode($json2,TRUE);
             }).then(result => {
                 var data = {
                     'STATUS': 'UpdatePrice',
-                    'DocNo': DocNo
+                    'DocNo': DocNo,
+                    'Price':Price,
+                    'CategoryCode':CategoryCode,
+                    'RowId':RowId
                 };
                 // console.log(JSON.stringify(data));
                 senddata(JSON.stringify(data));
@@ -705,10 +725,12 @@ $array2 = json_decode($json2,TRUE);
                                 var RowID = "<input type='hidden' name='RowID_"+i+"' id='RowID_"+i+"' value='" + temp[i]['RowID'] +"'>";
                                 var Price = "<div class='row' style='margin-left:2px;'><input class='form-control price_array' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' onKeyPress='if(event.keyCode==13){SavePriceTime("+i+")}'></div>";
                                 var chkPrice = "<input type='radio' name='checkPrice' class='checkPrice' value='"+temp[i]['RowID']+"'>";
+                                var chkCategoryCode = "<input type='radio' name='chkCategoryCode' class='chkCategoryCode' value='"+temp[i]['CategoryCode']+"'>";
 
                                 StrTR = "<tr id='tr" + RowID + "'>" +
                                     "<td style='width: 5%;' nowrap>"+ RowID +"</td>" +
                                     "<td hidden>"+ chkPrice +"</td>" +
+                                    "<td hidden>"+ chkCategoryCode +"</td>" +
                                     "<td style='width: 25%;' nowrap>" + temp[i]['HptName'] + "</td>" +
                                     "<td style='width: 26%;' nowrap>" + temp[i]['MainCategoryName'] + "</td>" +
                                     "<td style='width: 25%;' nowrap>" + temp[i]['CategoryName'] + "</td>" +

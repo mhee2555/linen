@@ -174,7 +174,8 @@ function ShowItem2($conn, $DATA)
         site.HptName,
         item_main_category.MainCategoryName,
         item_category.CategoryName,
-        category_price_time.Price
+        category_price_time.Price,
+        category_price_time.CategoryCode
         FROM category_price_time
         INNER JOIN item_category ON category_price_time.CategoryCode = item_category.CategoryCode
         INNER JOIN item_main_category ON item_category.MainCategoryCode = item_main_category.MainCategoryCode
@@ -186,6 +187,7 @@ function ShowItem2($conn, $DATA)
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $return[$count]['RowID'] = $Result['RowID'];
         $return[$count]['HptName'] = $Result['HptName'];
+        $return[$count]['CategoryCode'] = $Result['CategoryCode'];
         $return[$count]['MainCategoryName'] = $Result['MainCategoryName'];
         $return[$count]['CategoryName'] = $Result['CategoryName'];
         $return[$count]['Price'] = $Result['Price'];
@@ -408,25 +410,48 @@ function CheckPrice($conn,$HptCode,$CategoryCode)
 function UpdatePrice($conn, $DATA)
 {
     $DocNo = $DATA['DocNo'];
+    $CategoryCode = explode(',', $DATA['CategoryCode']);
+    $Price = explode(',', $DATA['Price']);
+    $RowId = explode(',', $DATA['RowId']);
+    $limit = sizeof($CategoryCode, 0);
+    $limitRow = sizeof($RowId, 0);
     $count = 0;
+    
     $Sql = "SELECT category_price_time.HptCode,category_price_time.CategoryCode,category_price_time.Price
             FROM category_price_time
             WHERE category_price_time.DocNo = '$DocNo'";
     $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
         $HptCode = $Result['HptCode'];
-        $CategoryCode = $Result['CategoryCode'];
-        $Price = $Result['Price'];
+        // $CategoryCode = $Result['CategoryCode'];
+        // $Price = $Result['Price'];
 
-        if( CheckPrice($conn,$HptCode,$CategoryCode) == 0 ){
-            $InsertSql = "INSERT INTO category_price (HptCode,CategoryCode,Price) VALUES ('$HptCode',$CategoryCode,$Price)";
+        // if( CheckPrice($conn,$HptCode,$CategoryCode) == 0 ){
+        //     $InsertSql = "INSERT INTO category_price (HptCode,CategoryCode,Price) VALUES ('$HptCode',$CategoryCode,$Price)";
+        //     mysqli_query($conn, $InsertSql);
+        // }else{
+        //     $UpdateSql = "UPDATE category_price SET Price = $Price WHERE HptCode = '$HptCode' AND CategoryCode = $CategoryCode";
+        //     mysqli_query($conn, $UpdateSql);
+        // }
+        // $count++;
+    }
+    for($i=0; $i < $limit; $i++)
+    {
+        if( CheckPrice($conn,$HptCode,$CategoryCode[$i]) == 0 ){
+            $InsertSql = "INSERT INTO category_price (HptCode,CategoryCode,Price) VALUES ('$HptCode',$CategoryCode[$i],$Price[$i])";
             mysqli_query($conn, $InsertSql);
         }else{
-            $UpdateSql = "UPDATE category_price SET Price = $Price WHERE HptCode = '$HptCode' AND CategoryCode = $CategoryCode";
+            $UpdateSql = "UPDATE category_price SET Price = $Price[$i] WHERE HptCode = '$HptCode' AND CategoryCode = $CategoryCode[$i]";
             mysqli_query($conn, $UpdateSql);
         }
-        $count++;
     }
+
+    for($i=0; $i < $limitRow; $i++)
+    {
+      $Sql = "UPDATE category_price_time SET Price = $Price[$i] WHERE DocNo ='$DocNo' AND RowID = $RowId[$i]";
+      $meQuery = mysqli_query($conn, $Sql);
+    }
+
     $return['xCnt'] = $count;
 
         $return['status'] = "success";
