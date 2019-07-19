@@ -24,7 +24,7 @@ $array2 = json_decode($json2,TRUE);
     <script  type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
     <link href="../fontawesome/css/fontawesome.min.css" rel="stylesheet"> <!--load all styles -->
     <script src="../dist/js/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="../dist/css/sweetalert2.min.css">
+    <link rel="stylesheet" href="../dist/css/sweetalert2.css">
     <script src="../dist/js/jquery-3.3.1.min.js"></script>
     <script src="../fontawesome/js/all.js"></script>
 
@@ -49,8 +49,8 @@ $array2 = json_decode($json2,TRUE);
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: '<?php echo $array['confirm'][$language]; ?>',
-        cancelButtonText: '<?php echo $array['cancel'][$language]; ?>'
+        confirmButtonText: '<?php echo $array['yes'][$language]; ?>',
+        cancelButtonText: '<?php echo $array['isno'][$language]; ?>'
         }).then((result) => {
             var data = {
                 'STATUS' : 'SETLANG',

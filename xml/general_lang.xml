@@ -102,9 +102,9 @@
 <money><en>Cost</en><th>เป็นเงิน</th></money>
 <printbill><en>Print Bill</en><th>พิมพ์บิล</th></printbill>
 <factory><en>Washing factory</en><th>โรงงานซัก</th></factory>
-<datestartcontract><en>Contract date</en><th>วันที่ทำสัญญา</th></datestartcontract>
-<dateendcontract><en>Contract termination date</en><th>วันที่สิ้นสุดสัญญา</th></dateendcontract>
-<numbercontract><en>End of contract (date)</en><th>สิ้นสุดสัญญา(วัน)</th></numbercontract>
+<datestartcontract><en>Contract</en><th>วันที่ทำสัญญา</th></datestartcontract>
+<dateendcontract><en>Contract termination </en><th>วันที่สิ้นสุดสัญญา</th></dateendcontract>
+<numbercontract><en>End of contract</en><th>สิ้นสุดสัญญา(วัน)</th></numbercontract>
 <clear><en>clear</en><th>ล้าง</th></clear>
 <balance><en>balance</en><th>คงเหลือ</th></balance>
 <over><en>Over</en><th>เกิน Par</th></over>
