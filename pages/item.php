@@ -1000,13 +1000,11 @@ $array2 = json_decode($json2, TRUE);
                 $StrTR = "<tr id='tr" + temp[i]['ItemCode'] + "'>" +
                   "<td style='width: 5%;' align='center'nowrap>" + chkDoc + "</td>" +
                   "<td style='width: 5%;' align='center'nowrap><label> " + (i + 1) + "</label></td>" +
-                  "<td style='width: 20%;' align='left'nowrap>" + temp[i]['ItemCode'] + "</td>" +
-                  "<td style='width: 20%;' align='left'nowrap>" + temp[i]['ItemName'] + "</td>" +
-                  "<td style='width: 10%;' align='left'nowrap>" + temp[i]['UnitName'] + "</td>" +
-                  "<td style='width: 10%;' align='left'nowrap>&nbsp;&nbsp;" + temp[i]['SizeCode'] + "</td>" +
-                  "<td style='width: 10%;' align='center'nowrap>" + temp[i]['CusPrice'] + "</td>" +
-                  "<td style='width: 10%;' align='center'nowrap>" + temp[i]['FacPrice'] + "</td>" +
-                  "<td style='width: 10%;' align='center'nowrap>" + temp[i]['Weight'] + "</td>" +
+                  "<td style='width: 25%;' align='left'nowrap>" + temp[i]['ItemCode'] + "</td>" +
+                  "<td style='width: 25%;' align='left'nowrap>" + temp[i]['ItemName'] + "</td>" +
+                  "<td style='width: 15%;' align='left'nowrap>" + temp[i]['UnitName'] + "</td>" +
+                  "<td style='width: 13%;' align='left'nowrap>&nbsp;&nbsp;" + temp[i]['SizeCode'] + "</td>" +
+                  "<td style='width: 12%;' align='center'nowrap>" + temp[i]['Weight'] + "</td>" +
                   "</tr>";
 
                 if (rowCount == 0) {
@@ -1622,18 +1620,16 @@ $array2 = json_decode($json2, TRUE);
                   </div>
                 </div>
               </div>
-              <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="">
-                <thead id="theadsum" style="font-size:10px;">
+              <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid">
+                <thead id="theadsum">
                   <tr role="row">
-                    <th style='width: 5%;'>&nbsp;</th>
+                    <th style='width: 5%; font-size:13px;'>&nbsp;</th>
                     <th style='width: 5%;' nowrap><?php echo $array['no'][$language]; ?></th>
-                    <th style='width: 20%;' nowrap><?php echo $array['codecode'][$language]; ?></th>
-                    <th style='width: 20%;' nowrap><?php echo $array['item'][$language]; ?></th>
-                    <th style='width: 10%;' nowrap><?php echo $array['unit'][$language]; ?></th>
-                    <th style='width: 10%;' nowrap><?php echo $array['size'][$language]; ?></th>
-                    <th style='width: 10%;' nowrap><?php echo $array['pricecus'][$language]; ?></th>
-                    <th style='width: 10%;' nowrap><?php echo $array['pricefac'][$language]; ?></th>
-                    <th style='width: 10%;' nowrap><?php echo $array['weight'][$language]; ?></th>
+                    <th style='width: 25%;' nowrap><?php echo $array['codecode'][$language]; ?></th>
+                    <th style='width: 25%;' nowrap><?php echo $array['item'][$language]; ?></th>
+                    <th style='width: 15%;' nowrap><?php echo $array['unit2'][$language]; ?></th>
+                    <th style='width: 13%;' nowrap><?php echo $array['size'][$language]; ?></th>
+                    <th style='width: 12%;' nowrap><?php echo $array['weight'][$language]; ?></th>
                   </tr>
                 </thead>
                 <tbody id="tbody" class="nicescrolled" style="font-size:23px;height:250px;">
