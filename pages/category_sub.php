@@ -887,6 +887,18 @@ $array2 = json_decode($json2,TRUE);
   /* padding-top: 20px; */
   border-left: 2px solid #bdc3c7;
 }
+.mhee a{
+  /* padding: 6px 8px 6px 16px; */
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+.mhee a:hover {
+  color: #2c3e50;
+  font-weight:bold;
+  font-size:26px;
+}
 .mhee button{
   /* padding: 6px 8px 6px 16px; */
   font-size: 25px;

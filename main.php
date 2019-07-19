@@ -325,9 +325,8 @@ switch ($PmID) {
     // // ===================================================================
     var last_move, cur_date, target;
     var redirectInSecond = <?php echo $TimeOut ?>; // กำหนดเวลา redirect เป็นวินาที
-    var redirect_url = 'http://poseintelligence.dyndns.biz:8181/linen/login.php'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
+    var redirect_url = 'http://poseintelligence.dyndns.biz:8181/linen-test/login.php'; // กำหนด url ที่ต้องการเมื่อครบเวลาที่กำหนด
     $(document).ready(function (e) {
-      
       OnLoadPage();
       target = redirectInSecond * 1000; // แปลงค่าเป็น microsecond
       target = target * 60;
@@ -507,6 +506,7 @@ switch ($PmID) {
               $("#fac_out_Cnt").text(temp["fac_out_Cnt"]);
               $("#shelfcount_Cnt").text(temp["shelfcount_Cnt"]);
               $("#clean_Cnt").text(temp["clean_Cnt"]);
+              $("#Item_Cnt").text(temp["Item_Cnt"]);
 
               var a1 = parseInt(temp["CPF_Cnt"]);
               var a2 = parseInt(temp["HOS_Cnt"]);
@@ -901,7 +901,8 @@ switch ($PmID) {
           <li><a style="font-family: 'DB Helvethaica X'; font-size:20px;"
               href="pages/item.php?lang=<?php echo $language; ?>" class="current_page"
               onclick="return loadIframe('ifrm', this.href)">
-              <em></em><?php echo $array['menu']['system']['sub'][3][$language]; ?></a>
+              <em></em><?php echo $array['menu']['system']['sub'][3][$language]; ?>
+              <span style='color: #ff0000;' id='Item_Cnt'>0</span></a>
           </li>
           <?php } ?>
           <?php if($sys_s5== 1){ ?>

@@ -7,6 +7,7 @@
 <pack><en>Pack</en><th>แพ็ค</th></pack>
 <type><en>type</en><th>ประเภท</th></type>
 <search><en>Search for</en><th>ค้นหา</th></search>
+<search_active><en>Search not active</en><th>ค้นหา รายการใหม่</th></search_active>
 <search_hp><en>Search a hospital</en><th>ค้นหา โรงพยาบาล</th></search_hp>
 <search_ct_main><en>Search for main categories</en><th>ค้นหา หมวดหมู่หลัก</th></search_ct_main>
 <search_ct_sub><en>Search for secondary categories</en><th>ค้นหา หมวดหมู่รอง</th></search_ct_sub>

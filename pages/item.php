@@ -79,6 +79,7 @@
         $('#ActiveBNT').hide();
       }
       $('#AddItemBNT').hide();
+      $('#xPrice').hide();
 
       GetHospital();
       GetmainCat();
@@ -372,6 +373,21 @@ var isChecked2 = false;
       senddata(JSON.stringify(data));
     }
 
+      function ShowItem_Active_0(){
+          var item = $("#searchitem").val();
+          var catagory = $("#catagory1").val();
+          // alert(item);
+          var active = '0';
+          var data = {
+              'STATUS'    : 'ShowItem_Active_0',
+              'Catagory'  : catagory,
+              'Keyword'   : item,
+              'active'   : active
+          };
+          console.log(JSON.stringify(data));
+          senddata(JSON.stringify(data));
+      }
+
     function AddItem(){
       var count = 0;
       $(".checkblank").each(function() {
@@ -643,14 +659,11 @@ var isChecked2 = false;
       $('#typeLinen').val("P");
       $('#numPack').val("01");
       ShowItem();
-      $('#bCancel').attr('disabled', true);
-    $('#delete_icon').addClass('opacity');
       if('<?php echo $PmID; ?>'!=1){
         $('#NewItem').show();
         $('#AddItemBNT').hide();
         CreateItemCode();
       }
-    
     }
 
     function getdetail(ItemCode) {
@@ -963,7 +976,8 @@ var isChecked2 = false;
                                ShowItem();
 
                             }
-                          }else if( (temp["form"]=='ShowItem') ){
+                          }else if( (temp["form"]=='ShowItem') || (temp["form"]=='ShowItem_Active_0') ){
+
                             $( "#TableItem tbody" ).empty();
                             $( "#TableUnit tbody" ).empty();
                             for (var i = 0; i < (Object.keys(temp).length-2); i++) {
@@ -1011,8 +1025,6 @@ var isChecked2 = false;
                               $('#SizeCode').val(temp[0]['SizeCode']);
                               $('#Weight').val(temp[0]['Weight']);
 
-                              $('#bCancel').attr('disabled', false);
-                              $('#delete_icon').removeClass('opacity');
                               if(temp[0]['RowID']){
                                 for (var i = 0; i < (Object.keys(temp).length-2); i++) {
                                    var rowCount = $('#TableUnit >tbody >tr').length;
@@ -1036,8 +1048,6 @@ var isChecked2 = false;
                                 }
                               }
                             }
-                        
-
                           }else if( (temp["form"]=='AddItem') ){
                             if('<?php echo $PmID; ?>'!=1){
                               $('#NewItem').show();
@@ -1292,6 +1302,8 @@ var isChecked2 = false;
                             })
                           }
                         }else if (temp['status']=="failed") {
+                            $( "#TableItem tbody" ).empty();
+                            $( "#TableUnit tbody" ).empty();
                           switch (temp['msg']) {
                             case "notchosen":
                               temp['msg'] = "<?php echo $array['choosemsg'][$language]; ?>";
@@ -1443,6 +1455,13 @@ var isChecked2 = false;
   /* padding-top: 20px; */
   border-left: 2px solid #bdc3c7;
 }
+.search{
+    /* padding: 6px 8px 6px 16px; */
+    text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
 .mhee a{
   /* padding: 6px 8px 6px 16px; */
   text-decoration: none;
@@ -1454,20 +1473,6 @@ var isChecked2 = false;
   color: #2c3e50;
   font-weight:bold;
   font-size:26px;
-}
-.mhee button{
-  /* padding: 6px 8px 6px 16px; */
-  font-size: 25px;
-  color: #2c3e50;
-  background:none;
-  box-shadow:none!important;
-}
-
-.mhee button:hover {
-  color: #2c3e50;
-  font-weight:bold;
-  font-size:26px;
-  outline:none;
 }
 .sidenav a {
   padding: 6px 8px 6px 16px;
@@ -1485,9 +1490,6 @@ var isChecked2 = false;
 .icon{
     padding-top: 6px;
     padding-left: 33px;
-  }
-  .opacity{
-    opacity:0.5;
   }
   @media (min-width: 992px) and (max-width: 1199.98px) { 
 
@@ -1545,15 +1547,20 @@ var isChecked2 = false;
                         					<select class="form-control" style="font-size:24px;" id="catagory1"></select>
                         				</div>
                                    </div>
-                                      <div class="col-md-5 mhee">
-                                        <div class="row" style="margin-left:2px;">
-                                          <input type="text" class="form-control" style="font-size:24px;width:70%;" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
-                                          <img src="../img/icon/i_search.png" style="margin-left: 15px;width:36px;"' class='mr-3'>
-                                          <a href='javascript:void(0)' onclick="ShowItem()" id="bSave">
-                                          <?php echo $array['search'][$language]; ?></a>                                              </div>
+                                      <div class="col-md-4 mhee">
+                                        <div class="row " style="margin-left:2px;">
+                                          <input type="text" class="form-control" style="font-size:24px;width:76%;" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>" >
+                                          <img src="../img/icon/i_search.png" style="margin-left: 15px;width:36px;" class='mr-3 mhee'>
+                                          <a href='javascript:void(0)' onclick="ShowItem()" id="bSave" class="search">
+                                          <?php echo $array['search'][$language]; ?></a>
+                                        </div>
                                       </div>
-                                      <div class="col-md-2">
-
+                                      <div class="col-md-3">
+                                          <div class="row mhee" style="margin-left:0px;">
+                                              <img src="../img/icon/i_search.png" style="margin-left: 15px;width:36px;" class='mr-3'>
+                                              <a href='javascript:void(0)' onclick="ShowItem_Active_0()" id="bSave">
+                                                  <?php echo $array['search_active'][$language]; ?></a>
+                                          </div>
                                       </div>
                         </div>
                         <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid" style="">
@@ -1685,7 +1692,7 @@ var isChecked2 = false;
                                 </div>
   
    <!-- =================================================================== -->
-                                <div class="row">
+                                <div class="row" id="xPrice">
                               
                                   <div class="col-md-6">
                                     <div class='form-group row'>
@@ -1812,7 +1819,7 @@ var isChecked2 = false;
       </div>
 
       <div class="col-md-2" >
-                              <div class="sidenav mhee" style=" margin-left: 0px;margin-top: 73px;">
+                              <div class="sidenav" style=" margin-left: 0px;margin-top: 73px;">
                                 <div class="" style="margin-top:5px;">
                                   <div class="card-body" style="padding:0px; margin-top:10px;">
 <!-- =============================================================================================== -->
@@ -1821,9 +1828,9 @@ var isChecked2 = false;
                                         <img src="../img/icon/i_active.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <button class="btn" onclick="ActiveItem()" id="bActive">
+                                        <a href='javascript:void(0)' onclick="ActiveItem()" id="bActive">
                                           <?php echo $array['activeItem'][$language]; ?>
-                                        </button>
+                                        </a>
                                       </div>
                                     </div>
                                     
@@ -1833,9 +1840,9 @@ var isChecked2 = false;
                                         <img src="../img/icon/i_listnew.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <button class="btn" onclick="NewItem()" id="bNewItem">
+                                        <a href='javascript:void(0)' onclick="NewItem()" id="bNewItem">
                                           <?php echo $array['itemnew'][$language]; ?>
-                                        </button>
+                                        </a>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
@@ -1845,9 +1852,9 @@ var isChecked2 = false;
                                         <img src="../img/icon/ic_save.png" style='width:36px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <button class="btn" onclick="AddItem()" id="bSave">
+                                        <a href='javascript:void(0)' onclick="AddItem()" id="bSave">
                                           <?php echo $array['save'][$language]; ?>
-                                        </button>
+                                        </a>
                                       </div>
                                     </div>
         
@@ -1857,20 +1864,20 @@ var isChecked2 = false;
                                         <img src="../img/icon/i_clean.png" style='width:40px;' class='mr-3'>
                                         </div>
                                       <div class="col-md-9">
-                                        <button class="btn" onclick="Blankinput()" id="bDelete">
+                                        <a href='javascript:void(0)' onclick="Blankinput()" id="bDelete">
                                           <?php echo $array['clear'][$language]; ?>
-                                        </button>
+                                        </a>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
                                     <div class="row" style="margin-top:0px;" id="CancelBNT">
                                       <div class="col-md-3 icon" >
-                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3 opacity' id="delete_icon">
+                                        <img src="../img/icon/ic_cancel.png" style='width:34px;' class='mr-3'>
                                       </div>
                                       <div class="col-md-9">
-                                        <button class="btn" onclick="CancelItem()" id="bCancel" disabled="true">
+                                        <a href='javascript:void(0)' onclick="CancelItem()" id="bCancel">
                                           <?php echo $array['cancel'][$language]; ?>
-                                        </button>
+                                        </a>
                                       </div>
                                     </div>
 <!-- =============================================================================================== -->
@@ -1878,7 +1885,6 @@ var isChecked2 = false;
             </div>
           </div>
 <!-- =============================================================================================== -->
-<!-- หมีทำนะคับ         ๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙๙            -->
 
     </div> <!-- end row tab -->
 
