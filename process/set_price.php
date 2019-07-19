@@ -419,10 +419,10 @@ function UpdatePrice($conn, $DATA)
         $Price = $Result['Price'];
 
         if( CheckPrice($conn,$HptCode,$CategoryCode) == 0 ){
-            $InsertSql = "INSERT INTO category_price (HptCode,CategoryCode,Price) VALUES ($HptCode,$CategoryCode,$Price)";
+            $InsertSql = "INSERT INTO category_price (HptCode,CategoryCode,Price) VALUES ('$HptCode',$CategoryCode,$Price)";
             mysqli_query($conn, $InsertSql);
         }else{
-            $UpdateSql = "UPDATE category_price SET Price = $Price WHERE HptCode = $HptCode AND CategoryCode = $CategoryCode";
+            $UpdateSql = "UPDATE category_price SET Price = $Price WHERE HptCode = '$HptCode' AND CategoryCode = $CategoryCode";
             mysqli_query($conn, $UpdateSql);
         }
         $count++;
