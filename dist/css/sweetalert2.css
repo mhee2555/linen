@@ -949,9 +949,15 @@ body.swal2-iosfix {
 .swal2-buttonswrapper .swal2-confirm {
     background-color: #1659a2 !important;
     border-radius: 15px!important;
+    box-shadow: none!important;
 }
 
 .swal2-buttonswrapper .swal2-cancel {
     background-color: #bab9ba !important;
     border-radius: 15px!important;
+    box-shadow: none!important;
+}
+
+button {
+    box-shadow: none!important;
 }
