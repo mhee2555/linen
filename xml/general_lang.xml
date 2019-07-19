@@ -6,6 +6,8 @@
 
 
 <no><en>No.</en><th>ลำดับ</th></no>
+<yes><en>Yes</en><th>ใช่</th></yes>
+<isno><en>No</en><th>ไม่ใช่</th></isno>
 
 <pack><en>Pack</en><th>แพ็ค</th></pack>
 <type><en>type</en><th>ประเภท</th></type>
