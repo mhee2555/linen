@@ -4,9 +4,11 @@
 
 <email><en>Email</en><th>Email</th></email>
 
+<no><en>No.</en><th>ลำดับ</th></no>
+
 <pack><en>Pack</en><th>แพ็ค</th></pack>
 <type><en>type</en><th>ประเภท</th></type>
-<search><en>Search for</en><th>ค้นหา</th></search>
+<search><en>Search</en><th>ค้นหา</th></search>
 <search_active><en>Search not active</en><th>ค้นหา รายการใหม่</th></search_active>
 <search_hp><en>Search a hospital</en><th>ค้นหา โรงพยาบาล</th></search_hp>
 <search_ct_main><en>Search for main categories</en><th>ค้นหา หมวดหมู่หลัก</th></search_ct_main>
@@ -29,8 +31,8 @@
 <titlefactoryin><en>FactoryIn</en><th>รับผ้าสกปรก</th></titlefactoryin>
 <titlefactoryout><en>Send clean linen</en><th>ส่งผ้าสะอาด</th></titlefactoryout>
 <titledraw><en>Save draw</en><th>บันทึกเบิก</th></titledraw>
-<oldFormatItemCode><en>Old Format ItemCode</en><th>รูปแบบรหัสเก่า</th></oldFormatItemCode>
-<newFormatItemCode><en>New Format ItemCode</en><th>รูปแบบรหัสใหม่</th></newFormatItemCode>
+<oldFormatItemCode><en>Old Format Code</en><th>รูปแบบรหัสเก่า</th></oldFormatItemCode>
+<newFormatItemCode><en>New Format Code</en><th>รูปแบบรหัสใหม่</th></newFormatItemCode>
 <logout><en>Logout success</en><th>ออกจากระบบสำเร็จ</th></logout>
 <side><en>Hospital</en><th>โรงพยาบาล</th></side>
 <department><en>Department</en><th>แผนก</th></department>
@@ -43,11 +45,11 @@
 <emplname><en>Last Name</en><th>นามสกุล</th></emplname>
 <time><en>Record time</en><th>เวลาที่บันทึก</th></time>
 <totalweight><en>Total Weight</en><th>น้ำหนักรวม</th></totalweight>
-<no><en>Order</en><th>ลำดับ</th></no>
 <code><en>Code</en><th>รหัส</th></code>
 <item><en>Lists</en><th>รายการ</th></item>
 <rfid><en>RFID.</en><th>RFID.</th></rfid>
 <unit><en>Measure unit</en><th>หน่วยนับ</th></unit>
+<unit2><en>Unit</en><th>หน่วยนับ</th></unit2>
 <weight><en>Weight</en><th>น้ำหนัก</th></weight>
 <numofpiece><en>No. of pieces</en><th>จำนวนชิ้น</th></numofpiece>
 <createdocno><en>Create a document</en><th>สร้างเอกสาร</th></createdocno>
