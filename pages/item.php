@@ -1587,14 +1587,20 @@ $array2 = json_decode($json2, TRUE);
                     <select class="form-control" style="font-size:24px;" id="catagory1"></select>
                   </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-3">
                   <div class="row " style="margin-left:2px;">
-                    <input type="text" class="form-control" style="font-size:24px;width:64%;" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>">
-                    <img src="../img/icon/i_search.png" style="margin-left: 15px;width:36px;" class='mr-3 mhee'>
+                    <input type="text" class="form-control" style="font-size:24px;" name="searchitem" id="searchitem" placeholder="<?php echo $array['searchplace'][$language]; ?>">
+                    
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="row mhee" style="margin-left:0px;">
+                  <img src="../img/icon/i_search.png" style="margin-left: 15px;width:36px;" class='mr-3 mhee'>
                     <a href='javascript:void(0)' onclick="ShowItem()" id="bSave" class="search">
                       <?php echo $array['search'][$language]; ?></a>
                   </div>
                 </div>
+                <!-- 
                 <div class="col-md-3">
                   <div class="row mhee" style="margin-left:0px;">
                     <img src="../img/icon/i_search.png" style="margin-left: 15px;width:36px;" class='mr-3'>
@@ -1602,6 +1608,7 @@ $array2 = json_decode($json2, TRUE);
                       <?php echo $array['search_active'][$language]; ?></a>
                   </div>
                 </div>
+                -->
               </div>
               <table style="margin-top:10px;" class="table table-fixed table-condensed table-striped" id="TableItem" width="100%" cellspacing="0" role="grid">
                 <thead id="theadsum">

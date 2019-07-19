@@ -28,13 +28,13 @@ function ShowItem($conn, $DATA)
           INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
           INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode";
 
-    if($Keyword==''){
-      $Sql .= " WHERE item.CategoryCode = $Catagory ORDER BY item.ItemCode ASC"; //AND IsActive = '$active'
-    }else{
-      $Sql .= " WHERE item.ItemCode LIKE '%$Keyword%' OR item.ItemName LIKE '%$Keyword%' 
+  if ($Keyword == '') {
+    $Sql .= " WHERE item.CategoryCode = $Catagory ORDER BY item.ItemCode ASC"; //AND IsActive = '$active'
+  } else {
+    $Sql .= " WHERE item.ItemCode LIKE '%$Keyword%' OR item.ItemName LIKE '%$Keyword%' 
                 OR item.Weight LIKE '%$Keyword%' OR item_unit.UnitName LIKE '%$Keyword%'"; // AND IsActive = '$active'
-    }
-    $return['sql'] = $Sql;
+  }
+  $return['sql'] = $Sql;
 
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
@@ -50,13 +50,13 @@ function ShowItem($conn, $DATA)
     $count++;
   }
 
-  if($count>0){
+  if ($count > 0) {
     $return['status'] = "success";
     $return['form'] = "ShowItem";
     echo json_encode($return);
     mysqli_close($conn);
     die;
-  }else{
+  } else {
     $return['form'] = "ShowItem";
     $return['status'] = "failed";
     $return['msg'] = "notfound";
@@ -64,16 +64,15 @@ function ShowItem($conn, $DATA)
     mysqli_close($conn);
     die;
   }
-
 }
 
 function ShowItem_Active_0($conn, $DATA)
 {
-    $count = 0;
-    $Keyword = $DATA['Keyword'];
-    $Catagory = $DATA['Catagory'];
-    $active = $DATA['active'];
-    $Sql = "SELECT
+  $count = 0;
+  $Keyword = $DATA['Keyword'];
+  $Catagory = $DATA['Catagory'];
+  $active = $DATA['active'];
+  $Sql = "SELECT
             item.ItemCode,
             item.ItemName,
             item_category.CategoryName,
@@ -93,43 +92,42 @@ function ShowItem_Active_0($conn, $DATA)
           INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
           INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode";
 
-    if($Keyword==''){
-        $Sql .= " WHERE item.CategoryCode = $Catagory AND IsActive = 0 ORDER BY item.ItemCode ASC";
-    }else{
-        $Sql .= " WHERE item.ItemCode LIKE '%$Keyword%' OR item.ItemName LIKE '%$Keyword%' 
+  if ($Keyword == '') {
+    $Sql .= " WHERE item.CategoryCode = $Catagory AND IsActive = 0 ORDER BY item.ItemCode ASC";
+  } else {
+    $Sql .= " WHERE item.ItemCode LIKE '%$Keyword%' OR item.ItemName LIKE '%$Keyword%' 
                 OR item.Weight LIKE '%$Keyword%' OR item_unit.UnitName LIKE '%$Keyword%' AND IsActive = 0 ";
-    }
-    $return['sql'] = $Sql;
+  }
+  $return['sql'] = $Sql;
 
-    $meQuery = mysqli_query($conn, $Sql);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
-        $return[$count]['ItemCode'] = $Result['ItemCode'];
-        $return[$count]['ItemName'] = $Result['ItemName'];
-        $return[$count]['CategoryName'] = $Result['CategoryName'];
-        $return[$count]['UnitName'] = $Result['UnitName'];
-        $return[$count]['SizeCode'] = $Result['SizeCode'];
-        $return[$count]['CusPrice'] = $Result['CusPrice'];
-        $return[$count]['FacPrice'] = $Result['FacPrice'];
-        $return[$count]['Weight'] = $Result['Weight'];
-        $return[$count]['Picture'] = $Result['Picture'];
-        $count++;
-    }
+  $meQuery = mysqli_query($conn, $Sql);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
+    $return[$count]['ItemCode'] = $Result['ItemCode'];
+    $return[$count]['ItemName'] = $Result['ItemName'];
+    $return[$count]['CategoryName'] = $Result['CategoryName'];
+    $return[$count]['UnitName'] = $Result['UnitName'];
+    $return[$count]['SizeCode'] = $Result['SizeCode'];
+    $return[$count]['CusPrice'] = $Result['CusPrice'];
+    $return[$count]['FacPrice'] = $Result['FacPrice'];
+    $return[$count]['Weight'] = $Result['Weight'];
+    $return[$count]['Picture'] = $Result['Picture'];
+    $count++;
+  }
 
-    if($count>0){
-        $return['status'] = "success";
-        $return['form'] = "ShowItem_Active_0";
-        echo json_encode($return);
-        mysqli_close($conn);
-        die;
-    }else{
-        $return['form'] = "ShowItem_Active_0";
-        $return['status'] = "failed";
-        $return['msg'] = "notfound";
-        echo json_encode($return);
-        mysqli_close($conn);
-        die;
-    }
-
+  if ($count > 0) {
+    $return['status'] = "success";
+    $return['form'] = "ShowItem_Active_0";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  } else {
+    $return['form'] = "ShowItem_Active_0";
+    $return['status'] = "failed";
+    $return['msg'] = "notfound";
+    echo json_encode($return);
+    mysqli_close($conn);
+    die;
+  }
 }
 
 function getUnit($conn, $DATA)
@@ -151,20 +149,19 @@ function getUnit($conn, $DATA)
     $count++;
   }
 
-  if($count>0){
+  if ($count > 0) {
     $return['status'] = "success";
     $return['form'] = "getUnit";
     echo json_encode($return);
     mysqli_close($conn);
     die;
-  }else{
+  } else {
     $return['status'] = "notfound";
     $return['msg'] = "notfound";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }
-
 }
 
 function getCatagory($conn, $DATA)
@@ -189,20 +186,19 @@ function getCatagory($conn, $DATA)
     $count++;
   }
 
-  if($count>0){
+  if ($count > 0) {
     $return['status'] = "success";
     $return['form'] = "getCatagory";
     echo json_encode($return);
     mysqli_close($conn);
     die;
-  }else{
+  } else {
     $return['status'] = "notfound";
     $return['msg'] = "notfound";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }
-
 }
 
 function GetHospital($conn, $DATA)
@@ -211,7 +207,7 @@ function GetHospital($conn, $DATA)
   $Sql = "SELECT    *
 			    FROM      site
           WHERE     IsStatus = 0";
-          
+
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['HospitalName'] = $Result['HptName'];
@@ -219,27 +215,26 @@ function GetHospital($conn, $DATA)
     $count++;
   }
 
-  if($count>0){
+  if ($count > 0) {
     $return['status'] = "success";
     $return['form'] = "GetHospital";
     echo json_encode($return);
     mysqli_close($conn);
     die;
-  }else{
+  } else {
     $return['status'] = "notfound";
     $return['msg'] = "notfound";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }
-
 }
 
 function getdetail($conn, $DATA)
 {
   $count = 0;
   $ItemCode = $DATA['ItemCode'];
-// ====================================================================================
+  // ====================================================================================
   $Sqlz = "SELECT item.CusPrice FROM item          
   INNER JOIN item_category ON item.CategoryCode = item_category.CategoryCode
   INNER JOIN item_unit ON item.UnitCode = item_unit.UnitCode
@@ -248,26 +243,26 @@ function getdetail($conn, $DATA)
   LEFT JOIN item_unit AS U1 ON item_multiple_unit.UnitCode = U1.UnitCode
   LEFT JOIN item_unit AS U2 ON item_multiple_unit.MpCode = U2.UnitCode
   WHERE item.ItemCode = '$ItemCode'";
-    $meQuery = mysqli_query($conn, $Sqlz);
-    while ($Result = mysqli_fetch_assoc($meQuery)) {
+  $meQuery = mysqli_query($conn, $Sqlz);
+  while ($Result = mysqli_fetch_assoc($meQuery)) {
     $CusPrice = $Result['CusPrice'];
-    }
+  }
 
-    $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = 1 AND UnitCode = 1 AND ItemCode = '$ItemCode'";
-    $MQuery = mysqli_query($conn,$countM);
-    $return['sql'] = $countM;
-    while ($MResult = mysqli_fetch_assoc($MQuery)) {
-     if($MResult['cnt']==0){
-       $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
+  $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = 1 AND UnitCode = 1 AND ItemCode = '$ItemCode'";
+  $MQuery = mysqli_query($conn, $countM);
+  $return['sql'] = $countM;
+  while ($MResult = mysqli_fetch_assoc($MQuery)) {
+    if ($MResult['cnt'] == 0) {
+      $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
                (1, 1, 1, '$ItemCode' , $CusPrice) ";
-               mysqli_query($conn,$Sql2);
-      }else{
-        $Sql2 = "UPDATE item_multiple_unit SET  PriceUnit = $CusPrice 
+      mysqli_query($conn, $Sql2);
+    } else {
+      $Sql2 = "UPDATE item_multiple_unit SET  PriceUnit = $CusPrice 
         WHERE ItemCode =  '$ItemCode' AND MpCode =1";
-        mysqli_query($conn,$Sql2);
-      }
+      mysqli_query($conn, $Sql2);
     }
-// ====================================================================================
+  }
+  // ====================================================================================
 
 
 
@@ -300,7 +295,7 @@ function getdetail($conn, $DATA)
           ";
 
   // var_dump($Sql); die;
-  $return['sql']=$Sql;
+  $return['sql'] = $Sql;
   $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $return[$count]['ItemCode'] = $Result['ItemCode'];
@@ -320,23 +315,22 @@ function getdetail($conn, $DATA)
     $count++;
   }
 
-  
 
 
-  if($count>0){
+
+  if ($count > 0) {
     $return['status'] = "success";
     $return['form'] = "getdetail";
     echo json_encode($return);
     mysqli_close($conn);
     die;
-  }else{
+  } else {
     $return['status'] = "notfound";
     $return['msg'] = "notfound";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }
-
 }
 
 function GetmainCat($conn, $DATA)
@@ -357,13 +351,13 @@ function GetmainCat($conn, $DATA)
     $return[$count]['MainCategoryName'] = $Result['MainCategoryName'];
     $count++;
   }
-  if($count>0){
+  if ($count > 0) {
     $return['status'] = "success";
     $return['form'] = "GetmainCat";
     echo json_encode($return);
     mysqli_close($conn);
     die;
-  }else{
+  } else {
     $return['status'] = "notfound";
     $return['msg'] = "notfound";
     echo json_encode($return);
@@ -394,7 +388,6 @@ function getSection($conn, $DATA)
   echo json_encode($return);
   mysqli_close($conn);
   die;
-
 }
 
 function AddItem($conn, $DATA)
@@ -403,37 +396,37 @@ function AddItem($conn, $DATA)
   $Sql = "SELECT COUNT(*) AS Countn
           FROM
           item
-          WHERE item.ItemCode = '".$DATA["ItemCode"]."'";
-  $meQuery = mysqli_query($conn,$Sql);
+          WHERE item.ItemCode = '" . $DATA["ItemCode"] . "'";
+  $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $boolcount = $Result['Countn'];
   }
-  if($boolcount!=0){
+  if ($boolcount != 0) {
     $Sql = "UPDATE item SET
-            CategoryCode = '".$DATA['Catagory']."',
-            ItemName = '".$DATA['ItemName']."',
-            UnitCode = '".$DATA['UnitName']."',
-            SizeCode = '".$DATA['SizeCode']."',
-            CusPrice = '".$DATA['CusPrice']."',
-            FacPrice = '".$DATA['FacPrice']."',
-            Weight = '".$DATA['Weight']."'
-            WHERE ItemCode = '".$DATA['ItemCode']."'
+            CategoryCode = '" . $DATA['Catagory'] . "',
+            ItemName = '" . $DATA['ItemName'] . "',
+            UnitCode = '" . $DATA['UnitName'] . "',
+            SizeCode = '" . $DATA['SizeCode'] . "',
+            CusPrice = '" . $DATA['CusPrice'] . "',
+            FacPrice = '" . $DATA['FacPrice'] . "',
+            Weight = '" . $DATA['Weight'] . "'
+            WHERE ItemCode = '" . $DATA['ItemCode'] . "'
             ";
-    if(mysqli_query($conn, $Sql)){
+    if (mysqli_query($conn, $Sql)) {
       $return['status'] = "success";
       $return['form'] = "AddItem";
       $return['msg'] = "editsuccess";
       echo json_encode($return);
       mysqli_close($conn);
       die;
-    }else{
+    } else {
       $return['status'] = "failed";
       $return['msg'] = "editfailed";
       echo json_encode($return);
       mysqli_close($conn);
       die;
     }
-  }else{
+  } else {
     $return['status'] = "failed";
     $return['msg'] = "editfailed";
     echo json_encode($return);
@@ -442,36 +435,37 @@ function AddItem($conn, $DATA)
   }
 }
 
-function CreateItemCode($conn, $DATA){
-  $ItemCode="";
+function CreateItemCode($conn, $DATA)
+{
+  $ItemCode = "";
 
   $Sql = "    SELECT 		item_main_category.MainCategoryCode,SUBSTRING(MainCategoryName,1,3) AS MainCategoryName
               FROM 		item_category,item_main_category
-              WHERE		item_category.CategoryCode=".$DATA['Catagory']."
+              WHERE		item_category.CategoryCode=" . $DATA['Catagory'] . "
               AND     item_main_category.MainCategoryCode = item_category.MainCategoryCode";
-  $meQuery = mysqli_query($conn,$Sql);
+  $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $MainCatagory = $Result['MainCategoryCode'];
     $MainCategoryName = $Result['MainCategoryName'];
   }
 
-  if($DATA['modeCode']=='2'){
+  if ($DATA['modeCode'] == '2') {
     $Sql = "  SELECT 		CONCAT( LPAD('$MainCatagory', 2, 0),
-                                LPAD('".$DATA['Catagory']."', 2, 0),
+                                LPAD('" . $DATA['Catagory'] . "', 2, 0),
                                 LPAD( (COALESCE(MAX(CONVERT(SUBSTRING(ItemCode,5,5),UNSIGNED INTEGER)),0)+1) ,5,0))
                         AS  ItemCode
               FROM 			item
               WHERE 		ItemCode Like CONCAT( LPAD('$MainCatagory', 2, 0),
-                                              LPAD('".$DATA['Catagory']."', 2, 0),
+                                              LPAD('" . $DATA['Catagory'] . "', 2, 0),
                                             '%')
               ORDER BY  ItemCode DESC LIMIT 1";
 
-    $meQuery = mysqli_query($conn,$Sql);
+    $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $ItemCode = $Result['ItemCode'];
     }
-  }else{
-    $preCode = $DATA['hospitalCode']."LP".$MainCategoryName.$DATA['typeCode'].$DATA['packCode'];
+  } else {
+    $preCode = $DATA['hospitalCode'] . "LP" . $MainCategoryName . $DATA['typeCode'] . $DATA['packCode'];
     $Sql = "  SELECT 		CONCAT(LPAD( (COALESCE(MAX(CONVERT(SUBSTRING(ItemCode,12,4),UNSIGNED INTEGER)),0)+1) ,4,0))
               AS        ItemCode
               FROM 			item
@@ -479,21 +473,21 @@ function CreateItemCode($conn, $DATA){
                                             '%')
               ORDER BY  ItemCode DESC LIMIT 1";
 
-    $meQuery = mysqli_query($conn,$Sql);
+    $meQuery = mysqli_query($conn, $Sql);
     while ($Result = mysqli_fetch_assoc($meQuery)) {
       $postCode = $Result['ItemCode'];
     }
-    $ItemCode = $preCode.$postCode;
+    $ItemCode = $preCode . $postCode;
   }
 
-  if($ItemCode!=""){
+  if ($ItemCode != "") {
     $return['status'] = "success";
     $return['form'] = "CreateItemCode";
     $return['ItemCode'] = $ItemCode;
     echo json_encode($return);
     mysqli_close($conn);
     die;
-  }else{
+  } else {
     $return['status'] = "failed";
     $return['msg'] = "editfailed";
     echo json_encode($return);
@@ -508,12 +502,12 @@ function NewItem($conn, $DATA)
   $Sql = "SELECT COUNT(*) AS Countn
           FROM
           item
-          WHERE item.ItemCode = '".$DATA["ItemCode"]."'";
-  $meQuery = mysqli_query($conn,$Sql);
+          WHERE item.ItemCode = '" . $DATA["ItemCode"] . "'";
+  $meQuery = mysqli_query($conn, $Sql);
   while ($Result = mysqli_fetch_assoc($meQuery)) {
     $boolcount = $Result['Countn'];
   }
-  if($boolcount==0){
+  if ($boolcount == 0) {
     $count = 0;
     $Sql = "INSERT INTO item(
             ItemCode,
@@ -528,32 +522,32 @@ function NewItem($conn, $DATA)
            )
             VALUES
             (
-              '".$DATA['ItemCode']."',
-              '".$DATA['Catagory']."',
-              '".$DATA['ItemName']."',
-              '".$DATA['UnitName']."',
-              '".$DATA['SizeCode']."',
-              '".$DATA['CusPrice']."',
-              '".$DATA['FacPrice']."',
-              '".$DATA['Weight']."',
-              0
+              '" . $DATA['ItemCode'] . "',
+              '" . $DATA['Catagory'] . "',
+              '" . $DATA['ItemName'] . "',
+              '" . $DATA['UnitName'] . "',
+              '" . $DATA['SizeCode'] . "',
+              '" . $DATA['CusPrice'] . "',
+              '" . $DATA['FacPrice'] . "',
+              '" . $DATA['Weight'] . "',
+              1
             )
     ";
-    if(mysqli_query($conn, $Sql)){
+    if (mysqli_query($conn, $Sql)) {
       $return['status'] = "success";
       $return['form'] = "AddItem";
       $return['msg'] = "addsuccess";
       echo json_encode($return);
       mysqli_close($conn);
       die;
-    }else{
+    } else {
       $return['status'] = "failed";
       $return['msg'] = "addfailed";
       echo json_encode($return);
       mysqli_close($conn);
       die;
     }
-  }else{
+  } else {
     $return['status'] = "failed";
     $return['msg'] = "addfailed";
     echo json_encode($return);
@@ -564,29 +558,28 @@ function NewItem($conn, $DATA)
 
 function ActiveItem($conn, $DATA)
 {
-  if($DATA["ItemCode"]!=""){
-    $Sql = "UPDATE item SET IsActive = 1 WHERE ItemCode = '".$DATA['ItemCode']."'";
-    if(mysqli_query($conn, $Sql)){
+  if ($DATA["ItemCode"] != "") {
+    $Sql = "UPDATE item SET IsActive = 1 WHERE ItemCode = '" . $DATA['ItemCode'] . "'";
+    if (mysqli_query($conn, $Sql)) {
       $return['status'] = "success";
       $return['form'] = "ActiveItem";
       echo json_encode($return);
       mysqli_close($conn);
       die;
-    }else{
+    } else {
       $return['status'] = "failed";
       $return['msg'] = "editfailed";
       echo json_encode($return);
       mysqli_close($conn);
       die;
     }
-  }else{
+  } else {
     $return['status'] = "failed";
     $return['msg'] = "editfailed";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }
-
 }
 
 function AddUnit($conn, $DATA)
@@ -600,26 +593,26 @@ function AddUnit($conn, $DATA)
 
 
   $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = $MpCode AND UnitCode = $UnitCode AND ItemCode = '$ItemCode'";
-   $MQuery = mysqli_query($conn,$countM);
-   $return['sql'] = $countM;
-   while ($MResult = mysqli_fetch_assoc($MQuery)) {
+  $MQuery = mysqli_query($conn, $countM);
+  $return['sql'] = $countM;
+  while ($MResult = mysqli_fetch_assoc($MQuery)) {
 
-    if($MResult['cnt']==0){
+    if ($MResult['cnt'] == 0) {
       $Sql2 = "INSERT INTO item_multiple_unit( MpCode, UnitCode, Multiply, ItemCode , PriceUnit ) VALUES
               ($MpCode, $UnitCode, $Multiply, '$ItemCode' , $priceunit) ";
-               $return['Sql2'] = $Sql2;
-              mysqli_query($conn,$Sql2);
-   }else{
+      $return['Sql2'] = $Sql2;
+      mysqli_query($conn, $Sql2);
+    } else {
       $Sql1 = "UPDATE item_multiple_unit SET  MpCode = $MpCode , UnitCode = $UnitCode , Multiply = $Multiply , ItemCode = '$ItemCode' , PriceUnit = $priceunit
                WHERE ItemCode = '$ItemCode' AND MpCode = $MpCode AND UnitCode  = $UnitCode  ";
-               $return['Sql1'] = $Sql1;
-              mysqli_query($conn,$Sql1);
-   }
+      $return['Sql1'] = $Sql1;
+      mysqli_query($conn, $Sql1);
+    }
     $count++;
   }
 
 
-// ==================================================================================================================================
+  // ==================================================================================================================================
 
   // $countM = "SELECT COUNT(*) as cnt FROM item_multiple_unit WHERE MpCode = 1 AND UnitCode = 1 AND ItemCode = '$ItemCode'";
   // $MQuery = mysqli_query($conn,$countM);
@@ -657,16 +650,16 @@ function AddUnit($conn, $DATA)
   //     }
   //   }
   // }
- 
+
   // var_dump($Sql); die;
-  if($count>0){
+  if ($count > 0) {
     $return['status'] = "success";
     $return['form'] = "AddUnit";
     $return['msg'] = "addsuccess";
     echo json_encode($return);
     mysqli_close($conn);
     die;
-  }else{
+  } else {
     $return['status'] = "failed";
     $return['msg'] = "addfailed";
     echo json_encode($return);
@@ -678,142 +671,137 @@ function AddUnit($conn, $DATA)
 function EditItem($conn, $DATA)
 {
   $count = 0;
-  if($DATA["UnitCode"]!=""){
+  if ($DATA["UnitCode"] != "") {
     $Sql = "UPDATE item_Unit SET
-            UnitCode = '".$DATA['UnitCode']."',
-            UnitName = '".$DATA['UnitName']."'
-            WHERE UnitCode = ".$DATA['UnitCode']."
+            UnitCode = '" . $DATA['UnitCode'] . "',
+            UnitName = '" . $DATA['UnitName'] . "'
+            WHERE UnitCode = " . $DATA['UnitCode'] . "
     ";
     // var_dump($Sql); die;
-    if(mysqli_query($conn, $Sql)){
+    if (mysqli_query($conn, $Sql)) {
       $return['status'] = "success";
       $return['form'] = "EditItem";
       $return['msg'] = "editsuccess";
       echo json_encode($return);
       mysqli_close($conn);
       die;
-    }else{
+    } else {
       $return['status'] = "failed";
       $return['msg'] = "editfailed";
       echo json_encode($return);
       mysqli_close($conn);
       die;
     }
-  }else{
+  } else {
     $return['status'] = "failed";
     $return['msg'] = "editfailed";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }
-
 }
 
 function CancelItem($conn, $DATA)
 {
   $count = 0;
-  if($DATA["ItemCode"]!=""){
+  if ($DATA["ItemCode"] != "") {
     $Sql = "DELETE FROM item
-            WHERE ItemCode = '".$DATA['ItemCode']."'
+            WHERE ItemCode = '" . $DATA['ItemCode'] . "'
     ";
     // var_dump($Sql); die;
-    if(mysqli_query($conn, $Sql)){
+    if (mysqli_query($conn, $Sql)) {
       $return['status'] = "success";
       $return['form'] = "CancelItem";
       $return['msg'] = "cancelsuccess";
       echo json_encode($return);
       mysqli_close($conn);
       die;
-    }else{
+    } else {
       $return['status'] = "failed";
       $return['msg'] = "cancelfailed";
       echo json_encode($return);
       mysqli_close($conn);
       die;
     }
-  }else{
+  } else {
     $return['status'] = "failed";
     $return['msg'] = "cancelfailed";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }
-
 }
 
 function DeleteUnit($conn, $DATA)
 {
   $count = 0;
-  if($DATA["RowID"]!=""){
+  if ($DATA["RowID"] != "") {
     $Sql = "DELETE FROM item_multiple_unit
-            WHERE RowID = ".$DATA['RowID']."
+            WHERE RowID = " . $DATA['RowID'] . "
     ";
     // var_dump($Sql); die;
-    if(mysqli_query($conn, $Sql)){
+    if (mysqli_query($conn, $Sql)) {
       $return['status'] = "success";
       $return['form'] = "CancelUnit";
       $return['msg'] = "cancelsuccess";
       echo json_encode($return);
       mysqli_close($conn);
       die;
-    }else{
+    } else {
       $return['status'] = "failed";
       $return['msg'] = "cancelfailed";
       echo json_encode($return);
       mysqli_close($conn);
       die;
     }
-  }else{
+  } else {
     $return['status'] = "failed";
     $return['msg'] = "cancelfailed";
     echo json_encode($return);
     mysqli_close($conn);
     die;
   }
-
 }
 
-if(isset($_POST['DATA']))
-{
+if (isset($_POST['DATA'])) {
   $data = $_POST['DATA'];
-  $DATA = json_decode(str_replace ('\"','"', $data), true);
+  $DATA = json_decode(str_replace('\"', '"', $data), true);
 
-      if ($DATA['STATUS'] == 'ShowItem') {
-        ShowItem($conn, $DATA);
-      }else if ($DATA['STATUS'] == 'ShowItem_Active_0') {
-        ShowItem_Active_0($conn, $DATA);
-      }else if ($DATA['STATUS'] == 'getCatagory') {
-        getCatagory($conn, $DATA);
-      }else if ($DATA['STATUS'] == 'getUnit') {
-        getUnit($conn, $DATA);
-      }else if ($DATA['STATUS'] == 'AddItem') {
-        AddItem($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'AddUnit') {
-        AddUnit($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'EditItem') {
-        EditItem($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'CancelItem') {
-        CancelItem($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'DeleteUnit') {
-        DeleteUnit($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'getdetail') {
-        getdetail($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'GetHospital') {
-        GetHospital($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'CreateItemCode') {
-        CreateItemCode($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'NewItem') {
-        NewItem($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'GetmainCat') {
-        GetmainCat($conn,$DATA);
-      }else if ($DATA['STATUS'] == 'ActiveItem') {
-        ActiveItem($conn,$DATA);
-      }
-
-}else{
-	$return['status'] = "error";
-	$return['msg'] = 'noinput';
-	echo json_encode($return);
-	mysqli_close($conn);
+  if ($DATA['STATUS'] == 'ShowItem') {
+    ShowItem($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'ShowItem_Active_0') {
+    ShowItem_Active_0($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'getCatagory') {
+    getCatagory($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'getUnit') {
+    getUnit($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'AddItem') {
+    AddItem($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'AddUnit') {
+    AddUnit($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'EditItem') {
+    EditItem($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'CancelItem') {
+    CancelItem($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'DeleteUnit') {
+    DeleteUnit($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'getdetail') {
+    getdetail($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'GetHospital') {
+    GetHospital($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'CreateItemCode') {
+    CreateItemCode($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'NewItem') {
+    NewItem($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'GetmainCat') {
+    GetmainCat($conn, $DATA);
+  } else if ($DATA['STATUS'] == 'ActiveItem') {
+    ActiveItem($conn, $DATA);
+  }
+} else {
+  $return['status'] = "error";
+  $return['msg'] = 'noinput';
+  echo json_encode($return);
+  mysqli_close($conn);
   die;
 }
