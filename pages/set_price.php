@@ -387,12 +387,64 @@ $array2 = json_decode($json2,TRUE);
             senddata(JSON.stringify(data));
         }
 
+        function saveDoc(){
+            var DocNo = $('#docno').val();
+
+            var chkArray = [];
+            var chkPriceArray = [];
+
+            $(".checkPrice").each(function() {
+                chkArray.push($(this).val());
+            });
+
+            $(".price_array").each(function() {
+                chkPriceArray.push($(this).val());
+            });
+            var RowId = chkArray.join(',');
+            var Price = chkPriceArray.join(',');
+
+            // alert(RowId);
+            // alert(Price);
+            swal({
+                title: "<?php echo $array['confirm'][$language]; ?>",
+                text: "<?php echo $array['savedoc'][$language]; ?> : " +$('#hptsel1 option:selected').text(),
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "<?php echo $array['confirm'][$language]; ?>",
+                cancelButtonText: "<?php echo $array['cancel'][$language]; ?>",
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                closeOnConfirm: false,
+                closeOnCancel: false,
+                showCancelButton: true}).then(result => {
+                    swal({
+                        title: "<?php echo $array['savedoc'][$language]; ?>",
+                        text: DocNo + " <?php echo $array['success'][$language]; ?>",
+                        type: "success",
+                        showCancelButton: false,
+                        timer: 1000,
+                        confirmButtonText: 'Ok',
+                        showConfirmButton: false
+                    });setTimeout(function () {
+                        $('#dialog').modal('toggle');
+                        var data = {
+                            'STATUS'    : 'saveDoc',
+                            'DocNo'  : DocNo,
+                            'RowId'  : RowId,
+                            'Price'	: Price
+                        };
+                        senddata(JSON.stringify(data));
+                    }, 1000);
+                });
+        }
+
         function UpdatePrice() {
             var DocNo = $('#docno').val();
 
             swal({
                 title: "<?php echo $array['save'][$language]; ?>",
-                text: "<?php echo $array['saveprice'][$language]; ?>",
+                text: "<?php echo $array['updateprice'][$language]; ?>",
                 type: "info",
                 showCancelButton: true,
                 confirmButtonClass: "btn-primary",
@@ -507,6 +559,8 @@ $array2 = json_decode($json2,TRUE);
             }else{
                 getHotpital();
                 $("#create1").show();
+                $('#btn_save').attr('hidden', true);
+                $('#btn_saveDoc').attr('hidden', true);
             }
             $("#search1").hide();
             $("#TableItemPrice tbody").empty();
@@ -583,7 +637,9 @@ $array2 = json_decode($json2,TRUE);
 
                         if ((temp["form"] == 'CreateDoc')) {
                             $("#docno").val( temp["DocNo"] );
-                            $("#create1").hide(500);
+                            $("#create1").hide(300);
+                            $("#btn_save").attr('hidden', false);
+                            $("#btn_saveDoc").attr('hidden', false);
                             ShowItem2();
                         }else if ((temp["form"] == 'UpdatePrice')) {
                             var sv = "<?php echo $array['save'][$language]; ?>";
@@ -651,10 +707,12 @@ $array2 = json_decode($json2,TRUE);
                             for (var i = 0; i < (Object.keys(temp).length - 2); i++) {
                                 var rowCount = $('#TableItem >tbody >tr').length;
                                 var RowID = "<input type='hidden' name='RowID_"+i+"' id='RowID_"+i+"' value='" + temp[i]['RowID'] +"'>";
-                                var Price = "<div class='row' style='margin-left:2px;'><input class='form-control' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' onKeyPress='if(event.keyCode==13){SavePriceTime("+i+")}'></div>";
+                                var Price = "<div class='row' style='margin-left:2px;'><input class='form-control price_array' style='height:40px;width:150px; margin-left:3px; margin-right:3px; text-align:center;' id='price_"+i+"' value='"+temp[i]['Price']+"' onKeyPress='if(event.keyCode==13){SavePriceTime("+i+")}'></div>";
+                                var chkPrice = "<input type='radio' name='checkPrice' class='checkPrice' value='"+temp[i]['RowID']+"'>";
 
                                 StrTR = "<tr id='tr" + RowID + "'>" +
                                     "<td style='width: 5%;' nowrap>"+ RowID +"</td>" +
+                                    "<td hidden>"+ chkPrice +"</td>" +
                                     "<td style='width: 25%;' nowrap>" + temp[i]['HptName'] + "</td>" +
                                     "<td style='width: 26%;' nowrap>" + temp[i]['MainCategoryName'] + "</td>" +
                                     "<td style='width: 25%;' nowrap>" + temp[i]['CategoryName'] + "</td>" +
@@ -766,13 +824,13 @@ $array2 = json_decode($json2,TRUE);
                                 $("#startDate").val("");
 
                                 $('#create1').attr('disabled',true);
-                                $('#btn_save').attr('disabled',true);
+                                // $('#btn_save').attr('disabled',true);
                             }else{
                                 $("#startDate").val("");
                                 $("#startDate").val(temp['StartDate']);
 
                                 $('#create1').attr('disabled',false);
-                                $('#btn_save').attr('disabled',false);
+                                // $('#btn_save').attr('disabled',false);
                             }
                         }
 
@@ -1286,7 +1344,8 @@ $array2 = json_decode($json2,TRUE);
 
                                 <!-- <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-warning" id="create1" disabled="true" name="button" onclick="onCreate();"><?php echo $array['createdocno'][$language]; ?></button> -->
                                 <input type="text" class="form-control" style="margin-left:20px;font-family: 'THSarabunNew';font-size:22px;width:210px;" name="search1"   id="search1" onKeyPress='if(event.keyCode==13){ShowItem2()}' placeholder="<?php echo $array['search'][$language]; ?>" >
-                                <button onclick="UpdatePrice();" class="mr-3 ml-3 btn" style="font-size: 25px !important;background:none ;" id="btn_save" disabled="true"><img src="../img/icon/ic_import.png" style='width:31px; ' class="mr-1"><?php echo $array['saveprice'][$language]; ?></button>
+                                <button onclick="UpdatePrice();" class="mr-3 ml-3 btn" style="font-size: 25px !important;background:none ;" id="btn_save" hidden="true"><img src="../img/icon/ic_import.png" style='width:31px; ' class="mr-1"><?php echo $array['updateprice'][$language]; ?></button>
+                                <button onclick="saveDoc();" class="mr-3 ml-3 btn" style="font-size: 25px !important;background:none ;" id="btn_saveDoc" hidden="true"><img src="../img/icon/ic_save.png" style='width:31px; ' class="mr-1"><?php echo $array['savedoc'][$language]; ?></button>
 
                                 <!-- <button type="button" style="font-size:18px;margin-left:20px; width:100px;font-family: 'THSarabunNew'" class="btn btn-primary" name="button" id="btn_save" disabled="true" onclick="UpdatePrice();"><?php echo $array['saveprice'][$language]; ?></button> -->
                             </div>
