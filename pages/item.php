@@ -71,12 +71,9 @@ $array2 = json_decode($json2, TRUE);
     var summary = [];
 
     $(document).ready(function(e) {
-      if ('<?php echo $PmID; ?>' == 1) {
-        $('#NewItem').hide();
-        $('#BlankItemBNT').hide();
-      } else {
-        $('#ActiveBNT').hide();
-      }
+      $('#NewItem').show();
+      $('#BlankItemBNT').show();
+      $('#ActiveBNT').hide();
       $('#AddItemBNT').hide();
       $('#xPrice').hide();
 
@@ -363,11 +360,7 @@ $array2 = json_decode($json2, TRUE);
       var item = $("#searchitem").val();
       var catagory = $("#catagory1").val();
       // alert(item);
-      if ('<?php echo $PmID; ?>' == 1) {
-        var active = '0';
-      } else {
-        var active = '1';
-      }
+      var active = '0';
 
       var data = {
         'STATUS': 'ShowItem',
@@ -559,30 +552,28 @@ $array2 = json_decode($json2, TRUE);
       var modeCode = $('#formatitem:checked').val();
       var modeCheck = $('#checkitem:checked').val();
       console.log(typeof modeCheck == 'undefined');
-      if ('<?php echo $PmID; ?>' != 1) {
-        if (typeof modeCheck == 'undefined') {
-          if (modeCode == 1) {
-            $('#oldCodetype').show();
-            var hospitalCode = $('#hospital').val();
-            var typeCode = $('#typeLinen').val();
-            var packCode = $('#numPack').val();
-          } else {
-            $('#oldCodetype').hide();
-            var hospitalCode = "";
-            var typeCode = "";
-            var packCode = "";
-          }
-          var data = {
-            'STATUS': 'CreateItemCode',
-            'Catagory': Catagory,
-            'modeCode': modeCode,
-            'hospitalCode': hospitalCode,
-            'typeCode': typeCode,
-            'packCode': packCode,
-          };
-          console.log(JSON.stringify(data));
-          senddata(JSON.stringify(data));
+      if (typeof modeCheck == 'undefined') {
+        if (modeCode == 1) {
+          $('#oldCodetype').show();
+          var hospitalCode = $('#hospital').val();
+          var typeCode = $('#typeLinen').val();
+          var packCode = $('#numPack').val();
+        } else {
+          $('#oldCodetype').hide();
+          var hospitalCode = "";
+          var typeCode = "";
+          var packCode = "";
         }
+        var data = {
+          'STATUS': 'CreateItemCode',
+          'Catagory': Catagory,
+          'modeCode': modeCode,
+          'hospitalCode': hospitalCode,
+          'typeCode': typeCode,
+          'packCode': packCode,
+        };
+        console.log(JSON.stringify(data));
+        senddata(JSON.stringify(data));
       }
     }
 
@@ -646,10 +637,8 @@ $array2 = json_decode($json2, TRUE);
         console.log(JSON.stringify(data));
         senddata(JSON.stringify(data));
       })
-      if ('<?php echo $PmID; ?>' != 1) {
-        $('#NewItem').show();
-        $('#AddItemBNT').hide();
-      }
+      $('#NewItem').show();
+      $('#AddItemBNT').hide();
       $("input[name=formatitem][value=1]").prop('checked', true);
     }
 
@@ -670,11 +659,9 @@ $array2 = json_decode($json2, TRUE);
       ShowItem();
       $('#bCancel').attr('disabled', true);
       $('#delete_icon').addClass('opacity');
-      if ('<?php echo $PmID; ?>' != 1) {
-        $('#NewItem').show();
-        $('#AddItemBNT').hide();
-        CreateItemCode();
-      }
+      $('#NewItem').show();
+      $('#AddItemBNT').hide();
+      CreateItemCode();
     }
 
     function getdetail(ItemCode) {
@@ -695,10 +682,8 @@ $array2 = json_decode($json2, TRUE);
         console.log(JSON.stringify(data));
         senddata(JSON.stringify(data));
       }
-      if ('<?php echo $PmID; ?>' != 1) {
-        $('#NewItem').hide();
-        $('#AddItemBNT').show();
-      }
+      $('#NewItem').hide();
+      $('#AddItemBNT').show();
       $(".radio-c :input").attr("disabled", true);
     }
 
@@ -1061,10 +1046,8 @@ $array2 = json_decode($json2, TRUE);
                 }
               }
             } else if ((temp["form"] == 'AddItem')) {
-              if ('<?php echo $PmID; ?>' != 1) {
-                $('#NewItem').show();
-                $('#AddItemBNT').hide();
-              }
+              $('#NewItem').show();
+              $('#AddItemBNT').hide();
               $(".radio-c :input").attr("disabled", false);
               $('#ItemCode').val("");
               switch (temp['msg']) {

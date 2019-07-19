@@ -4,6 +4,7 @@
 
 <email><en>Email</en><th>Email</th></email>
 
+
 <no><en>No.</en><th>ลำดับ</th></no>
 
 <pack><en>Pack</en><th>แพ็ค</th></pack>
@@ -55,7 +56,7 @@
 <createdocno><en>Create a document</en><th>สร้างเอกสาร</th></createdocno>
 <import><en>Import</en><th>นำเข้า</th></import>
 <delitem><en>Delete items</en><th>ลบรายการ</th></delitem>
-<save><en>Record</en><th>บันทึก</th></save>
+<save><en>Save</en><th>บันทึก</th></save>
 <cancel><en>Cancel</en><th>ยกเลิก</th></cancel>
 <searchplace><en>Search Document</en><th>ค้นหารายการ</th></searchplace>
 <show><en>Show items</en><th>แสดงรายการ</th></show>
