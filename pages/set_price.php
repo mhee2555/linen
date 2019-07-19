@@ -386,7 +386,6 @@ $array2 = json_decode($json2,TRUE);
             // console.log(JSON.stringify(data));
             senddata(JSON.stringify(data));
         }
-
         function saveDoc(){
             var DocNo = $('#docno').val();
 
